@@ -2,6 +2,7 @@
 
 let Router = require('koa-router');
 let User = require('../models/user');
+let util = require('../util');
 
 /**
  * Register user router
@@ -18,8 +19,13 @@ function user (app) {
    * Route for registering a user
    */
   router.post('/register', function *(){
-      this.body = "test";
-      console.log(this.request.body);
+      let email = this.request.email;
+      
+      if(!email){
+          this.response.status = 400;
+          util.errorResponse(this);
+      }
+
   });
 
   app.use(router.routes());

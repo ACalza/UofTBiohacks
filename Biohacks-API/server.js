@@ -15,6 +15,11 @@ mongoose.connect('mongodb://biohacks:hacker@ds037095.mongolab.com:37095/biohacks
 app.use(bodyParser());
 
 app.use(function *(next){
+    this.type = 'json';
+    yield next;
+})
+
+app.use(function *(next){
   var start = new Date;
   yield next;
   var ms = new Date - start;
