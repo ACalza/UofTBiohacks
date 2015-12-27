@@ -3,6 +3,7 @@
 let Router = require('koa-router');
 let User = require('../models/user');
 let util = require('../util');
+let bcrypt = require('bcrypt');
 
 
 /**
@@ -10,53 +11,85 @@ let util = require('../util');
  * @param  Koa app
  * @return N/A
  */
-function user (app) {
+function user(app) {
 
-  let router = new Router({
-    prefix: '/user'
-  });
+    //API with prefix /user to each route
+    let router = new Router({
+        prefix: '/user'
+    });
 
-  /**
-   * Route for registering a user
-   */
-  router.post('/register', function *(){
-      let email = this.request.body.email;
-      let password = this.request.body.password;
-      let name = this.request.body.name;
-      //If name, password or email does not exist
-      if(!email || !password || !name){
-          this.response.status = 400;
-          util.errorResponse(this);
-      }else{
-          let user = new User({
-              email: email,
-              password: password,
-              name: name,
-              school: this.request.body.school,
-              github: this.request.body.github,
-              about: this.request.body.about
-          });
-          try{
-              var model = yield user.save();
-          }catch(err){
-              this.response.status = 500;
-              console.error(err);
-              return util.errorResponse(this);
-          }
+    /**
+     * Route for registering a user
+     */
+    router.post('/register', function*() {
+        let email = this.request.body.email;
+        let password = this.request.body.password;
+        let name = this.request.body.name;
 
-          this.body = model;
+        //If name, password or email does not exist
+        if (!email || !password || !name) {
+            this.response.status = 400;
+            util.errorResponse(this);
+        } else {
+            let user = new User({
+                email: email,
+                password: util.bcrypt(password), //8 bit hashing 2^8 rounds is sufficent for now
+                name: name,
+                school: this.request.body.school,
+                github: this.request.body.github,
+                about: this.request.body.about
+            });
+            try {
+                var model = yield user.save();
+                this.body = model;
+            } catch (err) {
+                this.response.status = 500;
+                console.error(err);
+                util.errorResponse(this);
+            }
 
-      }
 
-  });
 
-  /**
-   * Route for logining in a user
-   */
-  //router.post('')
+        }
 
-  app.use(router.routes());
-  app.use(router.allowedMethods());
+    });
+
+    /**
+     * Route for logging in a user
+     */
+    router.post('/login', function*() {
+        let email = this.request.body.email;
+        let password = this.request.body.password;
+        if (!email || !password) {
+            this.response.status = 400;
+            util.errorResponse(this);
+        } else {
+            //add try catch
+            try {
+                var model = yield User.findOne({
+                    email: email
+                });
+
+                if (bcrypt.compareSync(password, model.password)) {
+                    this.body = {
+                        message: "logged in!"
+                    }
+                } else {
+                    this.body = {
+                        message: "Wrong password"
+                    }
+                }
+            }catch(err){
+                this.response.status = 500;
+                console.error(err);
+                util.errorResponse(this);
+            }
+        }
+
+    });
+
+    app.use(router.routes());
+    app.use(router.allowedMethods());
 }
 
 module.exports = user

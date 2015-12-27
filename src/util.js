@@ -1,3 +1,4 @@
+var bcrypt = require("bcrypt");
 module.exports = {
     /**
      * Handles errors and returns a JSON
@@ -11,5 +12,11 @@ module.exports = {
             errorcode: ctx.response.status
         }
 
-    }
+    },
+    /**
+    * encrypts the password (8 bit hashing)
+    */
+   bcrypt: function(password){
+       return bcrypt.hashSync(password, 8);
+   }
 }
