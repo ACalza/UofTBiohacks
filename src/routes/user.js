@@ -21,25 +21,39 @@ function user (app) {
    */
   router.post('/register', function *(){
       let email = this.request.body.email;
-
-      if(!email){
+      let password = this.request.body.password;
+      let name = this.request.body.name;
+      //If name, password or email does not exist
+      if(!email || !password || !name){
           this.response.status = 400;
           util.errorResponse(this);
       }else{
           let user = new User({
-              email: email
-          })
-
-          let model = yield user.save();
-
-          let response = {
-              model: model
+              email: email,
+              password: password,
+              name: name,
+              school: this.request.body.school,
+              github: this.request.body.github,
+              about: this.request.body.about
+          });
+          try{
+              var model = yield user.save();
+          }catch(err){
+              this.response.status = 500;
+              console.error(err);
+              return util.errorResponse(this);
           }
-          this.body = response;
-    
+
+          this.body = model;
+
       }
 
   });
+
+  /**
+   * Route for logining in a user
+   */
+  //router.post('')
 
   app.use(router.routes());
   app.use(router.allowedMethods());
