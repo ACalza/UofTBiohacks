@@ -32,12 +32,11 @@ function user (app) {
 
           let model = yield user.save();
 
-
-          this.response = {
+          let response = {
               model: model
           }
-          this.body = this.response;
-          console.log(model);
+          this.body = response;
+    
       }
 
   });
