@@ -21,6 +21,7 @@ let userSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    group: mongoose.Schema.ObjectId,
     school:  String, //Won't be required
     github: String,
     about: String, //Likely to be mandatory, for now no.
