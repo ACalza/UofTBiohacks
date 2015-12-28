@@ -39,9 +39,12 @@ function user(app) {
                 github: this.request.body.github,
                 about: this.request.body.about
             });
+
             try {
                 var model = yield user.save();
                 this.body = model;
+                //Start session
+                this.session.userModel = model;
             } catch (err) {
                 this.response.status = 500;
                 console.error(err);
@@ -71,6 +74,8 @@ function user(app) {
                 });
 
                 if (bcrypt.compareSync(password, model.password)) {
+                    //start session
+                    this.session.userModel = model;
                     this.body = {
                         message: "logged in!"
                     }
@@ -87,6 +92,13 @@ function user(app) {
         }
 
     });
+
+    /**
+     * Temporary to test session
+     */
+     router.get('/session', function*(){
+         this.body = this.session.userModel;
+     });
 
     app.use(router.routes());
     app.use(router.allowedMethods());
