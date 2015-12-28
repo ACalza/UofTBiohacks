@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "jsdoc": "^3.4.0",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
