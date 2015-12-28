@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function Registration() {
-    return (
-        <div> wheeeee </div>
-    )
+class Registration extends Component {
+    render() {
+        return(
+            <div> sdsdsd </div>
+        )
+    }
 }
 
 export default Registration
