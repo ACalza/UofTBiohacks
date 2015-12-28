@@ -94,6 +94,15 @@ function user(app) {
     });
 
     /**
+     *  logs out user
+     */
+    router.get('/logout', function*(){
+        this.session = null;
+        this.body = {
+            message: "logged out"
+        }
+    });
+    /**
      * Temporary to test session
      */
      router.get('/session', function*(){
