@@ -50,6 +50,7 @@ function user(app) {
      * Route for logging in a user
      */
     router.post('/login', function*() {
+        console.log(this.request.body.password);
         let email = this.request.body.email;
         let password = this.request.body.password;
         let username = this.request.body.username;
@@ -59,11 +60,11 @@ function user(app) {
         } else {
             //add try catch
             try {
-                var model = yield User.findOne({
+                let model = yield User.findOne({
                     email: email
                 });
 
-                if (bcrypt.compareSync(password, model.password)) {
+                if (model && bcrypt.compareSync(password, model.password)) {
                     //start session
                     this.session.userModel = model;
                     this.body = {
@@ -71,7 +72,7 @@ function user(app) {
                     }
                 } else {
                     this.body = {
-                        message: "Wrong password"
+                        message: "Wrong password and/or email"
                     }
                 }
             } catch (err) {
@@ -110,13 +111,14 @@ function user(app) {
  * @return N/A
  */
 function* validateUser(next) {
+
     let email = this.request.body.email;
     let password = this.request.body.password;
     let name = this.request.body.name;
     let username = this.request.body.username;
 
     //If name, password or email does not exist
-    if (!email || !password || !name || !username || password.length <= 8)) {
+    if (!email || !password || !name || !username || password.length <= 8) {
         this.response.status = 400;
         util.errorResponse(this);
     } else {

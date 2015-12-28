@@ -4,7 +4,7 @@ const koa = require('koa');
 const mongoose = require("mongoose");
 const bodyParser = require('koa-bodyparser');
 const session = require('koa-session');
-const app = koa();
+let app = koa();
 
 app.keys = ["h4ckerbio"];
 

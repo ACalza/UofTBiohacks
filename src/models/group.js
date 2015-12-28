@@ -1,3 +1,4 @@
+"use strict"
 const mongoose = require('mongoose');
 //Create and compile schema
 let groupSchema = mongoose.Schema({
