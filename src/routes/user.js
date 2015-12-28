@@ -116,7 +116,7 @@ function* validateUser(next) {
     let username = this.request.body.username;
 
     //If name, password or email does not exist
-    if (!email || !password || !name || !username) {
+    if (!email || !password || !name || !username || password.length <= 8)) {
         this.response.status = 400;
         util.errorResponse(this);
     } else {
