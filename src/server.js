@@ -16,7 +16,7 @@ mongoose.connect('mongodb://biohacks:hacker@ds037095.mongolab.com:37095/biohacks
 //Global middleware
 app.use(bodyParser());
 
-app.use(session({maxAge: 900000},app)); //15 minutes
+app.use(session({maxAge: 900000},app)); //reset 15 minutes at each request 
 
 app.use(function *(next){
     this.type = 'json';

@@ -15,6 +15,11 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    username:{
+        type: String,
+        required: true,
+        unique: true
+    },
     school:  String, //Won't be required
     github: String,
     about: String, //Likely to be mandatory, for now no.

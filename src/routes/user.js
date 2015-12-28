@@ -6,6 +6,9 @@ let util = require('../util');
 let bcrypt = require('bcrypt');
 
 
+
+
+
 /**
  * Register user router
  * @param  Koa app
@@ -18,41 +21,59 @@ function user(app) {
         prefix: '/user'
     });
 
+    function* validateUser(next) {
+        let email = this.request.body.email;
+        let password = this.request.body.password;
+        let name = this.request.body.name;
+        let username = this.request.body.username;
+
+        //If name, password or email does not exist
+        if (!email || !password || !name || !username) {
+            this.response.status = 400;
+            util.errorResponse(this);
+        } else {
+            let modelByEmail = yield User.findOne({email: this.request.body.email});
+            let modelByUsername = yield User.findOne({username: this.request.body.username});
+            if (modelByEmail || modelByUsername) {
+                if (modelByEmail) {
+                    this.body = {
+                        message: "Email already exists"
+                    };
+                } else {
+                    this.body = {
+                        message: "Username already exists"
+                    }
+                }
+            } else {
+                //Authentication complete
+                yield next;
+            }
+        }
+
+    }
+    router.use('/register', validateUser);
     /**
      * Route for registering a user
      */
     router.post('/register', function*() {
-        let email = this.request.body.email;
-        let password = this.request.body.password;
-        let name = this.request.body.name;
-
-        //If name, password or email does not exist
-        if (!email || !password || !name) {
-            this.response.status = 400;
+        let user = new User({
+            email: this.request.body.email,
+            password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
+            name: this.request.body.name,
+            username: this.request.body.username,
+            school: this.request.body.school,
+            github: this.request.body.github,
+            about: this.request.body.about
+        });
+        try {
+            var model = yield user.save();
+            this.body = model;
+            //Start session
+            this.session.userModel = model;
+        } catch (err) {
+            this.response.status = 500;
+            console.error(err);
             util.errorResponse(this);
-        } else {
-            let user = new User({
-                email: email,
-                password: util.bcrypt(password), //8 bit hashing 2^8 rounds is sufficent for now
-                name: name,
-                school: this.request.body.school,
-                github: this.request.body.github,
-                about: this.request.body.about
-            });
-
-            try {
-                var model = yield user.save();
-                this.body = model;
-                //Start session
-                this.session.userModel = model;
-            } catch (err) {
-                this.response.status = 500;
-                console.error(err);
-                util.errorResponse(this);
-            }
-
-
-
         }
 
     });
@@ -63,7 +84,8 @@ function user(app) {
     router.post('/login', function*() {
         let email = this.request.body.email;
         let password = this.request.body.password;
-        if (!email || !password) {
+        let username = this.request.body.username;
+        if (!email || !password || !username) {
             this.response.status = 400;
             util.errorResponse(this);
         } else {
@@ -84,7 +106,7 @@ function user(app) {
                         message: "Wrong password"
                     }
                 }
-            }catch(err){
+            } catch (err) {
                 this.response.status = 500;
                 console.error(err);
                 util.errorResponse(this);
@@ -96,7 +118,7 @@ function user(app) {
     /**
      *  logs out user
      */
-    router.get('/logout', function*(){
+    router.get('/logout', function*() {
         this.session = null;
         this.body = {
             message: "logged out"
@@ -105,9 +127,9 @@ function user(app) {
     /**
      * Temporary to test session
      */
-     router.get('/session', function*(){
-         this.body = this.session.userModel;
-     });
+    router.get('/session', function*() {
+        this.body = this.session.userModel;
+    });
 
     app.use(router.routes());
     app.use(router.allowedMethods());
