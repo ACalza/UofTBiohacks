@@ -40,7 +40,6 @@ app.use(function *(next){
 
 //routes
 require('./routes/user')(app);
-
-
+require('./routes/group')(app);
 
 app.listen(3000);

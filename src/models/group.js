@@ -7,7 +7,7 @@ let groupSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    users: [String]
+    users: [mongoose.Schema.ObjectId] //Could change to string later
 });
 
-module.exports = mongoose.model('group', groupSchema);;
+module.exports = mongoose.model('group', groupSchema);

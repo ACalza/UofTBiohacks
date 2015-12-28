@@ -50,7 +50,6 @@ function user(app) {
      * Route for logging in a user
      */
     router.post('/login', function*() {
-        console.log(this.request.body.password);
         let email = this.request.body.email;
         let password = this.request.body.password;
         let username = this.request.body.username;
