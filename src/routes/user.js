@@ -21,6 +21,11 @@ function user(app) {
         prefix: '/user'
     });
 
+    /**
+     * Validates the user
+     * @param  Koa middlware object next
+     * @return N/A
+     */
     function* validateUser(next) {
         let email = this.request.body.email;
         let password = this.request.body.password;
@@ -51,6 +56,7 @@ function user(app) {
         }
 
     }
+    //Adds validateUser to middleware
     router.use('/register', validateUser);
     /**
      * Route for registering a user
