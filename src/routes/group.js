@@ -9,6 +9,7 @@ let Group = require('../models/group');
  * @return N/A
  */
 function group(app){
+    //API for /group/
     let router = new Router({
         prefix: '/group'
     });
@@ -17,6 +18,6 @@ function group(app){
      * Create a group
      */
      router.post('/create', function*(){
-         
-     })
+
+     });
 }

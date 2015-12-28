@@ -5,10 +5,6 @@ let User = require('../models/user');
 let util = require('../util');
 let bcrypt = require('bcrypt');
 
-
-
-
-
 /**
  * Register user router
  * @param  Koa app
@@ -21,43 +17,9 @@ function user(app) {
         prefix: '/user'
     });
 
-    /**
-     * Validates the user
-     * @param  Koa middlware object next
-     * @return N/A
-     */
-    function* validateUser(next) {
-        let email = this.request.body.email;
-        let password = this.request.body.password;
-        let name = this.request.body.name;
-        let username = this.request.body.username;
-
-        //If name, password or email does not exist
-        if (!email || !password || !name || !username) {
-            this.response.status = 400;
-            util.errorResponse(this);
-        } else {
-            let modelByEmail = yield User.findOne({email: this.request.body.email});
-            let modelByUsername = yield User.findOne({username: this.request.body.username});
-            if (modelByEmail || modelByUsername) {
-                if (modelByEmail) {
-                    this.body = {
-                        message: "Email already exists"
-                    };
-                } else {
-                    this.body = {
-                        message: "Username already exists"
-                    }
-                }
-            } else {
-                //Authentication complete
-                yield next;
-            }
-        }
-
-    }
     //Adds validateUser to middleware
     router.use('/register', validateUser);
+
     /**
      * Route for registering a user
      */
@@ -130,6 +92,7 @@ function user(app) {
             message: "logged out"
         }
     });
+
     /**
      * Temporary to test session
      */
@@ -139,6 +102,42 @@ function user(app) {
 
     app.use(router.routes());
     app.use(router.allowedMethods());
+}
+
+/**
+ * Validates the user
+ * @param  Koa middlware object next
+ * @return N/A
+ */
+function* validateUser(next) {
+    let email = this.request.body.email;
+    let password = this.request.body.password;
+    let name = this.request.body.name;
+    let username = this.request.body.username;
+
+    //If name, password or email does not exist
+    if (!email || !password || !name || !username) {
+        this.response.status = 400;
+        util.errorResponse(this);
+    } else {
+        let modelByEmail = yield User.findOne({email: this.request.body.email});
+        let modelByUsername = yield User.findOne({username: this.request.body.username});
+        if (modelByEmail || modelByUsername) {
+            if (modelByEmail) {
+                this.body = {
+                    message: "Email already exists"
+                };
+            } else {
+                this.body = {
+                    message: "Username already exists"
+                }
+            }
+        } else {
+            //Authentication complete
+            yield next;
+        }
+    }
+
 }
 
 module.exports = user
