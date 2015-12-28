@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 //Create and compile schema
-var groupSchema = mongoose.Schema({
+let groupSchema = mongoose.Schema({
     name: {
         type:String,
         required: true,

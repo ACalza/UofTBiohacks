@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //Create and compile schema
-var userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     email: {
         type: String,
         unique: true,

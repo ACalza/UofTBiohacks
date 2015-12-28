@@ -1,9 +1,9 @@
 "use strict"
 
-let Router = require('koa-router');
-let User = require('../models/user');
-let util = require('../util');
-let bcrypt = require('bcrypt');
+const Router = require('koa-router');
+const User = require('../models/user');
+const util = require('../util');
+const bcrypt = require('bcrypt');
 
 /**
  * Register user router

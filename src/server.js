@@ -1,10 +1,10 @@
 "use strict"
 
-var koa = require('koa');
-var mongoose = require("mongoose");
-var bodyParser = require('koa-bodyparser');
-var session = require('koa-session');
-var app = koa();
+const koa = require('koa');
+const mongoose = require("mongoose");
+const bodyParser = require('koa-bodyparser');
+const session = require('koa-session');
+const app = koa();
 
 app.keys = ["h4ckerbio"];
 
@@ -16,7 +16,7 @@ mongoose.connect('mongodb://biohacks:hacker@ds037095.mongolab.com:37095/biohacks
 //Global middleware
 app.use(bodyParser());
 
-app.use(session({maxAge: 900000},app)); //reset 15 minutes at each request 
+app.use(session({maxAge: 900000},app)); //reset 15 minutes at each request
 
 app.use(function *(next){
     this.type = 'json';
