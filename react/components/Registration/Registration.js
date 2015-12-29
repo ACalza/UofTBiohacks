@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
+import _ from 'underscore'
 import autobind from 'autobind-decorator'
 import Input from '../Input'
 
-// import User from '../../../src/models/user.js'
 import User from '../../../reg-form.js'
 
 import Icon from '../Icon'
 
 @autobind
-class Registration extends Component {
+export default class Registration extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: null,
-      companyName: null,
+      name: null,
       password: null,
       confirmPassword: null,
       statesValue: null,
@@ -40,21 +40,24 @@ class Registration extends Component {
   saveAndContinue(e) {
     e.preventDefault();
 
+    console.log(this)
+
     var canProceed = this.validateEmail(this.state.email)
-        && !_.isEmpty(this.state.statesValue)
+        && !_.isEmpty(this.state.name)
         && this.refs.password.isValid()
         && this.refs.passwordConfirm.isValid();
 
     if(canProceed) {
       var data = {
+        name: this.state.name,
         email: this.state.email,
-        state: this.state.statesValue
+        password: this.state.password
       }
-      alert('Thanks.');
+      alert(JSON.stringify(data));
     } else {
+
       this.refs.email.isValid();
-      this.refs.state.isValid();
-      this.refs.companyName.isValid();
+      this.refs.name.isValid();
       this.refs.password.isValid();
       this.refs.passwordConfirm.isValid();
     }
@@ -64,9 +67,9 @@ class Registration extends Component {
     return (event == this.state.password)
   }
 
-  handleCompanyInput(event) {
+  handleNameInput(event) {
     this.setState({
-      companyName: event.target.value
+      name: event.target.value
     })
   }
 
@@ -94,8 +97,8 @@ class Registration extends Component {
 
   render() {
     return (
-       <div>
-        <Input
+    <form style={{width: '450px'}} onSubmit={this.saveAndContinue}>
+      <Input
           text="Email Address"
           ref="email"
           type="text"
@@ -106,10 +109,48 @@ class Registration extends Component {
           errorMessage="Email is invalid"
           emptyMessage="Email can't be empty"
           errorVisible={this.state.showEmailError}
-        />
-       </div>
+      />
+
+      <Input
+        text="Name"
+        ref="companyName"
+        validate={this.isEmpty}
+        value={this.state.name}
+        onChange={this.handleNameInput}
+        emptyMessage="name can't be empty"
+      />
+
+      <Input
+        text="Password"
+        type="password"
+        ref="password"
+        validator="true"
+        minCharacters="8"
+        requireCapitals="1"
+        requireNumbers="1"
+        forbiddenWords={this.state.forbiddenWords}
+        value={this.state.passsword}
+        emptyMessage="Password is invalid"
+        onChange={this.handlePasswordInput}
+      />
+
+      <Input
+        text="Confirm password"
+        ref="passwordConfirm"
+        type="password"
+        validate={this.isConfirmedPassword}
+        value={this.state.confirmPassword}
+        onChange={this.handleConfirmPasswordInput}
+        emptyMessage="Please confirm your password"
+        errorMessage="Passwords don't match"
+      />
+
+      <button
+        type="submit"
+        className="button button_wide">
+        CREATE ACCOUNT
+      </button>
+    </form>
     )
   }
 }
-
-export default Registration

@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator'
 import './input.scss'
 var _ = require('underscore');
 var Icon = require('../Icon');
+import PasswordValidator from './PasswordValidator.js'
 // var InputError = require('./InputError.js');
 // var PasswordValidator = require('./PasswordValidator.js');
 
