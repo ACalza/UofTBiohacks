@@ -7,12 +7,12 @@
 import React, { Component } from 'react';
 import Registration from '../components/Registration'
 
-export default class extends Component {
 
+export default class extends Component {
   render() {
     return (
       <div>
-        <h1>Home Page</h1>
+        <h1>Register</h1>
         <Registration />
       </div>
     );

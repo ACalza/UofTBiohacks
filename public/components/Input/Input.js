@@ -2,14 +2,33 @@ import React, {Component} from 'react'
 import autobind from 'autobind-decorator'
 import cx from 'classnames'
 import _ from 'underscore'
-var Icon = require('../Icon')
-import PasswordValidator from './PasswordValidator.js'
+
+// Components
+import Icon from '../Icon'
+// import PasswordValidator from './PasswordValidator.js'
 // var InputError = require('./InputError.js')
 
+// Styles
 import './input.scss'
 
 @autobind
 export default class Input extends Component {
+
+  /**
+   * Construct Input component.
+   * @param {object} props properties:
+   * @prop  {string} value the value of the input
+   * @prop  {bool} isValid validity of value according to validator(s)
+   * @prop  {function} validator validator function
+   * @prop  {string} emptyMessage
+   * @prop  {string} type e.g. 'text'
+   * @prop  {string} minCharacters
+   * @prop  {string} requireCapitals
+   * @prop  {string} requireNumbers
+   * @prop  {array} forbiddenWords
+   * @prop {function} onChange
+   * @return  {React Component}
+   */
   constructor(props) {
     super(props)
     var valid = (this.props.isValid && this.props.isValid()) || true
@@ -39,6 +58,14 @@ export default class Input extends Component {
     }
   }
 
+  /**
+   * Handle input value change.
+   * @param  {string} event the new input value
+   * @description set value, empty in state.
+   *              checkRules, validateInput.
+   *              props.onChanger(event)
+   * @return {none}
+   */
   handleChange(event) {
     this.setState({
       value: event.target.value,
@@ -60,6 +87,13 @@ export default class Input extends Component {
     }
   }
 
+  /**
+   * Validate input value with props.validate
+   * @param  {string} value the input value
+   * @description if valid, set valid:true, errorVisible:false in state, else
+   *              valid:false, errorMessage or emptyMessage
+   * @return {none}
+   */
   validateInput(value) {
     // trigger custom validation method in the parent component
     if(this.props.validate && this.props.validate(value)){
@@ -76,8 +110,13 @@ export default class Input extends Component {
 
   }
 
+  /**
+   * update state.value iff new value exists and is not empty
+   * @param  {object} newProps updated props
+   * @description sets value, empty in state if above
+   * @return {none}
+   */
   componentWillReceiveProps(newProps) {
-    // perform update only when new value exists and not empty
     if(newProps.value) {
       if(!_.isUndefined(newProps.value) && newProps.value.length > 0) {
         if(this.props.validate) {
@@ -91,6 +130,11 @@ export default class Input extends Component {
     }
   }
 
+  /**
+   * Get validity of input
+   * @description if empty or not valid, set valid:false, errorVisible:true
+   * @return {Boolean} this.state.valid
+   */
   isValid() {
     if(this.props.validate) {
       if(_.isEmpty(this.state.value) || !this.props.validate(this.state.value)) {
@@ -104,6 +148,7 @@ export default class Input extends Component {
     return this.state.valid
   }
 
+  // Focus
   handleFocus() {
     this.setState({
       focus: true,
@@ -118,6 +163,7 @@ export default class Input extends Component {
     }
   }
 
+  // Blur
   handleBlur() {
     this.setState({
       focus: false,
@@ -184,23 +230,23 @@ export default class Input extends Component {
       'input_unfocused': !this.state.focus
     })
 
-    var validator
+    // var validator
 
-    if(this.state.validator) {
-      validator =
-        <PasswordValidator
-          ref="passwordValidator"
-          visible={this.state.validatorVisible}
-          name={this.props.text}
-          value={this.state.value}
-          validData={this.state.isValidatorValid}
-          valid={this.state.allValidatorValid}
-          forbiddenWords={this.state.forbiddenWords}
-          minCharacters={this.props.minCharacters}
-          requireCapitals={this.props.requireCapitals}
-          requireNumbers={this.props.requireNumbers}
-        />
-    }
+    // if(this.state.validator) {
+    //   validator =
+    //     <PasswordValidator
+    //       ref="passwordValidator"
+    //       visible={this.state.validatorVisible}
+    //       name={this.props.text}
+    //       value={this.state.value}
+    //       validData={this.state.isValidatorValid}
+    //       valid={this.state.allValidatorValid}
+    //       forbiddenWords={this.state.forbiddenWords}
+    //       minCharacters={this.props.minCharacters}
+    //       requireCapitals={this.props.requireCapitals}
+    //       requireNumbers={this.props.requireNumbers}
+    //     />
+    // }
 
     return (
       <div className={inputGroupClasses}>
@@ -226,9 +272,6 @@ export default class Input extends Component {
           <i className="input_error_icon" onMouseEnter={this.mouseEnterError}> <Icon type="circle_error"/> </i>
           <i className="input_valid_icon"> <Icon type="circle_tick"/> </i>
         </div>
-
-        {validator}
-
       </div>
     )
   }
