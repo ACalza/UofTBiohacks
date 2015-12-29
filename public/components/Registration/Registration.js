@@ -1,27 +1,32 @@
 import React, {Component} from 'react'
 import _ from 'underscore'
 import autobind from 'autobind-decorator'
+
+// Components
+import Icon from '../Icon'
 import Input from '../Input'
 
 // TODO use this
 import User from '../../../shared/user-registration.js'
 
-import Icon from '../Icon'
-
 @autobind
 export default class Registration extends Component {
   constructor(props) {
     super(props)
+    // TODO generate state properties from user-registration.js
     this.state = {
       email: null,
       name: null,
       password: null,
       confirmPassword: null,
-      statesValue: null,
       forbiddenWords: ["password", "user", "username"]
     }
+
+    // removed state.statesValue
   }
 
+
+  // ==== PASSWORD ====
   handlePasswordInput(event) {
     if(!_.isEmpty(this.state.confirmPassword)){
       this.refs.passwordConfirm.isValid()
@@ -38,42 +43,20 @@ export default class Registration extends Component {
     })
   }
 
-  saveAndContinue(e) {
-    e.preventDefault()
-
-    console.log(this)
-
-    var canProceed = this.validateEmail(this.state.email)
-        && !_.isEmpty(this.state.name)
-        && this.refs.password.isValid()
-        && this.refs.passwordConfirm.isValid()
-
-    if(canProceed) {
-      var data = {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
-      }
-      alert(JSON.stringify(data))
-    } else {
-
-      this.refs.email.isValid()
-      this.refs.name.isValid()
-      this.refs.password.isValid()
-      this.refs.passwordConfirm.isValid()
-    }
-  }
-
   isConfirmedPassword(event) {
     return (event == this.state.password)
   }
 
+
+  // ==== NAME ====
   handleNameInput(event) {
     this.setState({
       name: event.target.value
     })
   }
 
+
+  // ==== EMAIl ====
   handleEmailInput(event){
     this.setState({
       email: event.target.value
@@ -86,14 +69,41 @@ export default class Registration extends Component {
     return re.test(event)
   }
 
+
+  // For validate in Name
   isEmpty(value) {
     return !_.isEmpty(value)
   }
 
-  updateStatesValue(value) {
-    this.setState({
-      statesValue: value
-    })
+  // updateStatesValue(value) {
+  //   this.setState({
+  //     statesValue: value
+  //   })
+  // }
+
+  saveAndContinue(e) {
+    e.preventDefault()
+
+    var canProceed = this.validateEmail(this.state.email)
+        && !_.isEmpty(this.state.name)
+        && this.refs.password.isValid()
+        && this.refs.passwordConfirm.isValid()
+
+    if(canProceed) {
+      var data = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      }
+      // TODO POST to server
+      alert(JSON.stringify(data))
+    } else {
+
+      this.refs.email.isValid()
+      this.refs.name.isValid()
+      this.refs.password.isValid()
+      this.refs.passwordConfirm.isValid()
+    }
   }
 
   render() {

@@ -13,10 +13,8 @@ export default class extends Component {
     return (
       <div>
         <h1>Home Page</h1>
-        <p>Coming soon. (now)</p>
         <Registration />
       </div>
     );
   }
-
 }
