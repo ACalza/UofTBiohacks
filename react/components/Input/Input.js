@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import './input.scss'
 var _ = require('underscore');
 var Icon = require('../Icon');
 // var InputError = require('./InputError.js');
