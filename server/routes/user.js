@@ -1,16 +1,18 @@
 'use strict'
 
-const Router = require('koa-router')
-const User = require('../models/user')
-const util = require('../util')
-const bcrypt = require('bcrypt')
+const Router = require('koa-router');
+const User = require('../models/user');
+const util = require('../util');
+const bcrypt = require('bcrypt');
+const streamify = require('stream-array');
+const through = require('through2');
 
 /**
  * Register user router
  * @param  Koa app
  * @return N/A
  */
-module.exports = function (app) {
+module.exports = function(app) {
 
   //API with prefix /user to each route
   let router = new Router({
@@ -23,7 +25,7 @@ module.exports = function (app) {
   /**
    * Route for registering a user
    */
-  router.post('/register', function* () {
+  router.post('/register', function*() {
     let user = new User({
       email: this.request.body.email,
       password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
@@ -36,7 +38,7 @@ module.exports = function (app) {
     try {
       var model = yield user.save()
       this.body = model
-      //Start session
+        //Start session
       this.session.userModel = model
     } catch (err) {
       this.response.status = 500
@@ -48,7 +50,7 @@ module.exports = function (app) {
   /**
    * Route for logging in a user
    */
-  router.post('/login', function* () {
+  router.post('/login', function*() {
     let email = this.request.body.email
     let password = this.request.body.password
     let username = this.request.body.username
@@ -81,20 +83,61 @@ module.exports = function (app) {
     }
   });
 
+
   /**
    *  logs out user
    */
-  router.get('/logout', function* () {
+  router.get('/logout', function*() {
     this.session = null
     this.body = {
       message: "logged out"
     }
   })
 
+  //validate admin middleware
+  router.use('/all', validateAdmin);
+  //Middleware to get all users
+  router.use('/all', getUsers);
+
   /**
-   * Temporary to test session
+   * Returns all users in a JSON array without encrypted password
+   * Must be admin
    */
-  router.get('/session', function* () {
+  router.get('/all', function*() {
+    this.body = this.users;
+  });
+
+  //validate admin middleware
+  router.use('/all/csv', validateAdmin);
+  //Middleware to get all users
+  router.use('/all', getUsers);
+
+  /**
+   * Downloads a CSV file of the users
+   */
+  router.get('/all/csv', function*() {
+      this.response.set('Content-disposition', 'attachment; filename=users.csv');
+      this.type = 'text/csv';
+
+      let data = [{
+        email: "email",
+        name: "name",
+        username: "username",
+        group: "group"
+      }].concat(this.users);
+      this.body = streamify(data)
+        .pipe(through.obj(function(chunk, enc, callback) {
+          let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
+          this.push(curRow);
+          callback()
+        }))
+
+    })
+
+    /**
+     * Temporary to test session
+     */
+  router.get('/session', function*() {
     this.body = this.session.userModel
   });
 
@@ -102,11 +145,40 @@ module.exports = function (app) {
   app.use(router.allowedMethods())
 }
 
+
 /**
- * Validates the user
- * @param  Koa middlware object next
- * @return N/A
+ * returns all users in an array of JSON's w/o passwords
  */
+function* getUsers(next) {
+    try {
+      var users = yield User.find({});
+      for (var i = 0; i < users.length; i++) {
+        users[i].password = undefined;
+      }
+      this.users = users;
+      yield next
+    } catch (err) {
+      console.error(err);
+      this.response.status = 500;
+      util.errorResponse(this);
+    }
+  }
+/**
+* Validates admin
+*/
+function* validateAdmin(next) {
+    if (this.session.userModel && this.session.userModel.username === 'iGemAdmin' && this.session.userModel.email === 'igem@g.skule.ca') {
+      yield next;
+    } else {
+      this.response.status = 403;
+      util.errorResponse(this);
+    }
+  }
+  /**
+   * Validates the user
+   * @param  Koa middlware object next
+   * @return N/A
+   */
 function* validateUser(next) {
 
   let email = this.request.body.email
