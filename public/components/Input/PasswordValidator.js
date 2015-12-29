@@ -16,7 +16,7 @@ export default class PasswordValidator extends Component {
       requireNumbers: this.props.requireNumbers,
       forbiddenWords: this.props.forbiddenWords,
       name: this.props.name
-    };
+    }
   }
 
   render() {
@@ -24,7 +24,7 @@ export default class PasswordValidator extends Component {
       'password_validator':   true,
       'visible':              this.props.visible,
       'invisible':            !this.props.visible
-    });
+    })
 
     var forbiddenWords = this.state.forbiddenWords.map(function(word, i) {
       return (
@@ -34,7 +34,7 @@ export default class PasswordValidator extends Component {
       )
     })
 
-    var validatorTitle;
+    var validatorTitle
 
     if(this.props.valid) {
       validatorTitle =

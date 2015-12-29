@@ -23,29 +23,29 @@ export default class Registration extends Component {
 
   handlePasswordInput(event) {
     if(!_.isEmpty(this.state.confirmPassword)){
-      this.refs.passwordConfirm.isValid();
+      this.refs.passwordConfirm.isValid()
     }
-    this.refs.passwordConfirm.hideError();
+    this.refs.passwordConfirm.hideError()
     this.setState({
       password: event.target.value
-    });
+    })
   }
 
   handleConfirmPasswordInput(event) {
     this.setState({
       confirmPassword: event.target.value
-    });
+    })
   }
 
   saveAndContinue(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     console.log(this)
 
     var canProceed = this.validateEmail(this.state.email)
         && !_.isEmpty(this.state.name)
         && this.refs.password.isValid()
-        && this.refs.passwordConfirm.isValid();
+        && this.refs.passwordConfirm.isValid()
 
     if(canProceed) {
       var data = {
@@ -53,13 +53,13 @@ export default class Registration extends Component {
         email: this.state.email,
         password: this.state.password
       }
-      alert(JSON.stringify(data));
+      alert(JSON.stringify(data))
     } else {
 
-      this.refs.email.isValid();
-      this.refs.name.isValid();
-      this.refs.password.isValid();
-      this.refs.passwordConfirm.isValid();
+      this.refs.email.isValid()
+      this.refs.name.isValid()
+      this.refs.password.isValid()
+      this.refs.passwordConfirm.isValid()
     }
   }
 
@@ -76,17 +76,17 @@ export default class Registration extends Component {
   handleEmailInput(event){
     this.setState({
       email: event.target.value
-    });
+    })
   }
 
   validateEmail(event) {
     // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(event);
+    var re = /^(([^<>()[\]\\.,:\s@\"]+(\.[^<>()[\]\\.,:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(event)
   }
 
   isEmpty(value) {
-    return !_.isEmpty(value);
+    return !_.isEmpty(value)
   }
 
   updateStatesValue(value) {

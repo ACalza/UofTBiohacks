@@ -1,13 +1,17 @@
-"use strict"
-const mongoose = require('mongoose');
+'use strict'
+
+const mongoose = require('mongoose')
+
 //Create and compile schema
 let groupSchema = mongoose.Schema({
-    name: {
-        type:String,
-        required: true,
-        unique: true
-    },
-    users: [mongoose.Schema.ObjectId] //Could change to string later
-});
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  // Could change to string later
+  // If it's id we can ref and .populate
+  users: [mongoose.Schema.ObjectId]
+})
 
-module.exports = mongoose.model('group', groupSchema);
+module.exports = mongoose.model('group', groupSchema)

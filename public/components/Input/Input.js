@@ -1,20 +1,18 @@
 import React, {Component} from 'react'
 import autobind from 'autobind-decorator'
-import './input.scss'
-var _ = require('underscore');
-var Icon = require('../Icon');
-import PasswordValidator from './PasswordValidator.js'
-// var InputError = require('./InputError.js');
-// var PasswordValidator = require('./PasswordValidator.js');
-
-// var cx = React.addons.classSet;
 import cx from 'classnames'
+import _ from 'underscore'
+var Icon = require('../Icon')
+import PasswordValidator from './PasswordValidator.js'
+// var InputError = require('./InputError.js')
+
+import './input.scss'
 
 @autobind
 export default class Input extends Component {
   constructor(props) {
     super(props)
-    var valid = (this.props.isValid && this.props.isValid()) || true;
+    var valid = (this.props.isValid && this.props.isValid()) || true
 
     this.state =  {
       valid: valid,
@@ -38,14 +36,14 @@ export default class Input extends Component {
         all: false
       },
       allValidatorValid: false
-    };
+    }
   }
 
   handleChange(event) {
     this.setState({
       value: event.target.value,
       empty: _.isEmpty(event.target.value)
-    });
+    })
 
     if(this.props.validator) {
       this.checkRules(event.target.value)
@@ -53,12 +51,12 @@ export default class Input extends Component {
 
     // call input's validation method
     if(this.props.validate) {
-      this.validateInput(event.target.value);
+      this.validateInput(event.target.value)
     }
 
     // call onChange method on the parent component for updating it's state
     if(this.props.onChange) {
-      this.props.onChange(event);
+      this.props.onChange(event)
     }
   }
 
@@ -68,12 +66,12 @@ export default class Input extends Component {
       this.setState({
         valid: true,
         errorVisible: false
-      });
+      })
     } else {
       this.setState({
         valid: false,
         errorMessage: !_.isEmpty(value) ? this.props.errorMessage : this.props.emptyMessage
-      });
+      })
     }
 
   }
@@ -83,12 +81,12 @@ export default class Input extends Component {
     if(newProps.value) {
       if(!_.isUndefined(newProps.value) && newProps.value.length > 0) {
         if(this.props.validate) {
-          this.validateInput(newProps.value);
+          this.validateInput(newProps.value)
         }
         this.setState({
           value: newProps.value,
           empty: _.isEmpty(newProps.value)
-        });
+        })
       }
     }
   }
@@ -99,18 +97,18 @@ export default class Input extends Component {
         this.setState({
           valid: false,
           errorVisible: true
-        });
+        })
       }
     }
 
-    return this.state.valid;
+    return this.state.valid
   }
 
   handleFocus() {
     this.setState({
       focus: true,
       validatorVisible: true
-    });
+    })
 
     // hide error when validator is active
     if(this.props.validator) {
@@ -125,20 +123,20 @@ export default class Input extends Component {
       focus: false,
       errorVisible: !this.state.valid,
       validatorVisible: false
-    });
+    })
   }
 
   mouseEnterError() {
     this.setState({
       errorVisible: true
-    });
+    })
   }
 
   hideError() {
     this.setState({
       errorVisible: false,
       validatorVisible: false
-    });
+    })
   }
 
   // validator function
@@ -149,7 +147,7 @@ export default class Input extends Component {
       numbers: !_.isEmpty(value) ? this.countNumbers(value) > 0 : false,
       words: !_.isEmpty(value) ? !this.checkWords(value) : false
     }
-    var allValid = (validData.minChars && validData.capitalLetters && validData.numbers && validData.words);
+    var allValid = (validData.minChars && validData.capitalLetters && validData.numbers && validData.words)
 
     this.setState({
       isValidatorValid: validData,
@@ -159,17 +157,17 @@ export default class Input extends Component {
   }
 
   countCapitals(value) {
-    var str = value;
-    return str.replace(/[^A-Z]/g, "").length;
+    var str = value
+    return str.replace(/[^A-Z]/g, "").length
   }
 
   countNumbers(value) {
-    return /\d/.test(value);
+    return /\d/.test(value)
   }
 
   checkWords(value) {
     return  _.some(this.state.forbiddenWords, function (word) {
-      var matched = (word === value) ? true : "";
+      var matched = (word === value) ? true : ""
       return matched
     })
   }
@@ -184,9 +182,9 @@ export default class Input extends Component {
       'input_hasValue':  !this.state.empty,
       'input_focused':   this.state.focus,
       'input_unfocused': !this.state.focus
-    });
+    })
 
-    var validator;
+    var validator
 
     if(this.state.validator) {
       validator =
@@ -232,6 +230,6 @@ export default class Input extends Component {
         {validator}
 
       </div>
-    );
+    )
   }
 }
