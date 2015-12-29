@@ -69,6 +69,9 @@ export default class Registration extends Component {
     return re.test(event)
   }
 
+  validatePassword(e) {
+    return /.{8,}/.test(e)
+  }
 
   // For validate in Name
   isEmpty(value) {
@@ -135,11 +138,7 @@ export default class Registration extends Component {
         text="Password"
         type="password"
         ref="password"
-        validator="true"
-        minCharacters="8"
-        requireCapitals="1"
-        requireNumbers="1"
-        forbiddenWords={this.state.forbiddenWords}
+        validate={this.validatePassword}
         value={this.state.passsword}
         emptyMessage="Password is invalid"
         onChange={this.handlePasswordInput}
