@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
  * @param  Koa app
  * @return N/A
  */
-module.exports = function (app) {
+module.exports = function(app) {
 
   //API with prefix /user to each route
   let router = new Router({
@@ -23,7 +23,7 @@ module.exports = function (app) {
   /**
    * Route for registering a user
    */
-  router.post('/register', function* () {
+  router.post('/register', function*() {
     let user = new User({
       email: this.request.body.email,
       password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
@@ -36,7 +36,7 @@ module.exports = function (app) {
     try {
       var model = yield user.save()
       this.body = model
-      //Start session
+        //Start session
       this.session.userModel = model
     } catch (err) {
       this.response.status = 500
@@ -48,7 +48,7 @@ module.exports = function (app) {
   /**
    * Route for logging in a user
    */
-  router.post('/login', function* () {
+  router.post('/login', function*() {
     let email = this.request.body.email
     let password = this.request.body.password
     let username = this.request.body.username
@@ -81,20 +81,39 @@ module.exports = function (app) {
     }
   });
 
+
   /**
    *  logs out user
    */
-  router.get('/logout', function* () {
+  router.get('/logout', function*() {
     this.session = null
     this.body = {
       message: "logged out"
     }
   })
 
+  //validate admin middleware
+  router.use('/all', validateAdmin);
+  /**
+   * Returns all users in a JSON array without encrypted password
+   * Must be admin
+   */
+  router.get('/all', function*() {
+    try {
+      var users = yield User.find({});
+      for (var i = 0; i < users.length; i++) {
+        users[i].password = undefined;
+      }
+      this.body = users;
+    } catch (err) {
+      this.response.status = 500;
+      util.errorResponse(this);
+    }
+  });
   /**
    * Temporary to test session
    */
-  router.get('/session', function* () {
+  router.get('/session', function*() {
     this.body = this.session.userModel
   });
 
@@ -102,11 +121,20 @@ module.exports = function (app) {
   app.use(router.allowedMethods())
 }
 
-/**
- * Validates the user
- * @param  Koa middlware object next
- * @return N/A
- */
+function* validateAdmin(next) {
+    if (this.session.userModel && this.session.userModel.username === 'iGemAdmin'
+        && this.session.userModel.email === 'igem@g.skule.ca') {
+      yield next;
+    } else {
+      this.response.status = 403;
+      util.errorResponse(this);
+    }
+  }
+  /**
+   * Validates the user
+   * @param  Koa middlware object next
+   * @return N/A
+   */
 function* validateUser(next) {
 
   let email = this.request.body.email
