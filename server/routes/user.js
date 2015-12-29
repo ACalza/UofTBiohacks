@@ -1,9 +1,11 @@
 'use strict'
 
-const Router = require('koa-router')
-const User = require('../models/user')
-const util = require('../util')
-const bcrypt = require('bcrypt')
+const Router = require('koa-router');
+const User = require('../models/user');
+const util = require('../util');
+const bcrypt = require('bcrypt');
+const streamify = require('stream-array');
+const through = require('through2');
 
 /**
  * Register user router
@@ -94,25 +96,47 @@ module.exports = function(app) {
 
   //validate admin middleware
   router.use('/all', validateAdmin);
+  //Middleware to get all users
+  router.use('/all', getUsers);
+
   /**
    * Returns all users in a JSON array without encrypted password
    * Must be admin
    */
   router.get('/all', function*() {
-    try {
-      var users = yield User.find({});
-      for (var i = 0; i < users.length; i++) {
-        users[i].password = undefined;
-      }
-      this.body = users;
-    } catch (err) {
-      this.response.status = 500;
-      util.errorResponse(this);
-    }
+    this.body = this.users;
   });
+
+  //validate admin middleware
+  router.use('/all/csv', validateAdmin);
+  //Middleware to get all users
+  router.use('/all', getUsers);
+
   /**
-   * Temporary to test session
+   * Downloads a CSV file of the users
    */
+  router.get('/all/csv', function*() {
+      this.response.set('Content-disposition', 'attachment; filename=users.csv');
+      this.type = 'text/csv';
+
+      let data = [{
+        email: "email",
+        name: "name",
+        username: "username",
+        group: "group"
+      }].concat(this.users);
+      this.body = streamify(data)
+        .pipe(through.obj(function(chunk, enc, callback) {
+          let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
+          this.push(curRow);
+          callback()
+        }))
+
+    })
+
+    /**
+     * Temporary to test session
+     */
   router.get('/session', function*() {
     this.body = this.session.userModel
   });
@@ -121,9 +145,29 @@ module.exports = function(app) {
   app.use(router.allowedMethods())
 }
 
+
+/**
+ * returns all users in an array of JSON's w/o passwords
+ */
+function* getUsers(next) {
+    try {
+      var users = yield User.find({});
+      for (var i = 0; i < users.length; i++) {
+        users[i].password = undefined;
+      }
+      this.users = users;
+      yield next
+    } catch (err) {
+      console.error(err);
+      this.response.status = 500;
+      util.errorResponse(this);
+    }
+  }
+/**
+* Validates admin
+*/
 function* validateAdmin(next) {
-    if (this.session.userModel && this.session.userModel.username === 'iGemAdmin'
-        && this.session.userModel.email === 'igem@g.skule.ca') {
+    if (this.session.userModel && this.session.userModel.username === 'iGemAdmin' && this.session.userModel.email === 'igem@g.skule.ca') {
       yield next;
     } else {
       this.response.status = 403;
