@@ -135,7 +135,7 @@ export default class Registration extends Component {
       />
 
       <Input
-        text="Password"
+        text="Password (8 char. or more)"
         type="password"
         ref="password"
         validate={this.validatePassword}
