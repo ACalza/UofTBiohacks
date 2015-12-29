@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import autobind from 'autobind-decorator'
 import Input from '../Input'
 
 // import User from '../../../src/models/user.js'
@@ -6,6 +7,7 @@ import User from '../../../reg-form.js'
 
 import Icon from '../Icon'
 
+@autobind
 class Registration extends Component {
   constructor(props) {
     super(props)

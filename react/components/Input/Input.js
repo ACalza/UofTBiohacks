@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import autobind from 'autobind-decorator'
 import './input.scss'
 var _ = require('underscore');
 var Icon = require('../Icon');
@@ -8,7 +9,7 @@ var Icon = require('../Icon');
 // var cx = React.addons.classSet;
 import cx from 'classnames'
 
-
+@autobind
 export default class Input extends Component {
   constructor(props) {
     super(props)

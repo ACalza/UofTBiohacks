@@ -4,7 +4,8 @@ $input-height: 70px;
 $input-height-mobile: 64px;
 
 .input_group {
-  @include display(relative);
+  display: block;
+  position: relative;
   width: 100%;
   min-height: 70px;
   margin-bottom: 10px;
@@ -15,12 +16,14 @@ $input-height-mobile: 64px;
   }
 
   label.input_label {
-    @include flex-display();
-    @include align-items(center);
-    @include topLeft(0, 0);
-    @include size(100%, 100%);
-    @include user-select(none);
-    @include box-sizing(border-box);
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    box-sizing: border-box;
     position: absolute;
     z-index: $layer2;
     cursor: text;
@@ -69,11 +72,13 @@ $input-height-mobile: 64px;
   }
 
   input.input {
-    @include display(relative);
-    @include box-shadow(none);
+    display: block;
+    position: relative;
+    box-shadow: none;
     width: 100%;
-    @include box-sizing(border-box);
-    @include transition(all 0.7s ease-in-out);
+    box-sizing: border-box;
+    transition: all 0.7s ease-in-out;
+    /*@include transition(all 0.7s ease-in-out);*/
     z-index: $layer1;
     -webkit-appearance: none;
     border: none;
@@ -100,11 +105,13 @@ $input-height-mobile: 64px;
   }
 
   i {
-    @include topRight(0, 15px);
-    @include flex-display();
-    @include flex-direction(row);
-    @include align-items(center);
-    @include size(20px, $input-height);
+    top: 0;
+    right: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20px;
+    height: $input-height;
     z-index: $layer4;
     position: absolute;
     z-index: $layer3;
@@ -115,8 +122,9 @@ $input-height-mobile: 64px;
 
     svg {
       opacity: 0;
-      @include transition(all 0.2s ease-in-out);
-      @include size(20px, 20px);
+      transition: all 0.2s ease-in-out;
+      width: 20px;
+      height: 20px;
     }
 
     &.input_error_icon {
