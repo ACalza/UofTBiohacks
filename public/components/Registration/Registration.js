@@ -3,7 +3,8 @@ import _ from 'underscore'
 import autobind from 'autobind-decorator'
 import Input from '../Input'
 
-import User from '../../../reg-form.js'
+// TODO use this
+import User from '../../../shared/user-registration.js'
 
 import Icon from '../Icon'
 
