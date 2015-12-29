@@ -5,7 +5,7 @@ module.exports = [
     type: 'text'
   },
   {
-    val: 'Email',
+    val: 'Emails',
     required: true,
     type: 'text'
   }
