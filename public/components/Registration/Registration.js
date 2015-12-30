@@ -17,6 +17,7 @@ export default class Registration extends Component {
     this.state = {
       email: null,
       name: null,
+      username: null,
       password: null,
       confirmPassword: null,
       forbiddenWords: ["password", "user", "username"]
@@ -55,6 +56,12 @@ export default class Registration extends Component {
     })
   }
 
+  handleUNameInput(event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
+
 
   // ==== EMAIl ====
   handleEmailInput(event){
@@ -89,12 +96,14 @@ export default class Registration extends Component {
 
     var canProceed = this.validateEmail(this.state.email)
         && !_.isEmpty(this.state.name)
+        && !_.isEmpty(this.state.username)
         && this.refs.password.isValid()
         && this.refs.passwordConfirm.isValid()
 
     if(canProceed) {
       var data = {
         name: this.state.name,
+        username: this.state.username,
         email: this.state.email,
         password: this.state.password
       }
@@ -132,6 +141,15 @@ export default class Registration extends Component {
         value={this.state.name}
         onChange={this.handleNameInput}
         emptyMessage="name can't be empty"
+      />
+
+      <Input
+        text="Username"
+        ref="username"
+        validate={this.isEmpty}
+        value={this.state.username}
+        onChange={this.handleUNameInput}
+        emptyMessage="username can't be empty"
       />
 
       <Input
