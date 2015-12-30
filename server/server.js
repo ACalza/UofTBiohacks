@@ -4,16 +4,14 @@ const koa = require('koa');
 const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 const util = require('./util');
+const config = require('./config');
 const cors = require('kcors');
 const jwt = require('koa-jwt');
+const authUser = require('./auth/authuser');
 const port = 3000;
+
+
 let app = koa();
-
-
-// Global middleware
-app.use(require('koa-validate')());
-app.use(cors())
-app.use(bodyParser())  //parsing POST form data and populate req.body
 
 // Connect to database
 if (process.env.mongodblocal === 'true') {
@@ -30,9 +28,12 @@ db.once('open', function() {
     console.log('connected to mongoDB')
 });
 
+// Global middleware
+app.use(require('koa-validate')());
 
-// Reset 15 minutes at each request: set cookie maximum age
+app.use(cors())
 
+app.use(bodyParser())  //parsing POST form data and populate req.body
 
 app.use(function* (next) {
   this.type = 'json'
@@ -49,12 +50,10 @@ app.use(function* (next) {
 })
 
 
-// Middleware below this line is only reached if JWT token is valid
-app.use(jwt({ secret: 'adfjostq4tu2489r3892h23h89ipunchedkeyboad' }).unless({ path: ["/user/login", "/user/register"] }));
+app.use(jwt({ secret: config.SECRET }).unless({ path: ["/user/login", "/user/register"] }));
 
-// Protected middleware
-
-
+authUser.unless = require('koa-unless');
+app.use(authUser.unless({path: ["/user/login", "/user/register"] }));
 
 //routes
 require('./routes/user')(app)

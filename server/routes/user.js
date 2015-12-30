@@ -2,12 +2,14 @@
 
 const Router = require('koa-router');
 const User = require('../models/user');
-const util = require('../util');
+const config = require('../config');
 const bcrypt = require('bcrypt');
 const streamify = require('stream-array');
 const through = require('through2');
 const validate = require('koa-validate');
 const jwt = require('koa-jwt');
+const util = require('../util');
+const authuser = require('../auth/authuser');
 
 /**
  * Register user router
@@ -39,7 +41,15 @@ module.exports = function(app) {
     })
     try {
       var model = yield user.save() // save new user in database
-      this.body = model
+      model.password = undefined;
+      let token = jwt.sign({
+        userModel: model
+    }, config.SECRET, {
+        expiresInMinutes: 60 * 5
+      });
+      this.body = {
+        token: token
+      };
     } catch (err) {
       this.response.status = 500
       console.error(err)
@@ -67,20 +77,17 @@ module.exports = function(app) {
         if (model && bcrypt.compareSync(password, model.password)) {
           model.password = undefined;
           let token = jwt.sign({
-            model: model
-          }, 'adfjostq4tu2489r3892h23h89ipunchedkeyboad', {
+            userModel: model
+        }, config.SECRET, {
             expiresInMinutes: 60 * 5
           });
           this.body = {
-            message: token,
-            status: true
+            token: token
           };
-
 
         } else {
           this.body = {
-            message: "Wrong password and/or email",
-            status: false
+            message: "Wrong password and/or email"
           }
         }
       } catch (err) {
@@ -115,9 +122,9 @@ module.exports = function(app) {
   });
 
   // //validate admin middleware
-  // router.use('/all/csv', validateAdmin);
+  router.use('/all/csv', validateAdmin);
   // //Middleware to get all users
-  // router.use('/all', getUsers);
+  router.use('/all', getUsers);
 
   /**
    * Downloads a CSV file of the users
@@ -141,9 +148,7 @@ module.exports = function(app) {
 
   })
 
-  /**
-   * Temporary to test session TODO change to get
-   */
+
   router.post('/session', function*() {
     this.body = {
       auth: "authenticated"
@@ -174,24 +179,26 @@ function* getUsers(next) {
       util.errorResponse(this);
     }
   }
-  /**
-   * Validates admin
-   */
+
+
+/**
+* Validates admin
+*/
 function* validateAdmin(next) {
-    //fix later TODO
-    if (this.session.userModel && this.session.userModel.username === 'igemuoft' && this.session.userModel.email === 'igem@g.skule.ca') {
+    console.log(this.userModel);
+    if (this.userModel && this.userModel.username === 'admin' && this.userModel.email === 'igem@g.skule.ca') {
       yield next;
     } else {
       this.response.status = 403;
       util.errorResponse(this);
     }
-  }
-  /**
-   * Validates the user
-   * @param  Koa middlware object next
-   * @return N/A
-   */
+}
 
+/**
+ * [checkandtrim description]
+ * @param  var input
+ * @return String
+ */
 function checkandtrim(input) {
   if (input.trim()) { // if input is not empty or whitespace
     return input.trim()
@@ -199,6 +206,11 @@ function checkandtrim(input) {
   return null
 }
 
+/**
+* Validates the user
+* @param  Koa middlware object next
+* @return N/A
+*/
 function* validateUser(next) {
   this.request.body.email = checkandtrim(this.request.body.email)
   this.request.body.username = checkandtrim(this.request.body.username)
@@ -208,7 +220,6 @@ function* validateUser(next) {
   let password = this.request.body.password
   let name = this.request.body.name
   let username = this.request.body.username
-
   // If name, password or email does not exist
   if (!email || !password || !name || !username || password.length <= 8) {
     this.response.status = 400 // set response status before sending

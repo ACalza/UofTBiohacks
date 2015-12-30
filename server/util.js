@@ -1,36 +1,34 @@
 'use strict'
+let config = require('./config');
+let bcrypt = require("bcrypt");
 
-var bcrypt = require("bcrypt")
 module.exports = {
   /**
    * Handles errors and returns a JSON
    * @param  Koa Context ctx
    * @return N/A
    */
-  errorResponse: function (ctx) {
-    //this.response.set('Content-Type', 'application/json')
+  errorResponse: function(ctx) {
     ctx.body = {
       message: ctx.response.message,
       errorcode: ctx.response.status
     }
 
   },
-
   /**
    * encrypts the password (8 bit hashing)
    * TODO convert to callback
    */
-  bcrypt: function (password) {
-    return bcrypt.hashSync(password, 8)             // Auto-generate a salt (8) and hash the password and salt
+  bcrypt: function(password) {
+    return bcrypt.hashSync(password, 8) // Auto-generate a salt (8) and hash the password and salt
   },
 
   trim: function(input) {
-      if(input) {
-            return input.trim()
-      }
-      else{
-          return null
-      }
+    if (input) {
+      return input.trim()
+    } else {
+      return null
+    }
   }
 
 
@@ -40,6 +38,6 @@ module.exports = {
 // match with hashed password in the database and check if the user enters the correct password against hash
 
 // salt is  a random data that is used to add additional input to a one-way function that 'hashes' a password
-      // to defend against dictionary attacks
-      // a new salt is randomly generated for each password
-      // most of the time, salt and hash is concatenated and processed with a hash function
+// to defend against dictionary attacks
+// a new salt is randomly generated for each password
+// most of the time, salt and hash is concatenated and processed with a hash function
