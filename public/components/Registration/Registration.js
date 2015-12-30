@@ -1,27 +1,44 @@
 import React, {Component} from 'react'
 import _ from 'underscore'
 import autobind from 'autobind-decorator'
+import $ from 'jquery'
+
+// Components
+import Icon from '../Icon'
 import Input from '../Input'
 
 // TODO use this
 import User from '../../../shared/user-registration.js'
 
-import Icon from '../Icon'
-
 @autobind
 export default class Registration extends Component {
   constructor(props) {
     super(props)
+    // TODO generate state properties from user-registration.js
     this.state = {
       email: null,
       name: null,
+      username: null,
       password: null,
       confirmPassword: null,
-      statesValue: null,
-      forbiddenWords: ["password", "user", "username"]
+      timestamp: Date.now()
     }
   }
 
+  empty() {
+    this.setState({
+      email: '',
+      name: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      timestamp: Date.now()
+    })
+  }
+
+
+
+  // ==== PASSWORD ====
   handlePasswordInput(event) {
     if(!_.isEmpty(this.state.confirmPassword)){
       this.refs.passwordConfirm.isValid()
@@ -38,42 +55,26 @@ export default class Registration extends Component {
     })
   }
 
-  saveAndContinue(e) {
-    e.preventDefault()
-
-    console.log(this)
-
-    var canProceed = this.validateEmail(this.state.email)
-        && !_.isEmpty(this.state.name)
-        && this.refs.password.isValid()
-        && this.refs.passwordConfirm.isValid()
-
-    if(canProceed) {
-      var data = {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
-      }
-      alert(JSON.stringify(data))
-    } else {
-
-      this.refs.email.isValid()
-      this.refs.name.isValid()
-      this.refs.password.isValid()
-      this.refs.passwordConfirm.isValid()
-    }
-  }
-
   isConfirmedPassword(event) {
     return (event == this.state.password)
   }
 
+
+  // ==== NAME ====
   handleNameInput(event) {
     this.setState({
       name: event.target.value
     })
   }
 
+  handleUNameInput(event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
+
+
+  // ==== EMAIl ====
   handleEmailInput(event){
     this.setState({
       email: event.target.value
@@ -86,19 +87,78 @@ export default class Registration extends Component {
     return re.test(event)
   }
 
+  validatePassword(e) {
+    return /.{8,}/.test(e)
+  }
+
+  // For validate in Name
   isEmpty(value) {
     return !_.isEmpty(value)
   }
 
-  updateStatesValue(value) {
-    this.setState({
-      statesValue: value
+  // updateStatesValue(value) {
+  //   this.setState({
+  //     statesValue: value
+  //   })
+  // }
+
+  saveAndContinue(e) {
+    e.preventDefault()
+
+    var canProceed = this.validateEmail(this.state.email)
+        && !_.isEmpty(this.state.name)
+        && !_.isEmpty(this.state.username)
+        && this.refs.password.isValid()
+        && this.refs.passwordConfirm.isValid()
+
+    if(canProceed) {
+      this.postForm()
+    }
+    // else {
+    //
+    //   this.refs.email.isValid()
+    //   this.refs.name.isValid()
+    //   this.refs.password.isValid()
+    //   this.refs.passwordConfirm.isValid()
+    // }
+  }
+
+  postForm() {
+    let data = {
+      name: this.state.name,
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/user/register',
+      data: data,
+      success: function(data, status, jqXHR) {
+        console.log('data:', data)
+        if (status === 'success') {
+
+          if (data.message === 'Username already exists') {
+            alert('Username already exists!')
+          } else if (data.message === 'Email already exists') {
+            alert('Email already exists!')
+          } else {
+            alert(`Thank you ${this.state.username} for signing up!`)
+            this.empty()
+          }
+        }
+      }.bind(this)
     })
   }
 
   render() {
     return (
-    <form style={{width: '450px'}} onSubmit={this.saveAndContinue}>
+    <form
+      style={{width: '450px'}}
+      onSubmit={this.saveAndContinue}
+      key={this.state.timestamp}
+    >
       <Input
           text="Email Address"
           ref="email"
@@ -122,14 +182,19 @@ export default class Registration extends Component {
       />
 
       <Input
-        text="Password"
+        text="Username"
+        ref="username"
+        validate={this.isEmpty}
+        value={this.state.username}
+        onChange={this.handleUNameInput}
+        emptyMessage="username can't be empty"
+      />
+
+      <Input
+        text="Password (8 char. or more)"
         type="password"
         ref="password"
-        validator="true"
-        minCharacters="8"
-        requireCapitals="1"
-        requireNumbers="1"
-        forbiddenWords={this.state.forbiddenWords}
+        validate={this.validatePassword}
         value={this.state.passsword}
         emptyMessage="Password is invalid"
         onChange={this.handlePasswordInput}
@@ -146,7 +211,7 @@ export default class Registration extends Component {
         errorMessage="Passwords don't match"
       />
 
-      <button
+      <button style={{display: 'block', position: 'relative', width: '100%', height: '50px', border: '0'}}
         type="submit"
         className="button button_wide">
         CREATE ACCOUNT
