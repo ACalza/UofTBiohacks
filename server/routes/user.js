@@ -70,6 +70,7 @@ module.exports = function(app) {
           this.body = {
             message: "logged in!"
           }
+          console.log(this.session)
         } else {
           this.body = {
             message: "Wrong password and/or email"
@@ -107,10 +108,10 @@ module.exports = function(app) {
     this.body = this.users;
   });
 
-  //validate admin middleware
-  router.use('/all/csv', validateAdmin);
-  //Middleware to get all users
-  router.use('/all', getUsers);
+  // //validate admin middleware
+  // router.use('/all/csv', validateAdmin);
+  // //Middleware to get all users
+  // router.use('/all', getUsers);
 
   /**
    * Downloads a CSV file of the users
@@ -138,7 +139,9 @@ module.exports = function(app) {
      * Temporary to test session
      */
   router.get('/session', function*() {
-    this.body = this.session.userModel
+    this.body = {
+      session: this.session.userModel
+    }
   });
 
   app.use(router.routes())
@@ -167,6 +170,7 @@ function* getUsers(next) {
 * Validates admin
 */
 function* validateAdmin(next) {
+    console.log(this.session)
     if (this.session.userModel && this.session.userModel.username === 'igemuoft' && this.session.userModel.email === 'igem@g.skule.ca') {
       yield next;
     } else {
