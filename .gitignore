@@ -2,6 +2,7 @@
 build
 node_modules
 npm-debug.log
+users.csv
 
 # Logs
 logs

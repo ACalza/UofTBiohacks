@@ -4,14 +4,21 @@ const koa = require('koa')
 const mongoose = require('mongoose')
 const bodyParser = require('koa-bodyparser')
 const session = require('koa-session')
+
+const port = 3000
+
 let app = koa()
 
 app.keys = ['h4ckerbio']
 
-mongoose.connect('mongodb://biohacks:hacker@ds037095.mongolab.com:37095/biohacks', {
-  user: 'biohacks',
-  pass: 'hacker'
-})
+if (process.env.mongodblocal === 'true') {
+  mongoose.connect('mongodb://localhost/biohacks')
+} else {
+  mongoose.connect('mongodb://biohacks:hacker@ds037095.mongolab.com:37095/biohacks', {
+    user: 'biohacks',
+    pass: 'hacker'
+  })
+}
 
 // Global middleware
 app.use(bodyParser())
@@ -37,4 +44,5 @@ app.use(function* (next) {
 require('./routes/user')(app)
 require('./routes/group')(app)
 
-app.listen(3000)
+app.listen(port)
+console.log(`Koa server listening on port ${port}`)
