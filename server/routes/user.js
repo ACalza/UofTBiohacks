@@ -6,7 +6,8 @@ const util = require('../util');
 const bcrypt = require('bcrypt');
 const streamify = require('stream-array');
 const through = require('through2');
-const validate = require('koa-validate')
+const validate = require('koa-validate');
+const jwt = require('koa-jwt');
 
 /**
  * Register user router
@@ -37,10 +38,8 @@ module.exports = function(app) {
       about: this.request.body.about
     })
     try {
-      var model = yield user.save()                     // save new user in database
+      var model = yield user.save() // save new user in database
       this.body = model
-        //Start session
-      this.session.userModel = model
     } catch (err) {
       this.response.status = 500
       console.error(err)
@@ -66,15 +65,22 @@ module.exports = function(app) {
         })
 
         if (model && bcrypt.compareSync(password, model.password)) {
-          // Start session
-          this.session.userModel = model
+          model.password = undefined;
+          let token = jwt.sign({
+            model: model
+          }, 'adfjostq4tu2489r3892h23h89ipunchedkeyboad', {
+            expiresInMinutes: 60 * 5
+          });
           this.body = {
-            message: "logged in!"
-          }
-          console.log(this.session)
+            message: token,
+            status: true
+          };
+
+
         } else {
           this.body = {
-            message: "Wrong password and/or email"
+            message: "Wrong password and/or email",
+            status: false
           }
         }
       } catch (err) {
@@ -90,7 +96,6 @@ module.exports = function(app) {
    *  logs out user
    */
   router.get('/logout', function*() {
-    this.session = null
     this.body = {
       message: "logged out"
     }
@@ -118,30 +123,30 @@ module.exports = function(app) {
    * Downloads a CSV file of the users
    */
   router.get('/all/csv', function*() {
-      this.response.set('Content-disposition', 'attachment; filename=users.csv');
-      this.type = 'text/csv';
+    this.response.set('Content-disposition', 'attachment; filename=users.csv');
+    this.type = 'text/csv';
 
-      let data = [{
-        email: "email",
-        name: "name",
-        username: "username",
-        group: "group"
-      }].concat(this.users);
-      this.body = streamify(data)
-        .pipe(through.obj(function(chunk, enc, callback) {
-          let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
-          this.push(curRow);
-          callback()
-        }))
+    let data = [{
+      email: "email",
+      name: "name",
+      username: "username",
+      group: "group"
+    }].concat(this.users);
+    this.body = streamify(data)
+      .pipe(through.obj(function(chunk, enc, callback) {
+        let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
+        this.push(curRow);
+        callback()
+      }))
 
-    })
+  })
 
-    /**
-     * Temporary to test session
-     */
-  router.get('/session', function*() {
+  /**
+   * Temporary to test session TODO change to get
+   */
+  router.post('/session', function*() {
     this.body = {
-      session: this.session.userModel
+      auth: "authenticated"
     }
   });
 
@@ -169,11 +174,11 @@ function* getUsers(next) {
       util.errorResponse(this);
     }
   }
-/**
-* Validates admin
-*/
+  /**
+   * Validates admin
+   */
 function* validateAdmin(next) {
-    console.log(this.session)
+    //fix later TODO
     if (this.session.userModel && this.session.userModel.username === 'igemuoft' && this.session.userModel.email === 'igem@g.skule.ca') {
       yield next;
     } else {
@@ -187,11 +192,11 @@ function* validateAdmin(next) {
    * @return N/A
    */
 
-function checkandtrim(input){
-    if (input.trim()){              // if input is not empty or whitespace
-        return input.trim()
-    }
-    return null
+function checkandtrim(input) {
+  if (input.trim()) { // if input is not empty or whitespace
+    return input.trim()
+  }
+  return null
 }
 
 function* validateUser(next) {
@@ -206,21 +211,21 @@ function* validateUser(next) {
 
   // If name, password or email does not exist
   if (!email || !password || !name || !username || password.length <= 8) {
-    this.response.status = 400                                  // set response status before sending
+    this.response.status = 400 // set response status before sending
     this.response.message = 'some field is missing or incorrect'
     util.errorResponse(this)
-  }else if (!this.checkBody('email').isEmail().goOn){
+  } else if (!this.checkBody('email').isEmail().goOn) {
     this.response.status = 400
     this.response.message = 'invalid email'
     util.errorResponse(this)
-  }else {
+  } else {
     let modelByEmail = yield User.findOne({
       email: this.request.body.email
     })
     let modelByUsername = yield User.findOne({
       username: this.request.body.username
     })
-    if (modelByEmail || modelByUsername) {                     // if email OR username already in database
+    if (modelByEmail || modelByUsername) { // if email OR username already in database
       if (modelByEmail) {
         this.body = {
           message: "Email already exists"

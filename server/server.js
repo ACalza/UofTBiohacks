@@ -1,20 +1,17 @@
 'use strict'
 
-const koa = require('koa')
-const mongoose = require('mongoose')
-const bodyParser = require('koa-bodyparser')
-const session = require('koa-session')
+const koa = require('koa');
+const mongoose = require('mongoose');
+const bodyParser = require('koa-bodyparser');
 const util = require('./util');
-const cors = require('kcors')
-const port = 3000
-let app = koa()
-app.use(require('koa-validate')());
-//more koa middleware https://github.com/koajs/koa/wiki#middleware
+const cors = require('kcors');
+const jwt = require('koa-jwt');
+const port = 3000;
+let app = koa();
 
-//
-app.keys = ['h4ckerbio']
 
 // Global middleware
+app.use(require('koa-validate')());
 app.use(cors())
 app.use(bodyParser())  //parsing POST form data and populate req.body
 
@@ -35,7 +32,7 @@ db.once('open', function() {
 
 
 // Reset 15 minutes at each request: set cookie maximum age
-app.use(session({maxAge: 900000}, app))
+
 
 app.use(function* (next) {
   this.type = 'json'
@@ -50,6 +47,14 @@ app.use(function* (next) {
   this.set('X-Response-Time', ms + 'ms')
   console.log('%s %s - %s', this.method, this.url, ms)
 })
+
+
+// Middleware below this line is only reached if JWT token is valid
+app.use(jwt({ secret: 'adfjostq4tu2489r3892h23h89ipunchedkeyboad' }).unless({ path: ["/user/login", "/user/register"] }));
+
+// Protected middleware
+
+
 
 //routes
 require('./routes/user')(app)
