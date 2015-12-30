@@ -188,6 +188,7 @@ function* validateUser(next) {
 
   // If name, password or email does not exist
   if (!email || !password || !name || !username || password.length < 8) {
+    console.log(this.request.body)
     this.response.status = 400
     util.errorResponse(this)
   } else {

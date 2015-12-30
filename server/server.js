@@ -4,6 +4,7 @@ const koa = require('koa')
 const mongoose = require('mongoose')
 const bodyParser = require('koa-bodyparser')
 const session = require('koa-session')
+const cors = require('kcors')
 
 const port = 3000
 
@@ -21,6 +22,7 @@ if (process.env.mongodblocal === 'true') {
 }
 
 // Global middleware
+app.use(cors())
 app.use(bodyParser())
 
 // Reset 15 minutes at each request

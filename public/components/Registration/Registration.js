@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import _ from 'underscore'
 import autobind from 'autobind-decorator'
+import $ from 'jquery'
 
 // Components
 import Icon from '../Icon'
@@ -101,14 +102,7 @@ export default class Registration extends Component {
         && this.refs.passwordConfirm.isValid()
 
     if(canProceed) {
-      var data = {
-        name: this.state.name,
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password
-      }
-      // TODO POST to server
-      alert(JSON.stringify(data))
+      this.postForm()
     } else {
 
       this.refs.email.isValid()
@@ -116,6 +110,28 @@ export default class Registration extends Component {
       this.refs.password.isValid()
       this.refs.passwordConfirm.isValid()
     }
+  }
+
+  postForm() {
+    let data = {
+      name: this.state.name,
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:3000/user/register',
+      data: data,
+      success: function(data, status, jqXHR) {
+        console.log('data:', data)
+        console.log('status:', status)
+      }
+      // dataType: 'application/json'
+    })
+
+    // alert(JSON.stringify(data))
   }
 
   render() {
