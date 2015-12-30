@@ -88,6 +88,10 @@ export default class Registration extends Component {
       data: data,
       success: function(data, status, jqXHR) {
         console.log('data:', data)
+        console.log('jqXHR: ', jqXHR)
+        console.log('headers: ', jqXHR.getAllResponseHeaders())
+        console.log('X-Response-Time', jqXHR.getResponseHeader('X-Response-Time'))
+        console.log('Content-Length', jqXHR.getResponseHeader('Content-Length'))
         if (status === 'success') {
 
           if (data.message === 'logged in!') {
