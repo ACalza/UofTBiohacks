@@ -7,6 +7,7 @@ const util = require('./util');
 const config = require('./config');
 const cors = require('kcors');
 const jwt = require('koa-jwt');
+const mount = require('koa-mount');
 const authUser = require('./auth/authuser');
 const port = process.env.PORT || 3000;
 
@@ -56,8 +57,11 @@ authUser.unless = require('koa-unless');
 app.use(authUser.unless({path: ["/user/login", "/user/register"] }));
 
 //routes
-require('./routes/user')(app)
+//require('./routes/user')(app)
 require('./routes/group')(app)
+
+// Mount Routor
+app.use(mount('/user', require('./routes/register').middleware()));
 
 app.listen(port)
 console.log(`Koa server listening on port ${port}`)
