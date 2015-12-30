@@ -6,6 +6,7 @@ const util = require('../util');
 const bcrypt = require('bcrypt');
 const streamify = require('stream-array');
 const through = require('through2');
+const validate = require('koa-validate')
 
 /**
  * Register user router
@@ -36,7 +37,7 @@ module.exports = function(app) {
       about: this.request.body.about
     })
     try {
-      var model = yield user.save()
+      var model = yield user.save()                     // save new user in database
       this.body = model
         //Start session
       this.session.userModel = model
@@ -146,6 +147,8 @@ module.exports = function(app) {
 }
 
 
+
+//FUNCTIONS
 /**
  * returns all users in an array of JSON's w/o passwords
  */
@@ -179,25 +182,31 @@ function* validateAdmin(next) {
    * @param  Koa middlware object next
    * @return N/A
    */
-function* validateUser(next) {
 
+
+function* validateUser(next) {
+  this.request.body.email = this.request.body.email.trim()
   let email = this.request.body.email
   let password = this.request.body.password
   let name = this.request.body.name
   let username = this.request.body.username
-
+  console.log(email)
   // If name, password or email does not exist
   if (!email || !password || !name || !username || password.length <= 8) {
-    this.response.status = 400
+    this.response.status = 400                                  // set response status before sending
     util.errorResponse(this)
-  } else {
+  } else if (!this.checkBody('email').trim().isEmail().goOn){
+    this.response.status = 400
+    this.response.message = 'invalid email'
+    util.errorResponse(this)
+  }else {
     let modelByEmail = yield User.findOne({
       email: this.request.body.email
     })
     let modelByUsername = yield User.findOne({
       username: this.request.body.username
     })
-    if (modelByEmail || modelByUsername) {
+    if (modelByEmail || modelByUsername) {                     // if email OR username already in database
       if (modelByEmail) {
         this.body = {
           message: "Email already exists"
