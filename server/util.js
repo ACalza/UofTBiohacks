@@ -24,11 +24,10 @@ module.exports = {
   },
 
   trim: function(input) {
-    if (input) {
+    if (input.trim()) {
       return input.trim()
-    } else {
-      return null
     }
+    return input
   }
 
 

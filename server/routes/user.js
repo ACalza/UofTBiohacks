@@ -10,6 +10,7 @@ const validate = require('koa-validate');
 const jwt = require('koa-jwt');
 const util = require('../util');
 const authuser = require('../auth/authuser');
+const validateRegistration = require('../lib/validateRegistration')
 
 /**
  * Register user router
@@ -24,7 +25,7 @@ module.exports = function(app) {
   });
 
   //Adds validateUser to middleware
-  router.use('/register', validateUser)
+  router.use('/register', validateRegistration)
 
   /**
    * Route for registering a user
@@ -192,63 +193,4 @@ function* validateAdmin(next) {
       this.response.status = 403;
       util.errorResponse(this);
     }
-}
-
-/**
- * [checkandtrim description]
- * @param  var input
- * @return String
- */
-function checkandtrim(input) {
-  if (input.trim()) { // if input is not empty or whitespace
-    return input.trim()
-  }
-  return null
-}
-
-/**
-* Validates the user
-* @param  Koa middlware object next
-* @return N/A
-*/
-function* validateUser(next) {
-  this.request.body.email = checkandtrim(this.request.body.email)
-  this.request.body.username = checkandtrim(this.request.body.username)
-  this.request.body.name = checkandtrim(this.request.body.name)
-
-  let email = this.request.body.email
-  let password = this.request.body.password
-  let name = this.request.body.name
-  let username = this.request.body.username
-  // If name, password or email does not exist
-  if (!email || !password || !name || !username || password.length <= 8) {
-    this.response.status = 400 // set response status before sending
-    this.response.message = 'some field is missing or incorrect'
-    util.errorResponse(this)
-  } else if (!this.checkBody('email').isEmail().goOn) {
-    this.response.status = 400
-    this.response.message = 'invalid email'
-    util.errorResponse(this)
-  } else {
-    let modelByEmail = yield User.findOne({
-      email: this.request.body.email
-    })
-    let modelByUsername = yield User.findOne({
-      username: this.request.body.username
-    })
-    if (modelByEmail || modelByUsername) { // if email OR username already in database
-      if (modelByEmail) {
-        this.body = {
-          message: "Email already exists"
-        }
-      } else {
-        this.body = {
-          message: "Username already exists"
-        }
-      }
-    } else {
-      // Authentication complete
-      yield next
-    }
-  }
 }

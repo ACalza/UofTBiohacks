@@ -8,7 +8,7 @@ const config = require('./config');
 const cors = require('kcors');
 const jwt = require('koa-jwt');
 const authUser = require('./auth/authuser');
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 let app = koa();
