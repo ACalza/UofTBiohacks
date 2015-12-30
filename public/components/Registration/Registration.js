@@ -21,16 +21,18 @@ export default class Registration extends Component {
       username: null,
       password: null,
       confirmPassword: null,
+      timestamp: Date.now()
     }
   }
 
   empty() {
     this.setState({
-      email: null,
-      name: null,
-      username: null,
-      password: null,
-      confirmPassword: null
+      email: '',
+      name: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      timestamp: Date.now()
     })
   }
 
@@ -143,6 +145,7 @@ export default class Registration extends Component {
             alert('Email already exists!')
           } else {
             alert(`Thank you ${this.state.username} for signing up!`)
+            this.empty()
           }
         }
       }.bind(this)
@@ -151,7 +154,11 @@ export default class Registration extends Component {
 
   render() {
     return (
-    <form style={{width: '450px'}} onSubmit={this.saveAndContinue}>
+    <form
+      style={{width: '450px'}}
+      onSubmit={this.saveAndContinue}
+      key={this.state.timestamp}
+    >
       <Input
           text="Email Address"
           ref="email"
