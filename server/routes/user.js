@@ -167,7 +167,7 @@ function* getUsers(next) {
 * Validates admin
 */
 function* validateAdmin(next) {
-    if (this.session.userModel && this.session.userModel.username === 'iGemAdmin' && this.session.userModel.email === 'igem@g.skule.ca') {
+    if (this.session.userModel && this.session.userModel.username === 'igemuoft' && this.session.userModel.email === 'igem@g.skule.ca') {
       yield next;
     } else {
       this.response.status = 403;
