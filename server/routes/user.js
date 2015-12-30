@@ -205,7 +205,6 @@ function* validateUser(next) {
   let username = this.request.body.username
 
   // If name, password or email does not exist
-<<<<<<< HEAD
   if (!email || !password || !name || !username || password.length <= 8) {
     this.response.status = 400                                  // set response status before sending
     this.response.message = 'some field is missing or incorrect'

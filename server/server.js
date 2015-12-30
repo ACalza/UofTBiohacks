@@ -6,19 +6,19 @@ const bodyParser = require('koa-bodyparser')
 const session = require('koa-session')
 const util = require('./util');
 const cors = require('kcors')
-
 const port = 3000
-
 let app = koa()
 app.use(require('koa-validate')());
 //more koa middleware https://github.com/koajs/koa/wiki#middleware
 
+//
 app.keys = ['h4ckerbio']
 
 // Global middleware
 app.use(cors())
 app.use(bodyParser())  //parsing POST form data and populate req.body
 
+// Connect to database
 if (process.env.mongodblocal === 'true') {
   mongoose.connect('mongodb://localhost/biohacks')
 } else {
@@ -27,6 +27,11 @@ if (process.env.mongodblocal === 'true') {
     pass: 'hacker'
   })
 }
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('connected to mongoDB')
+});
 
 
 // Reset 15 minutes at each request: set cookie maximum age
