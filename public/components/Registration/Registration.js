@@ -155,7 +155,7 @@ export default class Registration extends Component {
         errorMessage="Passwords don't match"
       />
 
-      <button
+      <button style={{display: 'block', position: 'relative', width: '100%', height: '50px', border: '0'}}
         type="submit"
         className="button button_wide">
         CREATE ACCOUNT
