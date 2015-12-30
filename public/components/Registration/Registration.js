@@ -21,11 +21,19 @@ export default class Registration extends Component {
       username: null,
       password: null,
       confirmPassword: null,
-      forbiddenWords: ["password", "user", "username"]
     }
-
-    // removed state.statesValue
   }
+
+  empty() {
+    this.setState({
+      email: null,
+      name: null,
+      username: null,
+      password: null,
+      confirmPassword: null
+    })
+  }
+
 
 
   // ==== PASSWORD ====
@@ -103,13 +111,14 @@ export default class Registration extends Component {
 
     if(canProceed) {
       this.postForm()
-    } else {
-
-      this.refs.email.isValid()
-      this.refs.name.isValid()
-      this.refs.password.isValid()
-      this.refs.passwordConfirm.isValid()
     }
+    // else {
+    //
+    //   this.refs.email.isValid()
+    //   this.refs.name.isValid()
+    //   this.refs.password.isValid()
+    //   this.refs.passwordConfirm.isValid()
+    // }
   }
 
   postForm() {
@@ -121,17 +130,23 @@ export default class Registration extends Component {
     }
 
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: 'http://localhost:3000/user/register',
       data: data,
       success: function(data, status, jqXHR) {
         console.log('data:', data)
-        console.log('status:', status)
-      }
-      // dataType: 'application/json'
-    })
+        if (status === 'success') {
 
-    // alert(JSON.stringify(data))
+          if (data.message === 'Username already exists') {
+            alert('Username already exists!')
+          } else if (data.message === 'Email already exists') {
+            alert('Email already exists!')
+          } else {
+            alert(`Thank you ${this.state.username} for signing up!`)
+          }
+        }
+      }.bind(this)
+    })
   }
 
   render() {
