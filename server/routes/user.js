@@ -6,7 +6,7 @@
 const Router = require('koa-router');
 // Require internally
 const validateRegistration = require('../lib/validateRegistration');
-const savetoDatabase = require('../lib/savetoDatabase');
+const saveUsertoDatabase = require('../lib/saveUsertoDatabase');
 const requestLogin = require('../lib/requestLogin');
  // Initiate router instance
 let router = new Router();
@@ -15,7 +15,7 @@ let router = new Router();
 router.use('/register', validateRegistration);
 
 // save POST data to user model and store in database, while issuing a token
-router.post('/register', savetoDatabase);
+router.post('/register', saveUsertoDatabase);
 
 // check for invalid input, query database for matching email and password and grant token?
 router.post('/login', requestLogin);

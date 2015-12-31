@@ -7,94 +7,48 @@
  */
 
 // Require modules
-const Router = require('koa-router')
+const Router = require('koa-router');
 
 // Require Internally
-const User = require('../models/user')
-const Group = require('../models/group')
-const util = require('../util')
+const validateGroupName = require('../lib/validateGroupName');
+const saveGrouptoDatabase = require('../lib/saveGrouptoDatabase')
+// new insteance of Router constructor
+let router = new Router();
 
-let router
+// Middleware: query database to ensure nonmatching group name is provided
+router.use('/create', validateGroupName);
 
+// POST: Create a new group given JSON {name: String} and save group into database
+router.post('/create', saveGrouptoDatabase);
 
-module.exports = function (app) {
-  //API for /group/
-  let router = new Router({
-    prefix: '/group'                      //route path is fixed at router level
-  })
-
-  router.use('/create', validateGroup)    // use given middleware before route callback
-
-  /**
-   * Create a group given JSON {name: String}
-   */
-  router.post('/create', function* () {
-    let group = new Group({
-      name: this.request.body.name        // JSON in post is stored in request.body
-    })
+// Middleware: query database by group id and attach to this.groupModel
+router.param('groupid', function* (id, next) {         //middleware for attaching matching group document to this.groupModel
     try {
-      var groupModel = yield group.save()       // use try/catch + yield instead of if(error)/else in callbacks
-      this.body = groupModel
+      let groupModel = yield Group.findById(id);
+      if (!groupModel) {
+        this.status = 404                              // this is a koa context that encapsulates req and res
+        util.errorResponse(this)
+      } else {
+        this.groupModel = groupModel
+        yield next
+      }
     } catch (err) {
-      this.response.status = 500
       console.error(err)
+      this.status = 500
       util.errorResponse(this)
     }
   })
 
-  /**
-   * /:groupid/ - route using param :groupid
-   */
-  router.param('groupid', function* (id, next) {         //middleware for attaching matching group document to this.groupModel
-      try {
-        let groupModel = yield Group.findById(id);
-        if (!groupModel) {
-          this.status = 404                       // this is a koa context that encapsulates req and res
-          util.errorResponse(this)
-        } else {
-          this.groupModel = groupModel
-          yield next
-        }
-      } catch (err) {
-        console.error(err)
-        this.status = 500
-        util.errorResponse(this)
-      }
-    })
-    /**
-     * get group by group id
-     */
-    .get('/:groupid', function* () {
-      this.body = this.groupModel
-    })
-    /**
-     * invite - route to invite a user, accepts username for post
-     * request given JSON {username: String}
-     */
-    .post('/:groupid/invite', function () {
+// GET: sends group with attached group info. although i think should be able to incorporate with router.param.
+router.get('/:groupid', function* () {
+  this.body = this.groupModel;
+});
 
-    });
+//POST: invite - route to invite a user, accepts username for post
+// request given JSON {username: String}
+router.post('/:groupid/invite', function () {
 
-  app.use(router.routes())                          // have to use add middleware to routes using app.use()
-  app.use(router.allowedMethods())                  // automates security request
+});
 
-  }
 
-////
-
-function* validateGroup(next) {
-  let group = yield Group.findOne({
-    name: this.request.body.name
-  })
-  if (group) {
-    this.body = {
-      message: "Group name already exists"
-    }
-  } else if (!this.request.body.name) {
-    this.body = {
-      message: "No group name given"
-    }
-  } else {
-    yield next
-  }
-}
+module.exports = router;

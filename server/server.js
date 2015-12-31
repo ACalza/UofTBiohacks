@@ -50,11 +50,11 @@ app.use(jwt({ secret: config.SECRET }).unless({ path: ["/user/login", "/user/reg
 authUser.unless = require('koa-unless');
 app.use(authUser.unless({path: ["/user/login", "/user/register"] }));
 
-//require('./routes/user')(app)
-require('./routes/group')(app)
 
-// Mount Routor
-app.use(mount('/user', require('./routes/user').middleware()));         //Route for User registration
+// Mount Routor: Route Path is fixed at the Router level
+app.use(mount('/user', require('./routes/user').middleware()));         //Routes for User
+app.use(mount('/group', require('./routes/group').middleware()));       //Routes for Group
+//
 
 app.listen(port)
 console.log(`Koa server listening on port ${port}`)

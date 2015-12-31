@@ -7,7 +7,7 @@ const config = require('../config');                  // temporary KEY
 const User = require('../models/user');               // User is User Model
 
 
-function* savetoDatabase(){
+function* saveUsertoDatabase(){
     let user = new User({
         email: this.request.body.email,
         password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
@@ -34,4 +34,4 @@ function* savetoDatabase(){
       util.errorResponse(this)
     }
 }
-module.exports = savetoDatabase;
+module.exports = saveUsertoDatabase;
