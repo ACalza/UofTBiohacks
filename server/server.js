@@ -1,17 +1,23 @@
 'use strict'
 
+// Require Modules
 const koa = require('koa');
 const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
-const util = require('./util');
-const config = require('./config');
 const cors = require('kcors');
 const jwt = require('koa-jwt');
 const mount = require('koa-mount');
+const logger = require('koa-logger');
+
+// Require Internally
+const util = require('./util');
+const config = require('./config');
 const authUser = require('./auth/authuser');
-const port = process.env.PORT || 3000;
 
+// Declare variable
+var port = process.env.PORT || 3000;
 
+// Instance of Koa
 let app = koa();
 
 // Connect to database
@@ -30,38 +36,25 @@ db.once('open', function() {
 });
 
 // Global middleware
-app.use(require('koa-validate')());
+app.use(logger());
+app.use(require('koa-validate')());       // gives context functionailities
+app.use(cors());
+app.use(bodyParser());                    // parsing POST form data and populate req.body
+app.use(function* (next) {                // set content type to JSON
+  this.type = 'json';
+  yield next;
+});
 
-app.use(cors())
-
-app.use(bodyParser())  //parsing POST form data and populate req.body
-
-app.use(function* (next) {
-  this.type = 'json'
-  yield next
-})
-
-// logger
-app.use(function* (next) {
-  var start = new Date
-  yield next
-  var ms = new Date - start
-  this.set('X-Response-Time', ms + 'ms')
-  console.log('%s %s - %s', this.method, this.url, ms)
-})
-
-
+// authorization middleware  should be here???
 app.use(jwt({ secret: config.SECRET }).unless({ path: ["/user/login", "/user/register"] }));
-
 authUser.unless = require('koa-unless');
 app.use(authUser.unless({path: ["/user/login", "/user/register"] }));
 
-//routes
 //require('./routes/user')(app)
 require('./routes/group')(app)
 
 // Mount Routor
-app.use(mount('/user', require('./routes/register').middleware()));
+app.use(mount('/user', require('./routes/user').middleware()));         //Route for User registration
 
 app.listen(port)
 console.log(`Koa server listening on port ${port}`)

@@ -1,15 +1,22 @@
 'use strict'
 
-const Router = require('koa-router')
-const User = require('../models/user')
-const Group = require('../models/group')
-const util = require('../util')
-
 /**
  * API for creating groups
  * @param  Koa app
  * @return N/A
  */
+
+// Require modules
+const Router = require('koa-router')
+
+// Require Internally
+const User = require('../models/user')
+const Group = require('../models/group')
+const util = require('../util')
+
+let router
+
+
 module.exports = function (app) {
   //API for /group/
   let router = new Router({
