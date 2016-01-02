@@ -40,14 +40,14 @@ router.param('groupid', function* (id, next) {         //middleware for attachin
   })
 
 // GET: sends group with attached group info. although i think should be able to incorporate with router.param.
-router.get('/:groupid', function* () {
+    .get('/:groupid', function* () {
   this.body = this.groupModel;
-});
+})
 
 //POST: invite - route to invite a user, accepts username for post
 // request given JSON {username: String}
-router.post('/:groupid/invite', function () {
-
+    .post('/:groupid/invite', function () {
+        //Use .invites to add the current group to the other user's invite array
 });
 
 
