@@ -23,6 +23,7 @@ let userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
+  invites:[mongoose.Schema.ObjectId], //Invites to groups
   group: mongoose.Schema.ObjectId,
   school: String, //Won't be required
   github: String,
