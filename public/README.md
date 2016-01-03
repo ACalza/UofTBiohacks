@@ -1,16 +1,9 @@
-# React Static Boilerplate
+# public
 
-[![NPM version](http://img.shields.io/npm/v/generator-react-static.svg?style=flat-square)](https://www.npmjs.com/package/generator-react-static)
-[![NPM downloads](http://img.shields.io/npm/dm/generator-react-static.svg?style=flat-square)](https://www.npmjs.com/package/generator-react-static)
-[![Build Status](http://img.shields.io/travis/koistya/react-static-boilerplate/master.svg?style=flat-square)](https://travis-ci.org/koistya/react-static-boilerplate)
-[![Dependency Status](http://img.shields.io/david/dev/koistya/react-static-boilerplate.svg?branch=master&style=flat-square)](https://david-dm.org/koistya/react-static-boilerplate#info=devDependencies)
-
-> A static website starter kit powered by [React.js](http://facebook.github.io/react/)
+> A static website powered by [React.js](http://facebook.github.io/react/)
 > and [Webpack](http://webpack.github.io/).
 
-Visit [demo site](http://react-static.tarkus.me) &nbsp;|&nbsp;
-See [roadmap](https://waffle.io/koistya/react-static-boilerplate) &nbsp;|&nbsp;
-Join [#react-static-boilerplate](https://gitter.im/koistya/react-static-boilerplate) chatroom on Gitter to stay up to date.
+**Note**: *This project is based on [react-static-boilerplate](https://github.com/koistya/react-static-boilerplate).*
 
 ### Features
 
@@ -31,7 +24,7 @@ Join [#react-static-boilerplate](https://gitter.im/koistya/react-static-boilerpl
 ├── /build/                     # The folder for compiled output
 ├── /node_modules/              # 3rd-party libraries and utilities
 ├── /components/                # React components
-├── /core/                      # Core framework
+├── /lib/                       # Libraries and utilities
 ├── /pages/                     # React.js-based web pages
 │   ├── /blog/                  # Blog post entries example
 │   ├── /404.js                 # Not Found page
@@ -76,23 +69,6 @@ $ npm test
 $ npm run deploy                # Deploys the project to GitHub Pages
 ```
 
-Alternatively, you can build a production release to manually deploy to S3, Firebase, Netlify, and other static hosts. Simply run the command below and copy the generated `build` folder to your static host.
-
-```shell
-$ npm run build release         # Build production release 
-```
-
-### How to Update
-
-You can always fetch and merge the recent changes from this repo back into
-your own project:
-
-```shell
-$ git checkout master
-$ git fetch react-static-boilerplate
-$ git merge react-static-boilerplate/master
-$ npm install
-```
 ### Related Projects
 
   * [React Starter Kit](https://github.com/kriasoft/react-starter-kit)
@@ -108,4 +84,4 @@ $ npm install
   * [Learn ES6](https://babeljs.io/docs/learn-es6/), [ES6 Features](https://github.com/lukehoban/es6features#readme)
 
 ---
-Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/koistya/react-static-boilerplate/graphs/contributors) &nbsp;|&nbsp; MIT License
+Copyright (c) .&nbsp; All rights reserved.

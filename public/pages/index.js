@@ -5,16 +5,16 @@
  */
 
 import React, { Component } from 'react';
-import Registration from '../components/Registration'
-
 
 export default class extends Component {
+
   render() {
     return (
       <div>
-        <h1>Register</h1>
-        <Registration />
+        <h1>Home Page</h1>
+        <p>Coming soon.</p>
       </div>
     );
   }
+
 }
