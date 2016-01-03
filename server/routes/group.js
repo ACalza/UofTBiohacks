@@ -11,7 +11,9 @@ const Router = require('koa-router');
 
 // Require Internally
 const validateGroupName = require('../lib/validateGroupName');
-const saveGrouptoDatabase = require('../lib/saveGrouptoDatabase')
+const Group = require('../models/group');
+const util = require('../util');
+
 // new insteance of Router constructor
 let router = new Router();
 
@@ -49,6 +51,36 @@ router.param('groupid', function* (id, next) {         //middleware for attachin
     .post('/:groupid/invite', function () {
         //Use .invites to add the current group to the other user's invite array
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// ==> FUNCTION <== //
+
+function* saveGrouptoDatabase(){
+  let group = new Group({
+    name: this.request.body.name           // JSON in post is stored in request.body
+  })
+  try {
+    var groupModel = yield group.save()    // use try/catch + yield instead of if(error)/else in callbacks
+    this.body = groupModel
+  } catch (err) {
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
+  }
+}
 
 
 module.exports = router;
