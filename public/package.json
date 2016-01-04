@@ -50,7 +50,10 @@
     "deploy": "babel-node --eval \"require('./tools/deploy')().catch(err => console.log(err.stack))\""
   },
   "dependencies": {
+    "formsy-material-ui": "^0.3.3",
+    "formsy-react": "^0.17.0",
+    "material-ui": "^0.14.0",
     "react-cookie": "^0.4.3",
-    "react-formly": "0.0.5"
+    "react-tap-event-plugin": "^0.2.1"
   }
 }
