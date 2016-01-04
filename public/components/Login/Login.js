@@ -4,19 +4,17 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import autobind from 'autobind-decorator'
 import $ from 'jquery'
 import cookie from 'react-cookie'
-
+import Snackbar from 'material-ui/lib/snackbar';
 
 @autobind
 export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      canSubmit: false
-    }
-    this.errorMessages = {
-      wordsError: 'Please fill in the entire form',
-      serverError: 'Internal Server Error, please try again',
-      verifcationError: 'Invalid email/username and/or password'
+      canSubmit: false,
+      autoHideDuration: 3000,
+      open: false,
+      message: 'Invalid email/username and/or password'
     }
   }
   enableButton() {
@@ -36,9 +34,12 @@ export default class Login extends Component {
       data: model,
       success: function(data) {
         if(data.token){
+          cookie.save('jwt', data.token)
           console.log(data)
         }else{
-          console.log("Naw you fucked up");
+          this.setState({
+            open: true
+          })
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -47,9 +48,13 @@ export default class Login extends Component {
     });
     console.log('model: ' + JSON.stringify(model))
   }
-
+  handleRequestClose(){
+    console.log("here");
+    this.setState({
+      open: false
+    })
+  }
   render() {
-    let { wordsError } = this.errorMessages
     return (
       <Formsy.Form
         onValid = {this.enableButton}
@@ -58,7 +63,6 @@ export default class Login extends Component {
 
         <FormsyText style={{display: 'block'}}
           name = 'emailOrUsername'
-          validationError = {wordsError}
           required hintText = "What is your Email or Username?"
           floatingLabelText = "Email or Username"
         />
@@ -66,7 +70,6 @@ export default class Login extends Component {
         <FormsyText style={{display: 'block'}}
           name = 'password'
           type = 'password'
-          validationError = {wordsError}
           required hintText = "What is your password?"
           floatingLabelText = "Password"
         />
@@ -76,6 +79,15 @@ export default class Login extends Component {
           label = "Submit"
           disabled = {!this.state.canSubmit}
           />
+
+        <Snackbar
+          open={this.state.open}
+          message={this.state.message}
+          action="Close"
+          autoHideDuration={this.state.autoHideDuration}
+          onActionTouchTap={this.handleRequestClose}
+          onRequestClose={this.handleRequestClose}
+        />
       </Formsy.Form>
     )
   }
