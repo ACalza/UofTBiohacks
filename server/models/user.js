@@ -23,8 +23,8 @@ let userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  invites:[mongoose.Schema.ObjectId], //Invites to groups
-  group: mongoose.Schema.ObjectId,
+  invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
+  group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group' },
   school: String, //Won't be required
   github: String,
   about: String, //Likely to be mandatory, for now no.

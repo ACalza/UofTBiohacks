@@ -11,7 +11,7 @@ let groupSchema = mongoose.Schema({
   },
   // Could change to string later
   // If it's id we can ref and .populate
-  users: [mongoose.Schema.ObjectId]
+  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 })
 
 module.exports = mongoose.model('group', groupSchema)
