@@ -11,20 +11,18 @@ const User = require('../models/user');               // User is User Model
 function* requestLogin(next){
 
   // assign variable
-  let email = util.trim(this.request.body.emailOrUsername)
+  let emailOrUsername = util.trim(this.request.body.emailOrUsername)
   let password = this.request.body.password
 
   // check for invalid input
-  if (!email || !password) {
+  if (!emailOrUsername || !password) {
     this.response.status = 400
     util.errorResponse(this)
   } else {
      // try/catch
      try {
-        // query database for matching email
-        let model = yield User.findOne({
-          email: email
-      })
+        // query database for matching email OR username
+        let model = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]})
       // check for matching password
       if (model && bcrypt.compareSync(password, model.password)) {
           // mask password and grant token
@@ -39,7 +37,7 @@ function* requestLogin(next){
          };
        } else {                           // authentication fails
          this.body = {
-           message: "Wrong password and/or email"
+           message: "Wrong password and/or emailOrUsername"
          }
        }
      } catch (err) {
