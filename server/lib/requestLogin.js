@@ -11,7 +11,7 @@ const User = require('../models/user');               // User is User Model
 function* requestLogin(next){
 
   // assign variable
-  let email = util.trim(this.request.body.email)
+  let email = util.trim(this.request.body.emailOrUsername)
   let password = this.request.body.password
 
   // check for invalid input
