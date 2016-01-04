@@ -4,6 +4,7 @@
 // Require Local
 const Group = require('../models/group');             // Group is a group Model
 
+// Middleware: query database to ensure nonmatching group name is provided
 module.exports.validateGroupName = function* (next){
   let group = yield Group.findOne({
     name: this.request.body.name
@@ -21,6 +22,7 @@ module.exports.validateGroupName = function* (next){
   }
 }
 
+// POST: Create a new group given JSON {name: String} and save group into database
 module.exports.saveGrouptoDatabase = function* (){
   let group = new Group({
     name: this.request.body.name           // JSON in post is stored in request.body
@@ -35,6 +37,7 @@ module.exports.saveGrouptoDatabase = function* (){
   }
 }
 
+// Middleware: query database by group id and attach to this.groupModel
 module.exports.findGroupbyId = function* (id, next) {         //middleware for attaching matching group document to this.groupModel
     try {
       let groupModel = yield Group.findById(id);
@@ -51,3 +54,8 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
       util.errorResponse(this)
     }
   }
+
+//POST: invite - route to invite a user, accepts username for post
+module.exports.inviteUsertoGroup = function* (){
+    this.body = 'success'
+}

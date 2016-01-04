@@ -14,15 +14,11 @@ const User = require('../models/user');               // User is User Model
  // Initiate router instance
 let router = new Router();
 
-// trim form data, validate not undefined, and check for duplicates in the database
 router.use('/register', userMiddlewares.validateRegistration);
-
-// save POST data to user model and store in database, while issuing a token
 router.post('/register', userMiddlewares.saveUsertoDatabase);
 
-// check for invalid input, query database for matching email and password and grant token?
-router.post('/login', userMiddlewares.requestLogin);
 
+router.post('/login', userMiddlewares.requestLogin);
 // logging out
 router.get('/logout', function*(){
     this.body = {
