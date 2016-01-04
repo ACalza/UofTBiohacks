@@ -23,7 +23,6 @@ export default function(source) {
 
     const lines = files.map(file => {
       let path = '/' + file;
-
       if (path === '/index.js' || path === '/index.jsx') {
         path = '/';
       } else if (path.endsWith('/index.js')) {
@@ -35,7 +34,7 @@ export default function(source) {
       } else if (path.endsWith('.jsx')) {
         path = path.substr(0, path.length - 4);
       }
-
+    
       if (target === 'node' || path === '/404' || path === '/500') {
         return `  '${path}': () => require('./pages/${file}'),`;
       }

@@ -17,16 +17,10 @@ class Layout extends Component {
   render() {
     return (
       <div className="Layout">
+        <Navigation />
         {this.props.children}
       </div>
     );
-
-    // return (
-    //   <div className="Layout">
-    //     <Navigation />
-    //     {this.props.children}
-    //   </div>
-    // );
   }
 
 }
