@@ -53,7 +53,7 @@ export default class Login extends Component {
       <Formsy.Form
         onValid = {this.enableButton}
         onInvalid = {this.disableButton}
-        onValidSubmit = {this.submitForm}>
+        onValidSubmit = {this.props.submitForm}>
 
         <FormsyText style={{display: 'block'}}
           required

@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 import Registration from '../Registration'
 
+import AuthService from '../../services/AuthService'
+
 export default class extends Component {
 
   render() {
     let content
     if ( canUseDOM ) {
-      content = <Registration />
+      content = <Registration submitForm={AuthService.constructPayload}/>
     } else {
       content = <div></div>
     }
