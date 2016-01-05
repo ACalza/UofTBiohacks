@@ -63,14 +63,13 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
 
 // POST sends in {userId: [Array of ids to invite]},
 // query users, adds current group, and populate their invites array.
-// populates the current group.users with the array of users
 module.exports.inviteUsertoGroup = function* (){
     var userIdArray = this.request.body.userId;
     try {
         for (let i=0; i<userIdArray.length; i++) {
-            let doc = yield User.findById(userIdArray[i])
-            doc.invites.push(this.groupModel.id)
-            let result = yield doc.save()             // add try catch?
+            let user = yield User.findById(userIdArray[i])
+            user.invites.push(this.groupModel.id)
+            let result = yield user.save()             // add try catch?
         }
     } catch(err){
         console.error(err);
@@ -80,3 +79,5 @@ module.exports.inviteUsertoGroup = function* (){
     this.body = 'success'
 
 }
+
+// populates the current group.users with the array of users
