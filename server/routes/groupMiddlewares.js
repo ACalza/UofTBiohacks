@@ -3,9 +3,14 @@
 
 // Require Local
 const Group = require('../models/group');             // Group is a group Model
+const User = require('../models/user');
+
+const util = require('../util');
+
 
 // Middleware: query database to ensure nonmatching group name is provided
 module.exports.validateGroupName = function* (next){
+  console.log('sdfsdfdsfdsf')
   let group = yield Group.findOne({
     name: this.request.body.name
   })
@@ -24,6 +29,7 @@ module.exports.validateGroupName = function* (next){
 
 // POST: Create a new group given JSON {name: String} and save group into database
 module.exports.saveGrouptoDatabase = function* (){
+  console.log('here')
   let group = new Group({
     name: this.request.body.name           // JSON in post is stored in request.body
   })
@@ -55,7 +61,22 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
     }
   }
 
-//POST: invite - route to invite a user, accepts username for post
+// POST sends in {userId: [Array of ids to invite]},
+// query users, adds current group, and populate their invites array.
+// populates the current group.users with the array of users
 module.exports.inviteUsertoGroup = function* (){
+    var userIdArray = this.request.body.userId;
+    try {
+        for (let i=0; i<userIdArray.length; i++) {
+            let doc = yield User.findById(userIdArray[i])
+            doc.invites.push(this.groupModel.id)
+            let result = yield doc.save()             // add try catch?
+        }
+    } catch(err){
+        console.error(err);
+        this.status = 400
+        util.errorRespose(this)
+    }
     this.body = 'success'
+
 }
