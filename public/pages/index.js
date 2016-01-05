@@ -5,13 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import Home from '../components/Home/Home.js'
+import Main from '../components/Main'
 
 export default class extends Component {
 
   render() {
     return (
-      <Home />
+      <Main />
     );
   }
 
