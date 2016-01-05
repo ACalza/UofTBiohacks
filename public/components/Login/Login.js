@@ -4,7 +4,8 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import autobind from 'autobind-decorator'
 import $ from 'jquery'
 import cookie from 'react-cookie'
-import Snackbar from 'material-ui/lib/snackbar';
+import Snackbar from 'material-ui/lib/snackbar'
+import uriService from '../../services/UriService'
 
 @autobind
 export default class Login extends Component {
@@ -30,7 +31,7 @@ export default class Login extends Component {
   submitForm(model) {
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:3000/user/login',
+      url: uriService.baseUri() + '/user/login',
       data: model,
       success: function(data) {
         if(data.token){
@@ -48,8 +49,7 @@ export default class Login extends Component {
     });
     console.log('model: ' + JSON.stringify(model))
   }
-  handleRequestClose(){
-    console.log("here");
+  handleRequestClose() {
     this.setState({
       open: false
     })
