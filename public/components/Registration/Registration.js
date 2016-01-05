@@ -25,28 +25,28 @@ export default class Login extends Component {
     this.setState({ canSubmit: false })
   }
 
-  submitForm(model) {
-    console.log(model)
-    // $.ajax({
-    //   type: 'POST',
-    //   url: uriService.baseUri() + '/user/login',
-    //   data: model,
-    //   success: function(data) {
-    //     if(data.token){
-    //       cookie.save('jwt', data.token)
-    //       console.log(data)
-    //     }else{
-    //       this.setState({
-    //         open: true
-    //       })
-    //     }
-    //   }.bind(this),
-    //   error: function(xhr, status, err) {
-    //     console.error(this.props.url, status, err.toString());
-    //   }.bind(this)
-    // });
-    // console.log('model: ' + JSON.stringify(model))
-  }
+  // submitForm(model) {
+  //   console.log(model)
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: uriService.baseUri() + '/user/login',
+  //     data: model,
+  //     success: function(data) {
+  //       if(data.token){
+  //         cookie.save('jwt', data.token)
+  //         console.log(data)
+  //       }else{
+  //         this.setState({
+  //           open: true
+  //         })
+  //       }
+  //     }.bind(this),
+  //     error: function(xhr, status, err) {
+  //       console.error(this.props.url, status, err.toString());
+  //     }.bind(this)
+  //   });
+  //   console.log('model: ' + JSON.stringify(model))
+  // }
 
   render() {
     return (

@@ -18,7 +18,7 @@ module.exports.validateRegistration = function* (next) {
   let name = this.request.body.name
   let username = this.request.body.username
   // If name, password or email does not exist
-  if (!email || !password || !name || !username || password.length <= 8) {
+  if (!email || !password || !name || !username || password.length < 8) {
     this.response.status = 400 // set response status before sending
     util.errorResponse(this)
   } else if (!this.checkBody('email').isEmail().goOn) {
