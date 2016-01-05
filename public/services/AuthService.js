@@ -1,5 +1,6 @@
 import UriService from './UriService.js'
 
+import cookie from 'react-cookie'
 import $ from 'jquery'
 
 class AuthService {
@@ -13,6 +14,10 @@ class AuthService {
     this.post(payload, '/user/register')
   }
 
+  setCB = (cb) => {
+    this.cb = cb
+  }
+
   login = (model) => {
     const payload = {
       emailOrUsername: model.emailOrUsername,
@@ -21,7 +26,7 @@ class AuthService {
     this.post(payload, '/user/login')
   }
 
-  post(payload, uri) {
+  post = (payload, uri) => {
     uri = UriService.baseUri() + uri
     console.log(`gonna post to ${uri} with `, payload)
 
@@ -31,15 +36,14 @@ class AuthService {
       data: payload,
       success: function(data) {
         console.log(data)
-
-        // if(data.token){
-        //   cookie.save('jwt', data.token)
-        //   console.log(data)
-        // }else{
-        //   this.setState({
-        //     open: true
-        //   })
-        // }
+        if (data.token) {
+          console.log('Successful registration')
+          cookie.save('jwt', data.token)
+          console.log(this)
+          this.cb('sucess')
+        } else {
+          alert(data.message)
+        }
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(status, err.toString());
