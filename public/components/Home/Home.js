@@ -12,8 +12,9 @@ export default class extends Component {
     AuthService.setCB(this.onRegister)
   }
 
-  onRegister(status) {
+  onRegister = (status) => {
     console.log('from Home.js ', status)
+    this.props.statusEmitter(status)
   }
 
   render() {

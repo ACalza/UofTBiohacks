@@ -39,9 +39,9 @@ class AuthService {
         if (data.token) {
           console.log('Successful registration')
           cookie.save('jwt', data.token)
-          console.log(this)
-          this.cb('sucess')
+          this.cb(true, 'Successful registration')
         } else {
+          this.cb(false, data.message)
           alert(data.message)
         }
       }.bind(this),

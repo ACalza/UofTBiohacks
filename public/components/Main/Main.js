@@ -14,10 +14,20 @@ export default class Main extends Component {
     }
   }
 
+  statusEmitter = (status) => {
+    if (status) {
+      this.setState({
+        loggedIn: true
+      })
+    } else {
+      console.log(status)
+    }
+  }
+
   render() {
     let content
     if (!this.state.loggedIn) {
-      content = <Home />
+      content = <Home statusEmitter={this.statusEmitter}/>
     } else {
       content = <Account />
     }
