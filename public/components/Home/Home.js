@@ -10,7 +10,7 @@ export default class extends Component {
   render() {
     let content
     if ( canUseDOM ) {
-      content = <Registration submitForm={AuthService.constructPayload}/>
+      content = <Registration submitForm={AuthService.register}/>
     } else {
       content = <div></div>
     }
