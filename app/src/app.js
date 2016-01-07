@@ -29,32 +29,12 @@ import FMUI, { FormsyText, FormsyToggle } from 'formsy-material-ui'
 import RaisedButton from 'material-ui/lib/raised-button'
 
 ReactDOM.render(
-  <Formsy.Form>
-      onValid = {() => alert('valid')}
-      onInvalid = {() => alert('invalid')}
-      onValidSubmit = {() => alert('validsubmit')}>
-
-      <FormsyText style={{display: 'block'}}
-        required
-        name = 'email'
-        validations="isEmail"
-        validationError={'Invalid email'}
-        hintText = "What is your email?"
-        floatingLabelText = "Email"
-      />
-
-    <RaisedButton> Register </RaisedButton>
-  </Formsy.Form>,
+  <Provider store={store}>
+    <Router history={createBrowserHistory()}>
+      <Route path="/" component={Home} />
+      <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
+    </Router>
+  </Provider>,
   appContainer
 )
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <Router history={createBrowserHistory()}>
-//       <Route path="/" component={Home} />
-//       <Route path="/register" component={Register} />
-//       <Route path="/login" component={Login} />
-//     </Router>
-//   </Provider>,
-//   appContainer
-// )

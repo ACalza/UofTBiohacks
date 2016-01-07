@@ -29,7 +29,7 @@
     "formsy-react": "^0.17.0",
     "history": "^1.17.0",
     "jquery": "^2.1.4",
-    "material-ui": "^0.14.1",
+    "material-ui": "0.14.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-pure-render": "^1.0.2",
