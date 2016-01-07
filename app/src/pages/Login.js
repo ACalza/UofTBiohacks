@@ -34,11 +34,13 @@ export default class Login extends Component {
   submitForm(model) {
     console.log('model: ' + JSON.stringify(model))
   }
+
   handleRequestClose() {
     this.setState({
       open: false
     })
   }
+
   render() {
     return (
       <Layout title="Login">
