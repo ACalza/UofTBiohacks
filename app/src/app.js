@@ -15,7 +15,11 @@ document.body.appendChild(appContainer)
 class Home extends React.Component {
   render() {
     return (
-      <Title title="UofT BioHacks" />
+      <div>
+        <Title title="UofT BioHacks" />
+        <Link to="/register">Register</Link>
+        {this.props.children}
+      </div>
     )
   }
 }
@@ -31,9 +35,8 @@ class Register extends React.Component {
 // Main render
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path="/" component={Home}>
-      <Route path="register" component={Register} />
-    </Route>
+    <Route path="/" component={Home} />
+    <Route path="/register" component={Register} />
   </Router>,
-  document.body
+  appContainer
 )
