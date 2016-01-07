@@ -6,7 +6,7 @@ import Navigation from './Navigation'
 export default class Layout extends Component {
   render() {
     const { title } = this.props
-    const navLinks = ['/', '/register']
+    const navLinks = ['/', '/register', '/login']
 
 
     return(
