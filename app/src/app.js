@@ -26,37 +26,43 @@ import Register from './pages/Register'
 
 class App extends React.Component {
   render() {
-    const { logged } = this.props.store.getState()
-    console.log(logged)
+    const { actions, logged } = this.props
 
     return (
-      <span>{logged.toString()}</span>
+      <div>
+        <span>{logged.toString()}</span>
+        <button onClick={actions.logIn}> Log In </button>
+        <button onClick={actions.logOut}> Log Out </button>
+      </div>
     )
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     logged: state
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    logged: state.logged
+  }
+}
 
-// const AppContainer = connect(mapStateToProps)(App)
+import { bindActionCreators } from 'redux'
+import * as LoggedActions from './actions/logged'
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(LoggedActions, dispatch)
+  }
+}
+
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
 
 import { connect } from 'react-redux'
 
 ReactDOM.render(
-  <App store={store} />,
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
   appContainer
 )
-
-// ReactDOM.render(
-//   <Provider store={store} >
-//     <App store={store} />
-//   </Provider>,
-//   appContainer
-// )
-
 
 // Main render
 // ReactDOM.render(
