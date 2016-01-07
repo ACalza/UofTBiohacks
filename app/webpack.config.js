@@ -47,6 +47,9 @@ module.exports = {
       require('autoprefixer')({ browsers: ['last 2 versions'] })
     ];
   },
+  resolve: {
+    extensions: ['', '.js']
+  },
   plugins: [
     new HtmlWebpackPlugin({ title: 'UofT BioHacks'}),
     new webpack.HotModuleReplacementPlugin()
