@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import Layout from '../components/Layout'
+import { connect } from 'react-redux'
 import FMUI, { FormsyText } from 'formsy-material-ui'
 
 import RaisedButton from 'material-ui/lib/raised-button'
 import Snackbar from 'material-ui/lib/snackbar'
 
-export default class Login extends Component {
+import Layout from '../components/Layout'
+
+import { logIn, logOut } from '../actions/logged'
+
+
+class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -14,9 +19,10 @@ export default class Login extends Component {
       open: false,
       message: 'Invalid email/username and/or password'
     }
-    console.log(this)
+
     this.enableButton = this.enableButton.bind(this)
     this.disableButton = this.disableButton.bind(this)
+    this.submitForm = this.submitForm.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
   }
   enableButton() {
@@ -32,7 +38,8 @@ export default class Login extends Component {
   }
 
   submitForm(model) {
-    console.log('model: ' + JSON.stringify(model))
+    console.log('from form model: ' + JSON.stringify(model))
+    this.props.dispatch(logIn(model, '/user/login'))
   }
 
   handleRequestClose() {
@@ -81,3 +88,6 @@ export default class Login extends Component {
     )
   }
 }
+
+
+export default connect()(Login)
