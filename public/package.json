@@ -57,7 +57,9 @@
     "jquery": "^2.1.4",
     "material-ui": "^0.14.0",
     "react-cookie": "^0.4.3",
+    "react-redux": "^4.0.6",
     "react-tap-event-plugin": "^0.2.1",
+    "redux": "^3.0.5",
     "request-promise": "^1.0.2",
     "superagent-promise": "^1.1.0"
   }
