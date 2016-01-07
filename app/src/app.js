@@ -7,36 +7,16 @@ import createBrowserHistory from 'history/lib/createBrowserHistory'
 // Components
 import Title from './components/Title'
 import Navigation from './components/Navigation'
+import Layout from './components/Layout'
 
 // App container setup
 let appContainer = document.createElement('div')
 appContainer.id = 'appContainer'
 document.body.appendChild(appContainer)
 
-
-const navLinks = ['/', '/register']
-
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <Title title="UofT BioHacks" />
-        <Navigation links={navLinks} />
-      </div>
-    )
-  }
-}
-
-class Register extends React.Component {
-  render() {
-    return (
-      <div>
-        <Title title="Register" />
-        <Navigation links={navLinks} />
-      </div>
-    )
-  }
-}
+// Pages
+import Home from './pages/Home'
+import Register from './pages/Register'
 
 // Main render
 ReactDOM.render(
