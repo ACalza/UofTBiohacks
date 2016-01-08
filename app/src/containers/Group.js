@@ -52,46 +52,52 @@ export default class Group extends Component {
 
   render() {
     let content
-    if(!this.props.groupModel)
-      content = <Layout title="Create a Group">
-      <Formsy.Form
-        onValid = {this.enableButton}
-        onInvalid = {this.disableButton}
-        onValidSubmit = {this.submitForm}>
+    if(!this.props.groupModel){
+      content =
+      <div className="accountPage">
+        <h2>Invites</h2>
 
-        <FormsyText style={{display: 'block'}}
-          name = 'name'
-          required hintText = "What is your group name?"
-          floatingLabelText = "Group Name"
-        />
+        <h2>Create a Group</h2>
+        <Formsy.Form
+          onValid = {this.enableButton}
+          onInvalid = {this.disableButton}
+          onValidSubmit = {this.submitForm}>
 
-        <RaisedButton
-          type = "submit"
-          label = "Submit"
-          disabled = {!this.state.canSubmit}
-        />
-      </Formsy.Form>
-    </Layout>
-    else{
-      content = <Layout title="Invite Members to your Group!">
-      <Formsy.Form
-        onValid = {this.enableButton}
-        onInvalid = {this.disableButton}
-        onValidSubmit = {this.submitForm}>
+          <FormsyText style={{display: 'block'}}
+            name = 'name'
+            required hintText = "What is your group name?"
+            floatingLabelText = "Group Name"
+          />
 
-        <FormsyText style={{display: 'block'}}
-          name = 'name'
-          required hintText = "Type username"
-          floatingLabelText = "Invite a user to your group"
-        />
+          <RaisedButton
+            type = "submit"
+            label = "Submit"
+            disabled = {!this.state.canSubmit}
+          />
+        </Formsy.Form>
+    </div>
+  }else{
+      content =
+      <div className="accountPage">
+        <h2>Invite a user!</h2>
+        <Formsy.Form
+          onValid = {this.enableButton}
+          onInvalid = {this.disableButton}
+          onValidSubmit = {this.submitForm}>
 
-        <RaisedButton
-          type = "submit"
-          label = "Submit"
-          disabled = {!this.state.canSubmit}
-        />
-      </Formsy.Form>
-    </Layout>
+          <FormsyText style={{display: 'block'}}
+            name = 'name'
+            required hintText = "Type username"
+            floatingLabelText = "Invite a user to your group"
+          />
+
+          <RaisedButton
+            type = "submit"
+            label = "Submit"
+            disabled = {!this.state.canSubmit}
+          />
+        </Formsy.Form>
+      </div>
     }
 
     return(

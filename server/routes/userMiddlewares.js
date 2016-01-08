@@ -78,12 +78,22 @@ module.exports.saveUsertoDatabase = function* (){
     }
 }
 
+function* getGroupInvites(userModel){
+  let groupInvites = []
+  if(userModel.invites){
+    for(let i = 0; i < userModel.invites.length; i++){
+      groupInvites.push(yield Group.findById(userModel.invites[i]))
+    }
+  }
+  return groupInvites;
+}
+
 // check for invalid input, query database for matching email and password and grant token?
 module.exports.requestLogin = function* (next){
   // assign variable
   let emailOrUsername = util.trim(this.request.body.emailOrUsername)
   let password = this.request.body.password
-
+  let model;
   // check for invalid input
   if (!emailOrUsername || !password) {
     this.response.status = 400
@@ -92,7 +102,7 @@ module.exports.requestLogin = function* (next){
      // try/catch
      try {
         // query database for matching email OR username
-        let model = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]})
+        model = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]})
       // check for matching password
       if (model && bcrypt.compareSync(password, model.password)) {
           // mask password and grant token
@@ -106,7 +116,13 @@ module.exports.requestLogin = function* (next){
           let groupModel = null;
           if(this.userModel.group){
             groupModel = yield Group.findById(this.userModel.group)
+          }else{
+            model = model.toJSON()
+            model.invites = yield getGroupInvites(model)
+            console.log(model)
           }
+
+
          this.body = {
            token: token,
            userModel: model,
