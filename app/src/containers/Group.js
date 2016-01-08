@@ -51,12 +51,13 @@ export default class Group extends Component {
   };
 
   render() {
+    console.log(this.props.userModel)
     let content
     if(!this.props.groupModel){
       content =
       <div className="accountPage">
         <h2>Invites</h2>
-
+        {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
         <h2>Create a Group</h2>
         <Formsy.Form
           onValid = {this.enableButton}
@@ -108,7 +109,8 @@ export default class Group extends Component {
 let mapStateToProps = (state) => {
   return {
     jwt: state.logged.jwt,
-    groupModel: state.logged.groupModel
+    groupModel: state.logged.groupModel,
+    userModel: state.logged.userModel
   }
 }
 export default connect(mapStateToProps)(Group)

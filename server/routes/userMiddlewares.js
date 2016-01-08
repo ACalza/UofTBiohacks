@@ -119,7 +119,6 @@ module.exports.requestLogin = function* (next){
           }else{
             model = model.toJSON()
             model.invites = yield getGroupInvites(model)
-            console.log(model)
           }
 
 
