@@ -54,6 +54,7 @@ const handleRegister = (state, data) => {
 const handleLogInOrRegister = (state, {token, message, userModel, groupModel}, snackboxMessage) => {
   if (token) {
     history.replaceState(null, '/account')
+
     return {
       ...state,
       userModel,

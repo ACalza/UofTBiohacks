@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const util = require('../util');                      // for error function
 const config = require('../config');                  // temporary KEY
 const User = require('../models/user');               // User is user Model
+const Group = require('../models/group');     
 
 // trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function* (next) {
@@ -96,14 +97,20 @@ module.exports.requestLogin = function* (next){
       if (model && bcrypt.compareSync(password, model.password)) {
           // mask password and grant token
           model.password = undefined;
+          this.userModel = model
           let token = jwt.sign({
             userModel: model
           }, config.SECRET, {
            expiresInMinutes: 60 * 5       // session expiration time
           });
+          let groupModel = null;
+          if(this.userModel.group){
+            groupModel = yield Group.findById(this.userModel.group)
+          }
          this.body = {
            token: token,
-           userModel: model
+           userModel: model,
+           groupModel: groupModel
          };
        } else {                           // authentication fails
          this.body = {
