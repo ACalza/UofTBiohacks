@@ -38,7 +38,7 @@ class Register extends Component {
   submitForm = (model) => {
     const { dispatch } = this.props
 
-    ajaxPost(model, '/user/register', (err, data) => {
+    ajaxPost(model, '/user/register', null, (err, data) => {
       if (err) {
         console.error(err)
       } else {

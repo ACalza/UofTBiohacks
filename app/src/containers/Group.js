@@ -30,11 +30,12 @@ export default class Group extends Component {
 
   submitForm = (model) => {
     const { dispatch } = this.props
-    console.log(this)
-    ajaxPost(model, '/group/create', (err, data) => {
+    console.log(this.props.jwt);
+    ajaxPost(model, '/group/create', this.props.jwt, (err, data) => {
       if (err) {
         console.error(err)
       } else {
+        console.log(model);
         dispatch(createGroup(model))
       }
     })
@@ -66,4 +67,9 @@ export default class Group extends Component {
     )
   }
 }
-export default connect()(Group)
+let mapStateToProps = (state) => {
+  return {
+    jwt: state.logged.jwt
+  }
+}
+export default connect(mapStateToProps)(Group)

@@ -28,6 +28,7 @@ module.exports.validateGroupName = function* (next){
 
 // POST: Create a new group given JSON {name: String} and save group into database
 module.exports.saveGrouptoDatabase = function* (){
+  console.log(this.request.body);
   let group = new Group({
     name: this.request.body.name           // JSON in post is stored in request.body
   })

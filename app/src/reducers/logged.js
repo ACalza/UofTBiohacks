@@ -18,13 +18,12 @@ export default function logged(state = initialState, action) {
     case LOG_OUT: return handleLogOut()
     case REGISTER: return handleRegister(state, action.data)
     case EAT_SNACK: return {...state, snackbar : {...state.snackbar, open: false}}
-    case CREATE_GROUP: return handleCreateGroup(state, action.data) 
+    case CREATE_GROUP: return handleCreateGroup(state, action.data)
     default: return state
   }
 }
 
 const handleCreateGroup = (state, data) => {
-  console.log(data)
   return state
 }
 

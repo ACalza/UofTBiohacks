@@ -32,7 +32,7 @@ class Login extends Component {
   submitForm = (model) => {
     const { dispatch } = this.props
 
-    ajaxPost(model, '/user/login', (err, data) => {
+    ajaxPost(model, '/user/login', null, (err, data) => {
       if (err) {
         console.error(err)
       } else {
