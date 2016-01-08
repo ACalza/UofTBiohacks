@@ -29,7 +29,8 @@ module.exports.validateGroupName = function* (next){
 // POST: Create a new group given JSON {name: String} and save group into database
 module.exports.saveGrouptoDatabase = function* (){
   let group = new Group({
-    name: this.request.body.name           // JSON in post is stored in request.body
+    name: this.request.body.name,
+    users: [this.userModel._id]           // JSON in post is stored in request.body
   })
   try {
     let groupModel = yield group.save()    // use try/catch + yield instead of if(error)/else in callbacks
