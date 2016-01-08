@@ -1,4 +1,5 @@
 import $ from 'jquery'
+
 import { BASE_URI } from '../constants/uris.js'
 
 export const ajaxPost = (body, uri, cb) => {
@@ -14,6 +15,7 @@ export const ajaxPost = (body, uri, cb) => {
     }
   })
 }
+
 export const ajaxPostAsync = (body, uri) => {
   return new Promise((resolve, reject) => {
     $.ajax({

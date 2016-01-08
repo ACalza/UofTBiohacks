@@ -1,8 +1,8 @@
 // Libraries
 import React from 'react'
+import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import PureComponent from 'react-pure-render/component'
 
 // Actions

@@ -1,12 +1,6 @@
-import {
-  LOG_IN,
-  LOG_OUT,
-  EAT_SNACK,
-  REGISTER
-} from '../constants/ActionTypes'
+import { LOG_IN, LOG_OUT, EAT_SNACK, REGISTER } from '../constants/ActionTypes'
 
 import history from '../util/history'
-
 import { ajaxPostAsync } from '../util'
 
 const initialState = {
@@ -17,6 +11,7 @@ const initialState = {
   }
 }
 
+// reducer
 export default function logged(state = initialState, action) {
   switch(action.type) {
     case LOG_IN: return handleLogIn(state, action.data)

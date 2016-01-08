@@ -1,27 +1,14 @@
-// Imports
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, Link, IndexRoute } from 'react-router'
-import { Provider } from 'react-redux'
-import injectTapEventPlugin from 'react-tap-event-plugin'
 
-// Pages
-import Home from './pages/Home'
-import Register from './pages/Register'
-import Account from './pages/Account'
-import Login from './pages/Login'
-
-// Containers
-import Index from './containers/Index'
+import Root from './containers/Root'
 
 // Redux Store
-import configureStore from './store/configureStore'
-
-// Browser History
-import history from './util/history'
+import initializeStore from './store/initializeStore'
 
 // Required for material-ui
+import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
 // App container setup
@@ -30,18 +17,6 @@ appContainer.id = 'appContainer'
 document.body.appendChild(appContainer)
 
 // Get initial store
-const store = configureStore()
+const store = initializeStore()
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={Index} >
-        <IndexRoute component={Home}/>
-        <Route path="/register" component={Register} />
-        <Route path="/account" component={Account} />
-        <Route path="/login" component={Login} />
-      </Route>
-    </Router>
-  </Provider>,
-  appContainer
-)
+ReactDOM.render(<Root store={store}/>, appContainer)

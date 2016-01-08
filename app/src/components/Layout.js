@@ -7,12 +7,10 @@ import Footer from './Footer'
 export default class Layout extends Component {
   render() {
     const { title } = this.props
-    const navLinks = ['/', '/register', '/login']
-
 
     return(
       <div>
-        <Navigation links={navLinks} />
+        <Navigation />
         <Title title={title} />
         {this.props.children}
         <Footer />
