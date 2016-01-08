@@ -1,37 +1,52 @@
+// Libraries
 import React, { Component } from 'react'
-import Layout from '../components/Layout'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
+// Components
 import FMUI, { FormsyText, FormsyToggle } from 'formsy-material-ui'
 import RaisedButton from 'material-ui/lib/raised-button'
 
-export default class Register extends Component {
+import Layout from '../components/Layout'
+
+// Actions
+import { register } from '../actions/logged'
+
+// Utilites
+import { ajaxPost } from '../util'
+
+// Presentational Component
+class Register extends Component {
   constructor() {
     super()
 
-    this.state = {
-      canSubmit: false
-    }
-
-    this.enableButton = this.enableButton.bind(this)
-    this.disableButton = this.disableButton.bind(this)
-    this.submitForm = this.submitForm.bind(this)
+    this.state = { canSubmit: false }
   }
 
-  enableButton() {
+  enableButton = () => {
     this.setState({
       canSubmit: true
     })
-  }
+  };
 
-  disableButton() {
+  disableButton = () => {
     this.setState({
       canSubmit: false
     })
-  }
+  };
 
-  submitForm(model) {
-    console.log('model: ' + JSON.stringify(model))
-  }
+  submitForm = (model) => {
+    const { dispatch } = this.props
+
+    ajaxPost(model, '/user/register', (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        dispatch(register(data))
+      }
+    })
+    // console.log('model: ' + JSON.stringify(model))
+  };
 
   render() {
     return (
@@ -79,13 +94,25 @@ export default class Register extends Component {
           floatingLabelText = "Password"
         />
 
+        <FormsyText style={{display: 'block'}}
+          name = 'confirmpassword'
+          type = 'password'
+          validations="equalsField:password"
+          validationError="Does not match"
+          required
+          hintText = "Confirm Password"
+          floatingLabelText = "Confirm Password"
+        />
+
         <RaisedButton
           type = "submit"
           label = "Submit"
           disabled = {!this.state.canSubmit}
-          />
+        />
       </Formsy.Form>
       </Layout>
     )
   }
 }
+
+export default connect()(Register)

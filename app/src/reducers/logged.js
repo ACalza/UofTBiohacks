@@ -19,21 +19,28 @@ export default function logged(state = initialState, action) {
   switch(action.type) {
     case LOG_IN: return handleLogIn(state, action.data)
     case LOG_OUT: return initialState
-    case REGISTER: return state
+    case REGISTER: return handleRegister(state, action.data)
     case EAT_SNACK: return {...state, snackbar : {...state.snackbar, open: false}}
     default: return state
   }
 }
 
-const handleLogIn = (state, { token, message} ) => {
-  // console.log(action)
 
+const handleLogIn = (state, data ) => {
+  return handleLogInOrRegister(state, data, 'Successfully logged in')
+}
+
+const handleRegister = (state, data) => {
+  return handleLogInOrRegister(state, data, 'Successfully registered!')
+}
+
+const handleLogInOrRegister = (state, {token, message}, snackboxMessage) => {
   if (token) {
     return {
       ...state,
       jwt: token,
       snackbar: {
-        message: 'Successfuly logged in',
+        message: snackboxMessage,
         open: true
       }
     }
