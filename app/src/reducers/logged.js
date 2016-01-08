@@ -5,6 +5,8 @@ import {
   REGISTER
 } from '../constants/ActionTypes'
 
+import history from '../util/history'
+
 import { ajaxPostAsync } from '../util'
 
 const initialState = {
@@ -18,7 +20,7 @@ const initialState = {
 export default function logged(state = initialState, action) {
   switch(action.type) {
     case LOG_IN: return handleLogIn(state, action.data)
-    case LOG_OUT: return initialState
+    case LOG_OUT: return handleLogOut()
     case REGISTER: return handleRegister(state, action.data)
     case EAT_SNACK: return {...state, snackbar : {...state.snackbar, open: false}}
     default: return state
@@ -36,6 +38,7 @@ const handleRegister = (state, data) => {
 
 const handleLogInOrRegister = (state, {token, message}, snackboxMessage) => {
   if (token) {
+    history.replaceState(null, '/account')
     return {
       ...state,
       jwt: token,
@@ -51,6 +54,17 @@ const handleLogInOrRegister = (state, {token, message}, snackboxMessage) => {
         message,
         open: true
       }
+    }
+  }
+}
+
+const handleLogOut = () => {
+  history.replaceState(null, '/')
+  return {
+    ...initialState,
+    snackbar: {
+      message: 'Logged out',
+      open: true
     }
   }
 }

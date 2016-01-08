@@ -20,7 +20,7 @@ class Index extends Component{
           open={this.props.open}
           message={this.props.message}
           action="close"
-          autoHideDuration={10000}
+          autoHideDuration={5000}
           onActionTouchTap={eatSnack}
           onRequestClose={eatSnack}
         />

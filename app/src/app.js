@@ -1,12 +1,10 @@
 // Imports
+import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, Link, IndexRoute } from 'react-router'
 import { Provider } from 'react-redux'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import "babel-polyfill"
-import configureStore from './store/configureStore'
 
 // Pages
 import Home from './pages/Home'
@@ -17,6 +15,11 @@ import Login from './pages/Login'
 // Containers
 import Index from './containers/Index'
 
+// Redux Store
+import configureStore from './store/configureStore'
+
+// Browser History
+import history from './util/history'
 
 // Required for material-ui
 injectTapEventPlugin()
@@ -29,13 +32,9 @@ document.body.appendChild(appContainer)
 // Get initial store
 const store = configureStore()
 
-
-import FMUI, { FormsyText, FormsyToggle } from 'formsy-material-ui'
-import RaisedButton from 'material-ui/lib/raised-button'
-
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={createBrowserHistory()}>
+    <Router history={history}>
       <Route path="/" component={Index} >
         <IndexRoute component={Home}/>
         <Route path="/register" component={Register} />
