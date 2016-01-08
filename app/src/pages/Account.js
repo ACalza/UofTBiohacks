@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Group from '../containers/Group'
 
 // Components
 import Layout from '../components/Layout'
@@ -11,7 +12,7 @@ export default class Home extends Component {
   render() {
     return (
       <Layout title="Account">
-        Your group:
+        <Group />
       </Layout>
     )
   }

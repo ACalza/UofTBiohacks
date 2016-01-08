@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, REGISTER, EAT_SNACK } from '../constants/ActionTypes'
+import { LOG_IN, LOG_OUT, REGISTER, EAT_SNACK, CREATE_GROUP } from '../constants/ActionTypes'
 
 export const logIn = (data) => {
   return { type: LOG_IN, data }
@@ -14,4 +14,8 @@ export const register = (data) => {
 
 export const eatSnack = () => {
   return { type: EAT_SNACK }
+}
+
+export const createGroup = (data) => {
+  return {type: CREATE_GROUP, data}
 }

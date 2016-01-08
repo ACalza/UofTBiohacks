@@ -10,7 +10,6 @@ const util = require('../util');
 
 // Middleware: query database to ensure nonmatching group name is provided
 module.exports.validateGroupName = function* (next){
-  console.log('sdfsdfdsfdsf')
   let group = yield Group.findOne({
     name: this.request.body.name
   })
@@ -29,7 +28,6 @@ module.exports.validateGroupName = function* (next){
 
 // POST: Create a new group given JSON {name: String} and save group into database
 module.exports.saveGrouptoDatabase = function* (){
-  console.log('here')
   let group = new Group({
     name: this.request.body.name           // JSON in post is stored in request.body
   })
