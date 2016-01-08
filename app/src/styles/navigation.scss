@@ -1,5 +1,9 @@
 .Navigation {
   .navLink {
     text-transform: capitalize;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

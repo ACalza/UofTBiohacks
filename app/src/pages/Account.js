@@ -10,8 +10,8 @@ import Layout from '../components/Layout'
 export default class Home extends Component {
   render() {
     return (
-      <Layout title="Home">
-        This is the super awesome homepage.
+      <Layout title="Account">
+        Your group:
       </Layout>
     )
   }

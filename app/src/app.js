@@ -11,6 +11,7 @@ import configureStore from './store/configureStore'
 // Pages
 import Home from './pages/Home'
 import Register from './pages/Register'
+import Account from './pages/Account'
 import Login from './pages/Login'
 
 // Containers
@@ -38,6 +39,7 @@ ReactDOM.render(
       <Route path="/" component={Index} >
         <IndexRoute component={Home}/>
         <Route path="/register" component={Register} />
+        <Route path="/account" component={Account} />
         <Route path="/login" component={Login} />
       </Route>
     </Router>

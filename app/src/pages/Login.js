@@ -1,52 +1,47 @@
+// Libraries
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
+// Components
 import FMUI, { FormsyText } from 'formsy-material-ui'
-
 import RaisedButton from 'material-ui/lib/raised-button'
-
 
 import Layout from '../components/Layout'
 
+// Actions
 import { logIn, logOut } from '../actions/logged'
+
+// Utilites
 import { ajaxPost } from '../util'
 
-
+// Presentation Component
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      canSubmit: false,
-      autoHideDuration: 3000,
-      open: false,
-      message: 'Invalid email/username and/or password'
-    }
-
-    this.enableButton = this.enableButton.bind(this)
-    this.disableButton = this.disableButton.bind(this)
-    this.submitForm = this.submitForm.bind(this)
-  }
-  enableButton() {
-    this.setState({
-      canSubmit: true
-    })
+    this.state = { canSubmit: false }
   }
 
-  disableButton() {
-    this.setState({
-      canSubmit: false
-    })
-  }
+  enableButton = () => {
+    this.setState({ canSubmit: true })
+  };
 
-  submitForm(model) {
+  disableButton = () => {
+    this.setState({ canSubmit: false })
+  };
+
+  submitForm = (model) => {
+    const { dispatch } = this.props
+
     ajaxPost(model, '/user/login', (err, data) => {
       if (err) {
         console.error(err)
       } else {
-        this.props.dispatch(logIn(data))
+        dispatch(logIn(data))
       }
     })
-  }
+  };
 
+  // TODO forgot password
   render() {
     return (
       <Layout title="Login">
@@ -57,7 +52,7 @@ class Login extends Component {
 
           <FormsyText style={{display: 'block'}}
             name = 'emailOrUsername'
-            required hintText = "What is your Email or Username?"
+            required hintText = "What is your email or username?"
             floatingLabelText = "Email or Username"
           />
 
@@ -72,13 +67,11 @@ class Login extends Component {
             type = "submit"
             label = "Submit"
             disabled = {!this.state.canSubmit}
-            />
-
+          />
         </Formsy.Form>
       </Layout>
     )
   }
 }
-
 
 export default connect()(Login)
