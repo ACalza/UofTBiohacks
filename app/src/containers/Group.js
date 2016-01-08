@@ -34,9 +34,7 @@ export default class Group extends Component {
       if (err) {
         console.error(err)
       } else {
-        console.log("model ", model)
-        console.log("data ", data)
-        dispatch(createGroup(model))
+        dispatch(createGroup(data))
       }
     })
 

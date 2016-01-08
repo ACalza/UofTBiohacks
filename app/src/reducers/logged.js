@@ -26,7 +26,21 @@ export default function logged(state = initialState, action) {
 }
 
 const handleCreateGroup = (state, data) => {
-  return state
+  if(data.message){
+    return {
+      ...state,
+      snackbar: {
+        message: data.message,
+        open: true
+      }
+    }
+  }else{
+    return {
+      ...state,
+      userModel: data.userModel,
+      groupModel: data.groupModel
+    }
+  }
 }
 
 const handleLogIn = (state, data ) => {

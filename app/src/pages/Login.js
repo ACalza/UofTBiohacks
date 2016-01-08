@@ -36,7 +36,6 @@ class Login extends Component {
       if (err) {
         console.error(err)
       } else {
-        console.log(data);
         dispatch(logIn(data))
       }
     })
