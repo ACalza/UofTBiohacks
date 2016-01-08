@@ -32,7 +32,10 @@ export default class Group extends Component {
     const { dispatch } = this.props
     let uri;
     if(this.props.groupModel){
-      uri = '/group/invite'
+      model = {
+        emailOrUsername: model.name
+      }
+      uri = '/group/'+ this.props.groupModel._id + '/invite'
     }else{
       uri = '/group/create'
     }

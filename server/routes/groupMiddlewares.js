@@ -67,10 +67,35 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
       util.errorResponse(this)
     }
   }
+  // POST sends in {usernameOrEmail: String},
+module.exports.inviteUsertoGroup = function* (){
+      let emailOrUsername = this.request.body.emailOrUsername;
+      try {
+          let user = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]})
+          if(!user){
+            return this.body ={
+              message: "Invalid username or email"
+            }
+          }
 
+          user.invites = [this.groupModel._id]
+          let result = yield user.save()
+
+          this.body = {
+            message:'success'
+          }
+
+      } catch(err){
+          console.error(err)
+          this.status = 400
+          util.errorResponse(this)
+      }
+
+
+  }
 // POST sends in {userId: [Array of ids to invite]},
 // query users, adds current group, and populate their invites array.
-module.exports.inviteUsertoGroup = function* (){
+module.exports.inviteUserstoGroup = function* (){
     var userIdArray = this.request.body.userId;
     try {
         for (let i=0; i<userIdArray.length; i++) {

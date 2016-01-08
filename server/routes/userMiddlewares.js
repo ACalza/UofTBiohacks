@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const util = require('../util');                      // for error function
 const config = require('../config');                  // temporary KEY
 const User = require('../models/user');               // User is user Model
-const Group = require('../models/group');     
+const Group = require('../models/group');
 
 // trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function* (next) {
