@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import FMUI, { FormsyText } from 'formsy-material-ui'
 
 import RaisedButton from 'material-ui/lib/raised-button'
-import Snackbar from 'material-ui/lib/snackbar'
+
 
 import Layout from '../components/Layout'
 
@@ -38,7 +38,6 @@ class Login extends Component {
   }
 
   submitForm(model) {
-    console.log('from form model: ' + JSON.stringify(model))
     this.props.dispatch(logIn(model, '/user/login'))
   }
 
@@ -75,14 +74,6 @@ class Login extends Component {
             disabled = {!this.state.canSubmit}
             />
 
-          <Snackbar
-            open={this.state.open}
-            message={this.state.message}
-            action="Close"
-            autoHideDuration={this.state.autoHideDuration}
-            onActionTouchTap={this.handleRequestClose}
-            onRequestClose={this.handleRequestClose}
-          />
         </Formsy.Form>
       </Layout>
     )

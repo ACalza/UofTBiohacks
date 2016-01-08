@@ -14,3 +14,18 @@ export const ajaxPost = (body, uri, cb) => {
     }
   })
 }
+export const ajaxPostAsync = (body, uri) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'POST',
+      url: BASE_URI + uri,
+      data: body,
+      success: function (data) {
+        resolve(data)
+      },
+      error: function (xhr, status, err) {
+        reject(err)
+      }
+    })
+  })
+}

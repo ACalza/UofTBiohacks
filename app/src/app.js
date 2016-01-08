@@ -1,17 +1,21 @@
 // Imports
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, Link } from 'react-router'
+import { Router, Route, Link, IndexRoute } from 'react-router'
 import { Provider } from 'react-redux'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
+import "babel-polyfill"
 import configureStore from './store/configureStore'
 
 // Pages
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
+
+// Containers
+import Index from './containers/Index'
+
 
 // Required for material-ui
 injectTapEventPlugin()
@@ -31,9 +35,11 @@ import RaisedButton from 'material-ui/lib/raised-button'
 ReactDOM.render(
   <Provider store={store}>
     <Router history={createBrowserHistory()}>
-      <Route path="/" component={Home} />
-      <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
+      <Route path="/" component={Index} >
+        <IndexRoute component={Home}/>
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+      </Route>
     </Router>
   </Provider>,
   appContainer
