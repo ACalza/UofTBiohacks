@@ -23,7 +23,7 @@ class Login extends Component {
 
     this.enableButton = this.enableButton.bind(this)
     this.disableButton = this.disableButton.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.submitForm = this.submitForm.bind(this)
   }
   enableButton() {
     this.setState({

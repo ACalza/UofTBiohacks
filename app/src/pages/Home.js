@@ -12,11 +12,18 @@ class Home extends Component {
   render() {
     const { actions, logged } = this.props
 
+    let content
+    if (this.props.jwt !== null) {
+      content = <h3>Logged in</h3>
+    } else {
+      content = <h3>Logged out</h3>
+    }
+
+    console.log('homepage ', this.props)
+
     return (
       <Layout title="Home">
-        <span>{logged.toString()}</span>
-        <button onClick={actions.logIn}> Log In </button>
-        <button onClick={actions.logOut}> Log Out </button>
+        {content}
       </Layout>
     )
   }
@@ -24,7 +31,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    logged: state.logged
+    jwt: state.logged.jwt
   }
 }
 
