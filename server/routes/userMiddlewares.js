@@ -102,7 +102,8 @@ module.exports.requestLogin = function* (next){
            expiresInMinutes: 60 * 5       // session expiration time
           });
          this.body = {
-           token: token                   // send off response
+           token: token,
+           userModel: model
          };
        } else {                           // authentication fails
          this.body = {

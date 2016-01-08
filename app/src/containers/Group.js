@@ -30,12 +30,12 @@ export default class Group extends Component {
 
   submitForm = (model) => {
     const { dispatch } = this.props
-    console.log(this.props.jwt);
     ajaxPost(model, '/group/create', this.props.jwt, (err, data) => {
       if (err) {
         console.error(err)
       } else {
-        console.log(model);
+        console.log("model ", model)
+        console.log("data ", data)
         dispatch(createGroup(model))
       }
     })

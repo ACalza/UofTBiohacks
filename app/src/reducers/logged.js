@@ -5,6 +5,8 @@ import { ajaxPostAsync } from '../util'
 
 const initialState = {
   jwt: null,
+  userModel: null,
+  groupModel: null,
   snackbar: {
     message: '',
     open: false
@@ -35,11 +37,13 @@ const handleRegister = (state, data) => {
   return handleLogInOrRegister(state, data, 'Successfully registered!')
 }
 
-const handleLogInOrRegister = (state, {token, message}, snackboxMessage) => {
+const handleLogInOrRegister = (state, {token, message, userModel, groupModel}, snackboxMessage) => {
   if (token) {
     history.replaceState(null, '/account')
     return {
       ...state,
+      userModel,
+      groupModel,
       jwt: token,
       snackbar: {
         message: snackboxMessage,

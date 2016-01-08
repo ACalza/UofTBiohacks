@@ -9,7 +9,6 @@ export const ajaxPost = (body, uri, jwt, cb) => {
     data: body,
     beforeSend: function (request)
      {
-       console.log('Bearer ' + jwt)
        if(jwt){
          request.setRequestHeader('Authorization', 'Bearer ' + jwt);
        }
