@@ -13,6 +13,8 @@ class Index extends Component{
     })
   }
   render(){
+    console.log(this.props)
+
     return(
       <div className="appWrapper">
         {this.props.children}
@@ -20,7 +22,7 @@ class Index extends Component{
           open={this.props.open}
           message={this.props.message}
           action="Close"
-          autoHideDuration= {3000}
+          autoHideDuration={3000}
           onActionTouchTap={this.handleRequestClose}
           onRequestClose={this.handleRequestClose}
         />

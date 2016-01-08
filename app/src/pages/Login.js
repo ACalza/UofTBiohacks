@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import Layout from '../components/Layout'
 
 import { logIn, logOut } from '../actions/logged'
+import { ajaxPost } from '../util'
 
 
 class Login extends Component {
@@ -22,7 +23,6 @@ class Login extends Component {
 
     this.enableButton = this.enableButton.bind(this)
     this.disableButton = this.disableButton.bind(this)
-    this.submitForm = this.submitForm.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
   }
   enableButton() {
@@ -38,12 +38,12 @@ class Login extends Component {
   }
 
   submitForm(model) {
-    this.props.dispatch(logIn(model, '/user/login'))
-  }
-
-  handleRequestClose() {
-    this.setState({
-      open: false
+    ajaxPost(model, '/user/login', (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        this.props.dispatch(logIn(data))
+      }
     })
   }
 

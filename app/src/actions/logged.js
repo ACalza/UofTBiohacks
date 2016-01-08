@@ -1,10 +1,9 @@
 import { LOG_IN, LOG_OUT } from '../constants/ActionTypes'
 
-export const logIn = (model, uri) => {
+export const logIn = (data) => {
   return {
     type: LOG_IN,
-    model,
-    uri
+    data
   }
 }
 

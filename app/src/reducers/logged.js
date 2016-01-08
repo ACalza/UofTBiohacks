@@ -12,44 +12,32 @@ const initialState = {
 
 export default function logged(state = initialState, action) {
   switch(action.type) {
-    case LOG_IN:
-      console.log("Here")
-     (function* (state, {model, uri}) {
-        try{
-          let response = yield ajaxPostAsync(model, uri)
-          console.log(response)
-          return {
-            jwt: response.token || null,
-            snackbar: {
-              message: response.message || 'default',
-              open: true
-            }
-          }
-        }catch(err) {
-          return state
-        }
-      })(state, action)
+    case LOG_IN: return handleLogIn(state, action.data)
     case LOG_OUT: return initialState
     case REGISTER: return state
     default: return state
   }
 }
 
-const handleLogIn = (state, { model, uri}) => {
-  ajaxPost(model, uri, (err, data) => {
-    if (err) {
-      console.error(err)
-      return state
-    } else {
-      console.log(data)
-      return {
-        jwt: data.token,
-        snackbar: {
-          message: data.message,
-          autoHideDuration: 3000,
-          open: true
-        }
+const handleLogIn = (state, { token, message} ) => {
+  // console.log(action)
+
+  if (token) {
+    return {
+      ...state,
+      jwt: token,
+      snackbar: {
+        message: 'Successfuly logged in',
+        open: true
       }
     }
-  })
+  } else {
+    return {
+      ...state,
+      snackbar: {
+        message,
+        open: true
+      }
+    }
+  }
 }
