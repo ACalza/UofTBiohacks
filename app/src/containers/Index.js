@@ -1,19 +1,17 @@
+// Libraries
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect,  } from 'react-redux'
+
+// Components
 import Snackbar from 'material-ui/lib/snackbar'
-import { connect } from 'react-redux'
+
+// Actions
+import * as LoggedActions from '../actions/logged'
 
 class Index extends Component{
-  constructor(){
-    super()
-    this.handleRequestClose = this.handleRequestClose.bind(this)
-  }
-  handleRequestClose() {
-    this.setState({
-      open: false
-    })
-  }
   render(){
-    console.log(this.props)
+    const { eatSnack } = this.props.actions
 
     return(
       <div className="appWrapper">
@@ -21,22 +19,27 @@ class Index extends Component{
         <Snackbar
           open={this.props.open}
           message={this.props.message}
-          action="Close"
-          autoHideDuration={3000}
-          onActionTouchTap={this.handleRequestClose}
-          onRequestClose={this.handleRequestClose}
+          action="close"
+          autoHideDuration={10000}
+          onActionTouchTap={eatSnack}
+          onRequestClose={eatSnack}
         />
       </div>
-
-
     )
   }
-
 }
+
 const mapStateToProps = (state) => {
   return {
     open: state.logged.snackbar.open,
     message: state.logged.snackbar.message
   }
 }
-export default connect(mapStateToProps)(Index)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(LoggedActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

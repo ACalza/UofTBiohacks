@@ -1,6 +1,7 @@
+// Libraries
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 // Components
 import Layout from '../components/Layout'
@@ -8,6 +9,7 @@ import Layout from '../components/Layout'
 // Actions
 import * as LoggedActions from '../actions/logged'
 
+// Presentational Component
 class Home extends Component {
   render() {
     const { actions, logged } = this.props
@@ -19,8 +21,6 @@ class Home extends Component {
       content = <h3>Logged out</h3>
     }
 
-    console.log('homepage ', this.props)
-
     return (
       <Layout title="Home">
         {content}
@@ -29,6 +29,7 @@ class Home extends Component {
   }
 }
 
+// Bindings into state and dispatch
 const mapStateToProps = (state) => {
   return {
     jwt: state.logged.jwt
@@ -41,4 +42,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+// Container Component
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

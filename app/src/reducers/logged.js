@@ -1,4 +1,9 @@
-import { LOG_IN, LOG_OUT, REGISTER } from '../constants/ActionTypes'
+import {
+  LOG_IN,
+  LOG_OUT,
+  EAT_SNACK,
+  REGISTER
+} from '../constants/ActionTypes'
 
 import { ajaxPostAsync } from '../util'
 
@@ -15,6 +20,7 @@ export default function logged(state = initialState, action) {
     case LOG_IN: return handleLogIn(state, action.data)
     case LOG_OUT: return initialState
     case REGISTER: return state
+    case EAT_SNACK: return {...state, snackbar : {...state.snackbar, open: false}}
     default: return state
   }
 }

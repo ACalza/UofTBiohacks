@@ -1,4 +1,8 @@
-import { LOG_IN, LOG_OUT } from '../constants/ActionTypes'
+import {
+  LOG_IN,
+  LOG_OUT,
+  EAT_SNACK
+} from '../constants/ActionTypes'
 
 export const logIn = (data) => {
   return {
@@ -9,4 +13,8 @@ export const logIn = (data) => {
 
 export const logOut = () => {
   return { type: LOG_OUT }
+}
+
+export const eatSnack = () => {
+  return { type: EAT_SNACK }
 }
