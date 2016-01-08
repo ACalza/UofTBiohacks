@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Title from './Title'
 import Navigation from './Navigation'
+import Footer from './Footer'
 
 export default class Layout extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Layout extends Component {
         <Navigation links={navLinks} />
         <Title title={title} />
         {this.props.children}
+        <Footer />
       </div>
     )
   }
