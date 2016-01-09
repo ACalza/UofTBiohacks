@@ -21,6 +21,25 @@ export const ajaxPost = (body, uri, jwt, cb) => {
     }
   })
 }
+export const ajaxGet = (uri, jwt, cb) => {
+  $.ajax({
+    type: 'GET',
+    url: BASE_URI + uri,
+    beforeSend: function (request)
+     {
+       if(jwt){
+         request.setRequestHeader('Authorization', 'Bearer ' + jwt);
+       }
+     },
+    success: function (data) {
+      cb(null, data)
+    },
+    error: function (xhr, status, err) {
+      cb(err, { xhr, status })
+    }
+  })
+}
+
 
 
 

@@ -4,7 +4,7 @@
 // Require Local
 const Group = require('../models/group');             // Group is a group Model
 const User = require('../models/user');
-
+const mongoose = require('mongoose');
 const util = require('../util');
 
 
@@ -63,7 +63,7 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
       }
     } catch (err) {
       console.error(err)
-      this.status = 500
+      this.status = 404
       util.errorResponse(this)
     }
   }
@@ -113,21 +113,31 @@ module.exports.inviteUserstoGroup = function* (){
 }
 
 module.exports.acceptInvite = function* (){
-    let userModel = this.userModel
-    this.userModel.group = this.groupModel._id
-    this.groupModel.users.push(userModel._id)
+    //inefficent for now....
+    let userModel = yield User.findById(this.userModel._id)
+    let groupModel = this.groupModel
+    userModel.group = this.groupModel._id
+    groupModel.users.push(userModel._id)
+
     try{
+      let index = userModel.invites.indexOf(this.groupModel._id.toString())
+      if(index < 0){
+        throw new Error("No invite to accept")
+      }
+      userModel.invites.splice(index)
+
       userModel = yield userModel.save()
       groupModel = yield groupModel.save()
+      userModel.password = undefined
       this.body = {
         userModel: userModel,
         groupModel: groupModel,
-        message: "successfully join " + groupModel.name
+        message: "successfully joined " + groupModel.name
       }
     }catch(err){
       console.error(err)
-      this.status = 400
-      util.errorRespose(this)
+      this.status = 404
+      util.errorResponse(this)
     }
 }
 // populates the current group.users with the array of users

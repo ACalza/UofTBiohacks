@@ -27,8 +27,20 @@ export default function logged(state = initialState, action) {
 }
 
 const handleAcceptInvite = (state, data) => {
-  console.log("I am here at handleinvite ", data)
-  return state
+  if(data.message){
+    return{
+      ...state,
+      snackbar:{
+        message: data.message,
+        open: true
+      },
+      userModel: data.userModel,
+      groupModel: data.groupModel
+    }
+  }else{
+    return state
+  }
+
 }
 
 const handleCreateGroup = (state, data) => {

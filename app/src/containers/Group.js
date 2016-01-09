@@ -12,7 +12,7 @@ import Layout from '../components/Layout'
 import { createGroup, acceptGroupInvite } from '../actions/logged'
 
 // Utilites
-import { ajaxPost } from '../util'
+import { ajaxPost, ajaxGet } from '../util'
 
 export default class Group extends Component {
   constructor(){
@@ -50,7 +50,14 @@ export default class Group extends Component {
 
   acceptInviteHandler = (modelid) => {
     const { dispatch } = this.props
-    dispatch(acceptGroupInvite(modelid))
+    ajaxGet('/group/' + modelid + '/accept', this.props.jwt, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        dispatch(acceptGroupInvite(data))
+      }
+    })
+
   };
   rejectInviteHandler = (modelid) => {
 
@@ -62,8 +69,9 @@ export default class Group extends Component {
         <p>Loading</p>
       )
     }
+    console.log(this.props.userModel)
     let content
-    if(!this.props.groupModel && this.props.userModel.invites) {
+    if(!this.props.groupModel && this.props.userModel.invites.length > 0) {
       content =
       <div className="accountPage">
         <h2>Invites</h2>
@@ -97,7 +105,7 @@ export default class Group extends Component {
           />
         </Formsy.Form>
     </div>
-  }else if(!this.props.groupModel && !this.props.userModel.invites){
+  }else if(!this.props.groupModel && this.props.userModel.invites.length === 0){
     content =
     <div className="accountPage">
       <h2>Invites</h2>
