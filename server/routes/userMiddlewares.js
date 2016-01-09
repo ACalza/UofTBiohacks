@@ -69,7 +69,10 @@ module.exports.saveUsertoDatabase = function* (){
         expiresInMinutes: 60 * 5
       });
       this.body = {
-      token: token
+        token: token,
+        message: "Successfully registered",
+        userModel: model,
+        groupModel: null
       };
     } catch (err) {
       this.response.status = 500

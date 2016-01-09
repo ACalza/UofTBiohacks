@@ -4,7 +4,7 @@
 // Require Local
 const Group = require('../models/group');             // Group is a group Model
 const User = require('../models/user');
-
+const mongoose = require('mongoose');
 const util = require('../util');
 
 
@@ -84,7 +84,7 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
       }
     } catch (err) {
       console.error(err)
-      this.status = 500
+      this.status = 404
       util.errorResponse(this)
     }
   }
@@ -130,6 +130,7 @@ module.exports.inviteUserstoGroup = function* (){
 
 }
 
+
 // GET /group/:group/accept
 module.exports.acceptInvite = function* (){       // this.userModel is accessible for the entire session
     try{                                          // update user.group and group.users
@@ -145,5 +146,33 @@ module.exports.acceptInvite = function* (){       // this.userModel is accessibl
         console.error(err)
         this.status = 400
         util.errorRespose(this)
+/*
+module.exports.acceptInvite = function* (){
+    //inefficent for now....
+    let userModel = yield User.findById(this.userModel._id)
+    let groupModel = this.groupModel
+    userModel.group = this.groupModel._id
+    groupModel.users.push(userModel._id)
+
+    try{
+      let index = userModel.invites.indexOf(this.groupModel._id.toString())
+      if(index < 0){
+        throw new Error("No invite to accept")
+      }
+      userModel.invites.splice(index)
+
+      userModel = yield userModel.save()
+      groupModel = yield groupModel.save()
+      userModel.password = undefined
+      this.body = {
+        userModel: userModel,
+        groupModel: groupModel,
+        message: "successfully joined " + groupModel.name
+      }
+    }catch(err){
+      console.error(err)
+      this.status = 404
+      util.errorResponse(this)
     }
 }
+*/

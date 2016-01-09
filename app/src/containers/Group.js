@@ -12,7 +12,7 @@ import Layout from '../components/Layout'
 import { createGroup, acceptGroupInvite } from '../actions/logged'
 
 // Utilites
-import { ajaxPost } from '../util'
+import { ajaxPost, ajaxGet } from '../util'
 
 export default class Group extends Component {
   constructor(){
@@ -29,6 +29,7 @@ export default class Group extends Component {
 
 
   submitForm = (model) => {
+    console.log("submit", model)
     const { dispatch } = this.props
     let uri;
     if(this.props.groupModel){
@@ -50,20 +51,28 @@ export default class Group extends Component {
 
   acceptInviteHandler = (modelid) => {
     const { dispatch } = this.props
-    dispatch(acceptGroupInvite(modelid))
+    ajaxGet('/group/' + modelid + '/accept', this.props.jwt, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        dispatch(acceptGroupInvite(data))
+      }
+    })
+
   };
   rejectInviteHandler = (modelid) => {
 
   };
 //  {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
   render() {
+
     if(!this.props.jwt){
       return (
         <p>Loading</p>
       )
     }
     let content
-    if(!this.props.groupModel && this.props.userModel.invites) {
+    if(!this.props.groupModel && this.props.userModel.invites.length > 0) {
       content =
       <div className="accountPage">
         <h2>Invites</h2>
@@ -97,7 +106,7 @@ export default class Group extends Component {
           />
         </Formsy.Form>
     </div>
-  }else if(!this.props.groupModel && !this.props.userModel.invites){
+  }else if(!this.props.groupModel && this.props.userModel.invites.length === 0){
     content =
     <div className="accountPage">
       <h2>Invites</h2>
