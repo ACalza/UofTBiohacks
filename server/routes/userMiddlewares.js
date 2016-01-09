@@ -119,7 +119,7 @@ module.exports.requestLogin = function* (next){
             groupModel = yield Group.findById(this.userModel.group)
           }else{
             model = model.toJSON()
-            model.invites = yield getGroupInvites(model)``
+            model.invites = yield getGroupInvites(model)
           }
 
 

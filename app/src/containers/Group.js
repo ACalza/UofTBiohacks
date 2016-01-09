@@ -50,14 +50,18 @@ export default class Group extends Component {
 
   };
 
+  inviteHandler = () => {
+    return <h2>TESTETSTSETS </h2>
+    //this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)
+  };
+//  {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
   render() {
     console.log(this.props.userModel)
     let content
-    if(!this.props.groupModel){
+    if(!this.props.groupModel) {
       content =
       <div className="accountPage">
-        <h2>Invites</h2>
-        {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
+        {this.inviteHandler}
         <h2>Create a Group</h2>
         <Formsy.Form
           onValid = {this.enableButton}
@@ -80,7 +84,7 @@ export default class Group extends Component {
   }else{
       content =
       <div className="accountPage">
-        <h2>Invite a user!</h2>
+        <h2>Invite a user to {this.props.groupModel.name}!</h2>
         <Formsy.Form
           onValid = {this.enableButton}
           onInvalid = {this.disableButton}
