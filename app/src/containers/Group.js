@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import Layout from '../components/Layout'
 
 // Actions
-import { createGroup } from '../actions/logged'
+import { createGroup, acceptGroupInvite } from '../actions/logged'
 
 // Utilites
 import { ajaxPost } from '../util'
@@ -19,7 +19,6 @@ export default class Group extends Component {
     super()
     this.state = { canSubmit: false }
   }
-
   enableButton = () => {
     this.setState({ canSubmit: true })
   };
@@ -27,6 +26,7 @@ export default class Group extends Component {
   disableButton = () => {
     this.setState({ canSubmit: false })
   };
+
 
   submitForm = (model) => {
     const { dispatch } = this.props
@@ -46,22 +46,38 @@ export default class Group extends Component {
         dispatch(createGroup(data))
       }
     })
-
-
   };
 
-  inviteHandler = () => {
-    return <h2>TESTETSTSETS </h2>
-    //this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)
+  acceptInviteHandler = (modelid) => {
+    const { dispatch } = this.props
+    dispatch(acceptGroupInvite(modelid))
+  };
+  rejectInviteHandler = (modelid) => {
+
   };
 //  {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
   render() {
-    console.log(this.props.userModel)
+    if(!this.props.jwt){
+      return (
+        <p>Loading</p>
+      )
+    }
     let content
-    if(!this.props.groupModel) {
+    if(!this.props.groupModel && this.props.userModel.invites) {
       content =
       <div className="accountPage">
-        {this.inviteHandler}
+        <h2>Invites</h2>
+        {this.props.userModel.invites.map((model, i) =>
+          <div key={i}>{model.name}
+            <RaisedButton
+              type = "Submit"
+              label = "Accept"
+              onTouchTap = {() => {
+                this.acceptInviteHandler(model._id)
+              }}
+            />
+          </div>
+        )}
         <h2>Create a Group</h2>
         <Formsy.Form
           onValid = {this.enableButton}
@@ -81,6 +97,30 @@ export default class Group extends Component {
           />
         </Formsy.Form>
     </div>
+  }else if(!this.props.groupModel && !this.props.userModel.invites){
+    content =
+    <div className="accountPage">
+      <h2>Invites</h2>
+      <p>You currently have no invites!</p>
+      <h2>Create a Group</h2>
+      <Formsy.Form
+        onValid = {this.enableButton}
+        onInvalid = {this.disableButton}
+        onValidSubmit = {this.submitForm}>
+
+        <FormsyText style={{display: 'block'}}
+          name = 'name'
+          required hintText = "What is your group name?"
+          floatingLabelText = "Group Name"
+        />
+
+        <RaisedButton
+          type = "submit"
+          label = "Submit"
+          disabled = {!this.state.canSubmit}
+        />
+      </Formsy.Form>
+  </div>
   }else{
       content =
       <div className="accountPage">
