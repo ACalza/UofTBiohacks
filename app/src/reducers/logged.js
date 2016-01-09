@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, EAT_SNACK, REGISTER, CREATE_GROUP } from '../constants/ActionTypes'
+import { LOG_IN, LOG_OUT, EAT_SNACK, REGISTER, CREATE_GROUP, ACCEPT_INVITE } from '../constants/ActionTypes'
 
 import history from '../util/history'
 import { ajaxPostAsync } from '../util'
@@ -21,8 +21,14 @@ export default function logged(state = initialState, action) {
     case REGISTER: return handleRegister(state, action.data)
     case EAT_SNACK: return {...state, snackbar : {...state.snackbar, open: false}}
     case CREATE_GROUP: return handleCreateGroup(state, action.data)
+    case ACCEPT_INVITE: return handleAcceptInvite(state, action.data)
     default: return state
   }
+}
+
+const handleAcceptInvite = (state, data) => {
+  console.log("I am here at handleinvite ", data)
+  return state
 }
 
 const handleCreateGroup = (state, data) => {
