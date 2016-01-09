@@ -55,7 +55,11 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
     }),
-    new HtmlWebpackPlugin({ title: 'UofT BioHacks'}),
+    new HtmlWebpackPlugin({
+      title: 'UofT BioHacks',
+      template: 'template.html',
+      inject: 'body'
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 }

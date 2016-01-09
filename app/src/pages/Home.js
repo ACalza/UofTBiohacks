@@ -13,6 +13,7 @@ export default class Home extends Component {
     return (
       <Layout>
         This is the super awesome homepage.
+        <h2> Home </h2>
         <Row className="show-grid">
           <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
           <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
