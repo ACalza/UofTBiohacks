@@ -14,4 +14,4 @@ let groupSchema = mongoose.Schema({
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', limit: 4 }]
 })
 
-module.exports = mongoose.model('group', groupSchema)
+module.exports = mongoose.model('Group', groupSchema)
