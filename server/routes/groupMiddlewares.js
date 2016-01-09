@@ -100,7 +100,7 @@ module.exports.inviteUserstoGroup = function* (){
     try {
         for (let i=0; i<userIdArray.length; i++) {
             let user = yield User.findById(userIdArray[i])
-            user.invites.push(this.groupModel.id)
+            user.invites.push(this.groupModel._id)
             let result = yield user.save()             // add try catch?
         }
     } catch(err){
@@ -112,4 +112,22 @@ module.exports.inviteUserstoGroup = function* (){
 
 }
 
+module.exports.acceptInvite = function* (){
+    let userModel = this.userModel
+    this.userModel.group = this.groupModel._id
+    this.groupModel.users.push(userModel._id)
+    try{
+      userModel = yield userModel.save()
+      groupModel = yield groupModel.save()
+      this.body = {
+        userModel: userModel,
+        groupModel: groupModel,
+        message: "successfully join " + groupModel.name
+      }
+    }catch(err){
+      console.error(err)
+      this.status = 400
+      util.errorRespose(this)
+    }
+}
 // populates the current group.users with the array of users

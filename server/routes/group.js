@@ -18,5 +18,6 @@ router.get('/:groupid', function* () {      // GET: sends group with attached gr
 })
 router.post('/:groupid/invite', groupMiddlewares.inviteUsertoGroup);
 
+router.get('/:groupid/accept', groupMiddlewares.acceptInvite);
 
 module.exports = router;
