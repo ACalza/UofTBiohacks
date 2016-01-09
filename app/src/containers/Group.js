@@ -19,7 +19,6 @@ export default class Group extends Component {
     super()
     this.state = { canSubmit: false }
   }
-
   enableButton = () => {
     this.setState({ canSubmit: true })
   };
@@ -27,6 +26,7 @@ export default class Group extends Component {
   disableButton = () => {
     this.setState({ canSubmit: false })
   };
+
 
   submitForm = (model) => {
     const { dispatch } = this.props
@@ -46,22 +46,39 @@ export default class Group extends Component {
         dispatch(createGroup(data))
       }
     })
-
-
   };
 
-  inviteHandler = () => {
-    return <h2>TESTETSTSETS </h2>
-    //this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)
+  inviteHandler = (modelid) => {
+    if(!modelid){
+      return
+    }
+    console.log("herererere")
+    alert(modelid)
+    console.log(this.props.groupModel)
+
   };
 //  {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
   render() {
-    console.log(this.props.userModel)
+    if(!this.props.jwt){
+      return (
+        <p>Loading</p>
+      )
+    }
     let content
     if(!this.props.groupModel) {
       content =
       <div className="accountPage">
-        {this.inviteHandler}
+        {this.props.userModel.invites.map((model, i) =>
+          <div key={i}>{model.name}
+            <RaisedButton
+              type = "Submit"
+              label = "Accept"
+              onTouchTap = {() => {
+                this.inviteHandler(model._id)
+              }}
+            />
+          </div>
+        )}
         <h2>Create a Group</h2>
         <Formsy.Form
           onValid = {this.enableButton}
