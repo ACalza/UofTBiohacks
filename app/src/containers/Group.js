@@ -29,6 +29,7 @@ export default class Group extends Component {
 
 
   submitForm = (model) => {
+    console.log("submit", model)
     const { dispatch } = this.props
     let uri;
     if(this.props.groupModel){
@@ -64,12 +65,12 @@ export default class Group extends Component {
   };
 //  {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
   render() {
+
     if(!this.props.jwt){
       return (
         <p>Loading</p>
       )
     }
-    console.log(this.props.userModel)
     let content
     if(!this.props.groupModel && this.props.userModel.invites.length > 0) {
       content =
