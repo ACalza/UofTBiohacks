@@ -4,14 +4,20 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 // Components
+import { Col, Row } from 'react-bootstrap'
 import Layout from '../components/Layout'
 
 // Presentational Component
 export default class Home extends Component {
   render() {
     return (
-      <Layout title="Home">
+      <Layout>
         This is the super awesome homepage.
+        <Row className="show-grid">
+          <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
+          <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
+          <Col xsHidden md={4}><code>&lt;{'Col xsHidden md={4}'} /&gt;</code></Col>
+        </Row>
       </Layout>
     )
   }
