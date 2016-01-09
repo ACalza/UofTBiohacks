@@ -8,6 +8,23 @@ const mongoose = require('mongoose');
 const util = require('../util');
 
 
+// GET : get all groups in the database in [{group1}, {group2}, ...]
+module.exports.getAllGroups = function* (){
+    try {
+        let groups = yield Group.find({});
+        if (!groups) {
+            this.status = 404
+            util.erorrResponse(this)
+        } else {
+            this.body.groups = groups
+        }
+    } catch(err) {
+        console.error(err)
+        this.status = 500
+        util.errorResponse(this)
+    }
+}
+
 // Middleware: query database to ensure nonmatching group name is provided
 module.exports.validateGroupName = function* (next){
   let group = yield Group.findOne({
@@ -50,6 +67,7 @@ module.exports.saveGrouptoDatabase = function* (){
   }
 }
 
+
 // Middleware: query database by group id and attach to this.groupModel
 module.exports.findGroupbyId = function* (id, next) {         //middleware for attaching matching group document to this.groupModel
     try {
@@ -68,6 +86,7 @@ module.exports.findGroupbyId = function* (id, next) {         //middleware for a
     }
   }
   // POST sends in {usernameOrEmail: String},
+// POST {emailOrUsername: value}
 module.exports.inviteUsertoGroup = function* (){
       let emailOrUsername = this.request.body.emailOrUsername;
       try {
@@ -90,18 +109,14 @@ module.exports.inviteUsertoGroup = function* (){
           this.status = 400
           util.errorResponse(this)
       }
-
-
   }
 // POST sends in {userId: [Array of ids to invite]},
 // query users, adds current group, and populate their invites array.
 module.exports.inviteUserstoGroup = function* (){
     var userIdArray = this.request.body.userId;
     try {
-        for (let i=0; i<userIdArray.length; i++) {
-            let user = yield User.findById(userIdArray[i])
-            user.invites.push(this.groupModel._id)
-            let result = yield user.save()             // add try catch?
+        for (let i=0; i<userIdArray.length; i++) {      // update user.invites
+           let user = yield User.update({_id: userIdArray[i]}, {$addToSet: {invites: this.groupModel._id}})
         }
     } catch(err){
         console.error(err);

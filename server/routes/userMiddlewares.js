@@ -118,11 +118,11 @@ module.exports.requestLogin = function* (next){
            expiresInMinutes: 60 * 5       // session expiration time
           });
           let groupModel = null;
-          if(this.userModel.group){
+          if(this.userModel.group){                             // return just groupModel if user has a group already
             groupModel = yield Group.findById(this.userModel.group)
           }else{
-            model = model.toJSON()
-            model.invites = yield getGroupInvites(model)
+            model = model.toJSON()                              // otherwise fill userModel.invites
+            model.invites = yield getGroupInvites(model)        // returns an array of invites for userModel
           }
 
 
