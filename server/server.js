@@ -15,7 +15,7 @@ const config = require('./config');
 const authUser = require('./auth/authuser');
 
 // Declare variable
-var port = process.env.PORT || 3000;
+var port = process.env.BIOHACKS_PORT || 3000;
 
 // Instance of Koa
 let app = koa();

@@ -19,4 +19,4 @@ document.body.appendChild(appContainer)
 // Get initial store
 const store = initializeStore()
 
-ReactDOM.render(<Root store={store}/>, appContainer)
+ReactDOM.render(<Root store={store} /> ,appContainer)
