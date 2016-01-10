@@ -2,13 +2,34 @@
 // Require modules
 const jwt = require('koa-jwt');
 const bcrypt = require('bcrypt');
+const json2xls = require('json2xls');
+const fs = require('fs');
 // Require internally
 const util = require('../util');                      // for error function
 const config = require('../config');                  // temporary KEY
 const User = require('../models/user');               // User is user Model
 const Group = require('../models/group');
 
-// trim form data, validate not undefined, and check for duplicates in the database
+// GET  /user/            responds with all user data
+module.exports.getAllUsers = function* () {
+    try {
+        let users = yield User.find({}).populate('invites group').exec()
+        if (!users) {
+            this.status = 404
+            util.erorrResponse(this)
+        }
+        this.body = {
+            message: 'get all populated users back',
+            users: users
+        }
+    } catch(err) {
+        console.error(err)
+        this.status = 500
+        util.errorResponse(this)
+    }
+}
+
+// POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function* (next) {
   this.request.body.email = util.trim(this.request.body.email)
   this.request.body.username = util.trim(this.request.body.username)
@@ -49,7 +70,7 @@ module.exports.validateRegistration = function* (next) {
   }
 }
 
-// save POST data to user model and store in database, while issuing a token
+// POST /user/register    save POST data to user model and store in database, while issuing a token
 module.exports.saveUsertoDatabase = function* (){
     let user = new User({
         email: this.request.body.email,
@@ -80,7 +101,7 @@ module.exports.saveUsertoDatabase = function* (){
     }
 }
 
-// check for invalid input, query database for matching email and password and grant token
+// POST /user/login       check for invalid input, query database for matching email and password and grant token
 module.exports.requestLogin = function* (next){
   // assign variable
   let emailOrUsername = util.trim(this.request.body.emailOrUsername)

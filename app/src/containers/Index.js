@@ -24,7 +24,7 @@ class Index extends Component {
           open={open}
           message={message}
           action="close"
-          autoHideDuration={5000}
+          autoHideDuration={3000}
           onActionTouchTap={eatSnack}
           onRequestClose={eatSnack}
         />
