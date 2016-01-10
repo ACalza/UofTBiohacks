@@ -25,7 +25,7 @@ module.exports = {
       loaders: ['babel'],
     }, {
       test: /\.scss$/,
-      loaders: ['style', 'css', 'postcss']
+      loaders: ['style', 'css', 'sass']
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=8192'

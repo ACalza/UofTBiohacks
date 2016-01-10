@@ -1,9 +1,17 @@
 @import './colours.scss';
 
-.Navigation {
-  background-color: rgba($splashbg, 0.6);
+.navbar-default {
+  background-color: rgba($splashbg, 0.8);
   border-bottom: 0;
+}
 
+.navbar-default .navbar-nav > li > a:hover {
+  // color: darken(rgb(255,255,255), 20%);
+  color: white;
+  background-color: darken($splashbg, 20%);
+}
+
+.Navigation {
   .navLink {
     text-transform: capitalize;
 
