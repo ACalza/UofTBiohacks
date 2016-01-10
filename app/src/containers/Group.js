@@ -63,30 +63,13 @@ export default class Group extends Component {
   rejectInviteHandler = (modelid) => {
 
   };
-//  {this.props.userModel.invites.map((model, i) => <div key={i}>{model.name}</div>)}
-  render() {
 
-    if(!this.props.jwt){
-      return (
-        <p>Loading</p>
-      )
-    }
-    let content
-    if(!this.props.groupModel && this.props.userModel.invites.length > 0) {
+  createGroupView = () => {
+    const {groupModel, userModel} = this.props
+    let content = null
+    if(!groupModel){
       content =
-      <div className="accountPage">
-        <h2>Invites</h2>
-        {this.props.userModel.invites.map((model, i) =>
-          <div key={i}>{model.name}
-            <RaisedButton
-              type = "Submit"
-              label = "Accept"
-              onTouchTap = {() => {
-                this.acceptInviteHandler(model._id)
-              }}
-            />
-          </div>
-        )}
+      <div className="createGroup">
         <h2>Create a Group</h2>
         <Formsy.Form
           onValid = {this.enableButton}
@@ -105,34 +88,40 @@ export default class Group extends Component {
             disabled = {!this.state.canSubmit}
           />
         </Formsy.Form>
-    </div>
-  }else if(!this.props.groupModel && this.props.userModel.invites.length === 0){
-    content =
-    <div className="accountPage">
-      <h2>Invites</h2>
-      <p>You currently have no invites!</p>
-      <h2>Create a Group</h2>
-      <Formsy.Form
-        onValid = {this.enableButton}
-        onInvalid = {this.disableButton}
-        onValidSubmit = {this.submitForm}>
+      </div>
+    }
+    return content
+  };
 
-        <FormsyText style={{display: 'block'}}
-          name = 'name'
-          required hintText = "What is your group name?"
-          floatingLabelText = "Group Name"
-        />
+  inviteView = () => {
+    const {groupModel, userModel} = this.props
+    let content
+      if(!groupModel && userModel.invites.length > 0){
+        content = userModel.invites.map((model, i) =>
+            <div key={i}>{model.name}
+              <RaisedButton
+                type = "Submit"
+                label = "Accept"
+                onTouchTap = {() => {
+                  this.acceptInviteHandler(model._id)
+                }}
+              />
+            </div>
+        )
 
-        <RaisedButton
-          type = "submit"
-          label = "Submit"
-          disabled = {!this.state.canSubmit}
-        />
-      </Formsy.Form>
-  </div>
-  }else{
+      } else if(!groupModel && userModel.invites.length === 0){
+        content =  <p>You currently have no invites! </p>
+      } else {
+        content = null
+      }
+      return content
+  };
+  inviteToGroupView = () => {
+    const {groupModel, userModel} = this.props
+    let content = null
+    if(groupModel){
       content =
-      <div className="accountPage">
+      <div className="inviteToGroup">
         <h2>Invite a user to {this.props.groupModel.name}!</h2>
         <Formsy.Form
           onValid = {this.enableButton}
@@ -153,9 +142,26 @@ export default class Group extends Component {
         </Formsy.Form>
       </div>
     }
-
+    return content
+  };
+  render() {
+    const {groupModel, userModel} = this.props
+    if(!this.props.jwt){
+      return (
+        <p>Loading</p>
+      )
+    }
     return(
-      content
+      <div className="groupPage">
+        {(()=> {
+          if(!groupModel){
+            return <h2>Invites </h2>
+          }
+        })()}
+        {this.inviteView()}
+        {this.createGroupView()}
+        {this.inviteToGroupView()}
+    </div>
     )
   }
 }
