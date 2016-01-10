@@ -119,6 +119,7 @@ export default class Group extends Component {
   inviteToGroupView = () => {
     const {groupModel, userModel} = this.props
     let content = null
+    console.log(this)
     if(groupModel){
       content =
       <div className="inviteToGroup">

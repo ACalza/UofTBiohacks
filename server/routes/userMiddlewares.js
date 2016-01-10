@@ -100,7 +100,15 @@ module.exports.saveUsertoDatabase = function* (){
       util.errorResponse(this)
     }
 }
-
+function* getGroupInvites(userModel){
+  let groupInvites = []
+  if(userModel.invites){
+    for(let i = 0; i < userModel.invites.length; i++){
+      groupInvites.push(yield Group.findById(userModel.invites[i]))
+    }
+  }
+  return groupInvites;
+}
 // POST /user/login       check for invalid input, query database for matching email and password and grant token
 module.exports.requestLogin = function* (next){
   // assign variable
@@ -120,9 +128,20 @@ module.exports.requestLogin = function* (next){
             model.password = undefined;
             this.userModel = model           // this.userModel persists for the entire session
             let token = jwt.sign({ userModel: model }, config.SECRET, { expiresInMinutes: 60 * 5 });
+
+            let groupModel = null;
+            if(this.userModel.group){                             // return just groupModel if user has a group already
+              groupModel = yield Group.findById(this.userModel.group)
+            } else{
+              model = model.toJSON()                       // otherwise fill userModel.invites
+              model.invites = yield getGroupInvites(model) // returns an array of invites for userModel
+            }
+
             this.body = {
                 token: token,
-                userModel: model,            // user.invites and user.group is populated
+                userModel: model,
+                message: "Welcome, " + model.name,          // user.invites and user.group is populated
+                groupModel: groupModel
                 };
         } else {                             // authentication fails
            this.body = {
