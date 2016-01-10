@@ -1,7 +1,4 @@
 'use strict'
-//
-    //=====>POST form data to be stored in mongoDB
-//
 // Require modules
 const Router = require('koa-router');
 const jwt = require('koa-jwt');
@@ -29,6 +26,15 @@ router.get('/logout', function*(){
         message: "logged out"
     };
 });
+
+router.use('/all', userMiddlewares.validateAdmin)
+router.use('/all', userMiddlewares.getUsers)
+router.get('/all', function* (){          // returns json array without encrypted passwords
+    this.body = this.users;
+}),
+router.use('/all/csv', userMiddlewares.validateAdmin)
+router.get('/all/csv', userMiddlewares.getCSV)
+
 
 
 module.exports = router;
