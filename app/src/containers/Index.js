@@ -7,6 +7,8 @@ import { connect,  } from 'react-redux'
 import BSContainer from '../components/BSContainer'
 import Snackbar from 'material-ui/lib/snackbar'
 
+import '../styles/index.scss'
+
 // Actions
 import * as LoggedActions from '../actions/logged'
 
@@ -17,7 +19,7 @@ class Index extends Component {
     const { eatSnack } = this.props.actions
 
     return(
-      <div className="appWrapper">
+      <div className="appWrapper fillY">
         {children}
 
         <Snackbar

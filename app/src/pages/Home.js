@@ -14,7 +14,8 @@ export default class Home extends Component {
   render() {
     return (
       <Layout>
-        <div className="Jumbotron jumbotron">
+        <div className="Splash jumbotron">
+          <div className="headerPush" />
           <h1>UofT BioHacks</h1>
         </div>
         <div className="container">

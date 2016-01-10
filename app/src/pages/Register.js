@@ -50,7 +50,7 @@ class Register extends Component {
 
   render() {
     return (
-      <Layout title="Register">
+      <Layout push title="Register">
         <Formsy.Form
           onValid = {this.enableButton}
           onInvalid = {this.disableButton}

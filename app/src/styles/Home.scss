@@ -1,3 +1,10 @@
-.Jumbotron {
-  text-align: center;
+@import './colours.scss';
+
+.Splash {
+  background-color: $splashbg;
+  margin-bottom: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

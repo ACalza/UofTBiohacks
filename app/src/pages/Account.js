@@ -11,7 +11,7 @@ import Layout from '../components/Layout'
 export default class Home extends Component {
   render() {
     return (
-      <Layout title="Account">
+      <Layout push title="Account">
         <Group />
       </Layout>
     )

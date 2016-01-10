@@ -44,7 +44,7 @@ class Login extends Component {
   // TODO forgot password
   render() {
     return (
-      <Layout title="Login">
+      <Layout push title="Login">
         <Formsy.Form
           onValid = {this.enableButton}
           onInvalid = {this.disableButton}

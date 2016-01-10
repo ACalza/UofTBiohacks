@@ -7,10 +7,11 @@ import Footer from './Footer'
 
 export default class Layout extends Component {
   render() {
-    const { title } = this.props
+    const { title, push } = this.props
 
     return(
-      <div>
+      <div className="fillY">
+        {push ? <div className="headerPush" /> : null}
         <Navigation title=""/>
         {title ? <Title title={title} /> : null}
         {this.props.children}
