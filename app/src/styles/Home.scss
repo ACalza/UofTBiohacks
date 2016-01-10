@@ -16,7 +16,16 @@
   }
 
   h1 {
-    margin-top: 0
+    margin-top: 0;
+    font-family: 'Nord';
+
+    .darkBlue {
+      color: #47566D;
+    }
+
+    .lightBlue {
+      color: #487DAF
+    }
   }
 
   .MainLogo {

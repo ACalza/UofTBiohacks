@@ -19,7 +19,7 @@ export default class Home extends Component {
         <div className="Splash jumbotron">
           <div className="headerPush" />
           <img src="http://45.55.193.224:1234/BioHacksLogo.svg" />
-          <h1>UofT BioHacks</h1>
+          <h1><span className="darkBlue">UofT</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
         </div>
         <div style={{paddingTop: '30px', backgroundColor: '#eee'}}>
           <div className="container">
