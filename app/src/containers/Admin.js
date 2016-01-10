@@ -2,13 +2,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ajaxGet } from '../util'
-
+import {Table} from 'reactable'
 
 export default class Admin extends Component {
   constructor(){
     super()
     this.state = {
-      tableLoaded: false
+      tableLoaded: false,
+      users: []
     }
   }
   componentWillMount = () => {
@@ -17,18 +18,23 @@ export default class Admin extends Component {
         console.error(err)
       } else {
         console.log(data)
+
         this.setState({
-          tableLoaded: true
+          tableLoaded: true,
+          users: data
         })
       }
     })
   };
 
   render() {
+    if(!this.props.jwt){
+      return <p> Loading </p>
+    }
     return(
       <div className="adminPage">
-      <p>Hello iGem Admin</p>
-
+        <h2>Hello iGem Admin</h2>
+        <Table className="Users" data={this.state.users} />
       </div>
     )
   }

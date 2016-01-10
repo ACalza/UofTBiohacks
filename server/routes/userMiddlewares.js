@@ -11,25 +11,6 @@ const User = require('../models/user');               // User is user Model
 const Group = require('../models/group');
 
 
-// GET  /user/            responds with all user data
-module.exports.getAllUsers = function* () {
-    try {
-        let users = yield User.find({})
-        if (!users) {
-            this.status = 404
-            util.erorrResponse(this)
-        }
-        this.body = {
-            users: users
-        }
-    } catch(err) {
-        console.error(err)
-        this.status = 500
-        util.errorResponse(this)
-    }
-}
-
-
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function* (next) {
   this.request.body.email = util.trim(this.request.body.email)
@@ -152,10 +133,17 @@ module.exports.getUsers = function* (next) {
     try {
       var users = yield User.find({}).populate('invites group').exec();
       for (var i = 0; i < users.length; i++) {
+        users[i] = users[i].toJSON()
         users[i].password = undefined;
+        users[i]._id = undefined;
+        users[i].__v = undefined;
+        users[i].invites = undefined;
+        if(users[i].group){
+          users[i].group = users[i].group.name
+        }
       }
       this.users = users;
-      yield next
+      yield next;
     } catch (err) {
       console.error(err);
       this.response.status = 500;
