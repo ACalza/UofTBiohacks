@@ -113,9 +113,9 @@ module.exports.inviteUsertoGroup = function* (){
       }
   }
 // POST sends in {userId: [Array of ids to invite]},
-// query users, adds current group, and populate their invites array.
-
+// query users, adds current group, and populsate their invites array.
 module.exports.validateUserInGroup = function* (next){
+    console.log(this.groupModel.users)
     if (!this.groupModel.users){            // check  if groupModel has users in it
         console.error(err)
         this.status = 400
