@@ -13,7 +13,7 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn,
 import Layout from '../components/Layout'
 
 // Actions
-import { createGroup, acceptGroupInvite } from '../actions/logged'
+import { createGroup, acceptGroupInvite, leaveGroup } from '../actions/logged'
 
 // Utilites
 import { ajaxPost, ajaxGet } from '../util'
@@ -63,7 +63,17 @@ export default class Group extends Component {
     })
 
   };
-  rejectInviteHandler = (modelid) => {
+  leaveGroupHandler = () => {
+    const {dispatch} = this.props
+    ajaxGet('/group/' + this.props.groupModel._id + '/leave', this.props.jwt, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        console.log(data)
+        dispatch(leaveGroup(data))
+      }
+    })
+
 
   };
   onRowSelection = (e) => {
@@ -136,7 +146,7 @@ export default class Group extends Component {
 
           <FormsyText style={{display: 'block'}}
             name = 'name'
-            required hintText = "Type username"
+            required hintText = "Username or Email"
             floatingLabelText = "Invite a user to your group"
           />
 
@@ -152,20 +162,22 @@ export default class Group extends Component {
         >
             <TableHeader >
               <TableRow>
-                <TableHeaderColumn colSpan="3" tooltip='Super Header' style={{textAlign: 'center'}}>
+                <TableHeaderColumn colSpan="3" tooltip='' style={{textAlign: 'center'}}>
                   Current Users (Limit 4)
                 </TableHeaderColumn>
               </TableRow>
               <TableRow>
-                <TableHeaderColumn tooltip='The ID'>Name</TableHeaderColumn>
-                <TableHeaderColumn tooltip='The Name'>Username</TableHeaderColumn>
-                <TableHeaderColumn tooltip='The Status'>Email</TableHeaderColumn>
+                <TableHeaderColumn tooltip='The Name'>Name</TableHeaderColumn>
+                <TableHeaderColumn tooltip='The Username'>Username</TableHeaderColumn>
+                <TableHeaderColumn tooltip='The Email'>Email</TableHeaderColumn>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody
+              showRowHover={true}
+            >
             {groupModel.users.map((user, i) =>
               <TableRow>
-                <TableRowColumn key={i}>{user.name}</TableRowColumn>
+                <TableRowColumn key={user.name + i}>{user.name}</TableRowColumn>
                 <TableRowColumn key={user.username}>{user.username}</TableRowColumn>
                 <TableRowColumn key={user.email}>{user.email}</TableRowColumn>
               </TableRow>
@@ -173,6 +185,11 @@ export default class Group extends Component {
             }
             </TableBody>
           </Table>
+          <RaisedButton
+            type = "submit"
+            label = "Leave Group"
+            onTouchTap = {this.leaveGroupHandler}
+          />
         </div>
     }
     return content
