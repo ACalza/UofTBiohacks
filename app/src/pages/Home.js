@@ -9,6 +9,8 @@ import Layout from '../components/Layout'
 
 import '../styles/Home.scss'
 
+import Logo from '../assets/BioHacksLogo.svg'
+
 // Presentational Component
 export default class Home extends Component {
   render() {
@@ -16,6 +18,9 @@ export default class Home extends Component {
       <Layout>
         <div className="Splash jumbotron">
           <div className="headerPush" />
+          <div>
+            <img src="http://45.55.193.224:1234/BioHacksLogo.svg" width="50%" style={{display: 'block'}}/>
+          </div>
           <h1>UofT BioHacks</h1>
         </div>
         <div className="container">

@@ -38,6 +38,9 @@ module.exports = {
     }, {
       test: /\.md$/,
       loader: "html!markdown"
+    }, {
+      test: /\.svg$/,
+      loader: 'file-loader'
     }]
   },
   postcss: function (webpack) {
