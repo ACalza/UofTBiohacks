@@ -14,9 +14,10 @@ const User = require('../models/user');               // User is User Model
  // Initiate router instance
 let router = new Router();
 
-router.get('/', userMiddlewares.getAllUsers)
+//router.get('/', userMiddlewares.getAllUsers)
 //router.get('/excel', userMiddlewares.excel)
 
+router.get('/all', userMiddlewares.getAllUsers)
 router.use('/register', userMiddlewares.validateRegistration);
 router.post('/register', userMiddlewares.saveUsertoDatabase);
 

@@ -13,13 +13,12 @@ const Group = require('../models/group');
 // GET  /user/            responds with all user data
 module.exports.getAllUsers = function* () {
     try {
-        let users = yield User.find({}).populate('invites group').exec()
+        let users = yield User.find({})
         if (!users) {
             this.status = 404
             util.erorrResponse(this)
         }
         this.body = {
-            message: 'get all populated users back',
             users: users
         }
     } catch(err) {

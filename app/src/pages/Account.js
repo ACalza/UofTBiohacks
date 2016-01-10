@@ -11,6 +11,7 @@ import Layout from '../components/Layout'
 // Presentational Component
 export default class Home extends Component {
   render() {
+  
     let content = <Group />
     if(this.props.userModel.email === "igem@g.skule.ca"){
       content = <Admin />

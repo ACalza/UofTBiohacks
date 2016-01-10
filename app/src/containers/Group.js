@@ -111,6 +111,7 @@ export default class Group extends Component {
 
   inviteView = () => {
     const {groupModel, userModel} = this.props
+    console.log(userModel)
     let content
       if(!groupModel && userModel.invites.length > 0){
         content = userModel.invites.map((model, i) =>
@@ -195,12 +196,13 @@ export default class Group extends Component {
     return content
   };
   render() {
-    const {groupModel, userModel} = this.props
     if(!this.props.jwt){
       return (
         <p>Loading</p>
       )
     }
+    const {groupModel, userModel} = this.props
+
     return(
       <div className="groupPage">
         {(()=> {
