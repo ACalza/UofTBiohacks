@@ -71,8 +71,7 @@ module.exports.saveUsertoDatabase = function* (){
       this.body = {
         token: token,
         message: "Successfully registered",
-        userModel: model,
-        groupModel: null
+        userModel: model
       };
     } catch (err) {
       this.response.status = 500
@@ -81,67 +80,38 @@ module.exports.saveUsertoDatabase = function* (){
     }
 }
 
-
-function* getGroupInvites(userModel){
-  let groupInvites = []
-  if(userModel.invites){
-    for(let i = 0; i < userModel.invites.length; i++){
-      groupInvites.push(yield Group.findById(userModel.invites[i]))
-    }
-  }
-  return groupInvites;
-}
-
-// check for invalid input, query database for matching email and password and grant token?
+// check for invalid input, query database for matching email and password and grant token
 module.exports.requestLogin = function* (next){
   // assign variable
   let emailOrUsername = util.trim(this.request.body.emailOrUsername)
   let password = this.request.body.password
-  let model;
   // check for invalid input
   if (!emailOrUsername || !password) {
     this.response.status = 400
     util.errorResponse(this)
   } else {
-     // try/catch
      try {
         // query database for matching email OR username
-        model = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]})
-      // check for matching password
-      if (model && bcrypt.compareSync(password, model.password)) {
-          // mask password and grant token
-          model.password = undefined;
-          this.userModel = model
-          let token = jwt.sign({
-            userModel: model
-          }, config.SECRET, {
-           expiresInMinutes: 60 * 5       // session expiration time
-          });
-          let groupModel = null;
-          if(this.userModel.group){                             // return just groupModel if user has a group already
-            groupModel = yield Group.findById(this.userModel.group)
-          }else{
-            model = model.toJSON()                              // otherwise fill userModel.invites
-            model.invites = yield getGroupInvites(model)        // returns an array of invites for userModel
-          }
-
-
-         this.body = {
-           token: token,
-           userModel: model,
-           groupModel: groupModel
-         };
-       } else {                           // authentication fails
-         this.body = {
-           message: "Wrong password and/or emailOrUsername"
-         }
+        let model = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]}).populate('group invites').exec()
+        // check for matching password
+        if (model && bcrypt.compareSync(password, model.password)) {
+            // mask password and grant token
+            model.password = undefined;
+            this.userModel = model           // this.userModel persists for the entire session
+            let token = jwt.sign({ userModel: model }, config.SECRET, { expiresInMinutes: 60 * 5 });
+            this.body = {
+                token: token,
+                userModel: model,            // user.invites and user.group is populated
+                };
+        } else {                             // authentication fails
+           this.body = {
+              message: "Wrong password and/or emailOrUsername"
+           }
        }
      } catch (err) {
-       this.response.status = 500
-       console.error(err)
-       util.errorResponse(this)
+         this.response.status = 500
+         console.error(err)
+         util.errorResponse(this)
      }
-
-
   }
 }

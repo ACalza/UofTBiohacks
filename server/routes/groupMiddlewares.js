@@ -113,31 +113,44 @@ module.exports.inviteUsertoGroup = function* (){
       }
   }
 // POST sends in {userId: [Array of ids to invite]},
-// query users, adds current group, and populate their invites array.
+// query users, adds current group, and populsate their invites array.
+module.exports.validateUserInGroup = function* (next){
+    console.log(this.groupModel.users)
+    if (!this.groupModel.users){            // check  if groupModel has users in it
+        console.error(err)
+        this.status = 400
+        util.errorResponse(this)
+    } else if(this.groupModel.users.indexOf(this.userModel._id === -1)){ // only users in the group can invite others
+        this.throw(403, 'Validation Error')
+    }
+    yield next
+}
 module.exports.inviteUserstoGroup = function* (){
     var userIdArray = this.request.body.userId;
     try {
         for (let i=0; i<userIdArray.length; i++) {      // update user.invites
            let user = yield User.update({_id: userIdArray[i]}, {$addToSet: {invites: this.groupModel._id}})
         }
+        this.body = 'Successful invite'
     } catch(err){
         console.error(err);
         this.status = 400
         util.errorRespose(this)
     }
-    this.body = 'Successful invite'
 
 }
 
 // GET /group/:group/accept
 module.exports.acceptInvite = function* (){       // this.userModel is accessible for the entire session
-    try{                                          // update user.group and group.users
+    try{
+        // assign current group to user.group
         let userResult = yield User.update({_id: this.userModel._id}, {$set: {group: this.groupModel._id}})
+        // push current user to group.users
         let groupResult = yield Group.update({_id: this.groupModel._id}, {$addToSet: {users: this.userModel._id}})
         let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
         this.body = {
             userModel: user,
-            message: "Successful accept: returns populated userModel"
+            message: this.userModel._id + " successfully accepted invitation from " + this.groupModel._id
         }
     }catch(err){
         console.error(err)
@@ -146,13 +159,32 @@ module.exports.acceptInvite = function* (){       // this.userModel is accessibl
     }
 }
 
+// GET /group/:group/reject
+module.exports.rejectInvite = function* (){
+  try{
+      console.log('user ' + this.userModel._id + ' reject invitation from group ' + this.groupModel._id)
+      // remove current group from user.invites
+      let userResult = yield User.update({_id: this.userModel._id}, {$pull: {invites: this.groupModel._id}})
+
+      let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
+      this.body = {
+          userModel: user,
+          message: this.userModel._id + "successfully rejected " + this.groupModel._id
+      }
+  }catch(err){
+      console.error(err)
+      this.status = 400
+      util.errorRespose(this)
+  }
+}
+
 // GET /group/:group/leave
 module.exports.leaveGroup = function* (){
     try {
         // remove user.group field
         let userResult = yield User.update({_id: this.userModel._id}, {$unset: {group: ""}})
         // remove user from group.users array
-        let groupResult = yield Group.update({_id: this.groupModel._id, users: this.userModel._id}, {$unset : {"users.$": ""}})
+        let groupResult = yield Group.update({_id: this.groupModel._id}, {$pull : {users:  this.userModel._id}})
         let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
         this.body = {
             userModel: user,
