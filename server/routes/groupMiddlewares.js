@@ -8,15 +8,17 @@ const mongoose = require('mongoose');
 const util = require('../util');
 
 
-// GET : get all groups in the database in [{group1}, {group2}, ...]
+// GET /group/ : get all groups in the database in [{group1}, {group2}, ...]
 module.exports.getAllGroups = function* (){
     try {
-        let groups = yield Group.find({});
+        let groups = yield Group.find({}).populate('users').exec()
         if (!groups) {
             this.status = 404
             util.erorrResponse(this)
-        } else {
-            this.body.groups = groups
+        }
+        this.body = {
+            message: 'get all populated groups back',
+            groups: groups
         }
     } catch(err) {
         console.error(err)
@@ -52,7 +54,7 @@ module.exports.saveGrouptoDatabase = function* (){
   try {
     let groupModel = yield group.save()    // use try/catch + yield instead of if(error)/else in callbacks
     let userModel = yield User.findById(this.userModel._id)
-    userModel.group = groupModel._id
+    userModel.group = groupModel._id       // user who created the group have user.group filled automatically
     userModel = yield userModel.save()
     userModel.password = undefined;
     this.userModel = userModel
@@ -61,17 +63,17 @@ module.exports.saveGrouptoDatabase = function* (){
       userModel: userModel
     }
   } catch (err) {
-    this.response.status = 500
-    console.error(err)
-    util.errorResponse(this)
+      this.response.status = 500
+      console.error(err)
+      util.errorResponse(this)
   }
 }
 
 
-// Middleware: query database by group id and attach to this.groupModel
+// /group/:group   query database by group id and attach to this.groupModel
 module.exports.findGroupbyId = function* (id, next) {         //middleware for attaching matching group document to this.groupModel
     try {
-      let groupModel = yield Group.findById(id);
+      let groupModel = yield Group.findById(id).populate('users').exec();
       if (!groupModel) {
         this.status = 404                              // this is a koa context that encapsulates req and res
         util.errorResponse(this)
@@ -111,22 +113,92 @@ module.exports.inviteUsertoGroup = function* (){
       }
   }
 // POST sends in {userId: [Array of ids to invite]},
-// query users, adds current group, and populate their invites array.
+// query users, adds current group, and populsate their invites array.
+module.exports.validateUserInGroup = function* (next){
+    console.log(this.groupModel.users)
+    if (!this.groupModel.users){            // check  if groupModel has users in it
+        console.error(err)
+        this.status = 400
+        util.errorResponse(this)
+    } else if(this.groupModel.users.indexOf(this.userModel._id === -1)){ // only users in the group can invite others
+        this.throw(403, 'Validation Error')
+    }
+    yield next
+}
 module.exports.inviteUserstoGroup = function* (){
     var userIdArray = this.request.body.userId;
     try {
         for (let i=0; i<userIdArray.length; i++) {      // update user.invites
            let user = yield User.update({_id: userIdArray[i]}, {$addToSet: {invites: this.groupModel._id}})
         }
+        this.body = 'Successful invite'
     } catch(err){
         console.error(err);
         this.status = 400
         util.errorRespose(this)
     }
-    this.body = 'success'
 
 }
 
+// GET /group/:group/accept
+module.exports.acceptInvite = function* (){       // this.userModel is accessible for the entire session
+    try{
+        // assign current group to user.group
+        let userResult = yield User.update({_id: this.userModel._id}, {$set: {group: this.groupModel._id}})
+        // push current user to group.users
+        let groupResult = yield Group.update({_id: this.groupModel._id}, {$addToSet: {users: this.userModel._id}})
+        let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
+        this.body = {
+            userModel: user,
+            message: this.userModel._id + " successfully accepted invitation from " + this.groupModel._id
+        }
+    }catch(err){
+        console.error(err)
+        this.status = 400
+        util.errorRespose(this)
+    }
+}
+
+// GET /group/:group/reject
+module.exports.rejectInvite = function* (){
+  try{
+      console.log('user ' + this.userModel._id + ' reject invitation from group ' + this.groupModel._id)
+      // remove current group from user.invites
+      let userResult = yield User.update({_id: this.userModel._id}, {$pull: {invites: this.groupModel._id}})
+
+      let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
+      this.body = {
+          userModel: user,
+          message: this.userModel._id + "successfully rejected " + this.groupModel._id
+      }
+  }catch(err){
+      console.error(err)
+      this.status = 400
+      util.errorRespose(this)
+  }
+}
+
+// GET /group/:group/leave
+module.exports.leaveGroup = function* (){
+    try {
+        // remove user.group field
+        let userResult = yield User.update({_id: this.userModel._id}, {$unset: {group: ""}})
+        // remove user from group.users array
+        let groupResult = yield Group.update({_id: this.groupModel._id}, {$pull : {users:  this.userModel._id}})
+        let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
+        this.body = {
+            userModel: user,
+            message: 'user ' + this.userModel._id + ' left group ' + this.groupModel._id
+        }
+    } catch(err) {
+        console.error(err)
+        this.status = 400
+        util.errorRespose(this)
+    }
+
+}
+
+/*
 module.exports.acceptInvite = function* (){
     //inefficent for now....
     let userModel = yield User.findById(this.userModel._id)
@@ -155,4 +227,4 @@ module.exports.acceptInvite = function* (){
       util.errorResponse(this)
     }
 }
-// populates the current group.users with the array of users
+*/

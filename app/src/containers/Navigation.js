@@ -9,6 +9,10 @@ import classNames from 'classnames'
 // Actions
 import * as LoggedActions from '../actions/logged'
 
+// Components
+// import { Navbar, Nav}
+import BSContainer from '../components/BSContainer'
+
 // Styles
 import '../styles/Navigation.scss'
 
@@ -16,7 +20,7 @@ import '../styles/Navigation.scss'
 class Navigation extends PureComponent {
   render() {
     const { logOut } = this.props.actions
-    const { jwt } = this.props
+    const { jwt, title } = this.props
 
     // TODO Routes should come from constants
     // TODO extend a base links
@@ -25,13 +29,6 @@ class Navigation extends PureComponent {
       whenLoggedIn: ['/', '/account', '!logout'],
       whenLoggedOut: ['/', '/register', '/login' ]
     }
-
-
-    const navClass = classNames({
-      // 'Navigation': true,
-      'nav': true,
-      'nav-inline': true
-    })
 
     // TODO conditionally style active link with redux-history
     const linksClass = classNames({
@@ -65,11 +62,27 @@ class Navigation extends PureComponent {
       }
     })()
 
-    return (
-      <nav role="navigation" className={navClass}>
-        <ul className="nav nav-pills">
-          {links}
-        </ul>
+    return(
+      <nav className="navbar navbar-default navbar-fixed-top">
+        <BSContainer>
+
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <a className="navbar-brand" href="#">{title}</a>
+          </div>
+
+          <div id="navbar" className="navbar-collapse collapse" aria-expanded="false">
+            <ul className="nav navbar-nav navbar-right">
+              {links}
+            </ul>
+          </div>
+
+        </BSContainer>
       </nav>
     )
   }
