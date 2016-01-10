@@ -10,24 +10,6 @@ const config = require('../config');                  // temporary KEY
 const User = require('../models/user');               // User is user Model
 const Group = require('../models/group');
 
-// GET  /user/            responds with all user data
-module.exports.getAllUsers = function* () {
-    try {
-        let users = yield User.find({}).populate('invites group').exec()
-        if (!users) {
-            this.status = 404
-            util.erorrResponse(this)
-        }
-        this.body = {
-            message: 'get all populated users back',
-            users: users
-        }
-    } catch(err) {
-        console.error(err)
-        this.status = 500
-        util.errorResponse(this)
-    }
-}
 
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function* (next) {
@@ -144,4 +126,48 @@ module.exports.requestLogin = function* (next){
          util.errorResponse(this)
      }
   }
+}
+
+// middleware /user/all            attach all user data to this.users
+module.exports.getUsers = function* (next) {
+    try {
+      var users = yield User.find({}).populate('invites group').exec();
+      for (var i = 0; i < users.length; i++) {
+        users[i].password = undefined;
+      }
+      this.users = users;
+      yield next
+    } catch (err) {
+      console.error(err);
+      this.response.status = 500;
+      util.errorResponse(this);
+    }
+  }
+// middlware /user/all and /user/all/csv
+module.exports.validateAdmin = function* (next) {
+    if (this.userModel && this.userModel.username === 'admin' && this.userModel.email === 'igem@g.skule.ca') {
+      yield next;
+    } else {
+      this.response.status = 403;
+      util.errorResponse(this);
+    }
+}
+
+// GET   /user/all/csv    downloads CSV containing userdata
+module.exports.getCSV = function* (){
+  this.response.set('Content-disposition', 'attachment; filename=users.csv');
+  this.type = 'text/csv';
+
+  let data = [{
+    email: "email",
+    name: "name",
+    username: "username",
+    group: "group"
+  }].concat(this.users);
+  this.body = streamify(data)
+    .pipe(through.obj(function(chunk, enc, callback) {
+      let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
+      this.push(curRow);
+      callback()
+    }))
 }
