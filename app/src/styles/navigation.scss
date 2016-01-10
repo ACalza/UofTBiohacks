@@ -1,7 +1,7 @@
 @import './colours.scss';
 
 .Navigation {
-  background-color: $splashbg;
+  background-color: rgba($splashbg, 0.6);
   border-bottom: 0;
 
   .navLink {
