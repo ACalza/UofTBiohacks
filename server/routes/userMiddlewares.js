@@ -121,26 +121,24 @@ module.exports.requestLogin = function* (next){
   } else {
      try {
         // query database for matching email OR username
-        let model = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]}).populate('group invites').exec()
+        let userModel = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]}).populate('group invites').exec()
         // check for matching password
-        if (model && bcrypt.compareSync(password, model.password)) {
+        if (userModel && bcrypt.compareSync(password, userModel.password)) {
             // mask password and grant token
-            model.password = undefined;
-            this.userModel = model           // this.userModel persists for the entire session
-            let token = jwt.sign({ userModel: model }, config.SECRET, { expiresInMinutes: 60 * 5 });
+            userModel.password = undefined;
+            this.userModel = userModel           // this.userModel persists for the entire session
+            let token = jwt.sign({ userModel: userModel }, config.SECRET, { expiresInMinutes: 60 * 5 });
 
             let groupModel = null;
             if(this.userModel.group){                             // return just groupModel if user has a group already
-              groupModel = yield Group.findById(this.userModel.group)
+              groupModel = yield Group.findById(this.userModel.group).populate('users').exec()
             } else{
-              model = model.toJSON()                       // otherwise fill userModel.invites
-              model.invites = yield getGroupInvites(model) // returns an array of invites for userModel
+              userModel = yield User.findById(this.userModel._id).populate('invites').exec()    // otherwise fill userModel.invit
             }
-
             this.body = {
                 token: token,
-                userModel: model,
-                message: "Welcome, " + model.name,          // user.invites and user.group is populated
+                userModel: userModel,
+                message: "Welcome, " + userModel.name,          // user.invites and user.group is populated
                 groupModel: groupModel
                 };
         } else {                             // authentication fails
