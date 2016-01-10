@@ -6,6 +6,10 @@ import { connect } from 'react-redux'
 import FMUI, { FormsyText } from 'formsy-material-ui'
 import RaisedButton from 'material-ui/lib/raised-button'
 
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn,
+  TableRow, TableRowColumn} from 'material-ui/lib/table';
+
+
 import Layout from '../components/Layout'
 
 // Actions
@@ -29,7 +33,6 @@ export default class Group extends Component {
 
 
   submitForm = (model) => {
-    console.log("submit", model)
     const { dispatch } = this.props
     let uri;
     if(this.props.groupModel){
@@ -62,6 +65,9 @@ export default class Group extends Component {
   };
   rejectInviteHandler = (modelid) => {
 
+  };
+  onRowSelection = (e) => {
+    console.log(e)
   };
 
   createGroupView = () => {
@@ -119,10 +125,9 @@ export default class Group extends Component {
   inviteToGroupView = () => {
     const {groupModel, userModel} = this.props
     let content = null
-    console.log(this)
     if(groupModel){
       content =
-      <div className="inviteToGroup">
+      <div className="groupSettings">
         <h2>Invite a user to {this.props.groupModel.name}!</h2>
         <Formsy.Form
           onValid = {this.enableButton}
@@ -141,7 +146,34 @@ export default class Group extends Component {
             disabled = {!this.state.canSubmit}
           />
         </Formsy.Form>
-      </div>
+        <Table
+         height='300px'
+         onRowSelection={this.onRowSelection}
+        >
+            <TableHeader >
+              <TableRow>
+                <TableHeaderColumn colSpan="3" tooltip='Super Header' style={{textAlign: 'center'}}>
+                  Current Users (Limit 4)
+                </TableHeaderColumn>
+              </TableRow>
+              <TableRow>
+                <TableHeaderColumn tooltip='The ID'>Name</TableHeaderColumn>
+                <TableHeaderColumn tooltip='The Name'>Username</TableHeaderColumn>
+                <TableHeaderColumn tooltip='The Status'>Email</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+            {groupModel.users.map((user, i) =>
+              <TableRow>
+                <TableRowColumn key={i}>{user.name}</TableRowColumn>
+                <TableRowColumn key={user.username}>{user.username}</TableRowColumn>
+                <TableRowColumn key={user.email}>{user.email}</TableRowColumn>
+              </TableRow>
+              )
+            }
+            </TableBody>
+          </Table>
+        </div>
     }
     return content
   };
