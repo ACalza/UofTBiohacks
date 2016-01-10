@@ -7,18 +7,24 @@ import { connect } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 import Layout from '../components/Layout'
 
+import '../styles/Home.scss'
+
 // Presentational Component
 export default class Home extends Component {
   render() {
     return (
       <Layout>
-        This is the super awesome homepage.
-        <h2> Home </h2>
-        <Row className="show-grid">
-          <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-          <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-          <Col xsHidden md={4}><code>&lt;{'Col xsHidden md={4}'} /&gt;</code></Col>
-        </Row>
+        <div className="Jumbotron jumbotron">
+          <h1>UofT BioHacks</h1>
+        </div>
+        <div className="container">
+          This is the super awesome homepage.
+          <Row className="show-grid">
+            <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
+            <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
+            <Col xsHidden md={4}><code>&lt;{'Col xsHidden md={4}'} /&gt;</code></Col>
+          </Row>
+        </div>
       </Layout>
     )
   }

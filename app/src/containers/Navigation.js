@@ -32,7 +32,7 @@ class Navigation extends PureComponent {
 
     // TODO conditionally style active link with redux-history
     const linksClass = classNames({
-      // 'navLink': true,
+      'navLink': true,
       'nav-link': true
     })
 
@@ -63,7 +63,7 @@ class Navigation extends PureComponent {
     })()
 
     return(
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <nav className="Navigation navbar navbar-default navbar-fixed-top">
         <BSContainer>
 
           <div className="navbar-header">

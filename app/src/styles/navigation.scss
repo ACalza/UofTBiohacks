@@ -1,8 +1,14 @@
+@import './colours.scss';
+
 body {
-  padding-top: 70px;
+  padding-top: 50px;
+  overflow-x: hidden;
 }
 
 .Navigation {
+  background-color: $splashbg;
+  border-bottom: 0;
+
   .navLink {
     text-transform: capitalize;
 

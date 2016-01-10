@@ -10,13 +10,11 @@ export default class Layout extends Component {
     const { title } = this.props
 
     return(
-      <div className="container">
+      <div>
         <Navigation title=""/>
-        <BSContainer>
-          {title ? <Title title={title} /> : null}
-          {this.props.children}
-          <Footer />
-        </BSContainer>
+        {title ? <Title title={title} /> : null}
+        {this.props.children}
+        <Footer />
       </div>
     )
   }
