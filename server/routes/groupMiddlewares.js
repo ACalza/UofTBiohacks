@@ -114,18 +114,30 @@ module.exports.inviteUsertoGroup = function* (){
   }
 // POST sends in {userId: [Array of ids to invite]},
 // query users, adds current group, and populate their invites array.
+
+module.exports.validateUserInGroup = function* (next){
+    if (!this.groupModel.users){            // check  if groupModel has users in it
+        console.error(err)
+        this.status = 400
+        util.errorResponse(this)
+    } else if(this.groupModel.users.indexOf(this.userModel._id === -1)){ // only users in the group can invite others
+        this.throw(403, 'Validation Error')
+    }
+    yield next
+}
 module.exports.inviteUserstoGroup = function* (){
     var userIdArray = this.request.body.userId;
     try {
         for (let i=0; i<userIdArray.length; i++) {      // update user.invites
            let user = yield User.update({_id: userIdArray[i]}, {$addToSet: {invites: this.groupModel._id}})
         }
+        this.body = 'Successful invite'
     } catch(err){
         console.error(err);
         this.status = 400
         util.errorRespose(this)
     }
-    this.body = 'Successful invite'
+
 }
 
 // GET /group/:group/accept
@@ -157,7 +169,7 @@ module.exports.rejectInvite = function* (){
       let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
       this.body = {
           userModel: user,
-          message: "Successfully rejected: returns populated userModel"
+          message: this.userModel._id + "successfully rejected " + this.groupModel._id
       }
   }catch(err){
       console.error(err)
