@@ -11,7 +11,7 @@ const util = require('../util');
 // GET /group/ : get all groups in the database in [{group1}, {group2}, ...]
 module.exports.getAllGroups = function* (){
     try {
-        var groups = yield Group.find({}).populate('users').exec()
+        let groups = yield Group.find({}).populate('users').exec()
         if (!groups) {
             this.status = 404
             util.erorrResponse(this)
