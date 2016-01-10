@@ -11,7 +11,7 @@ const User = require('../models/user');               // User is User Model
  // Initiate router instance
 let router = new Router();
 
-router.get('/', userMiddlewares.getAllUsers)
+//router.get('/', userMiddlewares.getAllUsers)
 //router.get('/excel', userMiddlewares.excel)
 
 router.use('/register', userMiddlewares.validateRegistration);
@@ -28,7 +28,7 @@ router.get('/logout', function*(){
 
 router.use('/all', userMiddlewares.validateAdmin)
 router.use('/all', userMiddlewares.getUsers)
-router.get('/all', function* (){          // returns json array without encrypted passwords
+router.get('/all', function* (){  // returns json array without encrypted passwords
     this.body = this.users;
 }),
 router.use('/all/csv', userMiddlewares.validateAdmin)

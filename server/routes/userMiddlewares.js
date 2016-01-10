@@ -133,10 +133,17 @@ module.exports.getUsers = function* (next) {
     try {
       var users = yield User.find({}).populate('invites group').exec();
       for (var i = 0; i < users.length; i++) {
+        users[i] = users[i].toJSON()
         users[i].password = undefined;
+        users[i]._id = undefined;
+        users[i].__v = undefined;
+        users[i].invites = undefined;
+        if(users[i].group){
+          users[i].group = users[i].group.name
+        }
       }
       this.users = users;
-      yield next
+      yield next;
     } catch (err) {
       console.error(err);
       this.response.status = 500;
