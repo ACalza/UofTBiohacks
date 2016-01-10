@@ -1,7 +1,5 @@
-@font-face {
-  font-family: 'Nord';
-  src: url(../assets/NordRegular.ttf)
-}
+@import './fonts.scss';
+@import './colours.scss';
 
 html, body, #appContainer {
   height: 100%;
@@ -13,4 +11,21 @@ html, body, #appContainer {
 
 .fillY {
   height: 100%;
+}
+
+.btn-primary {
+  border-radius: 0;
+  color: $grey-100;
+  background-color: $titleLightBlue;
+  border: 2px solid $titleDarkBlue;
+
+  &:hover {
+    background-color: $titleDarkBlue;
+    border: 2px solid $titleLightBlue;
+  }
+
+  a {
+    color: $grey-100;
+    text-decoration: none;
+  }
 }
