@@ -32,7 +32,7 @@ router.get('/all', function* (){  // returns json array without encrypted passwo
     this.body = this.users;
 }),
 router.use('/all/csv', userMiddlewares.validateAdmin)
-router.get('/all/csv', userMiddlewares.getCSV)
+router.post('/all/csv', userMiddlewares.getCSV)
 
 
 

@@ -4,6 +4,8 @@ const jwt = require('koa-jwt');
 const bcrypt = require('bcrypt');
 const json2xls = require('json2xls');
 const fs = require('fs');
+const streamify = require('stream-array');
+const through = require('through2');
 // Require internally
 const util = require('../util');                      // for error function
 const config = require('../config');                  // temporary KEY
@@ -175,6 +177,7 @@ module.exports.getCSV = function* (){
     .pipe(through.obj(function(chunk, enc, callback) {
       let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
       this.push(curRow);
+      
       callback()
     }))
 }
