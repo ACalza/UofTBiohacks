@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "395dc8e2f7c907c646f7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5b2f26c8f19154138c4c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -87085,7 +87085,7 @@
 	if (false) {
 	  baseUri = 'http://localhost:3000';
 	} else {
-	  baseUri = 'http://api.2016.uoftbiohacks.com';
+	  baseUri = 'http://api.uoftbiohacks.com';
 	}
 	
 	var BASE_URI = exports.BASE_URI = baseUri;
