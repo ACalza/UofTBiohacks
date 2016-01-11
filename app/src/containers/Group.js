@@ -157,35 +157,25 @@ export default class Group extends Component {
             disabled = {!this.state.canSubmit}
           />
         </Formsy.Form>
-        <Table
-         height='300px'
-         onRowSelection={this.onRowSelection}
-        >
-            <TableHeader >
-              <TableRow>
-                <TableHeaderColumn colSpan="3" tooltip='' style={{textAlign: 'center'}}>
-                  Current Users (Limit 4)
-                </TableHeaderColumn>
-              </TableRow>
-              <TableRow>
-                <TableHeaderColumn tooltip='The Name'>Name</TableHeaderColumn>
-                <TableHeaderColumn tooltip='The Username'>Username</TableHeaderColumn>
-                <TableHeaderColumn tooltip='The Email'>Email</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody
-              showRowHover={true}
-            >
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+            <th>Full name</th>
+            <th>Username</th>
+            <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
             {groupModel.users.map((user, i) =>
               <TableRow>
-                <TableRowColumn key={user.name + i}>{user.name}</TableRowColumn>
-                <TableRowColumn key={user.username}>{user.username}</TableRowColumn>
-                <TableRowColumn key={user.email}>{user.email}</TableRowColumn>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
               </TableRow>
               )
             }
-            </TableBody>
-          </Table>
+          </tbody>
+        </table>
           <RaisedButton
             type = "submit"
             label = "Leave Group"
