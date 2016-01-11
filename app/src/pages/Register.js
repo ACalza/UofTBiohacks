@@ -17,6 +17,8 @@ import { register } from '../actions/logged'
 // Utilites
 import { ajaxPost } from '../util'
 
+import '../styles/WideForm.scss'
+
 // Presentational Component
 class Register extends Component {
   constructor() {
@@ -55,7 +57,7 @@ class Register extends Component {
       <Layout push title="Register">
         <BSContainer>
           <Row>
-            <Col xs={12} md={6} mdOffset={3}>
+            <Col className="WideForm" xs={12} md={6} mdOffset={3}>
               <Formsy.Form
                 onValid = {this.enableButton}
                 onInvalid = {this.disableButton}
@@ -89,16 +91,6 @@ class Register extends Component {
                 />
 
                 <FormsyText style={{display: 'block'}}
-                  name = 'password'
-                  type = 'password'
-                  validations={{matchRegexp: /.{7}.+/}}
-                  validationError="At least eight characters please"
-                  required
-                  hintText = "What is your password?"
-                  floatingLabelText = "Password"
-                />
-
-                <FormsyText style={{display: 'block'}}
                   name = 'education'
                   floatingLabelText = "Education Background"
                 />
@@ -128,6 +120,16 @@ class Register extends Component {
                   floatingLabelText = "Do you have any questions for us?"
                 />
 
+
+                <FormsyText style={{display: 'block'}}
+                  name = 'password'
+                  type = 'password'
+                  validations={{matchRegexp: /.{7}.+/}}
+                  validationError="At least eight characters please"
+                  required
+                  hintText = "What is your password?"
+                  floatingLabelText = "Password"
+                />
 
                 <FormsyText style={{display: 'block'}}
                   name = 'confirmpassword'

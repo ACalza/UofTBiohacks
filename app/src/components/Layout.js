@@ -15,7 +15,11 @@ export default class Layout extends Component {
       flexDirection: 'column',
       minHeight: '100vh'
     }
-    let innerStyles = { flex: '1' }
+    let innerStyles = {
+      flex: '1',
+      paddingBottom: '30px',
+      background: '#eee'
+    }
 
     return (
       <div style={outerStyles}>
