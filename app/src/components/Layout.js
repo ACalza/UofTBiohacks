@@ -18,7 +18,7 @@ export default class Layout extends Component {
     let innerStyles = { flex: '1' }
 
     return (
-      <div className="fillY" style={outerStyles}>
+      <div style={outerStyles}>
         <div className="content" style={innerStyles}>
           {push ? <div className="headerPush" /> : null}
           <Navigation title=""/>

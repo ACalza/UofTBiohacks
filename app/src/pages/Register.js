@@ -6,8 +6,10 @@ import { connect } from 'react-redux'
 // Components
 import FMUI, { FormsyText, FormsyToggle } from 'formsy-material-ui'
 import RaisedButton from 'material-ui/lib/raised-button'
+import { Row, Col } from 'react-bootstrap'
 
 import Layout from '../components/Layout'
+import BSContainer from '../components/BSContainer'
 
 // Actions
 import { register } from '../actions/logged'
@@ -51,65 +53,101 @@ class Register extends Component {
   render() {
     return (
       <Layout push title="Register">
-        <Formsy.Form
-          onValid = {this.enableButton}
-          onInvalid = {this.disableButton}
-          onValidSubmit = {this.submitForm}
-        >
+        <BSContainer>
+          <Row>
+            <Col xs={12} md={6} mdOffset={3}>
+              <Formsy.Form
+                onValid = {this.enableButton}
+                onInvalid = {this.disableButton}
+                onValidSubmit = {this.submitForm}
+              >
+                <FormsyText style={{display: 'block'}}
+                  required
+                  name = 'email'
+                  validations="isEmail"
+                  validationError={'Invalid email'}
+                  hintText = "What is your email?"
+                  floatingLabelText = "Email"
+                />
 
-        <FormsyText style={{display: 'block'}}
-          required
-          name = 'email'
-          validations="isEmail"
-          validationError={'Invalid email'}
-          hintText = "What is your email?"
-          floatingLabelText = "Email"
-        />
+                <FormsyText style={{display: 'block'}}
+                  required
+                  name = 'username'
+                  validations={{matchRegexp: /.+/}}
+                  validationError="At least one character please"
+                  required hintText = "What is your username?"
+                  floatingLabelText = "Username"
+                />
 
-        <FormsyText style={{display: 'block'}}
-          required
-          name = 'username'
-          validations={{matchRegexp: /.+/}}
-          validationError="At least one character please"
-          required hintText = "What is your username?"
-          floatingLabelText = "Username"
-        />
+                <FormsyText style={{display: 'block'}}
+                  required
+                  name = 'name'
+                  validations={{matchRegexp: /.+/}}
+                  validationError="At least one character please"
+                  required hintText = "What is your name?"
+                  floatingLabelText = "Name"
+                />
 
-        <FormsyText style={{display: 'block'}}
-          required
-          name = 'name'
-          validations={{matchRegexp: /.+/}}
-          validationError="At least one character please"
-          required hintText = "What is your name?"
-          floatingLabelText = "Name"
-        />
+                <FormsyText style={{display: 'block'}}
+                  name = 'password'
+                  type = 'password'
+                  validations={{matchRegexp: /.{7}.+/}}
+                  validationError="At least eight characters please"
+                  required
+                  hintText = "What is your password?"
+                  floatingLabelText = "Password"
+                />
 
-        <FormsyText style={{display: 'block'}}
-          name = 'password'
-          type = 'password'
-          validations={{matchRegexp: /.{7}.+/}}
-          validationError="At least eight characters please"
-          required
-          hintText = "What is your password?"
-          floatingLabelText = "Password"
-        />
+                <FormsyText style={{display: 'block'}}
+                  name = 'education'
+                  floatingLabelText = "Education Background"
+                />
 
-        <FormsyText style={{display: 'block'}}
-          name = 'confirmpassword'
-          type = 'password'
-          validations="equalsField:password"
-          validationError="Does not match"
-          required
-          hintText = "Confirm Password"
-          floatingLabelText = "Confirm Password"
-        />
+                <FormsyText style={{display: 'block'}}
+                  name = 'year'
+                  floatingLabelText = "Year of Study"
+                />
 
-        <RaisedButton
-          type = "submit"
-          label = "Submit"
-          disabled = {!this.state.canSubmit}
-        />
-      </Formsy.Form>
+                <FormsyText style={{display: 'block'}}
+                  name = 'howDidYouHear'
+                  floatingLabelText = "How did you hear about this event?"
+                />
+
+                <FormsyText style={{display: 'block'}}
+                  name = 'codingbackground'
+                  floatingLabelText = "Do you have any coding background?"
+                />
+
+                <FormsyText style={{display: 'block'}}
+                  name = 'likeToSee'
+                  floatingLabelText = "What would you like to see in the event?"
+                />
+
+                <FormsyText style={{display: 'block'}}
+                  name = 'questions'
+                  floatingLabelText = "Do you have any questions for us?"
+                />
+
+
+                <FormsyText style={{display: 'block'}}
+                  name = 'confirmpassword'
+                  type = 'password'
+                  validations="equalsField:password"
+                  validationError="Does not match"
+                  required
+                  hintText = "Confirm Password"
+                  floatingLabelText = "Confirm Password"
+                />
+
+                <RaisedButton
+                  type = "submit"
+                  label = "Submit"
+                  disabled = {!this.state.canSubmit}
+                />
+              </Formsy.Form>
+            </Col>
+          </Row>
+        </BSContainer>
       </Layout>
     )
   }
