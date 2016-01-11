@@ -11,7 +11,9 @@ import BSContainer from '../components/BSContainer'
 
 import '../styles/Home.scss'
 
-import Logo from '../assets/BioHacksLogo.svg'
+// import Logo from '../assets/BioHacksLogo.svg'
+
+import about from '../markdown/about.md'
 
 // Presentational Component
 export default class Home extends Component {
@@ -32,10 +34,11 @@ export default class Home extends Component {
                     <h2>March 12-13</h2>
 
                     <div className="buttonHolder">
-                      <div className="ribbon hidden-lg"><span><Link className="ribbonLink" to="/register">Register</Link></span></div>
-                      <button type="button" className="btn btn-primary btn-lg visible-lg-block"><Link to="/register">Register</Link></button>
+                      <button type="button" className="btn btn-primary btn-lg"><Link to="/register">Register</Link></button>
                     </div>
                   </div>
+                  <hr />
+                  <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                 </div>
               </Col>
             </Row>
@@ -55,3 +58,5 @@ export default class Home extends Component {
     )
   }
 }
+
+// <div className="ribbon hidden-lg"><span><Link className="ribbonLink" to="/register">Register</Link></span></div>

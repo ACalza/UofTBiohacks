@@ -43,11 +43,11 @@
 
   .my-panel-default {
     border: 0;
+    padding: 15px;
     border-radius: 0;
     background-color: $grey-100;
 
     .my-panel-body {
-      padding: 15px;
       display: flex;
       justify-content: space-between;
 

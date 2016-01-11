@@ -55,6 +55,10 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+    }),
     new webpack.DefinePlugin({
       __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
     }),
