@@ -6,8 +6,7 @@
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-  // color: darken(rgb(255,255,255), 20%);
-  color: white;
+  color: $navLinkHover;
   background-color: darken($splashbg, 20%);
 }
 

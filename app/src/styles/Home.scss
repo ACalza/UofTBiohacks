@@ -1,10 +1,13 @@
+@import './fonts.scss';
 @import './colours.scss';
+@import './lumxcolors.scss';
 
 .Splash {
   background-color: $splashbg;
   margin-bottom: 0;
   padding-bottom: 10px;
   height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,18 +20,135 @@
 
   h1 {
     margin-top: 0;
+    padding-top: 10px;
     font-family: 'Nord';
 
     .darkBlue {
-      color: #47566D;
+      color: $titleDarkBlue;
     }
 
     .lightBlue {
-      color: #487DAF
+      color: $titleLightBlue
     }
   }
 
   .MainLogo {
     background-image: url(../assets/BioHacksLogo.svg);
+  }
+}
+
+.lightBlock {
+  padding-top: 20px;
+  background-color: $titleLightBlue;
+}
+
+.darkBlock {
+  padding-top: 20px;
+  background-color: $titleDarkBlue;
+}
+
+.my-panel-default {
+  border: 0;
+  padding: 15px;
+  border-radius: 0;
+  background-color: $grey-100;
+}
+
+.registerBlock {
+  padding-top: 30px;
+  background-color: $titleDarkBlue;
+
+  h2 {
+    font-family: 'Nord';
+  }
+
+
+  .my-panel-default {
+
+    .my-panel-body {
+      display: flex;
+      justify-content: space-between;
+
+      .buttonHolder {
+        display: flex;
+        align-items: center;
+
+        .btn-lg {
+          font-size: 25px;
+          font-family: 'Nord';
+        }
+      }
+    }
+  }
+
+  .ribbon {
+    position: absolute;
+    right: 10px; top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+
+    span {
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: $titleLightBlue;
+      background: linear-gradient(lighten($titleLightBlue, 10%) 0%, $titleLightBlue 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 18px;
+      right: -21px;
+
+      .ribbonLink {
+        font-size: 1.2em;
+        font-family: 'Nord';
+        color: $grey-100;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      &::before {
+        content: "";
+        position: absolute; left: 0px; top: 100%;
+        z-index: -1;
+        border-left: 3px solid $titleLightBlue;
+        border-right: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid $titleLightBlue;
+      }
+
+      &::after {
+        content: "";
+        position: absolute; right: 0px; top: 100%;
+        z-index: -1;
+        border-left: 3px solid transparent;
+        border-right: 3px solid $titleLightBlue;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid $titleLightBlue;
+      }
+
+      &:hover {
+        background: lighten($titleLightBlue, 10%);
+
+        &::before {
+          border-left: 3px solid lighten($titleLightBlue, 10%);
+          border-right: 3px solid transparent;
+          border-bottom: 3px solid transparent;
+          border-top: 3px solid lighten($titleLightBlue, 10%);
+        }
+
+        &::after {
+          border-left: 3px solid transparent;
+          border-right: 3px solid lighten($titleLightBlue, 10%);
+          border-bottom: 3px solid transparent;
+          border-top: 3px solid lighten($titleLightBlue, 10%);
+        }
+      }
+    }
   }
 }
