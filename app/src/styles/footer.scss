@@ -6,4 +6,13 @@ footer {
   color: $grey-200;
   background-color: $titleDarkBlue;
   text-align: center;
+
+  a {
+    color: $grey-400;
+
+    &:hover {
+      color: $grey-50;
+      text-decoration: none;
+    }
+  }
 }

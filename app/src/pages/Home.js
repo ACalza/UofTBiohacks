@@ -7,7 +7,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { Col, Row } from 'react-bootstrap'
 import Layout from '../components/Layout'
+import Navigation from '../containers/Navigation'
 import BSContainer from '../components/BSContainer'
+import Footer from '../components/Footer'
 
 import '../styles/Home.scss'
 
@@ -22,7 +24,8 @@ import faq from '../markdown/faq.md'
 export default class Home extends Component {
   render() {
     return (
-      <Layout>
+      <div className="fillY">
+        <Navigation />
         <div className="Splash jumbotron">
           <div className="headerPush" />
           <img src="http://45.55.193.224:1234/BioHacksLogo.svg" />
@@ -86,7 +89,8 @@ export default class Home extends Component {
             </Row>
           </BSContainer>
         </div>
-      </Layout>
+        <Footer />
+      </div>
     )
   }
 }
