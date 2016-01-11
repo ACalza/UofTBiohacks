@@ -23,3 +23,6 @@ ReactDOM.render(<Root store={store} /> ,appContainer)
 
 import './assets/js/flowtype.js'
 $('#intro').flowtype({minFont: 14})
+$('#why').flowtype({minFont: 14})
+$('#overview').flowtype({minFont: 14})
+$('#faq').flowtype({minFont: 14})

@@ -14,6 +14,9 @@ import '../styles/Home.scss'
 // import Logo from '../assets/BioHacksLogo.svg'
 
 import about from '../markdown/about.md'
+import why from '../markdown/why.md'
+import overview from '../markdown/overview.md'
+import faq from '../markdown/faq.md'
 
 // Presentational Component
 export default class Home extends Component {
@@ -44,15 +47,44 @@ export default class Home extends Component {
             </Row>
           </BSContainer>
         </div>
-        <div style={{paddingTop: '30px', backgroundColor: '#eee'}}>
-          <div className="container">
-            This is the super awesome homepage.
-            <Row className="show-grid">
-              <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-              <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-              <Col xsHidden md={4}><code>&lt;{'Col xsHidden md={4}'} /&gt;</code></Col>
+        <div className="lightBlock">
+          <BSContainer>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <div className="panel my-panel-default">
+                  <div className="my-panel-body">
+                    <div id="why" dangerouslySetInnerHTML={{__html: why}} />
+                  </div>
+                </div>
+              </Col>
             </Row>
-          </div>
+          </BSContainer>
+        </div>
+        <div className="darkBlock">
+          <BSContainer>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <div className="panel my-panel-default">
+                  <div className="my-panel-body">
+                    <div id="overview" dangerouslySetInnerHTML={{__html: overview}} />
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </BSContainer>
+        </div>
+        <div className="lightBlock">
+          <BSContainer>
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <div className="panel my-panel-default">
+                  <div className="my-panel-body">
+                    <div id="faq" dangerouslySetInnerHTML={{__html: faq}} />
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </BSContainer>
         </div>
       </Layout>
     )
