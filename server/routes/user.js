@@ -26,6 +26,8 @@ router.get('/logout', function*(){
     };
 });
 
+router.post('/forgot', userMiddlewares.forgotPassword)
+
 router.use('/all', userMiddlewares.validateAdmin)
 router.use('/all', userMiddlewares.getUsers)
 router.get('/all', function* (){  // returns json array without encrypted passwords
