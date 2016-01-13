@@ -108,36 +108,28 @@ module.exports.validateUserInGroup = function* (next){
     }
     yield next
 }
-// module.exports.inviteUserstoGroup = function* (){
-//     var userIdArray = this.request.body.userId;
-//     let user
-//     try {
-//         for (let i=0; i<userIdArray.length; i++) {      // update user.invites
-//           user = yield User.update({_id: userIdArray[i]}, {$addToSet: {invites: this.groupModel._id}})
-//         }
-//         this.body = {
-//           userModel: user,
-//           groupModel: this.groupModel,
-//           message: "Successfully added " + user.name
-//         }
-//     } catch(err){
-//         console.error(err);
-//         this.status = 400
-//         util.errorRespose(this)
-//     }
-//
-// }
-//
+
+//POST request to invite a user to a group
 module.exports.inviteUserstoGroup = function* (){
       let emailOrUsername = this.request.body.emailOrUsername;
       try {
           let user = yield User.findOne({ $or: [{email:emailOrUsername}, {username: emailOrUsername}]})
           if(!user){
             return this.body ={
+              groupModel: this.groupModel,
+              userModel: this.userModel,
               message: "Invalid username or email"
             }
           }
-
+          //Edge case if user has already been invited
+          let index = user.invites.indexOf(this.groupModel._id)
+          if(index >= 0){
+            return this.body = {
+              groupModel: this.groupModel,
+              userModel: this.userModel,
+              message: user.username + " has already been invited!"
+            }
+          }
           user.invites.push([this.groupModel._id])
           let result = yield user.save()
           result.password = undefined
@@ -156,40 +148,23 @@ module.exports.inviteUserstoGroup = function* (){
 
   }
 
-  // module.exports.acceptInvite = function* (){
-  //     //inefficent for now....
-  //     let userModel = yield User.findById(this.userModel._id)
-  //     let groupModel = this.groupModel
-  //     userModel.group = this.groupModel._id
-  //     groupModel.users.push(userModel._id)
-  //
-  //     try{
-  //       let index = userModel.invites.indexOf(this.groupModel._id.toString())
-  //       if(index < 0){
-  //         throw new Error("No invite to accept")
-  //       }
-  //       userModel.invites.splice(index)
-  //
-  //       userModel = yield userModel.save()
-  //       groupModel = yield groupModel.save().populate('users').exec()
-  //       userModel.password = undefined
-  //       this.body = {
-  //         userModel: userModel,
-  //         groupModel: groupModel,
-  //         message: "successfully joined " + groupModel.name
-  //       }
-  //     }catch(err){
-  //       console.error(err)
-  //       this.status = 404
-  //       util.errorResponse(this)
-  //     }
-  // }
 //GET /group/:group/accept
-module.exports.acceptInvite = function* (){       // this.userModel is accessible for the entire session
+module.exports.acceptInvite = function* (){
+        // this.userModel is accessible for the entire session
+    //Give appropriate error response on full gorup
+    if(this.groupModel.users.length === 4){
+      return this.body = {
+        userModel: this.userModel,
+        groupModel: null,
+        message: this.groupModel.name + " is already at maximum capacity"
+      }
+    }
+    //TODO check if there is even an invite to accept
     try{
         // assign current group to user.group
         let userResult = yield User.update({_id: this.userModel._id}, {$set: {group: this.groupModel._id}})
         // push current user to group.users
+
         let groupResult = yield Group.update({_id: this.groupModel._id}, {$addToSet: {users: this.userModel._id}})
         //Mongoose won't let me chain the update, so I need to re-search and get.
         groupResult = yield Group.findById(this.groupModel._id).populate("users").exec()
@@ -201,7 +176,7 @@ module.exports.acceptInvite = function* (){       // this.userModel is accessibl
         }
     }catch(err){
         console.error(err)
-        this.status = 400
+        this.status = 500
         util.errorResponse(this)
     }
 }
@@ -246,34 +221,3 @@ module.exports.leaveGroup = function* (){
     }
 
 }
-
-/*
-module.exports.acceptInvite = function* (){
-    //inefficent for now....
-    let userModel = yield User.findById(this.userModel._id)
-    let groupModel = this.groupModel
-    userModel.group = this.groupModel._id
-    groupModel.users.push(userModel._id)
-
-    try{
-      let index = userModel.invites.indexOf(this.groupModel._id.toString())
-      if(index < 0){
-        throw new Error("No invite to accept")
-      }
-      userModel.invites.splice(index)
-
-      userModel = yield userModel.save()
-      groupModel = yield groupModel.save()
-      userModel.password = undefined
-      this.body = {
-        userModel: userModel,
-        groupModel: groupModel,
-        message: "successfully joined " + groupModel.name
-      }
-    }catch(err){
-      console.error(err)
-      this.status = 404
-      util.errorResponse(this)
-    }
-}
-*/
