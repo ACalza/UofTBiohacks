@@ -10,6 +10,7 @@ import Layout from '../components/Layout'
 import Navigation from '../containers/Navigation'
 import BSContainer from '../components/BSContainer'
 import Footer from '../components/Footer'
+import Timeline from '../components/Timeline'
 
 import '../styles/Home.scss'
 
@@ -50,6 +51,7 @@ export default class Home extends Component {
             </Row>
           </BSContainer>
         </div>
+        <Timeline />
         <div className="lightBlock">
           <BSContainer>
             <Row>

@@ -1,0 +1,32 @@
+@import './colours.scss';
+
+.Timeline {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  padding: 10px;
+  background-color: #eee;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    height: 100%;
+    width: 4px;
+    background-color: black;
+  }
+
+  .timeline-block {
+    width: 45%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+}
+
+@media only screen and (min-width : 992px) {
+  .Timeline::before {
+    left: 50%;
+  }
+}
