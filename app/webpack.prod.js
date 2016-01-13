@@ -8,12 +8,14 @@ module.exports = {
     'bootstrap-loader',
     path.resolve(__dirname, 'build.js')
   ],
+  target: 'node',
   output: {
     path: 'prod-dist',
     filename: 'app.node.js',
-    libraryTarget: 'commonjs2'
+    publicPath: '/assets',
+    libraryTarget: 'commonjs2',
   },
-  target: 'node',
+  // externals: /^[a-z\-0-9]+$/,
   module: {
     loaders: [{
       test: /\.js$/,
@@ -42,6 +44,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js']
   },
+  devtool: 'sourcemap',
   plugins: [
     new webpack.ProvidePlugin({
         $: 'jquery',
