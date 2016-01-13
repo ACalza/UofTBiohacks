@@ -28,7 +28,9 @@ let userSchema = mongoose.Schema({
   school: String, //Won't be required
   github: String,
   about: String, //Likely to be mandatory, for now no.
-  program: String
+  program: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 })
 
 module.exports = mongoose.model('User', userSchema)
