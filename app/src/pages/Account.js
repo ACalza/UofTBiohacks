@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Group from '../containers/Group'
 import Admin from '../containers/Admin'
+import AccountDetails from '../components/AccountDetails'
 
 // Components
 import Layout from '../components/Layout'
@@ -22,6 +23,7 @@ export default class Home extends Component {
     return (
       <Layout push title="Account">
         {content}
+        <AccountDetails userModel={this.props.userModel} />
       </Layout>
     )
   }

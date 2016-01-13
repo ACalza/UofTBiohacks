@@ -111,8 +111,8 @@ export default class Group extends Component {
 
   inviteView = () => {
     const {groupModel, userModel} = this.props
-    console.log(userModel)
-    let content
+    
+    let content = null
       if(!groupModel && userModel.invites.length > 0){
         content = userModel.invites.map((model, i) =>
             <div key={i}>{model.name}
@@ -128,8 +128,6 @@ export default class Group extends Component {
 
       } else if(!groupModel && userModel.invites.length === 0){
         content =  <p>You currently have no invites! </p>
-      } else {
-        content = null
       }
       return content
   };
