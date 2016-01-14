@@ -8,7 +8,8 @@ export default class AccountDetails extends PureComponent {
 
     return(
       <div className="accountDetails">
-        <b>Username: </b>{userModel.username}
+        <h2> Account details </h2>
+        <b>Username: </b>{userModel.username} <br></br>
         <b>Email: </b>{userModel.email}
       </div>
     )
