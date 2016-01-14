@@ -226,6 +226,7 @@ module.exports.forgotPassword = function*() {
       api_key: config.sendgridpassword
     }
     let client = nodemailer.createTransport(sgTransport(options));
+
     let email = {
       from: 'albert.calzaretto@gmail.com',
       to: 'albert.calzaretto@mail.utoronto.ca',

@@ -29,6 +29,7 @@
     "mongoose": "^4.3.4",
     "nodemailer": "^2.0.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
+    "sendgrid": "^2.0.0",
     "stream-array": "^1.1.1",
     "through2": "^2.0.0"
   }
