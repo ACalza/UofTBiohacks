@@ -231,7 +231,7 @@ module.exports.forgotPassword = function*() {
     let client = nodemailer.createTransport(sgTransport(options));
     let email = {
       from: 'igem@g.skule.ca',
-      to: 'albert.calzaretto@mail.utoronto.ca',
+      to: user.email,
       subject: 'UofT Biohacks Password Reset',
       html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -248,15 +248,4 @@ module.exports.forgotPassword = function*() {
     this.response.status = 500;
     util.errorResponse(this);
   }
-
-
-  //     smtpTransport.sendMail(mailOptions, function(err) {
-  //       req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-  //       done(err, 'done');
-  //     });
-  //   }
-  // ], function(err) {
-  //   if (err) return next(err);
-  //   res.redirect('/forgot');
-  // })
 }
