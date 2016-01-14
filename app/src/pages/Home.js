@@ -51,7 +51,9 @@ export default class Home extends Component {
             </Row>
           </BSContainer>
         </div>
-        <Timeline />
+        <div style={{backgroundColor: '#eee'}}>
+          <Timeline />
+        </div>
         <div className="lightBlock">
           <BSContainer>
             <Row>
