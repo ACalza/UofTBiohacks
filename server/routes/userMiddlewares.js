@@ -215,45 +215,34 @@ module.exports.forgotPassword = function*() {
     })
     if (!user) {
       return this.body = {
-        message: "No account with that email exists"
+        message: "No account with that email exists",
+        success: false
       }
     }
     user.resetPasswordToken = token;
     user.resetPasswordExpires = Date.now() + 3600000 //1 hour
     user = yield user.save()
     let options = {
-      api_user: config.sendgridusername,
-      api_key: config.sendgridpassword
+      auth : {
+        api_user: config.api_user,
+        api_key: config.api_key
+      }
     }
     let client = nodemailer.createTransport(sgTransport(options));
-
     let email = {
-      from: 'albert.calzaretto@gmail.com',
+      from: 'igem@g.skule.ca',
       to: 'albert.calzaretto@mail.utoronto.ca',
-      subject: 'Hello',
-      text: 'Hello world',
-      html: '<b>Hello world</b>'
+      subject: 'UofT Biohacks Password Reset',
+      html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          'http://' + this.request.host + '/reset/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     };
-    yield client.sendMail(email)
-    // let smtpTransport = nodemailer.createTransport('STMP', {
-    //   service: 'SendGrid',
-    //   auth: {
-    //     user: config.sendgridusername,
-    //     pass: config.sendgridpassword
-    //   }
-    // });
-    // let mailOptions = {
-    //   to: user.email,
-    //   from: "igem@g.skule.ca",
-    //   subject: "UofT Biohacks Password Reset",
-    //   text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-    //     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-    //     'http://' + this.request.host + '/reset/' + token + '\n\n' +
-    //     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-    // }
-    // let data = yield sendMail(smtpTransport, mailOptions);
-    console.log(data)
-    //smtpTransport.sendMail(mailOptions)
+    yield sendMail(client, email);
+    this.body = {
+      message: "An email will be sent shortly to reset your password",
+      success: true
+    }
   } catch (err) {
     console.error(err)
     this.response.status = 500;
