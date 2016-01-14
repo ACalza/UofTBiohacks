@@ -48,6 +48,7 @@ export default class Group extends Component {
         console.error(err)
       } else {
         dispatch(createGroup(data))
+        this.render()
       }
     })
   };
@@ -69,7 +70,6 @@ export default class Group extends Component {
       if (err) {
         console.error(err)
       } else {
-        console.log(data)
         dispatch(leaveGroup(data))
       }
     })
@@ -111,12 +111,13 @@ export default class Group extends Component {
 
   inviteView = () => {
     const {groupModel, userModel} = this.props
-    
+
     let content = null
       if(!groupModel && userModel.invites.length > 0){
         content = userModel.invites.map((model, i) =>
-            <div key={i}>{model.name}
+            <div key={i/2.0}>{model.name}
               <RaisedButton
+                key={i}
                 type = "Submit"
                 label = "Accept"
                 onTouchTap = {() => {
@@ -155,7 +156,7 @@ export default class Group extends Component {
             disabled = {!this.state.canSubmit}
           />
         </Formsy.Form>
-        <table class="table table-bordered">
+        <table className="table table-bordered">
           <thead>
             <tr>
             <th>Full name</th>
@@ -166,9 +167,9 @@ export default class Group extends Component {
           <tbody>
             {groupModel.users.map((user, i) =>
               <TableRow>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
+                <td key={user.name}>{user.name}</td>
+                <td key={user.username}>{user.username}</td>
+                <td key={user.email}>{user.email}</td>
               </TableRow>
               )
             }
@@ -190,7 +191,7 @@ export default class Group extends Component {
       )
     }
     const {groupModel, userModel} = this.props
-
+    console.log(this.groupModel)
     return(
       <div className="groupPage">
         {(()=> {

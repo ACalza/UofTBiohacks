@@ -28,7 +28,6 @@ export default function logged(state = initialState, action) {
 }
 
 const handleLeaveGroup = (state, data) => {
-  console.log(data)
   if(data.message){
     return {
       ...state,
@@ -64,6 +63,8 @@ const handleCreateGroup = (state, data) => {
   if(data.message){
     return {
       ...state,
+      userModel: data.userModel,
+      groupModel: data.groupModel,
       snackbar: {
         message: data.message,
         open: true

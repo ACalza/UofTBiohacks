@@ -57,12 +57,13 @@ module.exports.saveGrouptoDatabase = function* (){
   })
   try {
     let groupModel = yield group.save()   // use try/catch + yield instead of if(error)/else in callbacks
-    groupModel = yield group.findById(groupModel._id).populate("users").exec()
+    groupModel = yield Group.findById(groupModel._id).populate("users").exec()
     let userModel = yield User.findById(this.userModel._id)
     userModel.group = groupModel._id       // user who created the group have user.group filled automatically
     userModel = yield userModel.save()
     userModel.password = undefined;
     this.userModel = userModel
+    console.log(groupModel)
     this.body = {
       groupModel: groupModel,
       userModel: userModel,

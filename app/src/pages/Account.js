@@ -20,10 +20,10 @@ export default class Home extends Component {
     if(this.props.userModel.email === "igem@g.skule.ca"){
       content = <Admin />
     }
+    //<AccountDetails userModel={this.props.userModel} />
     return (
       <Layout push title="Account">
         {content}
-        <AccountDetails userModel={this.props.userModel} />
       </Layout>
     )
   }
