@@ -7,18 +7,18 @@ export default {
     'title': 'Opening Ceremony',
     // 'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
   },
-  '3:00 p.m.': {
+  '2:30 p.m.': {
     'title': 'Opening Keynote'
   },
-  '4:00 p.m.': {
-    'title': 'Introduction of Biohackathon and Brainstorming Session'
+  '3:00 p.m.': {
+    'title': 'Workshops'
   },
-  '4:15 p.m.': {
-    'title': 'Workshops',
-    'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
+  '4:00 p.m.': {
+    'title': 'Sponsor Demos',
+    'content': 'asdasdad ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
   },
   '5:00 p.m.': {
-    'title': 'Biocoding starts!'
+    'title': 'Hacking Starts!'
   },
   '9:00 a.m.': {
     'title': 'Presentation Sign-Up'
@@ -26,13 +26,10 @@ export default {
   '9:30 a.m.': {
     'title': 'Presentations',
   },
-  '10:45 a.m.': {
+  '11:30 a.m.': {
     'title': 'Closing Keynote'
   },
-  '11:30 a.m.': {
+  '12:00 a.m.': {
     'title': 'Closing Ceremony'
-  },
-  '12:00 p.m.': {
-    'title': 'Farewell!'
   }
 }
