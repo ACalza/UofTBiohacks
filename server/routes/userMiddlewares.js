@@ -215,7 +215,8 @@ module.exports.forgotPassword = function*() {
     })
     if (!user) {
       return this.body = {
-        message: "No account with that email exists"
+        message: "No account with that email exists",
+        success: false
       }
     }
     user.resetPasswordToken = token;
@@ -239,7 +240,8 @@ module.exports.forgotPassword = function*() {
     };
     yield sendMail(client, email);
     this.body = {
-      message: "An email will be sent shortly to reset your password"
+      message: "An email will be sent shortly to reset your password",
+      success: true
     }
   } catch (err) {
     console.error(err)
