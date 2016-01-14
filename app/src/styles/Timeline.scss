@@ -10,6 +10,7 @@ $timelineBlockBorderColor: $titleLightBlue;
 $timelineBGColour: #eee;
 
 .Timeline {
+  margin-top: -90px;
   position: relative;
   width: 100%;
   padding-top: 10px;
@@ -19,9 +20,9 @@ $timelineBGColour: #eee;
   &::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -10%;
     left: 50%;
-    height: 100%;
+    height: 110%;
     width: 4px;
     background-color: $titleDarkBlue;
   }
@@ -184,6 +185,44 @@ $timelineBGColour: #eee;
         //   border-left-color: transparent;
         // }
       }
+    }
+  }
+}
+
+.downTriangle {
+  position: relative;
+  width: 100%;
+  // padding-bottom: 50%;
+  padding-bottom: 17.5%;
+  overflow: hidden;
+  z-index: 2000;
+
+  &::after {
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background : $titleDarkBlue;
+
+    transform-origin: right top;
+    // transform : rotate(30deg) skewX(-30deg);
+    transform: rotate(10deg) skewX(-69.8deg)
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .downTriangle {
+    display: none;
+  }
+
+  .Timeline {
+    margin-top: 0;
+
+    &::before {
+      top: 0;
+      height: 100%;
     }
   }
 }
