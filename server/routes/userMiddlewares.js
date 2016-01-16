@@ -205,22 +205,23 @@ function sendMail(client, email) {
     });
   });
 }
-// module.exports.resetPassword = function* (){
-//   this.type = 'text/html'
-//   try{
-//     let user = yield User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() })
-//     if(!user){
-//       return this.body = {
-//         message: "Password reset token is invalid or has expired."
-//       }
-//     }
-//
-//   }catch(err){
-//     console.error(err)
-//     this.response.status = 500
-//     util.errorResponse(this)
-//   }
-// }
+module.exports.resetPassword = function* (){
+  try{
+    let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
+    console.log(this.token)
+    console.log("HERe")
+    if(!user){
+      this.response.redirect("http://localhost:3001/reset?t="+ this.token)
+    }else{
+      this.response.redirect("http://localhost:3001/")
+    }
+
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
 module.exports.forgotPassword = function*() {
   let token = yield crypto.randomBytes(20);
   token = token.toString('hex');
