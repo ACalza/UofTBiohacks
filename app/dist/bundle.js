@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b60739947bdb3b123936"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "55011f10f65a5b18a1ce"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -72917,11 +72917,16 @@
 	
 	      return _react3.default.createElement(
 	        'div',
-	        { className: 'container' },
+	        null,
+	        _react3.default.createElement('div', { className: 'downTriangle' }),
 	        _react3.default.createElement(
 	          'div',
-	          { className: 'Timeline' },
-	          timelineBlocks
+	          { className: 'container' },
+	          _react3.default.createElement(
+	            'div',
+	            { className: 'Timeline' },
+	            timelineBlocks
+	          )
 	        )
 	      );
 	
@@ -72970,18 +72975,18 @@
 	    'title': 'Opening Ceremony'
 	  },
 	  // 'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
-	  '3:00 p.m.': {
+	  '2:30 p.m.': {
 	    'title': 'Opening Keynote'
 	  },
-	  '4:00 p.m.': {
-	    'title': 'Introduction of Biohackathon and Brainstorming Session'
+	  '3:00 p.m.': {
+	    'title': 'Workshops'
 	  },
-	  '4:15 p.m.': {
-	    'title': 'Workshops',
-	    'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
+	  '4:00 p.m.': {
+	    'title': 'Sponsor Demos',
+	    'content': 'asdasdad ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
 	  },
 	  '5:00 p.m.': {
-	    'title': 'Biocoding starts!'
+	    'title': 'Hacking Starts!'
 	  },
 	  '9:00 a.m.': {
 	    'title': 'Presentation Sign-Up'
@@ -72989,14 +72994,11 @@
 	  '9:30 a.m.': {
 	    'title': 'Presentations'
 	  },
-	  '10:45 a.m.': {
+	  '11:30 a.m.': {
 	    'title': 'Closing Keynote'
 	  },
-	  '11:30 a.m.': {
+	  '12:00 a.m.': {
 	    'title': 'Closing Ceremony'
-	  },
-	  '12:00 p.m.': {
-	    'title': 'Farewell!'
 	  }
 	};
 
@@ -73035,7 +73037,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Timeline {\n  position: relative;\n  width: 100%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  background-color: #eee; }\n  .Timeline::before {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 20px;\n    height: 100%;\n    width: 4px;\n    background-color: #47566D; }\n  .Timeline .timeline-block {\n    position: relative;\n    padding: 10px;\n    border: 2px solid #487DAF;\n    border-radius: 5px; }\n    .Timeline .timeline-block::before, .Timeline .timeline-block::after {\n      content: '';\n      width: 0;\n      height: 0;\n      border: solid transparent;\n      position: absolute;\n      top: 50%;\n      pointer-events: none; }\n    .Timeline .timeline-block::before {\n      border-width: 20px;\n      margin-top: -20px; }\n    .Timeline .timeline-block::after {\n      border-width: 17px;\n      margin-top: -17px; }\n    .Timeline .timeline-block.right {\n      margin-left: calc(50% + 20px + 20px); }\n      .Timeline .timeline-block.right::before, .Timeline .timeline-block.right::after {\n        right: 100%; }\n      .Timeline .timeline-block.right::before {\n        border-right-color: inherit; }\n      .Timeline .timeline-block.right::after {\n        border-right-color: #eee; }\n      .Timeline .timeline-block.right .time {\n        left: -140px; }\n      .Timeline .timeline-block.right .circle {\n        left: -50px; }\n    .Timeline .timeline-block.left {\n      margin-right: calc(50% + 20px + 20px); }\n      .Timeline .timeline-block.left::before, .Timeline .timeline-block.left::after {\n        left: 100%; }\n      .Timeline .timeline-block.left::before {\n        border-left-color: inherit; }\n      .Timeline .timeline-block.left::after {\n        border-left-color: #eee; }\n      .Timeline .timeline-block.left .time {\n        right: -140px; }\n      .Timeline .timeline-block.left .circle {\n        right: -54px; }\n  .Timeline .time {\n    position: absolute;\n    line-height: 20px;\n    margin-top: -15px;\n    top: 50%;\n    padding: 5px;\n    color: #47566D;\n    font-style: italic;\n    font-weight: bold;\n    font-size: 1.1em; }\n  .Timeline .circle {\n    position: absolute;\n    top: 50%;\n    margin-top: -10px;\n    height: 20px;\n    width: 20px;\n    border-radius: 50%;\n    border: 4px solid #47566D;\n    background: #eee; }\n  .Timeline .timeline-title {\n    margin-top: 10px;\n    margin-bottom: 10px; }\n\n@media only screen and (min-width: 992px) {\n  .Timeline::before {\n    left: 50%; } }\n", ""]);
+	exports.push([module.id, ".Timeline {\n  margin-top: -90px;\n  position: relative;\n  width: 100%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  background-color: #eee; }\n  .Timeline::before {\n    content: '';\n    position: absolute;\n    top: -10%;\n    left: 50%;\n    height: 110%;\n    width: 4px;\n    background-color: #47566D; }\n  .Timeline .timeline-block {\n    position: relative;\n    padding: 10px;\n    border: 2px solid #487DAF;\n    border-radius: 5px;\n    margin-top: 10px;\n    margin-bottom: 10px; }\n    .Timeline .timeline-block::before, .Timeline .timeline-block::after {\n      content: '';\n      width: 0;\n      height: 0;\n      border: solid transparent;\n      position: absolute;\n      top: 50%;\n      pointer-events: none; }\n    .Timeline .timeline-block::before {\n      border-width: 20px;\n      margin-top: -20px; }\n    .Timeline .timeline-block::after {\n      border-width: 17px;\n      margin-top: -17px; }\n    .Timeline .timeline-block.right {\n      margin-left: calc(50% + 20px + 20px); }\n      .Timeline .timeline-block.right::before, .Timeline .timeline-block.right::after {\n        right: 100%; }\n      .Timeline .timeline-block.right::before {\n        border-right-color: inherit; }\n      .Timeline .timeline-block.right::after {\n        border-right-color: #eee; }\n      .Timeline .timeline-block.right .time {\n        left: -140px; }\n      .Timeline .timeline-block.right .circle {\n        left: -50px; }\n    .Timeline .timeline-block.left {\n      margin-right: calc(50% + 20px + 20px); }\n      .Timeline .timeline-block.left::before, .Timeline .timeline-block.left::after {\n        left: 100%; }\n      .Timeline .timeline-block.left::before {\n        border-left-color: inherit; }\n      .Timeline .timeline-block.left::after {\n        border-left-color: #eee; }\n      .Timeline .timeline-block.left .time {\n        right: -140px; }\n      .Timeline .timeline-block.left .circle {\n        right: -54px; }\n  .Timeline .time {\n    position: absolute;\n    line-height: 20px;\n    margin-top: -15px;\n    top: 50%;\n    padding: 5px;\n    color: #47566D;\n    font-style: italic;\n    font-weight: bold;\n    font-size: 1.1em; }\n  .Timeline .circle {\n    position: absolute;\n    top: 50%;\n    margin-top: -10px;\n    height: 20px;\n    width: 20px;\n    border-radius: 50%;\n    border: 4px solid #47566D;\n    background: #eee; }\n  .Timeline .timeline-title {\n    margin-top: 10px;\n    margin-bottom: 10px; }\n\n@media only screen and (min-width: 992px) {\n  .Timeline::before {\n    left: 50%; } }\n\n@media only screen and (max-width: 992px) {\n  .Timeline::before {\n    left: 20px; }\n  .Timeline .timeline-block .time {\n    position: relative;\n    left: 0 !important; }\n  .Timeline .timeline-block .circle {\n    left: -50px !important; }\n  .Timeline .timeline-block.left, .Timeline .timeline-block.right {\n    margin-left: 60px !important;\n    margin-right: 0; }\n  .Timeline .timeline-block.left::before, .Timeline .timeline-block.left::after {\n    left: -40px !important; }\n  .Timeline .timeline-block.left::before {\n    border-right-color: inherit !important;\n    border-left-color: transparent; }\n  .Timeline .timeline-block.left::after {\n    left: -34px !important;\n    border-right-color: #eee;\n    border-left-color: transparent; } }\n\n.downTriangle {\n  position: relative;\n  width: 100%;\n  padding-bottom: 17.5%;\n  overflow: hidden;\n  z-index: 2000; }\n  .downTriangle::after {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: #47566D;\n    transform-origin: right top;\n    transform: rotate(10deg) skewX(-69.8deg); }\n\n@media only screen and (max-width: 992px) {\n  .downTriangle {\n    display: none; }\n  .Timeline {\n    margin-top: 0; }\n    .Timeline::before {\n      top: 0;\n      height: 100%; } }\n", ""]);
 	
 	// exports
 
@@ -73108,7 +73110,7 @@
 /* 842 */
 /***/ function(module, exports) {
 
-	module.exports = "<h2 id=\"faq\">FAQ</h2>\n<h3 id=\"where-when-how-\">Where, when, how?</h3>\n<p>UofT BioHacks 2016 will take place on March 12­13, 2016. It will be a two day\nevent hosted in University of Toronto Bahen Centre for Information Technology\nBuilding. Event will feature opening and closing keynote speeches from pioneers\nin Biology, Computer Science and Engineering disciplines, brainstorming sessions\nand workshops from the industry and academia followed by overnight biohacking\nsession for addressing real­world problems. There will be 5­10 min presentations\nmade by participants to showcase their work to the audience.</p>\n<h3 id=\"what-you-should-bring-\">What you should bring?</h3>\n<p>A laptop, charger and yourself!</p>\n<h3 id=\"how-many-members-per-team-\">How many members per team?</h3>\n<p>4 members per team</p>\n<h3 id=\"i-don-t-have-a-team-should-i-still-register-\">I don’t have a team, should I still register?</h3>\n<p>Definitely! We will help you find your team members.</p>\n";
+	module.exports = "<h2 id=\"faq\">FAQ</h2>\n<h3 id=\"where-when-how-\">Where, when, how?</h3>\n<p>UofT BioHacks 2016 will take place on March 12­13, 2016. It will be a two day\nevent hosted in University of Toronto Bahen Centre for Information Technology\nBuilding. Event will feature opening and closing keynote speeches from pioneers\nin Biology, Computer Science and Engineering disciplines, brainstorming sessions\nand workshops from the industry and academia followed by overnight biohacking\nsession for addressing real­world problems. There will be 5-10 min presentations\nmade by participants to showcase their work to the audience.</p>\n<h3 id=\"what-you-should-bring-\">What you should bring?</h3>\n<p>A laptop, charger and yourself!</p>\n<h3 id=\"how-many-members-per-team-\">How many members per team?</h3>\n<p>4 members per team</p>\n<h3 id=\"i-don-t-have-a-team-should-i-still-register-\">I don’t have a team, should I still register?</h3>\n<p>Definitely! We will help you find your team members.</p>\n";
 
 /***/ },
 /* 843 */
@@ -88345,11 +88347,11 @@
 	      if (this.props.userModel.email === "igem@g.skule.ca") {
 	        content = _react3.default.createElement(_Admin2.default, null);
 	      }
+	      //<AccountDetails userModel={this.props.userModel} />
 	      return _react3.default.createElement(
 	        _Layout2.default,
 	        { push: true, title: 'Account' },
-	        content,
-	        _react3.default.createElement(_AccountDetails2.default, { userModel: this.props.userModel })
+	        content
 	      );
 	    }
 	  }]);
@@ -88489,6 +88491,7 @@
 	          console.error(err);
 	        } else {
 	          dispatch((0, _logged.createGroup)(data));
+	          _this.render();
 	        }
 	      });
 	    };
@@ -88512,7 +88515,6 @@
 	        if (err) {
 	          console.error(err);
 	        } else {
-	          console.log(data);
 	          dispatch((0, _logged.leaveGroup)(data));
 	        }
 	      });
@@ -88569,9 +88571,10 @@
 	        content = userModel.invites.map(function (model, i) {
 	          return _react3.default.createElement(
 	            'div',
-	            { key: i },
+	            { key: i / 2.0 },
 	            model.name,
 	            _react3.default.createElement(_raisedButton2.default, {
+	              key: i,
 	              type: 'Submit',
 	              label: 'Accept',
 	              onTouchTap: function onTouchTap() {
@@ -88626,7 +88629,7 @@
 	          ),
 	          _react3.default.createElement(
 	            'table',
-	            { 'class': 'table table-bordered' },
+	            { className: 'table table-bordered' },
 	            _react3.default.createElement(
 	              'thead',
 	              null,
@@ -88659,17 +88662,17 @@
 	                  null,
 	                  _react3.default.createElement(
 	                    'td',
-	                    null,
+	                    { key: user.name },
 	                    user.name
 	                  ),
 	                  _react3.default.createElement(
 	                    'td',
-	                    null,
+	                    { key: user.username },
 	                    user.username
 	                  ),
 	                  _react3.default.createElement(
 	                    'td',
-	                    null,
+	                    { key: user.email },
 	                    user.email
 	                  )
 	                );
@@ -88704,6 +88707,7 @@
 	      var groupModel = _props.groupModel;
 	      var userModel = _props.userModel;
 	
+	      console.log(this.groupModel);
 	      return _react3.default.createElement(
 	        'div',
 	        { className: 'groupPage' },
@@ -92299,11 +92303,18 @@
 	        'div',
 	        { className: 'accountDetails' },
 	        _react3.default.createElement(
+	          'h2',
+	          null,
+	          ' Account details '
+	        ),
+	        _react3.default.createElement(
 	          'b',
 	          null,
 	          'Username: '
 	        ),
 	        userModel.username,
+	        ' ',
+	        _react3.default.createElement('br', null),
 	        _react3.default.createElement(
 	          'b',
 	          null,
@@ -92360,9 +92371,21 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
+	var _dialog = __webpack_require__(885);
+	
+	var _dialog2 = _interopRequireDefault(_dialog);
+	
+	var _flatButton = __webpack_require__(525);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
 	var _Layout = __webpack_require__(822);
 	
 	var _Layout2 = _interopRequireDefault(_Layout);
+	
+	var _textField = __webpack_require__(889);
+	
+	var _textField2 = _interopRequireDefault(_textField);
 	
 	var _BSContainer = __webpack_require__(498);
 	
@@ -92442,7 +92465,53 @@
 	      });
 	    };
 	
-	    _this.state = { canSubmit: false };
+	    _this.handleOpen = function () {
+	      _this.setState({ forgotPassword: true });
+	    };
+	
+	    _this.handleClose = function () {
+	
+	      _this.setState({ forgotPassword: false });
+	    };
+	
+	    _this.handleForgetPasswordSubmit = function () {
+	      (0, _util.ajaxPost)({ email: _this.state.forgotPasswordEmail }, '/user/forgot', null, function (err, data) {
+	        if (err) {
+	          console.error(err);
+	        } else {
+	          console.log(data);
+	          if (data.success) {
+	            _this.setState({
+	              forgotPasswordError: data.message,
+	              forgotPasswordErrorColor: "green"
+	            });
+	          } else {
+	            console.log(data.message);
+	            _this.setState({
+	              forgotPasswordError: data.message,
+	              forgotPasswordErrorColor: "red"
+	            });
+	          }
+	        }
+	      });
+	    };
+	
+	    _this.handleForgetPassword = function () {
+	      _this.setState({ forgotPassword: true });
+	    };
+	
+	    _this.handleforgetInputChange = function (e) {
+	      _this.setState({
+	        forgotPasswordEmail: e.target.value
+	      });
+	    };
+	
+	    _this.state = { canSubmit: false,
+	      forgotPassword: false,
+	      forgotPasswordEmail: "",
+	      forgotPassowrdError: "",
+	      forgotPasswordErrorColor: "red"
+	    };
 	    return _this;
 	  }
 	
@@ -92451,6 +92520,14 @@
 	
 	    // TODO forgot password
 	    value: function render() {
+	      var actions = [_react3.default.createElement(_flatButton2.default, {
+	        label: 'Close',
+	        secondary: true,
+	        onTouchTap: this.handleClose }), _react3.default.createElement(_flatButton2.default, {
+	        label: 'Submit',
+	        primary: true,
+	        keyboardFocused: true,
+	        onTouchTap: this.handleForgetPasswordSubmit })];
 	      return _react3.default.createElement(
 	        _Layout2.default,
 	        { push: true, title: 'Login' },
@@ -92485,8 +92562,30 @@
 	                  label: 'Submit',
 	                  disabled: !this.state.canSubmit
 	                })
+	              ),
+	              _react3.default.createElement(
+	                'a',
+	                { onClick: this.handleForgetPassword },
+	                'Forgot password?'
 	              )
 	            )
+	          ),
+	          _react3.default.createElement(
+	            _dialog2.default,
+	            {
+	              title: 'Password reset',
+	              actions: actions,
+	              modal: false,
+	              open: this.state.forgotPassword,
+	              onRequestClose: this.handleClose },
+	            _react3.default.createElement(_textField2.default, {
+	              floatingLabelText: 'Email',
+	              hintText: 'Enter your Email',
+	              errorStyle: { color: this.state.forgotPasswordErrorColor },
+	              value: this.state.forgotPasswordEmail,
+	              onChange: this.handleforgetInputChange,
+	              errorText: this.state.forgotPasswordError
+	            })
 	          )
 	        )
 	      );
@@ -92615,7 +92714,6 @@
 	}
 	
 	var handleLeaveGroup = function handleLeaveGroup(state, data) {
-	  console.log(data);
 	  if (data.message) {
 	    return _extends({}, state, {
 	      snackbar: {
@@ -92647,6 +92745,8 @@
 	var handleCreateGroup = function handleCreateGroup(state, data) {
 	  if (data.message) {
 	    return _extends({}, state, {
+	      userModel: data.userModel,
+	      groupModel: data.groupModel,
 	      snackbar: {
 	        message: data.message,
 	        open: true

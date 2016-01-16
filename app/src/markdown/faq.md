@@ -7,7 +7,7 @@ event hosted in University of Toronto Bahen Centre for Information Technology
 Building. Event will feature opening and closing keynote speeches from pioneers
 in Biology, Computer Science and Engineering disciplines, brainstorming sessions
 and workshops from the industry and academia followed by overnight biohacking
-session for addressing real­world problems. There will be 5­10 min presentations
+session for addressing real­world problems. There will be 5-10 min presentations
 made by participants to showcase their work to the audience.
 
 ### What you should bring?

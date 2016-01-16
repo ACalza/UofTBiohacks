@@ -10,6 +10,7 @@ $timelineBlockBorderColor: $titleLightBlue;
 $timelineBGColour: #eee;
 
 .Timeline {
+  margin-top: -90px;
   position: relative;
   width: 100%;
   padding-top: 10px;
@@ -19,9 +20,9 @@ $timelineBGColour: #eee;
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 20px;
-    height: 100%;
+    top: -10%;
+    left: 50%;
+    height: 110%;
     width: 4px;
     background-color: $titleDarkBlue;
   }
@@ -31,6 +32,8 @@ $timelineBGColour: #eee;
     padding: 10px;
     border: 2px solid $timelineBlockBorderColor;
     border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     &::before, &::after {
       content: '';
@@ -136,5 +139,90 @@ $timelineBGColour: #eee;
 @media only screen and (min-width : 992px) {
   .Timeline::before {
     left: 50%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .Timeline {
+    &::before {
+      left: 20px;
+    }
+
+    .timeline-block {
+
+      .time {
+        position: relative;
+        left: 0 !important;
+      }
+
+      .circle {
+        left: -50px !important;
+      }
+
+      &.left, &.right {
+        margin-left: 60px !important;
+        margin-right: 0;
+      }
+
+      &.left {
+        &::before, &::after {
+          left: -40px !important;
+        }
+
+        &::before {
+          border-right-color: inherit !important;
+          border-left-color: transparent;
+        }
+
+        &::after {
+          left: -34px !important;
+          border-right-color: $timelineBGColour;
+          border-left-color: transparent;
+        }
+
+        // &::after {
+        //   border-right-color: $timelineBGColour;
+        //   border-left-color: transparent;
+        // }
+      }
+    }
+  }
+}
+
+.downTriangle {
+  position: relative;
+  width: 100%;
+  // padding-bottom: 50%; /* width/2 for skewX(-30deg) */
+  padding-bottom: 17.5%;
+  overflow: hidden;
+  z-index: 2000;
+
+  &::after {
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background : $titleDarkBlue;
+
+    transform-origin: right top;
+    // transform : rotate(30deg) skewX(-30deg);
+    transform: rotate(10deg) skewX(-69.8deg)
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .downTriangle {
+    display: none;
+  }
+
+  .Timeline {
+    margin-top: 0;
+
+    &::before {
+      top: 0;
+      height: 100%;
+    }
   }
 }

@@ -24,9 +24,12 @@ export default class Timeline extends Component {
     })
 
     return (
-      <div className="container">
-        <div className="Timeline">
-          {timelineBlocks}
+      <div>
+        <div className="downTriangle" />
+        <div className="container">
+          <div className="Timeline">
+            {timelineBlocks}
+          </div>
         </div>
       </div>
     )
