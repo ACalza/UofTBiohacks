@@ -192,7 +192,7 @@ $timelineBGColour: #eee;
 .downTriangle {
   position: relative;
   width: 100%;
-  // padding-bottom: 50%;
+  // padding-bottom: 50%; /* width/2 for skewX(-30deg) */
   padding-bottom: 17.5%;
   overflow: hidden;
   z-index: 2000;
