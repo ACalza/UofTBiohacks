@@ -205,22 +205,22 @@ function sendMail(client, email) {
     });
   });
 }
-module.exports.resetPassword = function* (){
-  this.type = 'text/html'
-  try{
-    let user = yield User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() })
-    if(!user){
-      return this.body = {
-        message: "Password reset token is invalid or has expired."
-      }
-    }
-
-  }catch(err){
-    console.error(err)
-    this.response.status = 500
-    util.errorResponse(this)
-  }
-}
+// module.exports.resetPassword = function* (){
+//   this.type = 'text/html'
+//   try{
+//     let user = yield User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() })
+//     if(!user){
+//       return this.body = {
+//         message: "Password reset token is invalid or has expired."
+//       }
+//     }
+//
+//   }catch(err){
+//     console.error(err)
+//     this.response.status = 500
+//     util.errorResponse(this)
+//   }
+// }
 module.exports.forgotPassword = function*() {
   let token = yield crypto.randomBytes(20);
   token = token.toString('hex');

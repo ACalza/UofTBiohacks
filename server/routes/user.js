@@ -25,9 +25,9 @@ router.get('/logout', function*(){
         message: "logged out"
     };
 });
-router.param('token', )
-      .post('/forgot', userMiddlewares.forgotPassword)
-      .get('/forgot/:token', userMiddlewares.resetPassword)
+//router.param('token', null)
+      router.post('/forgot', userMiddlewares.forgotPassword)
+      //.get('/forgot/:token', userMiddlewares.resetPassword)
 
 router.use('/all', userMiddlewares.validateAdmin)
 router.use('/all', userMiddlewares.getUsers)
