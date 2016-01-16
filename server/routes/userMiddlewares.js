@@ -205,7 +205,23 @@ function sendMail(client, email) {
     });
   });
 }
+module.exports.resetPassword = function* (){
+  try{
+    let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
+    console.log(this.token)
+    console.log("HERe")
+    if(!user){
+      this.response.redirect("http://localhost:3001/reset?t="+ this.token)
+    }else{
+      this.response.redirect("http://localhost:3001/")
+    }
 
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
 module.exports.forgotPassword = function*() {
   let token = yield crypto.randomBytes(20);
   token = token.toString('hex');
@@ -231,11 +247,11 @@ module.exports.forgotPassword = function*() {
     let client = nodemailer.createTransport(sgTransport(options));
     let email = {
       from: 'igem@g.skule.ca',
-      to: 'albert.calzaretto@mail.utoronto.ca',
+      to: user.email,
       subject: 'UofT Biohacks Password Reset',
       html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + this.request.host + '/reset/' + token + '\n\n' +
+          'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     };
     yield sendMail(client, email);
@@ -248,15 +264,4 @@ module.exports.forgotPassword = function*() {
     this.response.status = 500;
     util.errorResponse(this);
   }
-
-
-  //     smtpTransport.sendMail(mailOptions, function(err) {
-  //       req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-  //       done(err, 'done');
-  //     });
-  //   }
-  // ], function(err) {
-  //   if (err) return next(err);
-  //   res.redirect('/forgot');
-  // })
 }
