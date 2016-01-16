@@ -205,7 +205,22 @@ function sendMail(client, email) {
     });
   });
 }
+module.exports.resetPassword = function* (){
+  this.type = 'text/html'
+  try{
+    let user = yield User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() })
+    if(!user){
+      return this.body = {
+        message: "Password reset token is invalid or has expired."
+      }
+    }
 
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
 module.exports.forgotPassword = function*() {
   let token = yield crypto.randomBytes(20);
   token = token.toString('hex');
@@ -235,7 +250,7 @@ module.exports.forgotPassword = function*() {
       subject: 'UofT Biohacks Password Reset',
       html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + this.request.host + '/reset/' + token + '\n\n' +
+          'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     };
     yield sendMail(client, email);
