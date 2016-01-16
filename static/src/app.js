@@ -20,13 +20,12 @@ class Index extends Component {
 
     const htmlProps = {
       title: 'UofT BioHacks',
-      meta: metas
+      meta: metas,
+      body: ReactDOMServer.renderToString(<h1> Hello, World </h1>)
     }
 
     return (
-      <Html {...htmlProps} >
-        <h1>Hello, World</h1>
-      </Html>
+      <Html {...htmlProps} />
     )
   }
 }
