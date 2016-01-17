@@ -33,4 +33,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default mount(connect(mapStateToProps)(Index), counter)
+export default mount(connect(mapStateToProps)(Index), {counter: counter})
