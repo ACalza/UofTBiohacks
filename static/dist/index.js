@@ -37,6 +37,10 @@ webpackJsonp([0],{
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this));
 
+	    _this.tick = function () {
+	      _this.setState({ count: _this.state.count + 2 });
+	    };
+
 	    _this.state = {
 	      count: 0
 	    };
@@ -44,6 +48,16 @@ webpackJsonp([0],{
 	  }
 
 	  _createClass(Index, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.interval = setInterval(this.tick, 1000);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearInterval(this.interval);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var count = this.state.count;

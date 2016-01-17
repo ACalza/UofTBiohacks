@@ -11,6 +11,18 @@ export default class Index extends Component {
     }
   }
 
+  tick = () => {
+    this.setState({count: this.state.count + 2})
+  };
+
+  componentDidMount() {
+    this.interval = setInterval(this.tick, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
   render() {
     const { count  } = this.state
 
