@@ -77,10 +77,10 @@ module.exports =
 	    return __webpack_require__(9);
 	  },
 	  'login/index.js': function loginIndexJs() {
-	    return __webpack_require__(12);
+	    return __webpack_require__(14);
 	  },
 	  'register/index.js': function registerIndexJs() {
-	    return __webpack_require__(13);
+	    return __webpack_require__(15);
 	  } };
 
 	Object.keys(routes).forEach(function () {
@@ -364,6 +364,10 @@ module.exports =
 
 	var _ExecutionEnvironment = __webpack_require__(11);
 
+	var _reactRedux = __webpack_require__(12);
+
+	var _redux = __webpack_require__(13);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -371,6 +375,20 @@ module.exports =
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var counter = function counter() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'INCREMENT':
+	      return state + 1;
+	    default:
+	      return state;
+	  }
+	};
+
+	var store = (0, _redux.createStore)(counter);
 
 	var Index = function (_Component) {
 	  _inherits(Index, _Component);
@@ -381,7 +399,10 @@ module.exports =
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this));
 
 	    _this.tick = function () {
-	      _this.setState({ count: _this.state.count + 1 });
+	      var store = _this.props.store;
+
+	      store.dispatch({ type: 'INCREMENT' });
+	      _this.setState({ count: store.getState() });
 	    };
 
 	    _this.state = {
@@ -393,6 +414,8 @@ module.exports =
 	  _createClass(Index, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var store = this.props.store;
+
 	      this.interval = setInterval(this.tick, 1000);
 	    }
 	  }, {
@@ -406,10 +429,14 @@ module.exports =
 	      var count = this.state.count;
 
 	      return _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Hello World, ',
-	        count
+	        _reactRedux.Provider,
+	        { store: store },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Hello World, ',
+	          count
+	        )
 	      );
 	    }
 	  }]);
@@ -421,7 +448,7 @@ module.exports =
 
 	if (_ExecutionEnvironment.canUseDOM) {
 	  var container = document.getElementById('app');
-	  _reactDom2.default.render(_react2.default.createElement(Index, null), container);
+	  _reactDom2.default.render(_react2.default.createElement(Index, { store: store }), container);
 	}
 
 /***/ },
@@ -438,6 +465,18 @@ module.exports =
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-redux");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -486,7 +525,7 @@ module.exports =
 	exports.default = Login;
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
