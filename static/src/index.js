@@ -14,24 +14,13 @@ const counter = (state = 0, action) => {
 
 const store = createStore(counter)
 
-export default class Index extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      count: 0
-    }
-  }
-
+class Index extends Component {
   tick = () => {
-    const { store } = this.props
-    store.dispatch({type: 'INCREMENT'})
-    this.setState({count: store.getState()})
+    const { dispatch } = this.props
+    dispatch({type: 'INCREMENT'})
   };
 
   componentDidMount() {
-    const { store } = this.props
-
     this.interval = setInterval(this.tick, 1000)
   }
 
@@ -40,17 +29,32 @@ export default class Index extends Component {
   }
 
   render() {
-    const { count } = this.state
+    const { count } = this.props
 
     return(
-      <Provider store={store}>
-        <h1>Hello World, {count}</h1>
-      </Provider>
+      <h1>Hello World, {count}</h1>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    count: state
+  }
+}
+
+const Wrapped = connect(mapStateToProps)(Index)
+
+export default (
+  <Provider store={store}>
+    <Wrapped />
+  </Provider>
+)
+
 if (canUseDOM) {
   const container = document.getElementById('app')
-  ReactDOM.render(<Index store={store}/>, container)
+  ReactDOM.render(
+    <Provider store={store}>
+      <Wrapped />
+    </Provider>, container)
 }

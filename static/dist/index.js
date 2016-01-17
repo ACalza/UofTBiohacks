@@ -51,28 +51,26 @@ webpackJsonp([0],{
 	  _inherits(Index, _Component);
 
 	  function Index() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, Index);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    _this.tick = function () {
-	      var store = _this.props.store;
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Index)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.tick = function () {
+	      var dispatch = _this.props.dispatch;
 
-	      store.dispatch({ type: 'INCREMENT' });
-	      _this.setState({ count: store.getState() });
-	    };
-
-	    _this.state = {
-	      count: 0
-	    };
-	    return _this;
+	      dispatch({ type: 'INCREMENT' });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(Index, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var store = this.props.store;
-
 	      this.interval = setInterval(this.tick, 1000);
 	    }
 	  }, {
@@ -83,17 +81,13 @@ webpackJsonp([0],{
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var count = this.state.count;
+	      var count = this.props.count;
 
 	      return _react2.default.createElement(
-	        _reactRedux.Provider,
-	        { store: store },
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Hello World, ',
-	          count
-	        )
+	        'h1',
+	        null,
+	        'Hello World, ',
+	        count
 	      );
 	    }
 	  }]);
@@ -101,11 +95,27 @@ webpackJsonp([0],{
 	  return Index;
 	}(_react.Component);
 
-	exports.default = Index;
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    count: state
+	  };
+	};
+
+	var Wrapped = (0, _reactRedux.connect)(mapStateToProps)(Index);
+
+	exports.default = _react2.default.createElement(
+	  _reactRedux.Provider,
+	  { store: store },
+	  _react2.default.createElement(Wrapped, null)
+	);
 
 	if (_ExecutionEnvironment.canUseDOM) {
 	  var container = document.getElementById('app');
-	  _reactDom2.default.render(_react2.default.createElement(Index, { store: store }), container);
+	  _reactDom2.default.render(_react2.default.createElement(
+	    _reactRedux.Provider,
+	    { store: store },
+	    _react2.default.createElement(Wrapped, null)
+	  ), container);
 	}
 
 /***/ },

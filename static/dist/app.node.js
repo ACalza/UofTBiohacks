@@ -90,36 +90,42 @@ module.exports =
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
-	            component = _react2.default.createElement(routes[route]().default);
+	            // Handle un-connect() wrapped components
+	            component = routes[route]().default;
 
+	            if (typeof component === 'function') {
+	              component = _react2.default.createElement(component);
+	            }
+
+	            // console.log(component)
 	            route = 'dist/' + route;
 
 	            page = '<!doctype html>\n' + _server2.default.renderToStaticMarkup(_react2.default.createElement(_Page2.default, { body: component }));
-	            _context.prev = 3;
-	            _context.next = 6;
+	            _context.prev = 4;
+	            _context.next = 7;
 	            return (0, _mkdirpThen2.default)(route.replace(/\/index.js$/, ''));
 
-	          case 6:
-	            _context.next = 8;
+	          case 7:
+	            _context.next = 9;
 	            return _fsPromise2.default.writeFile(route.replace(/\.js$/, '.html'), page);
 
-	          case 8:
+	          case 9:
 	            console.log('wrote ' + route.replace(/\.js$/, '.html'));
-	            _context.next = 14;
+	            _context.next = 15;
 	            break;
 
-	          case 11:
-	            _context.prev = 11;
-	            _context.t0 = _context['catch'](3);
+	          case 12:
+	            _context.prev = 12;
+	            _context.t0 = _context['catch'](4);
 
 	            console.error(_context.t0);
 
-	          case 14:
+	          case 15:
 	          case 'end':
 	            return _context.stop();
 	        }
 	      }
-	    }, _callee, this, [[3, 11]]);
+	    }, _callee, this, [[4, 12]]);
 	  }));
 
 	  return function (_x) {
@@ -394,28 +400,26 @@ module.exports =
 	  _inherits(Index, _Component);
 
 	  function Index() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, Index);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	    _this.tick = function () {
-	      var store = _this.props.store;
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Index)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.tick = function () {
+	      var dispatch = _this.props.dispatch;
 
-	      store.dispatch({ type: 'INCREMENT' });
-	      _this.setState({ count: store.getState() });
-	    };
-
-	    _this.state = {
-	      count: 0
-	    };
-	    return _this;
+	      dispatch({ type: 'INCREMENT' });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(Index, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var store = this.props.store;
-
 	      this.interval = setInterval(this.tick, 1000);
 	    }
 	  }, {
@@ -426,17 +430,13 @@ module.exports =
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var count = this.state.count;
+	      var count = this.props.count;
 
 	      return _react2.default.createElement(
-	        _reactRedux.Provider,
-	        { store: store },
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Hello World, ',
-	          count
-	        )
+	        'h1',
+	        null,
+	        'Hello World, ',
+	        count
 	      );
 	    }
 	  }]);
@@ -444,11 +444,27 @@ module.exports =
 	  return Index;
 	}(_react.Component);
 
-	exports.default = Index;
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    count: state
+	  };
+	};
+
+	var Wrapped = (0, _reactRedux.connect)(mapStateToProps)(Index);
+
+	exports.default = _react2.default.createElement(
+	  _reactRedux.Provider,
+	  { store: store },
+	  _react2.default.createElement(Wrapped, null)
+	);
 
 	if (_ExecutionEnvironment.canUseDOM) {
 	  var container = document.getElementById('app');
-	  _reactDom2.default.render(_react2.default.createElement(Index, { store: store }), container);
+	  _reactDom2.default.render(_react2.default.createElement(
+	    _reactRedux.Provider,
+	    { store: store },
+	    _react2.default.createElement(Wrapped, null)
+	  ), container);
 	}
 
 /***/ },

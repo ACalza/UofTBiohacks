@@ -9,7 +9,13 @@ import Page from './components/Page.js'
 const routes = {}
 
 Object.keys(routes).forEach(async function(route) {
-  const component = React.createElement(routes[route]().default)
+  // Handle un-connect() wrapped components
+  let component = routes[route]().default
+  if (typeof(component) === 'function') {
+    component = React.createElement(component)
+  }
+
+  // console.log(component)
   route = 'dist/' + route
 
   const page = '<!doctype html>\n'
