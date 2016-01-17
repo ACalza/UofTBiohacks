@@ -15,9 +15,9 @@ export default class Page extends Component {
       author: 'iGEM Toronto'
     }
 
-    let bodys
+    let bodyString
     try {
-      bodys = ReactDOMServer.renderToString(body)
+      bodyString = ReactDOMServer.renderToString(body)
     } catch(e) {
       console.log(e)
     }
@@ -25,7 +25,7 @@ export default class Page extends Component {
     const htmlProps = {
       title: 'UofT BioHacks',
       meta: metas,
-      body: bodys
+      body: bodyString
     }
 
     return (

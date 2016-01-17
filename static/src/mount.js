@@ -8,9 +8,9 @@ export default function mount(Connected, reducers) {
   const store = createStore(combineReducers(reducers))
 
   const component =
-  <Provider store={store}>
-    <Connected />
-  </Provider>
+    <Provider store={store}>
+      <Connected />
+    </Provider>
 
   if (canUseDOM) {
     const container = document.getElementById('app')

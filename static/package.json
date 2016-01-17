@@ -8,6 +8,7 @@
     "build": "webpack --config webpack.node.js; babel-node dist/app.node.js",
     "start": "browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "clean": "rm -rf dist/*"
+
   },
   "repository": {
     "type": "git",
