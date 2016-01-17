@@ -21,17 +21,7 @@ export default function mount(Connected, reducers) {
 
   const component =
     <Provider store={store}>
-      <div>
-        <Connected />
-        <Snackbar
-          open={true}
-          message="message"
-          action="close"
-          autoHideDuration={3000}
-          onActionTouchTap={eatSnack}
-          onRequestClose={eatSnack}
-        />
-      </div>
+      <Connected />
     </Provider>
 
   if (canUseDOM) {
