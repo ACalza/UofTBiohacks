@@ -4,15 +4,39 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
+import Snackbar from 'material-ui/lib/snackbar'
+
+const eatSnack = () => {
+  alert('eating snack')
+}
+
+// Required for material-ui
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+
 export default function mount(Connected, reducers) {
   const store = createStore(combineReducers(reducers))
 
+  // GLOBAL.navigator = {userAgent: headers['user-agent']}
+
   const component =
     <Provider store={store}>
-      <Connected />
+      <div>
+        <Connected />
+        <Snackbar
+          open={true}
+          message="message"
+          action="close"
+          autoHideDuration={3000}
+          onActionTouchTap={eatSnack}
+          onRequestClose={eatSnack}
+        />
+      </div>
     </Provider>
 
   if (canUseDOM) {
+    injectTapEventPlugin()
+
     const container = document.getElementById('app')
     ReactDOM.render(component, container)
   }

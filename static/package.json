@@ -8,7 +8,6 @@
     "build": "webpack --config webpack.node.js; babel-node dist/app.node.js",
     "start": "browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "clean": "rm -rf dist/*"
-
   },
   "repository": {
     "type": "git",
@@ -40,9 +39,11 @@
   },
   "dependencies": {
     "fbjs": "^0.6.1",
+    "material-ui": "^0.14.2",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
+    "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.5"
   }
 }

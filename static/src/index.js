@@ -22,15 +22,13 @@ class Index extends Component {
     const { counter } = this.props
 
     return(
-      <h1>Hello World, {counter}</h1>
+      <div>
+        <h1>Hello World, {counter}</h1>
+      </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  const { counter } = state
-
-  return { counter }
-}
+const mapStateToProps = ({ counter }) => ({ counter })
 
 export default mount(connect(mapStateToProps)(Index), { counter })
