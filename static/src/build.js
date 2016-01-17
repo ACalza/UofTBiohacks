@@ -15,7 +15,6 @@ Object.keys(routes).forEach(async function(route) {
     component = React.createElement(component)
   }
 
-  // console.log(component)
   route = 'dist/' + route
 
   const page = '<!doctype html>\n'

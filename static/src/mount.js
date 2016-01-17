@@ -6,7 +6,6 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 
 export default function mount(Connected, reducers) {
-  console.log(reducers)
   const store  = createStore(combineReducers(reducers))
   const component =
     <Provider store={store}>

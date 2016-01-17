@@ -29,7 +29,7 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    count: state
+    count: state.counter
   }
 }
 
