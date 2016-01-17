@@ -15,15 +15,11 @@ webpackJsonp([0],{
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(158);
+	var _reactRedux = __webpack_require__(158);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var _redux = __webpack_require__(165);
 
-	var _ExecutionEnvironment = __webpack_require__(9);
-
-	var _reactRedux = __webpack_require__(159);
-
-	var _redux = __webpack_require__(166);
+	var _mount = __webpack_require__(176);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -103,20 +99,15 @@ webpackJsonp([0],{
 
 	var Wrapped = (0, _reactRedux.connect)(mapStateToProps)(Index);
 
-	exports.default = _react2.default.createElement(
+	var page = _react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
 	  _react2.default.createElement(Wrapped, null)
 	);
 
-	if (_ExecutionEnvironment.canUseDOM) {
-	  var container = document.getElementById('app');
-	  _reactDom2.default.render(_react2.default.createElement(
-	    _reactRedux.Provider,
-	    { store: store },
-	    _react2.default.createElement(Wrapped, null)
-	  ), container);
-	}
+	exports.default = page;
+
+	(0, _mount.mount)(page);
 
 /***/ },
 
@@ -125,24 +116,14 @@ webpackJsonp([0],{
 
 	'use strict';
 
-	module.exports = __webpack_require__(3);
-
-
-/***/ },
-
-/***/ 159:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Provider = __webpack_require__(160);
-	var connect = __webpack_require__(162);
+	var Provider = __webpack_require__(159);
+	var connect = __webpack_require__(161);
 
 	module.exports = { Provider: Provider, connect: connect };
 
 /***/ },
 
-/***/ 160:
+/***/ 159:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -159,7 +140,7 @@ webpackJsonp([0],{
 	var PropTypes = _require.PropTypes;
 	var Children = _require.Children;
 
-	var storeShape = __webpack_require__(161);
+	var storeShape = __webpack_require__(160);
 
 	var didWarnAboutReceivingStore = false;
 	function warnAboutReceivingStore() {
@@ -218,7 +199,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 161:
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -237,7 +218,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 162:
+/***/ 161:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -255,12 +236,12 @@ webpackJsonp([0],{
 	var Component = _require.Component;
 	var createElement = _require.createElement;
 
-	var storeShape = __webpack_require__(161);
-	var shallowEqual = __webpack_require__(163);
-	var isPlainObject = __webpack_require__(164);
-	var wrapActionCreators = __webpack_require__(165);
-	var hoistStatics = __webpack_require__(175);
-	var invariant = __webpack_require__(176);
+	var storeShape = __webpack_require__(160);
+	var shallowEqual = __webpack_require__(162);
+	var isPlainObject = __webpack_require__(163);
+	var wrapActionCreators = __webpack_require__(164);
+	var hoistStatics = __webpack_require__(174);
+	var invariant = __webpack_require__(175);
 
 	var defaultMapStateToProps = function defaultMapStateToProps(state) {
 	  return {};
@@ -510,7 +491,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 163:
+/***/ 162:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -542,7 +523,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 164:
+/***/ 163:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -577,12 +558,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 165:
+/***/ 164:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _redux = __webpack_require__(166);
+	var _redux = __webpack_require__(165);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -594,7 +575,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 166:
+/***/ 165:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -603,23 +584,23 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(167);
+	var _createStore = __webpack_require__(166);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _utilsCombineReducers = __webpack_require__(169);
+	var _utilsCombineReducers = __webpack_require__(168);
 
 	var _utilsCombineReducers2 = _interopRequireDefault(_utilsCombineReducers);
 
-	var _utilsBindActionCreators = __webpack_require__(172);
+	var _utilsBindActionCreators = __webpack_require__(171);
 
 	var _utilsBindActionCreators2 = _interopRequireDefault(_utilsBindActionCreators);
 
-	var _utilsApplyMiddleware = __webpack_require__(173);
+	var _utilsApplyMiddleware = __webpack_require__(172);
 
 	var _utilsApplyMiddleware2 = _interopRequireDefault(_utilsApplyMiddleware);
 
-	var _utilsCompose = __webpack_require__(174);
+	var _utilsCompose = __webpack_require__(173);
 
 	var _utilsCompose2 = _interopRequireDefault(_utilsCompose);
 
@@ -631,7 +612,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 167:
+/***/ 166:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -641,7 +622,7 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsIsPlainObject = __webpack_require__(168);
+	var _utilsIsPlainObject = __webpack_require__(167);
 
 	var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
 
@@ -800,7 +781,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 168:
+/***/ 167:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -837,7 +818,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 169:
+/***/ 168:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -847,17 +828,17 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(167);
+	var _createStore = __webpack_require__(166);
 
-	var _isPlainObject = __webpack_require__(168);
+	var _isPlainObject = __webpack_require__(167);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _mapValues = __webpack_require__(170);
+	var _mapValues = __webpack_require__(169);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
-	var _pick = __webpack_require__(171);
+	var _pick = __webpack_require__(170);
 
 	var _pick2 = _interopRequireDefault(_pick);
 
@@ -975,7 +956,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 170:
+/***/ 169:
 /***/ function(module, exports) {
 
 	/**
@@ -1001,7 +982,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 171:
+/***/ 170:
 /***/ function(module, exports) {
 
 	/**
@@ -1029,7 +1010,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 172:
+/***/ 171:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1039,7 +1020,7 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _mapValues = __webpack_require__(170);
+	var _mapValues = __webpack_require__(169);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
@@ -1089,7 +1070,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 173:
+/***/ 172:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1102,7 +1083,7 @@ webpackJsonp([0],{
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _compose = __webpack_require__(174);
+	var _compose = __webpack_require__(173);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -1156,7 +1137,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 174:
+/***/ 173:
 /***/ function(module, exports) {
 
 	/**
@@ -1187,7 +1168,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 175:
+/***/ 174:
 /***/ function(module, exports) {
 
 	/**
@@ -1230,7 +1211,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 176:
+/***/ 175:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1286,6 +1267,47 @@ webpackJsonp([0],{
 	module.exports = invariant;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+
+/***/ 176:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.mount = mount;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(177);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _ExecutionEnvironment = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function mount(component) {
+	  if (_ExecutionEnvironment.canUseDOM) {
+	    var container = document.getElementById('app');
+	    _reactDom2.default.render(component, container);
+	  }
+	}
+
+/***/ },
+
+/***/ 177:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(3);
+
 
 /***/ }
 

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
-
 import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
+
+import { mount } from './mount.js'
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -45,16 +44,11 @@ const mapStateToProps = (state) => {
 
 const Wrapped = connect(mapStateToProps)(Index)
 
-export default (
-  <Provider store={store}>
-    <Wrapped />
-  </Provider>
-)
+const page =
+<Provider store={store}>
+  <Wrapped />
+</Provider>
 
-if (canUseDOM) {
-  const container = document.getElementById('app')
-  ReactDOM.render(
-    <Provider store={store}>
-      <Wrapped />
-    </Provider>, container)
-}
+export default page
+
+mount(page)

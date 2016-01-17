@@ -77,10 +77,10 @@ module.exports =
 	    return __webpack_require__(9);
 	  },
 	  'login/index.js': function loginIndexJs() {
-	    return __webpack_require__(14);
+	    return __webpack_require__(15);
 	  },
 	  'register/index.js': function registerIndexJs() {
-	    return __webpack_require__(15);
+	    return __webpack_require__(16);
 	  } };
 
 	Object.keys(routes).forEach(function () {
@@ -364,15 +364,11 @@ module.exports =
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(10);
+	var _reactRedux = __webpack_require__(10);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var _redux = __webpack_require__(11);
 
-	var _ExecutionEnvironment = __webpack_require__(11);
-
-	var _reactRedux = __webpack_require__(12);
-
-	var _redux = __webpack_require__(13);
+	var _mount = __webpack_require__(12);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -452,47 +448,72 @@ module.exports =
 
 	var Wrapped = (0, _reactRedux.connect)(mapStateToProps)(Index);
 
-	exports.default = _react2.default.createElement(
+	var page = _react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
 	  _react2.default.createElement(Wrapped, null)
 	);
 
-	if (_ExecutionEnvironment.canUseDOM) {
-	  var container = document.getElementById('app');
-	  _reactDom2.default.render(_react2.default.createElement(
-	    _reactRedux.Provider,
-	    { store: store },
-	    _react2.default.createElement(Wrapped, null)
-	  ), container);
-	}
+	exports.default = page;
+
+	(0, _mount.mount)(page);
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-dom");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = require("fbjs/lib/ExecutionEnvironment");
+	module.exports = require("redux");
 
 /***/ },
 /* 12 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = require("react-redux");
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.mount = mount;
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(13);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _ExecutionEnvironment = __webpack_require__(14);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function mount(component) {
+	  if (_ExecutionEnvironment.canUseDOM) {
+	    var container = document.getElementById('app');
+	    _reactDom2.default.render(component, container);
+	  }
+	}
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-dom");
 
 /***/ },
 /* 14 */
+/***/ function(module, exports) {
+
+	module.exports = require("fbjs/lib/ExecutionEnvironment");
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -541,7 +562,7 @@ module.exports =
 	exports.default = Login;
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
