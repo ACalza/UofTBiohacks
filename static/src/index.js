@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
 
-import { mount, pageGen } from './mount.js'
+import mount from './mount.js'
 import counter from './reducers/counter.js'
 
 class Index extends Component {
@@ -33,8 +33,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const page = pageGen(connect(mapStateToProps)(Index), counter)
-
-export default page
-
-mount(page)
+export default mount(connect(mapStateToProps)(Index), counter)

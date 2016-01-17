@@ -5,19 +5,18 @@ import { Provider } from 'react-redux'
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 
-export function pageGen(Wrapped, reducer) {
+export default function mount(Connected, reducer) {
   const store = createStore(reducer)
 
-  return (
-    <Provider store={store}>
-      <Wrapped />
-    </Provider>
-  )
-}
+  const component =
+  <Provider store={store}>
+    <Connected />
+  </Provider>
 
-export function mount(component) {
   if (canUseDOM) {
     const container = document.getElementById('app')
     ReactDOM.render(component, container)
   }
+
+  return component
 }
