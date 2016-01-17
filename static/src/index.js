@@ -1,17 +1,8 @@
 import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
-import { createStore } from 'redux'
 
 import { mount, pageGen } from './mount.js'
-
-const counter = (state = 0, action) => {
-  switch (action.type) {
-    case 'INCREMENT': return state + 1
-    default: return state
-  }
-}
-
-const store = createStore(counter)
+import counter from './reducers/counter.js'
 
 class Index extends Component {
   tick = () => {
@@ -42,7 +33,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const page = pageGen(connect(mapStateToProps)(Index), store)
+const page = pageGen(connect(mapStateToProps)(Index), counter)
 
 export default page
 
