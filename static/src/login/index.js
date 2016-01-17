@@ -9,20 +9,26 @@ import snacker from '../reducers/snacker.js'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
 class Login extends Component {
+
+  test = () => {
+    const { snacker, dispatch } = this.props
+    dispatch(openSnack("test"))
+  };
   render() {
     const { snacker, dispatch } = this.props
+
 
     return(
       <div>
         <h1>Login Page</h1>
-        <button>Login</button>
+        <button onClick={this.test}>Login</button>
         <Snackbar
           open={snacker.open}
           message={snacker.message}
           action="close"
           autoHideDuration={3000}
-          onActionTouchTap={dispatch(eatSnack())}
-          onRequestClose={dispatch(eatSnack())}
+          onActionTouchTap={() => dispatch(eatSnack())}
+          onRequestClose={() => dispatch(eatSnack())}
         />
       </div>
     )
