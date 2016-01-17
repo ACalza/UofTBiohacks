@@ -1,37 +1,16 @@
-// TODO seperate React stuff from fs stuff #theIsomorphicLife
+import fs from 'fs'
 
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 
-import fs from 'fs'
-import path from 'path'
+import Page from './components/Page.js'
 
-import Html from './components/Html.js'
-
-class Index extends Component {
-  render() {
-    // TODO implement more meta tags for better SEO
-    // see: https://support.google.com/webmasters/answer/79812?hl=en
-    const metas = {
-      viewport: 'width=device-width, initial-scale=1',
-      description: 'UofT BioHacks 2016 Website',
-      author: 'iGEM Toronto'
-    }
-
-    const htmlProps = {
-      title: 'UofT BioHacks',
-      meta: metas,
-      body: ReactDOMServer.renderToString(<h1> Hello, World </h1>)
-    }
-
-    return (
-      <Html {...htmlProps} />
-    )
-  }
-}
+import Index from './index.js'
+import Login from './login/index.js'
 
 
-const page = '<!doctype html>\n' + ReactDOMServer.renderToStaticMarkup(<Index />)
+fs.writeFileSync('dist/index.html', '<!doctype html>\n'
+  + ReactDOMServer.renderToStaticMarkup(<Page body={<Index />} />))
 
-
-fs.writeFileSync('dist/index.html', page)
+fs.writeFileSync('dist/login/index.html', '<!doctype html>\n'
+  + ReactDOMServer.renderToStaticMarkup(<Page body={<Login />} />))
