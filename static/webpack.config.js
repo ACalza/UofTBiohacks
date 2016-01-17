@@ -1,12 +1,18 @@
+'use strict'
+
+const webpack = require('webpack')
+const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+
 module.exports = {
-  entry: './src/build.js',
+  entry: {
+    index: './src/index.js',
+    login: './src/login/index.js',
+    register: './src/register/index.js'
+  },
   output: {
     path: 'dist',
-    filename: 'app.node.js',
-    libraryTarget: 'commonjs2'
+    filename: '[name].js',
   },
-  target: 'node',
-  externals: /^[a-z][a-z\.\-\/0-9]*$/i,
   module: {
     preLoaders: [{
       test: /build\.js$/,
@@ -14,7 +20,9 @@ module.exports = {
     }],
     loaders: [{
       test: /\.js$/,
+      exclude: /node_modules/,
       loader: 'babel'
     }]
-  }
+  },
+  plugins: [commonsPlugin]
 }

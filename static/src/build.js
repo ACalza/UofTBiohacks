@@ -18,6 +18,7 @@ Object.keys(routes).forEach(async function(route) {
   try {
     await mkdirpAsync(route.replace(/\/index.js$/, ''))
     await fsp.writeFile(route.replace(/\.js$/, '.html'), page)
+    console.log('wrote ' + route.replace(/\.js$/, '.html'))
   } catch(e) {
     console.error(e)
   }

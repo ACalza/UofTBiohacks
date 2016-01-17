@@ -77,10 +77,10 @@ module.exports =
 	    return __webpack_require__(9);
 	  },
 	  'login/index.js': function loginIndexJs() {
-	    return __webpack_require__(10);
+	    return __webpack_require__(12);
 	  },
 	  'register/index.js': function registerIndexJs() {
-	    return __webpack_require__(11);
+	    return __webpack_require__(13);
 	  } };
 
 	Object.keys(routes).forEach(function () {
@@ -97,28 +97,29 @@ module.exports =
 	            page = '<!doctype html>\n' + _server2.default.renderToStaticMarkup(_react2.default.createElement(_Page2.default, { body: component }));
 	            _context.prev = 3;
 	            _context.next = 6;
-	            return (0, _mkdirpThen2.default)(route.replace(/\index.js$/, ''));
+	            return (0, _mkdirpThen2.default)(route.replace(/\/index.js$/, ''));
 
 	          case 6:
 	            _context.next = 8;
 	            return _fsPromise2.default.writeFile(route.replace(/\.js$/, '.html'), page);
 
 	          case 8:
-	            _context.next = 13;
+	            console.log('wrote ' + route.replace(/\.js$/, '.html'));
+	            _context.next = 14;
 	            break;
 
-	          case 10:
-	            _context.prev = 10;
+	          case 11:
+	            _context.prev = 11;
 	            _context.t0 = _context['catch'](3);
 
 	            console.error(_context.t0);
 
-	          case 13:
+	          case 14:
 	          case 'end':
 	            return _context.stop();
 	        }
 	      }
-	    }, _callee, this, [[3, 10]]);
+	    }, _callee, this, [[3, 11]]);
 	  }));
 
 	  return function (_x) {
@@ -290,6 +291,8 @@ module.exports =
 	          'body',
 	          null,
 	          _react2.default.createElement('div', { id: 'app', dangerouslySetInnerHTML: { __html: body } }),
+	          _react2.default.createElement('script', { src: 'common.js' }),
+	          _react2.default.createElement('script', { src: 'index.js' }),
 	          _react2.default.createElement(_GoogleAnalytics2.default, null)
 	        )
 	      );
@@ -355,6 +358,12 @@ module.exports =
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(10);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _ExecutionEnvironment = __webpack_require__(11);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -369,16 +378,24 @@ module.exports =
 	  function Index() {
 	    _classCallCheck(this, Index);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Index).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this));
+
+	    _this.state = {
+	      count: 0
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Index, [{
 	    key: 'render',
 	    value: function render() {
+	      var count = this.state.count;
+
 	      return _react2.default.createElement(
 	        'h1',
 	        null,
-	        'Hello Worlddd'
+	        'Hello World, ',
+	        count
 	      );
 	    }
 	  }]);
@@ -388,8 +405,25 @@ module.exports =
 
 	exports.default = Index;
 
+	if (_ExecutionEnvironment.canUseDOM) {
+	  var container = document.getElementById('app');
+	  _reactDom2.default.render(_react2.default.createElement(Index, null), container);
+	}
+
 /***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-dom");
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = require("fbjs/lib/ExecutionEnvironment");
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -438,7 +472,7 @@ module.exports =
 	exports.default = Login;
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

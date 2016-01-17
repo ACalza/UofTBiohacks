@@ -23,6 +23,8 @@ export default class Html extends Component {
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{__html: body}} />
+          <script src="common.js" />
+          <script src="index.js" />
           <GoogleAnalytics />
         </body>
       </html>
