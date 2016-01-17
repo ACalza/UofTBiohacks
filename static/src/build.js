@@ -22,9 +22,11 @@ Object.keys(routes).forEach(async function(route) {
     + ReactDOMServer.renderToStaticMarkup(<Page body={component} />)
 
   try {
-    await mkdirpAsync(route.replace(/\/index.js$/, ''))
-    await fsp.writeFile(route.replace(/\.js$/, '.html'), page)
-    console.log('wrote ' + route.replace(/\.js$/, '.html'))
+    const dir = route.replace(/\/index.js$/, '')
+    const filename = route.replace(/\.js$/, '.html')
+    await mkdirpAsync(dir)
+    await fsp.writeFile(filename, page)
+    console.log('wrote ' + filename)
   } catch(e) {
     console.error(e)
   }

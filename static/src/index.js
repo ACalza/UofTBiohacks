@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
 
-import { mount } from './mount.js'
+import { mount, pageGen } from './mount.js'
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -42,12 +42,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const Wrapped = connect(mapStateToProps)(Index)
-
-const page =
-<Provider store={store}>
-  <Wrapped />
-</Provider>
+const page = pageGen(connect(mapStateToProps)(Index), store)
 
 export default page
 
