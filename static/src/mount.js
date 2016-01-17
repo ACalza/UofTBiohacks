@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
-
-export default function mount(Connected, reducer) {
-  const store = createStore(reducer)
+export default function mount(Connected, reducers) {
+  const store = createStore(combineReducers(reducers))
 
   const component =
   <Provider store={store}>

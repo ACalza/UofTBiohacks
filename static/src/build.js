@@ -11,15 +11,17 @@ const routes = {}
 Object.keys(routes).forEach(async function(route) {
   // Handle un-connect() wrapped components
   let component = routes[route]().default
+  // console.log(route, component)
   if (typeof(component) === 'function') {
     component = React.createElement(component)
   }
 
-  // console.log(component)
+
   route = 'dist/' + route
 
   const page = '<!doctype html>\n'
     + ReactDOMServer.renderToStaticMarkup(<Page body={component} />)
+
 
   try {
     const dir = route.replace(/\/index.js$/, '')

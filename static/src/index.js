@@ -29,8 +29,8 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    count: state
+    count: state.counter
   }
 }
 
-export default mount(connect(mapStateToProps)(Index), counter)
+export default mount(connect(mapStateToProps)(Index), { counter })
