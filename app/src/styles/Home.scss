@@ -37,6 +37,23 @@
   }
 }
 
+#viz {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    z-index: 1010;
+  }
+}
+
+.aboveCanvas {
+  z-index: 1011;
+}
+
 .lightBlock {
   padding-top: 20px;
   background-color: $titleLightBlue;

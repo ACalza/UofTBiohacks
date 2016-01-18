@@ -33,24 +33,5 @@ export default class Timeline extends Component {
         </div>
       </div>
     )
-
-    // return(
-    //   <div className="container">
-    //     <div className="Timeline">
-    //       <div id="timeline1" className="timeline-block right">
-    //         <span className="time">1:00 p.m.</span>
-    //         <span className="circle"></span>
-    //         <h3>Arrival and Registration</h3>
-    //         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-    //       </div>
-    //       <div id="timeline2" className="timeline-block left">
-    //         <span className="time">2:00 p.m.</span>
-    //         <span className="circle"></span>
-    //         <h3>Opening Ceremony</h3>
-    //         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-    //       </div>
-    //     </div>
-    //   </div>
-    // )
   }
 }
