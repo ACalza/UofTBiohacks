@@ -14,32 +14,27 @@ export default function(id) {
     .x(d => d.x)
     .y(d => d.y)
 
+
+  const numNodes = 100
+
   // ==== Nodes ====
-  // TODO more functional with Array(size).fill().map
-  let nodes = []
-  for (let i=0; i< 100; i++) {
-    nodes.push({
-      index: i,
-      x: Math.floor(Math.random()*W),
-      y: Math.floor(Math.random()*H),
-      radius: 5
-    })
-  }
+  let nodes = Array(numNodes).fill().map( (_, i) => ({
+    index: i,
+    x: Math.floor(Math.random()*W),
+    y: Math.floor(Math.random()*H),
+    radius: 5
+  }))
 
   // ==== Links ====
-  let links = []
-  for (let i=0; i<nodes.length; i++) {
+  let links = Array(numNodes).fill().map( (_, i) => {
     let j
-    if (i+1 === nodes.length) {
-      j = 0
-    } else {
-      j = i+1
-    }
-    links.push({
+    i+1 === numNodes ? j=0 : j=i+1
+
+    return {
       source: i,
       target: j
-    })
-  }
+    }
+  })
 
   // ==== Force ====
   let force = d3.layout.force()

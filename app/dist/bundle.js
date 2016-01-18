@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7aa5efef1073fd10786f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0ea59e5e6c45d269f31f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -73088,6 +73088,7 @@
 	});
 	
 	exports.default = function (id) {
+	
 	  // ==== Canvas creation ====
 	  var canvas = document.createElement('canvas');
 	  canvas.id = 'canvas';
@@ -73096,34 +73097,46 @@
 	  var H = canvas.height = canvas.offsetHeight;
 	  var ctx = canvas.getContext('2d');
 	
+	  var voronoi = _d2.default.geom.voronoi().x(function (d) {
+	    return d.x;
+	  }).y(function (d) {
+	    return d.y;
+	  });
+	
+	  var numNodes = 100;
+	
 	  // ==== Nodes ====
-	  var nodes = [];
-	  for (var i = 0; i < 100; i++) {
-	    nodes.push({
+	  var nodes = Array(numNodes).fill().map(function (_, i) {
+	    return {
 	      index: i,
 	      x: Math.floor(Math.random() * W),
 	      y: Math.floor(Math.random() * H),
 	      radius: 5
-	    });
-	  }
+	    };
+	  });
 	
 	  // ==== Links ====
-	  var links = [];
-	  for (var i = 0; i < nodes.length; i++) {
+	  var links = Array(numNodes).fill().map(function (_, i) {
 	    var j = undefined;
-	    if (i + 1 === nodes.length) {
-	      j = 0;
-	    } else {
-	      j = i + 1;
-	    }
-	    links.push({
+	    i + 1 === numNodes ? j = 0 : j = i + 1;
+	
+	    return {
 	      source: i,
 	      target: j
-	    });
-	  }
+	    };
+	  });
 	
 	  // ==== Force ====
-	  var force = _d2.default.layout.force().nodes(nodes).links(links).size([W, H]).linkStrength(0.1).friction(0.9).linkDistance(20).charge(-30).gravity(0.1).theta(0.8).alpha(0.1).start();
+	  var force = _d2.default.layout.force().nodes(nodes).links(links).size([W, H]).linkStrength(0.1).friction(0.9).linkDistance(50).charge(-30).gravity(0.1).theta(0.8).alpha(0.1).start();
+	  // .on('tick', render) // or requestAnimationFrame?
+	
+	  function update(e) {
+	    //console.log(voronoi(vertices));
+	    //var path = path.data(voronoi(vertices))
+	    var path = voronoi(vertices);
+	
+	    var link = voronoi.links(vertices);
+	  }
 	
 	  // ==== Render ====
 	  var clear = function clear() {
@@ -73132,31 +73145,44 @@
 	
 	  var render = function render() {
 	    clear();
+	    var path = voronoi(nodes);
 	
-	    for (var i = 0; i < links.length; i++) {
-	      var link = links[i];
-	
+	    for (var i = 0; i < path.length; i++) {
 	      ctx.beginPath();
-	      ctx.moveTo(link.source.x, link.source.y);
-	      ctx.lineTo(link.target.x, link.target.y);
-	      ctx.lineWidth = 2;
-	      ctx.strokeStyle = 'black';
+	      ctx.moveTo(path[i][0][0], path[i][0][1]);
+	      for (var j = 1; j < path[i].length; j++) {
+	        ctx.lineTo(path[i][j][0], path[i][j][1]);
+	      }
 	      ctx.closePath();
+	
+	      ctx.strokeStyle = 'black';
 	      ctx.stroke();
 	    }
 	
-	    for (var i = 0; i < nodes.length; i++) {
-	      var x = nodes[i].x;
-	      var y = nodes[i].y;
-	
-	      ctx.beginPath();
-	      ctx.moveTo(x, y);
-	      ctx.arc(x, y, nodes[i].radius, 0, 2 * Math.PI);
-	      ctx.closePath();
-	
-	      ctx.fillStyle = 'black';
-	      ctx.fill();
-	    }
+	    // for (let i=0; i < links.length; i++) {
+	    //   let link = links[i]
+	    //
+	    //   ctx.beginPath()
+	    //   ctx.moveTo(link.source.x, link.source.y)
+	    //   ctx.lineTo(link.target.x, link.target.y)
+	    //   ctx.lineWidth = 2
+	    //   ctx.strokeStyle = 'black'
+	    //   ctx.closePath()
+	    //   ctx.stroke()
+	    // }
+	    //
+	    // for (let i=0; i < nodes.length; i++) {
+	    //   let x = nodes[i].x
+	    //   let y = nodes[i].y
+	    //
+	    //   ctx.beginPath()
+	    //   ctx.moveTo(x, y)
+	    //   ctx.arc(x, y, nodes[i].radius, 0, 2 * Math.PI)
+	    //   ctx.closePath()
+	    //
+	    //   ctx.fillStyle = 'black'
+	    //   ctx.fill()
+	    // }
 	
 	    requestAnimationFrame(render);
 	  };
