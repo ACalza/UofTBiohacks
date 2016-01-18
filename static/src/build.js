@@ -15,11 +15,12 @@ Object.keys(routes).forEach(async function(route) {
   if (typeof(component) === 'function') {
     component = React.createElement(component)
   }
+  let name = route.split("/")[0]
 
   route = 'dist/' + route
 
   const page = '<!doctype html>\n'
-    + ReactDOMServer.renderToStaticMarkup(<Page body={component} />)
+    + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name}/>)
 
   try {
     const dir = route.replace(/\/index.js$/, '')

@@ -5,7 +5,7 @@ import Html from './Html.js'
 
 export default class Page extends Component {
   render() {
-    const { body } = this.props
+    const { body, name} = this.props
 
     // TODO implement more meta tags for better SEO
     // see: https://support.google.com/webmasters/answer/79812?hl=en
@@ -25,7 +25,8 @@ export default class Page extends Component {
     const htmlProps = {
       title: 'UofT BioHacks',
       meta: metas,
-      body: bodyString
+      body: bodyString,
+      name: name
     }
 
     return (
