@@ -4,12 +4,16 @@ import GoogleAnalytics from './GoogleAnalytics.js'
 
 export default class Html extends Component {
   render() {
-    const { title, meta, body, name } = this.props
+    let { title, meta, body, name } = this.props
     // NOTE supports meta name and content ONLY atm
     const metas = Object.keys(meta).map( (metaKey, index) => {
       return <meta name={metaKey} content={meta[metaKey]} key={index} />
     })
-
+    let common = "../common.js"
+    if(name==="index.js"){
+      common = "./common.js"
+      name = "index"
+    }
     return(
       <html>
         <head>
@@ -22,7 +26,7 @@ export default class Html extends Component {
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{__html: body}} />
-          <script src="../common.js" />
+          <script src={common.toString()} />
           <script src=  {"../" + name.toString() + ".js"}/>
           <GoogleAnalytics />
         </body>
