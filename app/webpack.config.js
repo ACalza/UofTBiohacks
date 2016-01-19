@@ -41,7 +41,16 @@ module.exports = {
     }, {
       test: /\.svg$/,
       loader: 'file-loader'
-    }]
+    }, {
+      test: /\.json$/,
+      loader: 'json'
+    }],
+    postLoaders: [
+      {
+        include: path.resolve(__dirname, 'node_modules/pixi.js'),
+        loader: 'transform?brfs'
+      }
+    ]
   },
   postcss: function (webpack) {
     return [

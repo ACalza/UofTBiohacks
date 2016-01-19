@@ -14,6 +14,8 @@ import Timeline from '../components/Timeline'
 
 import '../styles/Home.scss'
 
+import viz from '../assets/js/viz.js'
+
 // import Logo from '../assets/BioHacksLogo.svg'
 
 import about from '../markdown/about.md'
@@ -23,14 +25,19 @@ import faq from '../markdown/faq.md'
 
 // Presentational Component
 export default class Home extends Component {
+  componentDidMount() {
+    viz('viz')
+  }
+
   render() {
     return (
       <div className="fillY">
         <Navigation />
-        <div className="Splash jumbotron">
+        <div className="Splash">
+          <div id="viz" />
           <div className="headerPush" />
-          <img src="http://45.55.193.224:1234/BioHacksLogo.svg" />
-          <h1><span className="darkBlue">UofT</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
+          <img className="aboveCanvas" src="http://45.55.193.224:1234/BioHacksLogo.svg" />
+          <h1 className="aboveCanvas"><span className="darkBlue">UofT</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
         </div>
         <div className="registerBlock">
           <BSContainer>
@@ -98,5 +105,3 @@ export default class Home extends Component {
     )
   }
 }
-
-// <div className="ribbon hidden-lg"><span><Link className="ribbonLink" to="/register">Register</Link></span></div>
