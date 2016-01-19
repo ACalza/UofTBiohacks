@@ -15,7 +15,8 @@ export default {
   },
   '4:00 p.m.': {
     'title': 'Sponsor Demos',
-    'content': 'asdasdad ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
+    'content': 'Stay tuned!'
+    //'content': 'asdasdad ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.'
   },
   '5:00 p.m.': {
     'title': 'Hacking Starts!'
