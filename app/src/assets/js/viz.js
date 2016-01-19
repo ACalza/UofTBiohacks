@@ -1,19 +1,19 @@
 import d3 from 'd3'
+import PIXI from 'pixi.js'
 
 export default function(id) {
+  const W = window.innerWidth
+  const H = window.innerHeight
+  const renderer = new PIXI.autoDetectRenderer(W, H, { transparent: true, antialias: true })
+  document.getElementById(id).appendChild(renderer.view)
 
-  // ==== Canvas creation ====
-  let canvas = document.createElement('canvas')
-  canvas.id = 'canvas'
-  document.getElementById(id).appendChild(canvas)
-  let W = canvas.width = canvas.offsetWidth
-  let H = canvas.height = canvas.offsetHeight
-  let ctx = canvas.getContext('2d')
+  let stage = new PIXI.Container()
+  let graphics = new PIXI.Graphics()
+  stage.addChild(graphics)
 
   const voronoi = d3.geom.voronoi()
     .x(d => d.x)
     .y(d => d.y)
-
 
   const numNodes = 100
 
@@ -51,35 +51,21 @@ export default function(id) {
     .start()
     // .on('tick', render) // or requestAnimationFrame?
 
-  function update(e) {
-        //console.log(voronoi(vertices));
-        //var path = path.data(voronoi(vertices))
-        var path = voronoi(vertices);
-
-        var link = voronoi.links(vertices);
-  }
-
-
-  // ==== Render ====
-  const clear = () => {
-    ctx.clearRect(0,0,W,H)
-  }
-
-
   const render = () => {
-    clear()
+    graphics.clear()
+
     let path = voronoi(nodes)
 
     for (let i=0; i < path.length; i++) {
-      ctx.beginPath()
-      ctx.moveTo(path[i][0][0], path[i][0][1])
-      for (let j=1; j < path[i].length; j++) {
-        ctx.lineTo(path[i][j][0], path[i][j][1])
-      }
-      ctx.closePath()
+      // graphics.beginFill(0x000000)
+      graphics.lineStyle(2, 0x000000, 1)
+      graphics.moveTo(path[i][0][0], path[i][0][1])
 
-      ctx.strokeStyle = 'black'
-      ctx.stroke()
+      for (let j=1; j < path[i].length; j++) {
+        graphics.lineTo(path[i][j][0], path[i][j][1])
+      }
+
+      graphics.endFill()
     }
 
     // for (let i=0; i < links.length; i++) {
@@ -107,6 +93,22 @@ export default function(id) {
     //   ctx.fill()
     // }
 
+    // Same as links array
+    // let vlinks = voronoi.links(nodes)
+    // for (let i=0; i < vlinks.length; i++) {
+    //   const { source, target } = vlinks[i]
+    //
+    //   ctx.beginPath()
+    //   ctx.moveTo(source.x, source.y)
+    //   ctx.lineTo(target.x, target.y)
+    //
+    //   ctx.lineWidth = 2
+    //   ctx.strokeStyle = 'red'
+    //   ctx.closePath()
+    //   ctx.stroke()
+    // }
+
+    renderer.render(stage)
     requestAnimationFrame(render)
   }
 
