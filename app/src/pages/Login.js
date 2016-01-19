@@ -128,7 +128,7 @@ class Login extends Component {
                 disabled = {!this.state.canSubmit}
               />
             </Formsy.Form>
-            <a onClick={this.handleForgetPassword}>Forgot password?</a>
+            
             </Col>
           </Row>
           <Dialog
