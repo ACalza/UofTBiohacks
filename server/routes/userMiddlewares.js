@@ -23,19 +23,28 @@ module.exports.validateRegistration = function*(next) {
   this.request.body.email = util.trim(this.request.body.email)
   this.request.body.username = util.trim(this.request.body.username)
   this.request.body.name = util.trim(this.request.body.name)
-
+  console.log(this.request.body)
   let email = this.request.body.email
   let password = this.request.body.password
   let name = this.request.body.name
   let username = this.request.body.username
+  let education = this.request.body.education
+  let year = this.request.body.year
+  let codingbackground = this.request.body.codingbackground
+  // let likeToSee = this.request.body.likeToSee
+  // let questions = this.request.body.questions
     // If name, password or email does not exist
-  if (!email || !password || !name || !username || password.length < 8) {
+  
+  if (!email || !password || !name || !username || password.length < 8 || !year
+      || !education || !codingbackground) {
     this.response.status = 400 // set response status before sending
-    util.errorResponse(this)
+    return this.body = {
+      message: "Not all fields were filled in"
+    }
   } else if (!this.checkBody('email').isEmail().goOn) {
     this.response.status = 400
     util.errorResponse(this)
-  } else {
+  } else{
     let modelByEmail = yield User.findOne({
       email: this.request.body.email
     })
@@ -66,9 +75,12 @@ module.exports.saveUsertoDatabase = function*() {
     password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
     name: this.request.body.name,
     username: this.request.body.username,
-    school: this.request.body.school,
-    github: this.request.body.github,
-    about: this.request.body.about
+    howDidYouHear: this.request.body.howDidYouHear,
+    codingbackground: this.request.body.codingbackground,
+    likeToSee: this.request.body.likeToSee,
+    year: this.request.body.year,
+    questions: this.request.body.questions,
+    education: this.request.body.education
   })
   try {
     var model = yield user.save() // save new user in database

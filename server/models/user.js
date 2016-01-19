@@ -25,10 +25,12 @@ let userSchema = mongoose.Schema({
   },
   invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
   group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-  school: String, //Won't be required
-  github: String,
-  about: String, //Likely to be mandatory, for now no.
-  program: String,
+  howDidYouHear: String, //Won't be required
+  codingbackground: String,
+  likeToSee: String,
+  education: String,
+  year: Number,
+  questions: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date
 })
