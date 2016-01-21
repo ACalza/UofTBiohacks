@@ -11,13 +11,18 @@ import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
-import { canSubmit, submitForm } from '../actions/submission.js'
+import { canSubmit, submitForm, canNotSubmit, submitResponse} from '../actions/submission.js'
+import  ajaxPost from '../util/ajax.js'
 
 class Login extends Component {
-  test = () => {
-    const { snacker, dispatch } = this.props
 
-    dispatch(openSnack("hey you submitted ma TML"))
+  submitForm = (model) => {
+    const {dispatch} = this.props
+    dispatch(submitForm(model))
+    //WHY IS THIS UNDEFINED?!
+    console.log(ajaxPost)
+    //ajaxPost(model, '/user/login', null, dispatch, submitResponse)
+
   };
   render() {
     const { snacker, submission, dispatch } = this.props
@@ -25,7 +30,7 @@ class Login extends Component {
       <div>
         <h1>Login Page</h1>
         <Formsy.Form
-          onValidSubmit = {this.test}
+          onValidSubmit = {this.submitForm}
           onValid = {() => dispatch(canSubmit())}
           onInvalid = {() => dispatch(canNotSubmit())}
         >
