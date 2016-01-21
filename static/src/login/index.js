@@ -11,11 +11,13 @@ import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
+import { canSubmit, submitForm } from '../actions/submission.js'
 
 class Login extends Component {
   test = () => {
     const { snacker, dispatch } = this.props
-    dispatch(openSnack("test"))
+
+    dispatch(openSnack("hey you submitted ma TML"))
   };
   render() {
     const { snacker, submission, dispatch } = this.props
@@ -23,9 +25,10 @@ class Login extends Component {
       <div>
         <h1>Login Page</h1>
         <Formsy.Form
-          onValid = {() => console.log("Valid")}
-          onInvalid = {() => console.log("onValid")}
-          onValidSubmit = {() => console.log("onValidSubmit")}>
+          onValidSubmit = {this.test}
+          onValid = {() => dispatch(canSubmit())}
+          onInvalid = {() => dispatch(canNotSubmit())}
+        >
 
           <FormsyText style={{display: 'block'}}
             name = 'emailOrUsername'
@@ -43,10 +46,9 @@ class Login extends Component {
           <RaisedButton
             type = "submit"
             label = "Submit"
-            disabled = {false}
+            disabled = {!submission.canSubmit}
           />
         </Formsy.Form>
-        <button onClick={this.test}>Login</button>
         <Snackbar
           open={snacker.open}
           message={snacker.message}

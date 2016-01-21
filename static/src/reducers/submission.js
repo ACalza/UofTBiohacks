@@ -1,4 +1,4 @@
-import { SUBMIT_FORM, CAN_SUBMIT } from '../constants/actions.js'
+import { SUBMIT_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT } from '../constants/actions.js'
 //import immutable from 'immutable'
 
 const initialState = {
@@ -22,6 +22,11 @@ export default function snacker(state = initialState, action) {
       return {
         ...state,
         canSubmit: true
+      }
+    case CAN_NOT_SUBMIT:
+      return {
+        ...state,
+        canSubmit: false
       }
     default:
       return state
