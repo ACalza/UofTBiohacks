@@ -17,7 +17,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 export default function mount(Connected, reducers) {
   const store = createStore(combineReducers(reducers))
 
-  // GLOBAL.navigator = {userAgent: headers['user-agent']}
+  //navigator = {userAgent: headers['user-agent']}
 
   const component =
     <Provider store={store}>

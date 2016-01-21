@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import FMUI, { FormsyText } from 'formsy-material-ui'
-import {Snackbar, RaisedButton} from 'material-ui/lib/snackbar'
-import TextField from 'material-ui/lib/text-field';
+import {Snackbar, RaisedButton} from 'material-ui/lib'
+import TextField from 'material-ui/lib/text-field'
 
 import mount from '../mount.js'
 
