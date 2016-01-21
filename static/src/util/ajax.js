@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-import  BASE_URI from '../constants/uris.js'
+import  {BASE_URI} from '../constants/uris.js'
 
 export const ajaxPost = (body, uri, jwt, dispatcher, action) => {
 
@@ -10,14 +10,11 @@ export const ajaxPost = (body, uri, jwt, dispatcher, action) => {
     data: body,
     beforeSend: function (request)
      {
-       console.log(url)
-       console.log(data)
        if(jwt){
          request.setRequestHeader('Authorization', 'Bearer ' + jwt);
        }
      },
     success: function (data) {
-      //cb(null, data)
       dispatcher(action(data))
     },
     error: function (xhr, status, err) {

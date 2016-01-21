@@ -12,16 +12,17 @@ import submission from '../reducers/submission.js'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import { canSubmit, submitForm, canNotSubmit, submitResponse} from '../actions/submission.js'
-import  ajaxPost from '../util/ajax.js'
+import  {ajaxPost} from '../util/ajax.js'
 
 class Login extends Component {
 
   submitForm = (model) => {
     const {dispatch} = this.props
+    //More of a 'promise' that the front end will make the ajax request
     dispatch(submitForm(model))
-    //WHY IS THIS UNDEFINED?!
-    console.log(ajaxPost)
-    //ajaxPost(model, '/user/login', null, dispatch, submitResponse)
+    dispatch(canNotSubmit())
+    //Make the ajax post request, dispatching 'submit response on completion'
+    ajaxPost(model, '/user/login', null, dispatch, submitResponse)
 
   };
   render() {

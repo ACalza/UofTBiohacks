@@ -11,6 +11,6 @@ export const submitForm = (model) => {
   return { type: SUBMIT_FORM, model }
 }
 
-export const submitResponse = () => {
-  return { type: SUBMIT_RESPONSE}
+export const submitResponse = (response) => {
+  return { type: SUBMIT_RESPONSE, response}
 }

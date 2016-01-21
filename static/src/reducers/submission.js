@@ -10,7 +10,7 @@ const initialState = {
   response: null
 }
 
-export default function snacker(state = initialState, action) {
+export default function submission(state = initialState, action) {
 
   switch (action.type) {
     case SUBMIT_FORM:
