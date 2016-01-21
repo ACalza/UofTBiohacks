@@ -24,7 +24,7 @@ export default function(id) {
   let nodes = Array(numNodes).fill().map( (_, i) => ({
     x: Math.floor(Math.random()*W),
     y: Math.floor(Math.random()*H),
-    radius: 20
+    radius: 20 + Math.floor(Math.random()*10-5)
   }))
 
   // ==== Force ====
@@ -59,12 +59,29 @@ export default function(id) {
 
     const path = voronoi(nodes)
     graphics.lineStyle(2, 0xffffff, 1)
+    // for (let i=0; i < path.length; i++) {
+    //   graphics.moveTo(path[i][0][0], path[i][0][1])
+    //
+    //   for (let j=1; j < path[i].length; j++) {
+    //     graphics.lineTo(path[i][j][0], path[i][j][1])
+    //   }
+    // }
     for (let i=0; i < path.length; i++) {
       graphics.moveTo(path[i][0][0], path[i][0][1])
+      let j
 
-      for (let j=1; j < path[i].length; j++) {
-        graphics.lineTo(path[i][j][0], path[i][j][1])
+      console.log(path[i])
+      path[i].push(path[i][0])
+      // path[i].push(path[i][1])
+
+      for (j=1; j < path[i].length - 2; j++) {
+        const xc = (path[i][j][0] + path[i][j+1][0]) / 2
+        const yc = (path[i][j][1] + path[i][j+1][1]) / 2
+        graphics.quadraticCurveTo(path[i][j][0], path[i][j][1], xc, yc)
       }
+
+      graphics.quadraticCurveTo(path[i][j][0], path[i][j][1], path[i][j+1][0], path[i][j+1][1])
+      // graphics.quadraticCurveTo(path[i][j+1][0], path[i][j+1][1], path[i][0][0], path[i][0][1])
     }
 
     const links = voronoi.links(nodes)
