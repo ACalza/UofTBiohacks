@@ -26,6 +26,7 @@
   "homepage": "https://github.com/ACalza/UofTBiohacks#readme",
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
+    "cardinal-spline-js": "^2.3.3",
     "classnames": "^2.2.3",
     "d3": "^3.5.12",
     "download-file": "^0.1.5",
