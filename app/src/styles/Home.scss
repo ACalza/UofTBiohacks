@@ -46,6 +46,8 @@
   position: absolute;
   top: 0;
 
+  overflow: hidden;
+
   canvas {
     z-index: 1010;
   }
