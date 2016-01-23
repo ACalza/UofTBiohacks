@@ -3,7 +3,6 @@ import { SUBMIT_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE } from '../con
 //import immutable from 'immutable'
 
 const initialState = {
-  submit: false,
   canSubmit: false,
   isLoading: false,
   response: null
@@ -15,7 +14,6 @@ export default function submission(state = initialState, action) {
     case SUBMIT_FORM:
       return {
         ...state,
-        submit: true,
         isLoading: true
       }
     case SUBMIT_RESPONSE:

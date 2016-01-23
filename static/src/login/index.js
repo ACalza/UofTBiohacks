@@ -10,18 +10,18 @@ import mount from '../mount.js'
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 
-import { openSnack, eatSnack } from '../actions/snacker.js'
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
+
+import Layout from '../components/Layout'
 
 import { BASE_URI } from '../constants/uris.js'
 
 class Login extends Component {
 
   submitForm = (model) => {
-    const {dispatch} = this.props
+    const {dispatch, submission} = this.props
 
     dispatch(canNotSubmit())
-
     dispatch(loadResponse(BASE_URI + '/user/login', {
       method: 'POST',
       headers: {
@@ -30,6 +30,7 @@ class Login extends Component {
       },
       body: JSON.stringify(model)
     }))
+    console.log(submission)
     //More of a 'promise' that the front end will make the ajax request
     // dispatch(submitForm(model))
 
@@ -40,7 +41,7 @@ class Login extends Component {
   render() {
     const { snacker, submission, dispatch } = this.props
     return(
-      <div>
+      <Layout>
         <h1>Login Page</h1>
         <Formsy.Form
           onValidSubmit = {this.submitForm}
@@ -67,15 +68,7 @@ class Login extends Component {
             disabled = {!submission.canSubmit}
           />
         </Formsy.Form>
-        <Snackbar
-          open={snacker.open}
-          message={snacker.message}
-          action="close"
-          autoHideDuration={3000}
-          onActionTouchTap={() => dispatch(eatSnack())}
-          onRequestClose={() => dispatch(eatSnack())}
-        />
-      </div>
+      </Layout>
     )
   }
 }

@@ -1,5 +1,6 @@
 import { SUBMITED_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE} from '../constants/actions.js'
 import fetch from 'isomorphic-fetch'
+import {openSnack} from '../actions/snacker'
 
 export const canSubmit = () => {
   return { type: CAN_SUBMIT }
@@ -40,8 +41,9 @@ export const loadResponse = (uri, requestObject = {}) => {
         {
         // We can dispatch many times!
         // Here, we update the app state with the results of the API call.
-        console.log("At submissiona action", json)
-        dispatch(submitResponse(json))
+          console.log("At submissiona action", json)
+          dispatch(openSnack(json.message))
+          dispatch(submitResponse(json))
         }
       ).catch(err => console.error(err))
 
