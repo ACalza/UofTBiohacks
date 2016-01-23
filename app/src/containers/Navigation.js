@@ -26,8 +26,8 @@ class Navigation extends PureComponent {
     // TODO extend a base links
     // NOTE !logout renders as bare <a>
     const routes = {
-      whenLoggedIn: ['/', '/account', '!logout'],
-      whenLoggedOut: ['/', '/register', '/login' ]
+      //whenLoggedIn: ['/', '/account', '!logout'],
+      whenLoggedOut: ['/', '/register']
     }
 
     // TODO conditionally style active link with redux-history

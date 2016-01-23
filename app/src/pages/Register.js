@@ -41,7 +41,9 @@ class Register extends Component {
 
   submitForm = (model) => {
     const { dispatch } = this.props
-
+    this.setState({
+      canSubmit: false
+    })
     ajaxPost(model, '/user/register', null, (err, data) => {
       if (err) {
         console.error(err)
@@ -70,75 +72,6 @@ class Register extends Component {
                   validationError={'Invalid email'}
                   hintText = "What is your email?"
                   floatingLabelText = "Email"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'username'
-                  validations={{matchRegexp: /.+/}}
-                  validationError="At least one character please"
-                  required hintText = "What is your username?"
-                  floatingLabelText = "Username"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'name'
-                  validations={{matchRegexp: /.+/}}
-                  validationError="At least one character please"
-                  required hintText = "What is your name?"
-                  floatingLabelText = "Name"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'education'
-                  floatingLabelText = "Education Background"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'year'
-                  floatingLabelText = "Year of Study"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'howDidYouHear'
-                  floatingLabelText = "How did you hear about this event?"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'codingbackground'
-                  floatingLabelText = "Do you have any coding background?"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'likeToSee'
-                  floatingLabelText = "What would you like to see in the event?"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'questions'
-                  floatingLabelText = "Do you have any questions for us?"
-                />
-
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'password'
-                  type = 'password'
-                  validations={{matchRegexp: /.{7}.+/}}
-                  validationError="At least eight characters please"
-                  required
-                  hintText = "What is your password?"
-                  floatingLabelText = "Password"
-                />
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'confirmpassword'
-                  type = 'password'
-                  validations="equalsField:password"
-                  validationError="Does not match"
-                  required
-                  hintText = "Confirm Password"
-                  floatingLabelText = "Confirm Password"
                 />
 
                 <RaisedButton

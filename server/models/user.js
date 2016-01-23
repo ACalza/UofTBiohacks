@@ -7,32 +7,32 @@ const mongoose = require('mongoose')
 let userSchema = mongoose.Schema({
   email: {
     type: String,
-    unique: true,
     required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
-  group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-  howDidYouHear: String, //Won't be required
-  codingbackground: String,
-  likeToSee: String,
-  education: String,
-  year: Number,
-  questions: String,
-  resetPasswordToken: String,
-  resetPasswordExpires: Date
+  }
+  // },
+  // password: {
+  //   type: String,
+  //   required: true
+  // },
+  // name: {
+  //   type: String,
+  //   required: true
+  // },
+  // username: {
+  //   type: String,
+  //   required: true,
+  //   unique: true
+  // },
+  // invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
+  // group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
+  // howDidYouHear: String, //Won't be required
+  // codingbackground: String,
+  // likeToSee: String,
+  // education: String,
+  // year: Number,
+  // questions: String,
+  // resetPasswordToken: String,
+  // resetPasswordExpires: Date
 })
 
 module.exports = mongoose.model('User', userSchema)

@@ -34,7 +34,7 @@ module.exports.validateRegistration = function*(next) {
   // let likeToSee = this.request.body.likeToSee
   // let questions = this.request.body.questions
     // If name, password or email does not exist
-  
+
   if (!email || !password || !name || !username || password.length < 8 || !year
       || !education || !codingbackground) {
     this.response.status = 400 // set response status before sending
@@ -65,6 +65,52 @@ module.exports.validateRegistration = function*(next) {
       // Authentication complete
       yield next
     }
+  }
+}
+
+module.exports.registerUserToDatabase = function*(){
+  let modelByEmail = yield User.findOne({
+    email: this.request.body.email
+  })
+
+
+  if (modelByEmail) {
+    console.log("why?")
+    return this.body = {
+      message: "Email already exists"
+    }
+  }
+  let user = new User({
+    email: this.request.body.email
+  })
+  try {
+    var model = yield user.save() // save new user in database
+    console.log(model)
+    console.log("here")
+    let options = {
+      auth : {
+        api_user: config.api_user,
+        api_key: config.api_key
+      }
+    }
+    let client = nodemailer.createTransport(sgTransport(options));
+    let email = {
+      from: 'igem@g.skule.ca',
+      to: this.request.body.email,
+      subject: 'UofT Biohacks',
+      html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+    };
+    yield sendMail(client, email);
+    this.body = {
+      message: "Successfully registered, an email will be sent shortly",
+      success: true
+    }
+  } catch (err) {
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
   }
 }
 

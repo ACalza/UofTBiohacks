@@ -14,8 +14,8 @@ let router = new Router();
 //router.get('/', userMiddlewares.getAllUsers)
 //router.get('/excel', userMiddlewares.excel)
 
-router.use('/register', userMiddlewares.validateRegistration);
-router.post('/register', userMiddlewares.saveUsertoDatabase);
+//router.use('/register', userMiddlewares.validateRegistration);
+router.post('/register', userMiddlewares.registerUserToDatabase);
 
 router.get('/auth', function*(){})
 
