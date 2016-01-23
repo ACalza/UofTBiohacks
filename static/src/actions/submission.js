@@ -1,4 +1,4 @@
-import { SUBMIT_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE} from '../constants/actions.js'
+import { SUBMITED_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE} from '../constants/actions.js'
 import fetch from 'isomorphic-fetch'
 
 export const canSubmit = () => {
@@ -8,14 +8,14 @@ export const canNotSubmit = () => {
   return { type: CAN_NOT_SUBMIT }
 }
 
-function submitForm(model){
-  return { type: SUBMIT_FORM, model }
+function submitedForm(){
+  return { type: SUBMITED_FORM }
 }
 
 function submitResponse(response){
   return { type: SUBMIT_RESPONSE, response}
 }
-export const loadResponse = (uri, model) => {
+export const loadResponse = (uri, requestObject = {}) => {
 
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
@@ -25,25 +25,25 @@ export const loadResponse = (uri, model) => {
 
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
-    console.log("here")
     console.log(uri)
-    //dispatch(submitForm(model))
+    console.log(requestObject)
+    dispatch(submitedForm())
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
 
 
 
-    return fetch(uri)
+    return fetch(uri, requestObject)
       .then(response => response.json())
       .then(json =>
         {
         // We can dispatch many times!
         // Here, we update the app state with the results of the API call.
-        console.log("At submissiona action")
+        console.log("At submissiona action", json)
         dispatch(submitResponse(json))
         }
-      )
+      ).catch(err => console.error(err))
 
       // In a real world app, you also want to
       // catch any error in the network call.
