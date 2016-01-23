@@ -5,8 +5,7 @@ import { SUBMIT_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE } from '../con
 const initialState = {
   submit: false,
   canSubmit: false,
-  loading: false,
-  loaded: false,
+  isLoading: false,
   response: null
 }
 
@@ -17,13 +16,12 @@ export default function submission(state = initialState, action) {
       return {
         ...state,
         submit: true,
-        loading: true
+        isLoading: true
       }
     case SUBMIT_RESPONSE:
       return {
         ...state,
-        loading: false,
-        loaded: true,
+        isLoading: false,
         response: action.response
       }
     case CAN_SUBMIT:

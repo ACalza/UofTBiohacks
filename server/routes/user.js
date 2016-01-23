@@ -17,6 +17,11 @@ let router = new Router();
 router.use('/register', userMiddlewares.validateRegistration);
 router.post('/register', userMiddlewares.saveUsertoDatabase);
 
+router.get('/reset/test', function*(){
+  this.body = {
+    test: "hello world"
+  }
+})
 router.get('/auth', function*(){})
 
 router.post('/login', userMiddlewares.requestLogin);

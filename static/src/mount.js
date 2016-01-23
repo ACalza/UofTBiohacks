@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
+import thunkMiddleware from 'redux-thunk'
 
 import Snackbar from 'material-ui/lib/snackbar'
 
@@ -15,7 +16,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 
 
 export default function mount(Connected, reducers) {
-  const store = createStore(combineReducers(reducers))
+
+  const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
+  const store = createStoreWithMiddleware(combineReducers(reducers))
 
   //navigator = {userAgent: headers['user-agent']}
 

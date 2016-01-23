@@ -11,18 +11,20 @@ import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
-import { canSubmit, submitForm, canNotSubmit, submitResponse} from '../actions/submission.js'
+import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 import  {ajaxPost} from '../util/ajax.js'
 
 class Login extends Component {
 
   submitForm = (model) => {
     const {dispatch} = this.props
+
+    dispatch(loadResponse("http://localhost:3000/user/reset/test", null))
     //More of a 'promise' that the front end will make the ajax request
-    dispatch(submitForm(model))
-    dispatch(canNotSubmit())
-    //Make the ajax post request, dispatching 'submit response on completion'
-    ajaxPost(model, '/user/login', null, dispatch, submitResponse)
+    // dispatch(submitForm(model))
+    // dispatch(canNotSubmit())
+    // //Make the ajax post request, dispatching 'submit response on completion'
+    // ajaxPost(model, '/user/login', null, dispatch, submitResponse)
 
   };
   render() {
