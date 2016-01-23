@@ -24,8 +24,7 @@ Object.keys(routes).forEach(async function(route) {
 
   route = 'dist/' + route
   console.log(`==== route: ${route} ====`)
-
-
+  
   const page = '<!doctype html>\n'
     + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name}/>)
 

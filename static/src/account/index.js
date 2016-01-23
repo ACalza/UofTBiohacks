@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
-import mount from '../mount.js'
+import { connect } from 'react-redux'
 
-import snacker from '../reducers/snacker.js'
+import mount from '../mount.js'
 import submission from '../reducers/submission.js'
 
+import snacker from '../reducers/snacker.js'
 import Layout from '../components/Layout'
 
 class Account extends Component {
+
   render() {
+    const { snacker, submission, dispatch } = this.props
+
     return(
       <Layout>
-        <h2>Account Page</h2>
+        <div>
+          <h1>Hello Account</h1>
+        </div>
       </Layout>
     )
   }
@@ -18,12 +24,4 @@ class Account extends Component {
 
 const mapStateToProps = ({ snacker, submission }) => ({ snacker, submission })
 
-// export default mount(connect(mapStateToProps)(Account), { snacker, submission })
-
-export default class asasasas extends Component {
-  render() {
-    return(
-      <h2>Account</h2>
-    )
-  }
-}
+export default mount(connect(mapStateToProps)(Account), { snacker, submission })
