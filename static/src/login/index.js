@@ -22,7 +22,7 @@ class Login extends Component {
 
     dispatch(canNotSubmit())
 
-    dispatch(loadResponse( BASE_URI + '/user/login', {
+    dispatch(loadResponse(BASE_URI + '/user/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
