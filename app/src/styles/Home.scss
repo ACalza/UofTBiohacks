@@ -19,9 +19,12 @@
   }
 
   h1 {
-    margin-top: 0;
-    padding-top: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    padding-bottom: 2px;
     font-family: 'Nord';
+    background-color: #d1d2d5;
+    border: 2px solid #487DAF;
 
     .darkBlue {
       color: $titleDarkBlue;
@@ -42,6 +45,8 @@
   height: 100%;
   position: absolute;
   top: 0;
+
+  overflow: hidden;
 
   canvas {
     z-index: 1010;
