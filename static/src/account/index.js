@@ -18,4 +18,12 @@ class Account extends Component {
 
 const mapStateToProps = ({ snacker, submission }) => ({ snacker, submission })
 
-export default mount(connect(mapStateToProps)(Account), { snacker, submission })
+// export default mount(connect(mapStateToProps)(Account), { snacker, submission })
+
+export default class asasasas extends Component {
+  render() {
+    return(
+      <h2>Account</h2>
+    )
+  }
+}

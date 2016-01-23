@@ -5,7 +5,7 @@ import Html from './Html.js'
 
 export default class Page extends Component {
   render() {
-    const { body, name} = this.props
+    const { body, name } = this.props
 
     // TODO implement more meta tags for better SEO
     // see: https://support.google.com/webmasters/answer/79812?hl=en
@@ -16,6 +16,7 @@ export default class Page extends Component {
     }
 
     let bodyString
+    console.log(`went here for ${name}`)
     try {
       bodyString = ReactDOMServer.renderToString(body)
     } catch(e) {
