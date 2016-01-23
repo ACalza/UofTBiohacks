@@ -18,13 +18,14 @@ Object.keys(routes).forEach(async function(route) {
   let name = route.split("/")[0]
 
   route = 'dist/' + route
-  
+
   const page = '<!doctype html>\n'
     + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name}/>)
 
   try {
     const dir = route.replace(/\/index.js$/, '')
     const filename = route.replace(/\.js$/, '.html')
+    //console.log(filename)
     await mkdirpAsync(dir)
     await fsp.writeFile(filename, page)
     console.log('wrote ' + filename)

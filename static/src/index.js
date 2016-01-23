@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import mount from './mount.js'
 import counter from './reducers/counter.js'
 
+import snacker from './reducers/snacker.js'
+import Layout from './components/Layout'
+
 class Index extends Component {
   tick = () => {
     const { dispatch } = this.props
@@ -22,13 +25,15 @@ class Index extends Component {
     const { counter } = this.props
 
     return(
-      <div>
-        <h1>Hello World, {counter}</h1>
-      </div>
+      <Layout>
+        <div>
+          <h1>Hello World, {counter}</h1>
+        </div>
+      </Layout>
     )
   }
 }
 
-const mapStateToProps = ({ counter }) => ({ counter })
+const mapStateToProps = ({ counter, snacker }) => ({ counter, snacker })
 
-export default mount(connect(mapStateToProps)(Index), { counter })
+export default mount(connect(mapStateToProps)(Index), { counter, snacker })
