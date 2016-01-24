@@ -38,7 +38,7 @@ export const loadResponse = (uri, requestObject = {}) => {
         // Here, we update the app state with the results of the API call.
 
           //Implies they are logging in
-          //It will be assumed your browser supports it
+          //At this point it can be assumed your browser supports it
           if(json.token){
             sessionStorage.setItem("jwt", json.token)
           }

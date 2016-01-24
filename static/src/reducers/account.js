@@ -1,18 +1,24 @@
-import { OPEN_SNACK, EAT_SNACK } from '../constants/actions.js'
+import { AUTH_USER, AUTHORIZING } from '../constants/actions.js'
 
 const initialState = {
   isNotInGroup: true,
   isInGroup: false,
   hasInvites: false,
+  authorizing: false,
   groupModel: null,
   userModel: null
 }
 
-export default function snacker(state = initialState, action) {
+export default function account(state = initialState, action) {
   switch (action.type) {
     case AUTH_USER:
-      const { message } = action
-      return { open: true, message }
+      console.log(action)
+      return state
+    case AUTHORIZING
+      return {
+        ...state,
+        authorizing: true
+      }
     default:
       return state
   }

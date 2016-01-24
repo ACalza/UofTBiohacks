@@ -22,7 +22,12 @@ router.get('/reset/test', function*(){
     test: "hello world"
   }
 })
-router.get('/auth', function*(){})
+router.get('/auth', function*(){
+  this.body = {
+    userModel: this.userModel
+
+  }
+})
 
 router.post('/login', userMiddlewares.requestLogin);
 router.get('/logout', function*(){
