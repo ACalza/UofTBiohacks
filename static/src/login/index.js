@@ -9,6 +9,7 @@ import mount from '../mount.js'
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
+import { routeReducer } from 'react-router-redux'
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 
@@ -73,6 +74,6 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = ({ snacker, submission }) => ({ snacker, submission })
+const mapStateToProps = ({ snacker, submission, routeReducer }) => ({ snacker, submission, routeReducer })
 
-export default mount(connect(mapStateToProps)(Login), { snacker, submission })
+export default mount(connect(mapStateToProps)(Login), { snacker, submission, routeReducer })

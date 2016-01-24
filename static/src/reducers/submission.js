@@ -1,6 +1,6 @@
 import { SUBMIT_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE } from '../constants/actions.js'
+import { routeActions } from 'react-router-redux'
 
-//import immutable from 'immutable'
 
 const initialState = {
   canSubmit: false,
@@ -22,6 +22,7 @@ export default function submission(state = initialState, action) {
         isLoading: false,
         response: action.response
       }
+
     case CAN_SUBMIT:
       return {
         ...state,
