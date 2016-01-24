@@ -1,10 +1,11 @@
 import { AUTH_USER, AUTHORIZING } from '../constants/actions.js'
 
 const initialState = {
-  isNotInGroup: true,
+  isNotInGroup: false,
   isInGroup: false,
   hasInvites: false,
   authorizing: false,
+  authorized: false,
   groupModel: null,
   userModel: null
 }
@@ -14,11 +15,12 @@ export default function account(state = initialState, action) {
     case AUTH_USER:
       console.log(action)
       return state
-    case AUTHORIZING
+    case AUTHORIZING:
       return {
         ...state,
         authorizing: true
       }
+    //TODO AUTHORIZED, FAILED_AUTHORIZATION
     default:
       return state
   }

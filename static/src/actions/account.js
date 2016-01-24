@@ -12,7 +12,7 @@ function authorizing(){
 function submitResponse(response){
   return { type: SUBMIT_RESPONSE, response}
 }
-export const loadResponse = (uri, requestObject = {}) => {
+export const authorize = () => {
 
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
@@ -31,9 +31,10 @@ export const loadResponse = (uri, requestObject = {}) => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
         'Authorization': 'bearer ' + sessionStorage.jwt
-      })
+      }
+    })
       .then(response => response.json())
       .then(json => {
         // We can dispatch many times!
