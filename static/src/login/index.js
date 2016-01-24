@@ -7,6 +7,7 @@ import TextField from 'material-ui/lib/text-field'
 
 import mount from '../mount.js'
 
+
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import ReactRedirect from "react-redirect"
@@ -31,17 +32,12 @@ class Login extends Component {
       },
       body: JSON.stringify(model)
     }))
-    console.log(submission)
-    //More of a 'promise' that the front end will make the ajax request
-    // dispatch(submitForm(model))
-
-    // //Make the ajax post request, dispatching 'submit response on completion'
-    // ajaxPost(model, '/user/login', null, dispatch, submitResponse)
 
   };
   checkLoggedIn = () => {
     let content = null
-    if(localStorage.jwt){
+
+    if(sessionStorage.jwt){
       content = <ReactRedirect location='/account'>
                 </ReactRedirect>
     }

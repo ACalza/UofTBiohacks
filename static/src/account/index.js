@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import mount from '../mount.js'
 import submission from '../reducers/submission.js'
 
+
+
 import snacker from '../reducers/snacker.js'
 import Layout from '../components/Layout'
 
@@ -15,7 +17,10 @@ class Account extends Component {
     return(
       <Layout>
         <div>
-          <h1>Hello Account</h1>
+          <h1>{(() => {
+            console.log(sessionStorage.jwt)
+            return sessionStorage.jwt
+          })()}</h1>
         </div>
       </Layout>
     )

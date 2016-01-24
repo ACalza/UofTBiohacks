@@ -48,6 +48,7 @@
     "material-ui": "^0.14.2",
     "react": "^0.14.6",
     "react-bootstrap": "^0.28.2",
+    "react-cookie": "^0.4.3",
     "react-dom": "^0.14.6",
     "react-redirect": "^1.0.0",
     "react-redux": "^4.0.6",

@@ -38,13 +38,9 @@ export const loadResponse = (uri, requestObject = {}) => {
         // Here, we update the app state with the results of the API call.
 
           //Implies they are logging in
+          //It will be assumed your browser supports it
           if(json.token){
-            if(typeof(Storage) !== "undefined") {
-              localStorage.setItem("jwt", json.token)
-            } else {
-              dispatch(submitResponse(json))
-              return dispatch(openSnack("Your browser does not support local storage"))
-            }
+            sessionStorage.setItem("jwt", json.token)
           }
           dispatch(openSnack(json.message))
           dispatch(submitResponse(json))
