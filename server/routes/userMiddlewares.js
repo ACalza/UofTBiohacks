@@ -34,9 +34,9 @@ module.exports.validateRegistration = function*(next) {
   // let likeToSee = this.request.body.likeToSee
   // let questions = this.request.body.questions
     // If name, password or email does not exist
-  
-  if (!email || !password || !name || !username || password.length < 8 || !year
-      || !education || !codingbackground) {
+  //TO BE FIXED! TODO
+  //!year || !education || !codingbackground
+  if (!email || !password || !name || !username || password.length < 8) {
     this.response.status = 400 // set response status before sending
     return this.body = {
       message: "Not all fields were filled in"

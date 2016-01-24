@@ -1,7 +1,6 @@
 import { SUBMITED_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE} from '../constants/actions.js'
 import fetch from 'isomorphic-fetch'
 import {openSnack} from '../actions/snacker'
-import { routeActions } from 'react-router-redux'
 
 export const canSubmit = () => {
   return { type: CAN_SUBMIT }
@@ -34,15 +33,18 @@ export const loadResponse = (uri, requestObject = {}) => {
 
     return fetch(uri, requestObject)
       .then(response => response.json())
-      .then(json =>
-        {
+      .then(json => {
         // We can dispatch many times!
         // Here, we update the app state with the results of the API call.
-          console.log("At submissiona action", json)
+
           //Implies they are logging in
           if(json.token){
-            dispatch(routeActions.push('/account'))
-            dispatch(routeActions.goForward())
+            if(typeof(Storage) !== "undefined") {
+              localStorage.setItem("jwt", json.token)
+            } else {
+              dispatch(submitResponse(json))
+              return dispatch(openSnack("Your browser does not support local storage"))
+            }
           }
           dispatch(openSnack(json.message))
           dispatch(submitResponse(json))

@@ -9,7 +9,7 @@ import mount from '../mount.js'
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
-import { routeReducer } from 'react-router-redux'
+import ReactRedirect from "react-redirect"
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 
@@ -38,6 +38,14 @@ class Login extends Component {
     // //Make the ajax post request, dispatching 'submit response on completion'
     // ajaxPost(model, '/user/login', null, dispatch, submitResponse)
 
+  };
+  checkLoggedIn = () => {
+    let content = null
+    if(localStorage.jwt){
+      content = <ReactRedirect location='/account'>
+                </ReactRedirect>
+    }
+    return content
   };
   render() {
     const { snacker, submission, dispatch } = this.props
@@ -69,11 +77,14 @@ class Login extends Component {
             disabled = {!submission.canSubmit}
           />
         </Formsy.Form>
+
+        {this.checkLoggedIn()}
+
       </Layout>
     )
   }
 }
 
-const mapStateToProps = ({ snacker, submission, routeReducer }) => ({ snacker, submission, routeReducer })
+const mapStateToProps = ({ snacker, submission }) => ({ snacker, submission })
 
-export default mount(connect(mapStateToProps)(Login), { snacker, submission, routeReducer })
+export default mount(connect(mapStateToProps)(Login), { snacker, submission })
