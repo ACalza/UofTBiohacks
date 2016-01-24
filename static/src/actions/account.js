@@ -27,7 +27,7 @@ export const authorize = () => {
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
-
+    console.log(sessionStorage.jwt)
     return fetch(BASE_URI + '/user/auth', {
       method: 'GET',
       headers: {

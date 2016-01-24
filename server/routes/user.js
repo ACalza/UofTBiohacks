@@ -22,12 +22,7 @@ router.get('/reset/test', function*(){
     test: "hello world"
   }
 })
-router.get('/auth', function*(){
-  this.body = {
-    userModel: this.userModel
-
-  }
-})
+router.get('/auth', userMiddlewares.getAuthentication)
 
 router.post('/login', userMiddlewares.requestLogin);
 router.get('/logout', function*(){
@@ -36,9 +31,8 @@ router.get('/logout', function*(){
     };
 });
 router.param('token', function*(id, next){
-          console.log(id)
-          this.token = id
-          yield next
+      this.token = id
+      yield next
     })
       .post('/forgot', userMiddlewares.forgotPassword)
       .get('/reset/:token', userMiddlewares.resetPassword)

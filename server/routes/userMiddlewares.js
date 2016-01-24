@@ -23,7 +23,7 @@ module.exports.validateRegistration = function*(next) {
   this.request.body.email = util.trim(this.request.body.email)
   this.request.body.username = util.trim(this.request.body.username)
   this.request.body.name = util.trim(this.request.body.name)
-  console.log(this.request.body)
+
   let email = this.request.body.email
   let password = this.request.body.password
   let name = this.request.body.name
@@ -99,6 +99,21 @@ module.exports.saveUsertoDatabase = function*() {
     this.response.status = 500
     console.error(err)
     util.errorResponse(this)
+  }
+}
+
+module.exports.getAuthentication = function*(){
+  let groupModel = null
+  let userModel = this.userModel
+  if (this.userModel.group) { // return just groupModel if user has a group already
+    groupModel = yield Group.findById(this.userModel.group).populate('users').exec()
+  } else {
+    userModel = yield User.findById(this.userModel._id).populate('invites').exec() // otherwise fill userModel.invit
+  }
+  this.body = {
+    userModel: userModel,
+    message: "Welcome, " + userModel.name,
+    groupModel: groupModel
   }
 }
 
