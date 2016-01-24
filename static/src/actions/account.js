@@ -1,5 +1,6 @@
 import { AUTH_USER, AUTHORIZING } from '../constants/actions.js'
 import { BASE_URI } from '../constants/uris.js'
+import fetch from 'isomorphic-fetch'
 
 export const authUser = (message) => {
   return { type: OPEN_SNACK, message }

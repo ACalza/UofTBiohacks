@@ -12,16 +12,17 @@ import Layout from '../components/Layout'
 
 class Account extends Component {
 
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(authorize())
+  }
   render() {
     const { snacker, submission, dispatch } = this.props
 
     return(
       <Layout>
         <div>
-          <h1>{(() => {
-            console.log(authorize)
-            return sessionStorage.jwt
-          })()}</h1>
+          <h1>Hello account</h1>
         </div>
       </Layout>
     )
