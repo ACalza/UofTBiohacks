@@ -1,18 +1,18 @@
-import { AUTH_USER, AUTHORIZING } from '../constants/actions.js'
+import { AUTHORIZED_USER, AUTHORIZING_USER } from '../constants/actions.js'
 import { BASE_URI } from '../constants/uris.js'
 import fetch from 'isomorphic-fetch'
 
-export const authUser = (message) => {
-  return { type: OPEN_SNACK, message }
-}
+// export const authenticatedUser = (response) => {
+//   return { type: AUTHORIZED_USER, response }
+// }
 
 function authorizing(){
-  return { type: AUTHORIZING }
+  return { type: AUTHORIZING_USER }
+}
+function authorizedUser(response){
+  return { type: AUTHORIZED_USER, response }
 }
 
-function submitResponse(response){
-  return { type: SUBMIT_RESPONSE, response}
-}
 export const authorize = () => {
 
   // Thunk middleware knows how to handle functions.
@@ -27,7 +27,6 @@ export const authorize = () => {
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
-    console.log(sessionStorage.jwt)
     return fetch(BASE_URI + '/user/auth', {
       method: 'GET',
       headers: {
@@ -38,13 +37,13 @@ export const authorize = () => {
     })
       .then(response => response.json())
       .then(json => {
-        // We can dispatch many times!
-        // Here, we update the app state with the results of the API call.
+          //authenticated
+          if(json.userModel){
+            dispatch(authorizedUser(json))
+          }else{
+            //redirect to login page
+          }
 
-          //Implies they are logging in
-          //At this point it can be assumed your browser supports it
-
-          console.log(json)
         }
       ).catch(err => {
         console.error(err)

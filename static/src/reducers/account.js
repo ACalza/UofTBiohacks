@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTHORIZING } from '../constants/actions.js'
+import { AUTHORIZING_USER, AUTHORIZED_USER } from '../constants/actions.js'
 
 const initialState = {
   isNotInGroup: false,
@@ -12,13 +12,17 @@ const initialState = {
 
 export default function account(state = initialState, action) {
   switch (action.type) {
-    case AUTH_USER:
-      console.log(action)
-      return state
-    case AUTHORIZING:
+    case AUTHORIZING_USER:
       return {
         ...state,
         authorizing: true
+      }
+    case AUTHORIZED_USER:
+      console.log(action)
+      return {
+        ...state,
+        authorizing: false
+
       }
     //TODO AUTHORIZED, FAILED_AUTHORIZATION
     default:
