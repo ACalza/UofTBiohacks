@@ -17,6 +17,9 @@ const nodemailer = require('nodemailer');
 const Promise = require('bluebird');
 const sgTransport = require('nodemailer-sendgrid-transport');
 
+// function(body)
+const template = require('../templates/template.js')
+
 
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function*(next) {
@@ -307,10 +310,18 @@ module.exports.forgotPassword = function*() {
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
-      html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+      html: template(
+        '<p>' +
+          'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n' +
+        '</p>'
+      )
+      // html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+      //     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+      //     'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
+      //     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     };
     yield sendMail(client, email);
     this.body = {
