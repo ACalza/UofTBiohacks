@@ -306,16 +306,18 @@ module.exports.forgotPassword = function*() {
       }
     }
     let client = nodemailer.createTransport(sgTransport(options));
+
+    const resetLink = 'http://' + this.request.host + 'user/reset/' + token
     let email = {
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
       html: template(
         '<p>' +
-          'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n' +
+          'You are receiving this because you (or someone else) have requested the reset of the password for your account.<br>' +
+          'Please click on the following link, or paste this into your browser to complete the process:<br><br>' +
+          `<a href="${resetLink}">${resetLink}</a>` +
+          'If you did not request this, please ignore this email and your password will remain unchanged.<br>' +
         '</p>'
       )
       // html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
