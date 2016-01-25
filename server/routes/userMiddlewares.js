@@ -101,9 +101,9 @@ module.exports.registerUserToDatabase = function*(){
       from: 'igem@g.skule.ca',
       to: this.request.body.email,
       subject: 'UofT Biohacks',
-      html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      html: template('<h2>Thank you!</h2>' +
+        'Thank you for signing up. We will get back to you soon!'
+      )
     };
     yield sendMail(client, email);
     this.body = {
