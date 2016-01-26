@@ -11,6 +11,7 @@ import account from '../reducers/account.js'
 import { authorize } from '../actions/account.js'
 import Layout from '../components/Layout'
 import ReactRedirect from "react-redirect"
+import GroupControl from '../components/GroupControl'
 
 class Account extends Component {
 
@@ -22,14 +23,19 @@ class Account extends Component {
   render() {
     const { snacker, submission, account, dispatch } = this.props
     let content = null
-    console.log(account)
-    if(account.isSignedIn && account.authorized){
-      content = <h2>Hello, {account.userModel.name}</h2>
+
+    if(account.authorized){
+      content = <div className="controlpanel">
+                  <h2>Hello, {account.userModel.name}</h2>
+                  <GroupControl />
+                </div>
     }
     else if(!account.authorizing && !account.authorized){
       //redirect
       content = <ReactRedirect location='/'>
                 </ReactRedirect>
+    }else{
+      content = <p>Loading...</p>
     }
     return(
       <Layout>
