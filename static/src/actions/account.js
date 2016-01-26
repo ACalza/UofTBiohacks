@@ -1,4 +1,4 @@
-import { AUTHORIZED_USER, AUTHORIZING_USER } from '../constants/actions.js'
+import { AUTHORIZED_USER, AUTHORIZING_USER, AUTHORIZATION_FAILED } from '../constants/actions.js'
 import { BASE_URI } from '../constants/uris.js'
 import fetch from 'isomorphic-fetch'
 
@@ -6,13 +6,15 @@ import fetch from 'isomorphic-fetch'
 //   return { type: AUTHORIZED_USER, response }
 // }
 
-function authorizing(){
+function authorizing() {
   return { type: AUTHORIZING_USER }
 }
 function authorizedUser(response){
   return { type: AUTHORIZED_USER, response }
 }
-
+function failAuthorization(){
+  return {type: AUTHORIZATION_FAILED }
+}
 export const authorize = () => {
 
   // Thunk middleware knows how to handle functions.
@@ -20,9 +22,6 @@ export const authorize = () => {
   // thus making it able to dispatch actions itself.
 
   return function (dispatch) {
-
-    // First dispatch: the app state is updated to inform
-    // that the API call is starting.
     dispatch(authorizing())
 
     // The function called by the thunk middleware can return a value,
@@ -41,13 +40,15 @@ export const authorize = () => {
           if(json.userModel){
             dispatch(authorizedUser(json))
           }else{
-            //redirect to login page
+            dispatch(failAuthorization())
           }
 
         }
       ).catch(err => {
-        console.error(err)
-        dispatch(openSnack("Internal Server Error, please try again"))
+        //console.error(err)
+        console.log(failAuthorization())
+        dispatch(failAuthorization())
+
       })
 
       // In a real world app, you also want to
