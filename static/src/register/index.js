@@ -13,13 +13,29 @@ import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/su
 
 
 class Register extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      customSchool: false
+    }
+  }
+
   submitForm = (model) => {
     console.log(model)
   };
 
-  onChange(model) {
-    console.log(model.school === 'other')
-  }
+  onChange = (model) => {
+    if (model.school === 'other') {
+      this.setState({
+        customSchool: true
+      })
+    } else {
+      this.setState({
+        customSchool: false
+      })
+    }
+  };
 
   render() {
     const { submission, dispatch } = this.props
@@ -48,6 +64,14 @@ class Register extends Component {
             <MenuItem value={'queens'} primaryText="University of Queens" />
             <MenuItem value={'other'} primaryText="Other" />
           </FormsySelect>
+
+          <FormsyText style={{display: 'block'}}
+            required
+            name = 'customSchool'
+            hintText = "Other School"
+            floatingLabelText = "Other School"
+            disabled={!this.state.customSchool}
+          />
 
           <FormsyText style={{display: 'block'}}
             required
