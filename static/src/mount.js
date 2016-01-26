@@ -15,7 +15,7 @@ const eatSnack = () => {
 
 // Required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
+injectTapEventPlugin()
 
 export default function mount(Connected, reducers) {
 
@@ -30,7 +30,7 @@ export default function mount(Connected, reducers) {
     </Provider>
 
   if (canUseDOM) {
-    injectTapEventPlugin()
+    // injectTapEventPlugin()
 
     const container = document.getElementById('app')
     ReactDOM.render(component, container)
