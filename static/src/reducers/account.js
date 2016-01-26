@@ -7,7 +7,6 @@ const initialState = {
   authorizing: true,
   authorized: false,
   groupModel: null,
-  isSignedIn: false,
   userModel: null
 }
 
@@ -25,7 +24,6 @@ export default function account(state = initialState, action) {
         ...state,
         authorizing: false,
         authorized: true,
-        isSignedIn: true,
         userModel: response.userModel,
         groupModel: response.groupModel
 

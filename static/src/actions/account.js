@@ -2,9 +2,6 @@ import { AUTHORIZED_USER, AUTHORIZING_USER, AUTHORIZATION_FAILED } from '../cons
 import { BASE_URI } from '../constants/uris.js'
 import fetch from 'isomorphic-fetch'
 
-// export const authenticatedUser = (response) => {
-//   return { type: AUTHORIZED_USER, response }
-// }
 
 function authorizing() {
   return { type: AUTHORIZING_USER }
@@ -45,8 +42,7 @@ export const authorize = () => {
 
         }
       ).catch(err => {
-        //console.error(err)
-        console.log(failAuthorization())
+        console.error(err)
         dispatch(failAuthorization())
 
       })

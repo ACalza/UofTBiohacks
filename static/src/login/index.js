@@ -14,6 +14,7 @@ import ReactRedirect from "react-redirect"
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 
+
 import Layout from '../components/Layout'
 
 import { BASE_URI } from '../constants/uris.js'
