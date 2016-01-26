@@ -17,6 +17,10 @@ class Register extends Component {
     console.log(model)
   };
 
+  onChange(model) {
+    console.log(model.school === 'other')
+  }
+
   render() {
     const { submission, dispatch } = this.props
 
@@ -27,6 +31,7 @@ class Register extends Component {
           onValidSubmit = {this.submitForm}
           onValid = {() => dispatch(canSubmit())}
           onInvalid = {() => dispatch(canNotSubmit())}
+          onChange = {this.onChange}
         >
           <FormsyText style={{display: 'block'}}
             required
