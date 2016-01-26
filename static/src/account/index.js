@@ -17,7 +17,6 @@ class Account extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props
-    console.log(authorize)
     dispatch(authorize())
   }
   render() {
@@ -27,7 +26,11 @@ class Account extends Component {
     if(account.authorized){
       content = <div className="controlpanel">
                   <h2>Hello, {account.userModel.name}</h2>
-                  <GroupControl />
+                  <GroupControl isInGroup={account.isInGroup}
+                                groupModel={account.groupModel}
+                                hasInvites={account.hasInvites}
+                                canInvite = {account.canInvite}
+                  />
                 </div>
     }
     else if(!account.authorizing && !account.authorized){

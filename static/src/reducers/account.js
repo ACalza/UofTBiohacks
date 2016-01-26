@@ -1,11 +1,11 @@
 import { AUTHORIZING_USER, AUTHORIZED_USER, AUTHORIZATION_FAILED} from '../constants/actions.js'
 
 const initialState = {
-  isNotInGroup: false,
   isInGroup: false,
   hasInvites: false,
   authorizing: true,
   authorized: false,
+  canInvite: false,
   groupModel: null,
   userModel: null
 }
