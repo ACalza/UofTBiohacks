@@ -12,6 +12,9 @@ import TextField from 'material-ui/lib/text-field'
 import {openSnack} from '../actions/snacker'
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 import Layout from '../components/Layout'
+import { BASE_URI } from '../constants/uris.js'
+import { ajaxPost } from '../util/ajax.js'
+
 class ResetPassword extends Component {
   constructor(props){
     super(props)
@@ -40,12 +43,28 @@ class ResetPassword extends Component {
     }else if(model.password.length <= 8){
       dispatch(openSnack("Password must be greater than 8 characters"))
     }else{
-      //machine to reset password lol
+      model.token = this.state.token
+      console.log(BASE_URI + '/user/reset')
+      console.log(model)
+      ajaxPost(model, '/user/reset', null, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        console.log(data)
+        if(data.success){
+          dispatch(openSnack("You have successfully chained your password"))
+        
+        }else{
+          dispatch(openSnack("Error proccessing password, invalid token/password"))
+        }
+      }
+    })
+
     }
   };
   render() {
     const { snacker, submission, dispatch } = this.props
-    let content = <Layout><h2>Invalid Token</h2></Layout>
+    let content = <Layout><h2>Invalid Token or Token has expired</h2></Layout>
 
     if(this.state.valid){
       content = <Layout>
