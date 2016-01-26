@@ -33,6 +33,7 @@ function handleAuthorizedUser(state, response){
   let def = {
     authorizing: false,
     authorized: true,
+    isInGroup: false,
     userModel: response.userModel,
     groupModel: response.groupModel
   }

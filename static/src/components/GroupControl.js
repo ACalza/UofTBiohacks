@@ -63,8 +63,16 @@ class GroupControl extends Component {
   };
 
   leaveGroupHandler = () => {
-    const {dispatch} = this.props
-    console.log("left group")
+    const {dispatch, groupModel} = this.props
+    dispatch(canNotSubmit())
+    dispatch(authorize(BASE_URI + '/group/' + groupModel._id + '/leave', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + sessionStorage.jwt
+      }
+    }))
   };
   createGroupView = () => {
     const {dispatch, submission} = this.props
@@ -144,10 +152,10 @@ class GroupControl extends Component {
 };
 
   render() {
-    const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel} = this.props
-    let content = <h2>This is the control panel for group</h2>
-
-    if(!isInGroup){
+    const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel, account} = this.props
+    let content = null
+    console.log(this.props)
+    if(!isInGroup && !account.authorizing){
       if(!hasInvites){
         content =
           <div className="invites">
@@ -175,7 +183,7 @@ class GroupControl extends Component {
           </div>
       }
 
-    }else if(isInGroup){ // => can invite
+    }else if(isInGroup && !account.authorizing && groupModel){ // => can invite
       content = (this.inviteToGroupView())
     }else{
       content = <p>Loading</p>
