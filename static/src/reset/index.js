@@ -16,15 +16,25 @@ class ResetPassword extends Component {
   constructor(props){
     super(props)
     this.state = {
-      valid: false
+      valid: false,
+      token: ""
     }
   }
+
   componentWillMount(){
+    let params = location.search.split('?token=')
+    console.log(params)
+    if(params.length == 2){
+      this.setState({
+        token: params[1],
+        valid:true
+      })
+    }
+
 
   }
   submitForm = (model) => {
     const { dispatch } = this.props
-    console.log(dispatch)
     if(model.password !== model.confirmPassword){
       dispatch(openSnack("Passwords do not Match!"))
     }else if(model.password.length <= 8){
@@ -35,8 +45,10 @@ class ResetPassword extends Component {
   };
   render() {
     const { snacker, submission, dispatch } = this.props
-    return (
-      <Layout>
+    let content = <Layout><h2>Invalid Token</h2></Layout>
+
+    if(this.state.valid){
+      content = <Layout>
         <h2>Reset Password</h2>
         <Formsy.Form
           onValidSubmit = {this.submitForm}
@@ -66,7 +78,11 @@ class ResetPassword extends Component {
 
         </Formsy.Form>
       </Layout>
-    )
+
+    }
+    return content
+
+
   }
 }
 
