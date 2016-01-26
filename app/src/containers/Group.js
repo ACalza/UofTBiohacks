@@ -145,7 +145,7 @@ export default class Group extends Component {
           onValidSubmit = {this.submitForm}>
 
           <FormsyText style={{display: 'block'}}
-            name = 'name'
+            name = 'emailOrUsername'
             required hintText = "Username or Email"
             floatingLabelText = "Invite a user to your group"
           />

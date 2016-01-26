@@ -5,7 +5,6 @@ const initialState = {
   hasInvites: false,
   authorizing: true,
   authorized: false,
-  canInvite: false,
   groupModel: null,
   userModel: null
 }
@@ -18,26 +17,43 @@ export default function account(state = initialState, action) {
         authorizing: true
       }
     case AUTHORIZED_USER:
-      let response = action.response
-      //Handle state better
-      return {
-        ...state,
-        authorizing: false,
-        authorized: true,
-        userModel: response.userModel,
-        groupModel: response.groupModel
+      return handleAuthorizedUser(state, action.response)
 
-      }
-      case AUTHORIZATION_FAILED:
+    case AUTHORIZATION_FAILED:
 
         return {
           ...state,
           authorized: false,
-          authorizing: false,
-          isSignedIn: false
+          authorizing: false
         }
 
     default:
       return state
+  }
+}
+function handleAuthorizedUser(state, response){
+  let def = {
+    authorizing: false,
+    authorized: true,
+    userModel: response.userModel,
+    groupModel: response.groupModel
+  }
+  if(response.groupModel){
+    return {
+      ...state,
+      ...def,
+      isInGroup: true
+    }
+  }else if(response.userModel.invites.length > 0){
+    return {
+      ...state,
+      ...def,
+      hasInvites: true
+    }
+  }else{
+    return {
+      ...state,
+      ...def
+    }
   }
 }

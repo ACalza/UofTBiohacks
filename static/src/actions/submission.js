@@ -44,6 +44,7 @@ export const loadResponse = (uri, requestObject = {}) => {
           }
           dispatch(openSnack(json.message))
           dispatch(submitResponse(json))
+          dispatch(canSubmit())
         }
       ).catch(err => {
         console.error(err)
