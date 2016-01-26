@@ -154,7 +154,6 @@ class GroupControl extends Component {
   render() {
     const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel, account} = this.props
     let content = null
-    console.log(this.props)
     if(!isInGroup && !account.authorizing){
       if(!hasInvites){
         content =
