@@ -238,9 +238,8 @@ function sendMail(client, email) {
 module.exports.resetPassword = function* (){
   try{
     let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
-    console.log(this.token)
-    console.log("HERe")
-    if(!user){
+    console.log(user)
+    if(user){
       this.response.redirect("http://localhost:3001/reset?t="+ this.token)
     }else{
       this.response.redirect("http://localhost:3001/")
@@ -281,7 +280,7 @@ module.exports.forgotPassword = function*() {
       subject: 'UofT Biohacks Password Reset',
       html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
+          'http://' + this.request.host + '/user/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     };
     yield sendMail(client, email);
