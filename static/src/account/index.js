@@ -28,13 +28,14 @@ class Account extends Component {
                   <h2>Hello, {account.userModel.name}</h2>
                   <GroupControl isInGroup={account.isInGroup}
                                 groupModel={account.groupModel}
+                                userModel = {account.userModel}
                                 hasInvites={account.hasInvites}
                                 canInvite = {account.canInvite}
                   />
                 </div>
     }
     else if(!account.authorizing && !account.authorized){
-      //redirect
+      //redirect for tampering with jwt or jwt expired
       content = <ReactRedirect location='/'>
                 </ReactRedirect>
     }else{

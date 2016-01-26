@@ -112,6 +112,7 @@ module.exports.getAuthentication = function*(){
   } else {
     userModel = yield User.findById(userModel._id).populate('invites').exec() // otherwise fill userModel.invit
   }
+  userModel.password = undefined
   this.body = {
     userModel: userModel,
     message: "Welcome, " + userModel.name,

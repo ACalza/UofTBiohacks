@@ -33,8 +33,9 @@ class GroupControl extends Component {
     }))
   };
   inviteUser = (model) => {
-    const {dispatch} = this.props
-    dispatch(loadResponse(BASE_URI + '/group/invite', {
+    const {dispatch, groupModel} = this.props
+    console.log(model)
+    dispatch(loadResponse(BASE_URI + '/group/' + groupModel._id + '/invite', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -43,8 +44,12 @@ class GroupControl extends Component {
       },
       body: JSON.stringify(model)
     }))
-    console.log("invited", model)
+
   };
+  acceptInviteHandler = (modelid) => {
+    console.log(modelid)
+  };
+  
   leaveGroupHandler = () => {
     const {dispatch} = this.props
     console.log("left group")
@@ -127,16 +132,41 @@ class GroupControl extends Component {
 };
 
   render() {
-    const {dispatch, snacker, isInGroup, hasInvites, groupModel} = this.props
+    const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel} = this.props
     let content = <h2>This is the control panel for group</h2>
 
     if(!isInGroup){
-      content = (this.createGroupView())
-    }
-    else if(isInGroup){ // => can invite
+      if(!hasInvites){
+        content =
+          <div className="invites">
+            <h2>Pending Invites</h2>
+            <p>You currently have no invites!</p>
+            {this.createGroupView()}
+          </div>
+      }else {
+        content =
+          <div className="invites">
+          <h2>Pending Invites</h2>
+            {userModel.invites.map((model, i) =>
+              <div key={i/2.0}>{model.name}
+                <RaisedButton
+                  key={i}
+                  type = "Submit"
+                  label = "Accept"
+                  onTouchTap = {() => {
+                    this.acceptInviteHandler(model._id)
+                  }}
+                />
+              </div>
+          )}
+          {this.createGroupView()}
+          </div>
+      }
+
+    }else if(isInGroup){ // => can invite
       content = (this.inviteToGroupView())
     }else{
-      content = <p>Nothing interesting</p>
+      content = <p>Loading</p>
     }
     return (
       <div className="groupControl">
