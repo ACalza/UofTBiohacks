@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import FMUI, { FormsyText, FormsySelect, FormsyToggle, FormsyRadio, FormsyRadioGroup } from 'formsy-material-ui'
+import FMUI, { FormsyText, FormsySelect, FormsyToggle, FormsyRadio, FormsyRadioGroup, FormsyCheckbox } from 'formsy-material-ui'
 import { Snackbar, RaisedButton, MenuItem } from 'material-ui/lib'
 
 import mount from '../mount.js'
@@ -17,7 +17,8 @@ class Register extends Component {
     super()
 
     this.state = {
-      customSchool: false
+      customSchool: false,
+      canSubmit: false
     }
   }
 
@@ -25,8 +26,22 @@ class Register extends Component {
     console.log(model)
   };
 
+  enableButton = () => {
+    this.setState({
+      canSubmit: true
+    })
+  };
+
+  disableButton = () => {
+    this.setState({
+      canSubmit: false
+    })
+  };
+
   onChange = (model) => {
-    if (model.school === 'other') {
+    const { school } = model
+
+    if (school === 'other') {
       this.setState({
         customSchool: true
       })
@@ -37,57 +52,56 @@ class Register extends Component {
     }
   };
 
+  // onValid = {() => dispatch(canSubmit())}
+  // onInvalid = {() => dispatch(canNotSubmit())}
+
+  // twitter
+  // github
+  // captcha
   render() {
     const { submission, dispatch } = this.props
 
     return(
-      <div>
+      <div style={{width: '35%', margin: '0 auto'}}>
         <h2>Register</h2>
         <Formsy.Form
           onValidSubmit = {this.submitForm}
           onValid = {() => dispatch(canSubmit())}
           onInvalid = {() => dispatch(canNotSubmit())}
-          onChange = {this.onChange}
         >
           <FormsyText style={{display: 'block'}}
             required
+            name = 'email'
+            validations="isEmail"
+            validationError={'Invalid email'}
+            hintText = "Email"
+            floatingLabelText = "Email*"
+          />
+
+          <FormsyText style={{display: 'block'}}
+            required
+            name = 'username'
+            validations={{matchRegexp: /.+/}}
+            validationError="At least one character please"
+            hintText = "Username"
+            floatingLabelText = "Username*"
+          />
+
+          <FormsyText style={{display: 'block'}}
+            required
             name = 'firstName'
-            hintText = "First Name?"
-            floatingLabelText = "First Name"
-          />
-
-          <FormsySelect
-            required
-            name='school'
-            floatingLabelText="School">
-            <MenuItem value={'uoft'} primaryText="University of Toronto" />
-            <MenuItem value={'queens'} primaryText="University of Queens" />
-            <MenuItem value={'other'} primaryText="Other" />
-          </FormsySelect>
-
-          <FormsyText style={{display: 'block'}}
-            required
-            name = 'customSchool'
-            hintText = "Other School"
-            floatingLabelText = "Other School"
-            disabled={!this.state.customSchool}
+            hintText = "First Name"
+            floatingLabelText = "First Name*"
           />
 
           <FormsyText style={{display: 'block'}}
             required
-            name = 'why'
-            hintText = "Why?"
-            floatingLabelText = "Why"
-            multiLine={true}
+            name = 'lastName'
+            hintText = "Last Name"
+            floatingLabelText = "Last Name*"
           />
 
-          <FormsyToggle
-            name='autogroup'
-            label="Auto group?"
-          />
-
-          I consider myself a
-          <FormsyRadioGroup name="type">
+          <FormsyRadioGroup name="type" defaultSelected="other">
             <FormsyRadio
               value="lifesci"
               label="Life Scientist"
@@ -97,10 +111,133 @@ class Register extends Component {
               label="Computer Scientist"
             />
             <FormsyRadio
+              value="bioinformatics"
+              label="Bioinformatics"
+            />
+            <FormsyRadio
               value="other"
               label="Other"
             />
           </FormsyRadioGroup>
+
+          <FormsyText style={{display: 'block'}}
+            required
+            name = 'education'
+            hintText = "e.g. subject POST"
+            floatingLabelText = "Educational Background*"
+          />
+
+          <FormsySelect
+            required
+            name='school'
+            floatingLabelText="School*"
+          >
+            <MenuItem value={'uoft'} primaryText="University of Toronto" />
+            <MenuItem value={'queens'} primaryText="University of Queens" />
+            <MenuItem value={'notInSchool'} primaryText="Not in School" />
+            <MenuItem value={'other'} primaryText="Other" />
+          </FormsySelect>
+
+          <FormsyText style={{display: 'block'}}
+            required={this.state.customSchool}
+            name = 'customSchool'
+            hintText = "Other School"
+            floatingLabelText = {!this.state.customSchool ? 'Other School' : 'Other School*'}
+            disabled={!this.state.customSchool}
+          />
+
+          <FormsySelect
+            required
+            name='year'
+            floatingLabelText="Year of Study">
+            <MenuItem value={'1'} primaryText="1" />
+            <MenuItem value={'2'} primaryText="2" />
+            <MenuItem value={'3'} primaryText="3" />
+            <MenuItem value={'4'} primaryText="4" />
+            <MenuItem value={'5'} primaryText="5" />
+            <MenuItem value={'5+'} primaryText="5+" />
+            <MenuItem value={'na'} primaryText="n/a" />
+          </FormsySelect>
+
+          <p>
+            How did you hear about the event?
+          </p>
+          <FormsyCheckbox
+            name='hearFacebook'
+            label="Facebook"
+          />
+          <FormsyCheckbox
+            name='hearMailingList'
+            label="Mailing List"
+          />
+          <FormsyCheckbox
+            name='hearWordOfMouth'
+            label="Word of Mouth"
+          />
+
+          <FormsySelect
+            required
+            name='codingBackground'
+            floatingLabelText="Programming Experience">
+            <MenuItem value={'none'} primaryText="None" />
+            <MenuItem value={'little'} primaryText="A little" />
+            <MenuItem value={'moderate'} primaryText="Moderate" />
+            <MenuItem value={'good'} primaryText="Good" />
+            <MenuItem value={'proficient'} primaryText="Proficient" />
+            <MenuItem value={'vim'} primaryText="Vim" />
+          </FormsySelect>
+
+
+          <FormsyText style={{display: 'block'}}
+            name = 'likeToSee'
+            hintText = "Anything you would like to see?"
+            floatingLabelText = "Anything you would like to see?"
+            multiLine={true}
+          />
+
+          <FormsyText style={{display: 'block'}}
+            name = 'questions'
+            hintText = "Any questions?"
+            floatingLabelText = "Any questions?"
+            multiLine={true}
+          />
+
+          <FormsyText style={{display: 'block'}}
+            name = 'about'
+            hintText = "Just a few lines."
+            floatingLabelText = "Tell us about yourself"
+            multiLine={true}
+          />
+
+          <FormsyToggle style={{display: 'block'}}
+            name='autogroup'
+            label="Auto group?"
+          />
+
+          <FormsyToggle style={{display: 'block'}}
+            name='mentor'
+            label="Would you like to be a mentor?"
+          />
+
+          <FormsyText style={{display: 'block'}}
+            required
+            name = 'password'
+            type = 'password'
+            validations={{matchRegexp: /.{7}.+/}}
+            validationError="At least eight characters please"
+            hintText = "What is your password?"
+            floatingLabelText = "Password"
+          />
+
+          <FormsyText style={{display: 'block'}}
+            required
+            name = 'confirmpassword'
+            type = 'password'
+            validations="equalsField:password"
+            validationError="Does not match"
+            hintText = "Confirm Password"
+            floatingLabelText = "Confirm Password"
+          />
 
           <RaisedButton
             type = "submit"
