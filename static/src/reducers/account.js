@@ -34,6 +34,7 @@ function handleAuthorizedUser(state, response){
     authorizing: false,
     authorized: true,
     isInGroup: false,
+    hasInvites: false,
     userModel: response.userModel,
     groupModel: response.groupModel
   }
