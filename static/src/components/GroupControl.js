@@ -37,9 +37,8 @@ class GroupControl extends Component {
   };
   inviteUser = (model) => {
     const {dispatch, groupModel} = this.props
-    console.log(model)
     dispatch(canNotSubmit())
-    dispatch(loadResponse(BASE_URI + '/group/' + groupModel._id + '/invite', {
+    dispatch(authorize(BASE_URI + '/group/' + groupModel._id + '/invite', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

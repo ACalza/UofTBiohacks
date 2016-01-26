@@ -1,7 +1,7 @@
 import { AUTHORIZED_USER, AUTHORIZING_USER, AUTHORIZATION_FAILED } from '../constants/actions.js'
 import { BASE_URI } from '../constants/uris.js'
 import fetch from 'isomorphic-fetch'
-
+import {openSnack} from '../actions/snacker'
 
 function authorizing() {
   return { type: AUTHORIZING_USER }
@@ -32,6 +32,9 @@ export const authorize = (uri, options={}) => {
             dispatch(authorizedUser(json))
           }else{
             dispatch(failAuthorization())
+          }
+          if(json.message){
+            dispatch(openSnack(json.message))
           }
 
         }
