@@ -6,7 +6,7 @@ import TextField from 'material-ui/lib/text-field'
 import {Snackbar, RaisedButton} from 'material-ui/lib'
 
 import account from '../reducers/account.js'
-import { acceptInvite } from '../actions/account.js'
+import { authorize } from '../actions/account.js'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
@@ -51,16 +51,15 @@ class GroupControl extends Component {
 
   };
   acceptInviteHandler = (modelid) => {
-
+    const {dispatch} = this.props
     dispatch(canNotSubmit())
-    dispatch(loadResponse(BASE_URI + '/group/' + modelid + '/accept', {
+    dispatch(authorize(BASE_URI + '/group/' + modelid + '/accept', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'authorization': 'bearer ' + sessionStorage.jwt
-      },
-      body: JSON.stringify(model)
+      }
     }))
   };
 
@@ -190,5 +189,5 @@ class GroupControl extends Component {
   }
 }
 
-const mapStateToProps = ({ snacker, submission }) => ({ snacker, submission })
+const mapStateToProps = ({ snacker, submission, account }) => ({ snacker, submission, account })
 export default connect(mapStateToProps)(GroupControl)
