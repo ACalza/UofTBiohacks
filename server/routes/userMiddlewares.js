@@ -105,10 +105,12 @@ module.exports.saveUsertoDatabase = function*() {
 module.exports.getAuthentication = function*(){
   let groupModel = null
   let userModel = this.userModel
-  if (this.userModel.group) { // return just groupModel if user has a group already
-    groupModel = yield Group.findById(this.userModel.group).populate('users').exec()
+
+  if (userModel.group) { // return just groupModel if user has a group already
+    groupModel = yield Group.findById(userModel.group).populate('users').exec()
+
   } else {
-    userModel = yield User.findById(this.userModel._id).populate('invites').exec() // otherwise fill userModel.invit
+    userModel = yield User.findById(userModel._id).populate('invites').exec() // otherwise fill userModel.invit
   }
   this.body = {
     userModel: userModel,

@@ -57,11 +57,14 @@ class GroupControl extends Component {
   };
 
   render() {
-    const {dispatch, snacker, isInGroup, hasInvites, groupModel, canInvite} = this.props
+    const {dispatch, snacker, isInGroup, hasInvites, groupModel} = this.props
     let content = <h2>This is the control panel for group</h2>
+    console.log("is in group?", isInGroup)
     if(!isInGroup)
       content = (this.createGroupView())
-    else {
+    else if(isInGroup){ // => can invite
+      content = <p>You are in group {groupModel.name}</p>
+    }else{
       content = <p>Nothing interesting</p>
     }
     return (
