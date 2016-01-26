@@ -25,7 +25,7 @@ class GroupControl extends Component {
   submitNewGroup = (model) => {
     const {dispatch} = this.props
     dispatch(canNotSubmit())
-    dispatch(loadResponse(BASE_URI + '/group/create', {
+    dispatch(authorize(BASE_URI + '/group/create', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -183,7 +183,7 @@ class GroupControl extends Component {
           </div>
       }
 
-    }else if(isInGroup && !account.authorizing && groupModel){ // => can invite
+    }else if(isInGroup && !account.authorizing){ // => can invite
       content = (this.inviteToGroupView())
     }else{
       content = <p>Loading</p>

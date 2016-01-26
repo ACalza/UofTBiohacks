@@ -57,7 +57,7 @@ module.exports.saveGrouptoDatabase = function* (){
   })
   try {
     let groupModel = yield group.save()   // use try/catch + yield instead of if(error)/else in callbacks
-    groupModel = yield Group.findById(groupModel._id)
+    groupModel = yield Group.findById(groupModel._id).populate("users").exec()
     let userModel = yield User.findById(this.userModel._id)
     userModel.group = groupModel._id       // user who created the group have user.group filled automatically
     userModel = yield userModel.save()
@@ -211,7 +211,7 @@ module.exports.leaveGroup = function* (){
 
         let groupResult = yield Group.update({_id: this.groupModel._id}, {$pull : {users:  this.userModel._id}})
         let user = yield User.findOne({_id: this.userModel._id}).populate('invites').exec()    // get the curernt most update of userModel
-      
+
         this.body = {
             userModel: user,
             groupModel: null,
