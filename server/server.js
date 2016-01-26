@@ -46,9 +46,9 @@ app.use(function* (next) {                // set content type to JSON
 });
 
 // authorization middleware  should be here???
-app.use(jwt({ secret: config.SECRET }).unless({ path: ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/] }));
+app.use(jwt({ secret: config.SECRET }).unless({ path: ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/, "/user/reset"] }));
 authUser.unless = require('koa-unless');
-app.use(authUser.unless({path: ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/] }));
+app.use(authUser.unless({path: ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/, "/user/reset"] }));
 
 
 // Mount Routor: Route Path is fixed at the Router level

@@ -20,7 +20,8 @@ class ResetPassword extends Component {
     super(props)
     this.state = {
       valid: false,
-      token: ""
+      token: "",
+      changedPass: false
     }
   }
 
@@ -52,8 +53,11 @@ class ResetPassword extends Component {
       } else {
         console.log(data)
         if(data.success){
-          dispatch(openSnack("You have successfully chained your password"))
-        
+          dispatch(openSnack("You have successfully changed your password"))
+          dispatch(canNotSubmit())
+          this.setState({
+            changedPass: true
+          })
         }else{
           dispatch(openSnack("Error proccessing password, invalid token/password"))
         }
@@ -80,6 +84,7 @@ class ResetPassword extends Component {
             type = 'password'
             required hintText = "What is your new password?"
             floatingLabelText = "Password"
+            disabled = {this.state.changedPass}
           />
 
           <FormsyText style={{display: 'block'}}
@@ -87,6 +92,7 @@ class ResetPassword extends Component {
             type = 'password'
             required hintText = "Confirm your new password"
             floatingLabelText = "Confirm Password"
+            disabled = {this.state.changedPass}
           />
 
           <RaisedButton

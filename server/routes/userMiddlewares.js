@@ -251,8 +251,14 @@ module.exports.resetPassword = function* (){
   }
 }
 module.exports.resetConfirmationPassword = function * (){
+  console.log("here")
   let token = this.request.body.token
   let password = this.request.body.password
+  if(password.length < 8){
+    return this.body = {
+      message: "Password is too short"
+    }
+  }
   try {
     let user = yield User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }})
     if (!user) {
@@ -324,7 +330,7 @@ module.exports.forgotPassword = function*() {
     };
     yield sendMail(client, email);
     this.body = {
-      message: "You have successfully changed your password!",
+      message: "An email will be sent to you for further instructions",
       success: true
     }
   } catch (err) {
