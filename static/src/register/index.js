@@ -34,6 +34,14 @@ class Register extends Component {
             hintText = "First Name?"
             floatingLabelText = "First Name"
           />
+
+          <FormsyText style={{display: 'block'}}
+            required
+            name = 'why'
+            hintText = "Why?"
+            floatingLabelText = "Why"
+            multiLine={true}
+          />
         </Formsy.Form>
 
         <RaisedButton
