@@ -5,6 +5,9 @@ import FMUI, { FormsyText } from 'formsy-material-ui'
 import TextField from 'material-ui/lib/text-field'
 import {Snackbar, RaisedButton} from 'material-ui/lib'
 
+import account from '../reducers/account.js'
+import { authorize } from '../actions/account.js'
+
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
 import snacker from '../reducers/snacker.js'
@@ -22,7 +25,7 @@ class GroupControl extends Component {
   submitNewGroup = (model) => {
     const {dispatch} = this.props
     dispatch(canNotSubmit())
-    dispatch(loadResponse(BASE_URI + '/group/create', {
+    dispatch(authorize(BASE_URI + '/group/create', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -34,8 +37,8 @@ class GroupControl extends Component {
   };
   inviteUser = (model) => {
     const {dispatch, groupModel} = this.props
-    console.log(model)
-    dispatch(loadResponse(BASE_URI + '/group/' + groupModel._id + '/invite', {
+    dispatch(canNotSubmit())
+    dispatch(authorize(BASE_URI + '/group/' + groupModel._id + '/invite', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -47,12 +50,29 @@ class GroupControl extends Component {
 
   };
   acceptInviteHandler = (modelid) => {
-    console.log(modelid)
-  };
-  
-  leaveGroupHandler = () => {
     const {dispatch} = this.props
-    console.log("left group")
+    dispatch(canNotSubmit())
+    dispatch(authorize(BASE_URI + '/group/' + modelid + '/accept', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + sessionStorage.jwt
+      }
+    }))
+  };
+
+  leaveGroupHandler = () => {
+    const {dispatch, groupModel} = this.props
+    dispatch(canNotSubmit())
+    dispatch(authorize(BASE_URI + '/group/' + groupModel._id + '/leave', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + sessionStorage.jwt
+      }
+    }))
   };
   createGroupView = () => {
     const {dispatch, submission} = this.props
@@ -132,10 +152,9 @@ class GroupControl extends Component {
 };
 
   render() {
-    const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel} = this.props
-    let content = <h2>This is the control panel for group</h2>
-
-    if(!isInGroup){
+    const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel, account} = this.props
+    let content = null
+    if(!isInGroup && !account.authorizing){
       if(!hasInvites){
         content =
           <div className="invites">
@@ -163,7 +182,7 @@ class GroupControl extends Component {
           </div>
       }
 
-    }else if(isInGroup){ // => can invite
+    }else if(isInGroup && !account.authorizing){ // => can invite
       content = (this.inviteToGroupView())
     }else{
       content = <p>Loading</p>
@@ -176,5 +195,5 @@ class GroupControl extends Component {
   }
 }
 
-const mapStateToProps = ({ snacker, submission }) => ({ snacker, submission })
+const mapStateToProps = ({ snacker, submission, account }) => ({ snacker, submission, account })
 export default connect(mapStateToProps)(GroupControl)

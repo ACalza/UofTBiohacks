@@ -1,9 +1,8 @@
 import $ from 'jquery'
 
-import  {BASE_URI} from '../constants/uris.js'
+import { BASE_URI } from '../constants/uris.js'
 
-export const ajaxPost = (body, uri, jwt, dispatcher, action) => {
-
+export const ajaxPost = (body, uri, jwt, cb) => {
   $.ajax({
     type: 'POST',
     url: BASE_URI + uri,
@@ -15,10 +14,10 @@ export const ajaxPost = (body, uri, jwt, dispatcher, action) => {
        }
      },
     success: function (data) {
-      dispatcher(action(data))
+      cb(null, data)
     },
     error: function (xhr, status, err) {
-      dispatcher(action(err))
+      cb(err, { xhr, status })
     }
   })
 }

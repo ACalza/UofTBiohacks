@@ -20,13 +20,11 @@ export default function account(state = initialState, action) {
       return handleAuthorizedUser(state, action.response)
 
     case AUTHORIZATION_FAILED:
-
         return {
           ...state,
           authorized: false,
           authorizing: false
         }
-
     default:
       return state
   }
@@ -35,6 +33,8 @@ function handleAuthorizedUser(state, response){
   let def = {
     authorizing: false,
     authorized: true,
+    isInGroup: false,
+    hasInvites: false,
     userModel: response.userModel,
     groupModel: response.groupModel
   }
