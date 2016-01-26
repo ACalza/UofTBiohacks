@@ -36,6 +36,7 @@ router.param('token', function*(id, next){
     })
       .post('/forgot', userMiddlewares.forgotPassword)
       .get('/reset/:token', userMiddlewares.resetPassword)
+      .post('/reset', userMiddlewares.resetConfirmationPassword)
 
 
 router.use('/all', userMiddlewares.validateAdmin)

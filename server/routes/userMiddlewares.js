@@ -250,6 +250,46 @@ module.exports.resetPassword = function* (){
     util.errorResponse(this)
   }
 }
+module.exports.resetConfirmationPassword = function * (){
+  let token = this.request.body.token
+  let password = this.request.body.password
+  try {
+    let user = yield User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }})
+    if (!user) {
+      return this.body = {
+        message: "Invalid Token or Token has expired",
+        success: false
+      }
+    }
+    user.password = util.bcrypt(this.request.body.password);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    user = yield user.save()
+    let options = {
+      auth : {
+        api_user: config.api_user,
+        api_key: config.api_key
+      }
+    }
+    let client = nodemailer.createTransport(sgTransport(options));
+    let email = {
+      from: 'igem@g.skule.ca',
+      to: user.email,
+      subject: 'UofT Biohacks Password Reset',
+      html: 'Hello' + user.name + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+    };
+    yield sendMail(client, email);
+    this.body = {
+      message: "Your password has been changed",
+      success: true
+    }
+  } catch (err) {
+    console.error(err)
+    this.response.status = 500;
+    util.errorResponse(this);
+  }
+}
 module.exports.forgotPassword = function*() {
   let token = yield crypto.randomBytes(20);
   token = token.toString('hex');
@@ -284,7 +324,7 @@ module.exports.forgotPassword = function*() {
     };
     yield sendMail(client, email);
     this.body = {
-      message: "An email will be sent shortly to reset your password",
+      message: "You have successfully changed your password!",
       success: true
     }
   } catch (err) {
