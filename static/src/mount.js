@@ -7,6 +7,8 @@ import thunkMiddleware from 'redux-thunk'
 
 import Snackbar from 'material-ui/lib/snackbar'
 
+// import './styles/index.scss'
+
 const eatSnack = () => {
   alert('eating snack')
 }

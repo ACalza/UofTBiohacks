@@ -9,7 +9,7 @@ import { openSnack, eatSnack } from '../actions/snacker.js'
 class Layout extends Component {
   render() {
     const {dispatch, snacker} = this.props
-    
+
     let outerStyles = {
       display: 'flex',
       flexDirection: 'column',
