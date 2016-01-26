@@ -110,7 +110,7 @@ class Login extends Component {
     ];
     return(
       <Layout>
-        <h1>Login Page</h1>
+        <h2>Login Page</h2>
         <Formsy.Form
           onValidSubmit = {this.submitForm}
           onValid = {() => dispatch(canSubmit())}

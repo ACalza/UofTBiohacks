@@ -8,7 +8,8 @@ module.exports = {
     index: './src/index.js',
     login: './src/login/index.js',
     register: './src/register/index.js',
-    account: './src/account/index.js'
+    account: './src/account/index.js',
+    reset: './src/reset/index.js'
   },
   output: {
     path: 'dist',

@@ -238,11 +238,10 @@ function sendMail(client, email) {
 module.exports.resetPassword = function* (){
   try{
     let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
-    console.log(user)
     if(user){
-      this.response.redirect("http://localhost:3001/reset?t="+ this.token)
+      this.response.redirect("http://localhost:3001/reset?success=true&token="+ this.token)
     }else{
-      this.response.redirect("http://localhost:3001/")
+      this.response.redirect("http://localhost:3001/reset?success=false")
     }
 
   }catch(err){
