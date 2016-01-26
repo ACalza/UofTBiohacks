@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import FMUI, { FormsyText } from 'formsy-material-ui'
-import { Snackbar, RaisedButton } from 'material-ui/lib'
+import FMUI, { FormsyText, FormsySelect, FormsyToggle, FormsyRadio, FormsyRadioGroup } from 'formsy-material-ui'
+import { Snackbar, RaisedButton, MenuItem } from 'material-ui/lib'
 
 import mount from '../mount.js'
 
@@ -17,6 +17,10 @@ class Register extends Component {
     console.log(model)
   };
 
+  onChange(model) {
+    console.log(model.school === 'other')
+  }
+
   render() {
     const { submission, dispatch } = this.props
 
@@ -27,6 +31,7 @@ class Register extends Component {
           onValidSubmit = {this.submitForm}
           onValid = {() => dispatch(canSubmit())}
           onInvalid = {() => dispatch(canNotSubmit())}
+          onChange = {this.onChange}
         >
           <FormsyText style={{display: 'block'}}
             required
@@ -35,6 +40,15 @@ class Register extends Component {
             floatingLabelText = "First Name"
           />
 
+          <FormsySelect
+            required
+            name='school'
+            floatingLabelText="School">
+            <MenuItem value={'uoft'} primaryText="University of Toronto" />
+            <MenuItem value={'queens'} primaryText="University of Queens" />
+            <MenuItem value={'other'} primaryText="Other" />
+          </FormsySelect>
+
           <FormsyText style={{display: 'block'}}
             required
             name = 'why'
@@ -42,13 +56,34 @@ class Register extends Component {
             floatingLabelText = "Why"
             multiLine={true}
           />
-        </Formsy.Form>
 
-        <RaisedButton
-          type = "submit"
-          label = "Submit"
-          disabled = {!submission.canSubmit}
-        />
+          <FormsyToggle
+            name='autogroup'
+            label="Auto group?"
+          />
+
+          I consider myself a
+          <FormsyRadioGroup name="type">
+            <FormsyRadio
+              value="lifesci"
+              label="Life Scientist"
+            />
+            <FormsyRadio
+              value="compsci"
+              label="Computer Scientist"
+            />
+            <FormsyRadio
+              value="other"
+              label="Other"
+            />
+          </FormsyRadioGroup>
+
+          <RaisedButton
+            type = "submit"
+            label = "Submit"
+            disabled = {!submission.canSubmit}
+          />
+        </Formsy.Form>
       </div>
     )
   }
