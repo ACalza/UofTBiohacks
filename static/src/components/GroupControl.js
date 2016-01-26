@@ -5,6 +5,9 @@ import FMUI, { FormsyText } from 'formsy-material-ui'
 import TextField from 'material-ui/lib/text-field'
 import {Snackbar, RaisedButton} from 'material-ui/lib'
 
+import account from '../reducers/account.js'
+import { acceptInvite } from '../actions/account.js'
+
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
 import snacker from '../reducers/snacker.js'
@@ -35,6 +38,7 @@ class GroupControl extends Component {
   inviteUser = (model) => {
     const {dispatch, groupModel} = this.props
     console.log(model)
+    dispatch(canNotSubmit())
     dispatch(loadResponse(BASE_URI + '/group/' + groupModel._id + '/invite', {
       method: 'POST',
       headers: {
@@ -47,9 +51,19 @@ class GroupControl extends Component {
 
   };
   acceptInviteHandler = (modelid) => {
-    console.log(modelid)
+
+    dispatch(canNotSubmit())
+    dispatch(loadResponse(BASE_URI + '/group/' + modelid + '/accept', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + sessionStorage.jwt
+      },
+      body: JSON.stringify(model)
+    }))
   };
-  
+
   leaveGroupHandler = () => {
     const {dispatch} = this.props
     console.log("left group")

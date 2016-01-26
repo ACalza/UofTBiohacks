@@ -12,12 +12,20 @@ import { authorize } from '../actions/account.js'
 import Layout from '../components/Layout'
 import ReactRedirect from "react-redirect"
 import GroupControl from '../components/GroupControl'
+import { BASE_URI } from '../constants/uris.js'
 
 class Account extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(authorize())
+    dispatch(authorize(BASE_URI + '/user/auth', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + sessionStorage.jwt
+      }
+    }))
   }
   render() {
     const { snacker, submission, account, dispatch } = this.props

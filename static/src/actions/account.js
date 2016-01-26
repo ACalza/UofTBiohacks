@@ -12,7 +12,8 @@ function authorizedUser(response){
 function failAuthorization(){
   return {type: AUTHORIZATION_FAILED }
 }
-export const authorize = () => {
+
+export const authorize = (uri, options={}) => {
 
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
@@ -23,14 +24,7 @@ export const authorize = () => {
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
-    return fetch(BASE_URI + '/user/auth', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + sessionStorage.jwt
-      }
-    })
+    return fetch(uri, options)
       .then(response => response.json())
       .then(json => {
           //authenticated

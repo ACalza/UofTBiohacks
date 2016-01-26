@@ -20,13 +20,11 @@ export default function account(state = initialState, action) {
       return handleAuthorizedUser(state, action.response)
 
     case AUTHORIZATION_FAILED:
-
         return {
           ...state,
           authorized: false,
           authorizing: false
         }
-
     default:
       return state
   }
