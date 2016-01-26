@@ -10,19 +10,34 @@ import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import ReactRedirect from "react-redirect"
+import { BASE_URI } from '../constants/uris.js'
 
-import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
+import { canSubmit, canNotSubmit, loadResponse} from '../actions/submission.js'
 
 class GroupControl extends Component {
 
+
+  submitNewGroup = (model) => {
+    const {dispatch} = this.props
+    dispatch(canNotSubmit())
+    dispatch(loadResponse(BASE_URI + '/group/create', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + sessionStorage.jwt
+      },
+      body: JSON.stringify(model)
+    }))
+  };
+
   createGroupView = () => {
-    console.log("here")
     const {dispatch, submission} = this.props
     return (
       <div className="createGroup">
         <h2>Create a Group</h2>
           <Formsy.Form
-            onValidSubmit = {() => console.log("submitted")}
+            onValidSubmit = {this.submitNewGroup}
             onValid = {() => dispatch(canSubmit())}
             onInvalid = {() => dispatch(canNotSubmit())}>
 
@@ -43,11 +58,12 @@ class GroupControl extends Component {
 
   render() {
     const {dispatch, snacker, isInGroup, hasInvites, groupModel, canInvite} = this.props
-    console.log(this.props)
     let content = <h2>This is the control panel for group</h2>
-
-    content = (this.createGroupView())
-    console.log(content)
+    if(!isInGroup)
+      content = (this.createGroupView())
+    else {
+      content = <p>Nothing interesting</p>
+    }
     return (
       <div className="groupControl">
         {content}
