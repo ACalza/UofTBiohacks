@@ -142,7 +142,7 @@ module.exports.getAuthentication = function*(){
   userModel.password = undefined
   this.body = {
     userModel: userModel,
-    message: "Welcome, " + userModel.name,
+    message: "Welcome, " + userModel.firstName,
     groupModel: groupModel
   }
 }

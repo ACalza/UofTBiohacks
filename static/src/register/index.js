@@ -9,7 +9,7 @@ import mount from '../mount.js'
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
-
+import Layout from '../components/Layout'
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 
 import { BASE_URI } from '../constants/uris.js'
@@ -62,6 +62,7 @@ class Register extends Component {
     const { submission, dispatch } = this.props
 
     return(
+      <Layout>
       <div style={{width: '35%', margin: '0 auto'}}>
         <h2>Register</h2>
         <Formsy.Form
@@ -260,6 +261,7 @@ class Register extends Component {
           />
         </Formsy.Form>
       </div>
+      </Layout>
     )
   }
 }

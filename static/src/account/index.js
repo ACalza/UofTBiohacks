@@ -30,10 +30,10 @@ class Account extends Component {
   render() {
     const { snacker, submission, account, dispatch } = this.props
     let content = null
-
+    console.log(this.props)
     if(account.authorized){
       content = <div className="controlpanel">
-                  <h2>Hello, {account.userModel.name}</h2>
+                  <h2>Hello, {account.userModel.firstName}</h2>
                   <GroupControl isInGroup={account.isInGroup}
                                 groupModel={account.groupModel}
                                 userModel = {account.userModel}
@@ -44,8 +44,7 @@ class Account extends Component {
     }
     else if(!account.authorizing && !account.authorized){
       //redirect for tampering with jwt or jwt expired
-      content = <ReactRedirect location='/'>
-                </ReactRedirect>
+      content = null
     }else{
       content = <p>Loading...</p>
     }
