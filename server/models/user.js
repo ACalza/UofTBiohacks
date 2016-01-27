@@ -35,4 +35,4 @@ let userSchema = mongoose.Schema({
   resetPasswordExpires: Date
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('TempUser', userSchema)

@@ -137,7 +137,7 @@ class Login extends Component {
           />
 
         </Formsy.Form>
-        <a onClick={()=> this.handleForgetPassword()}>Forgot Password?</a>
+        <a href="#" onClick={()=> this.handleForgetPassword()}>Forgot Password?</a>
         <Dialog
             title="Password reset"
             actions={actions}
