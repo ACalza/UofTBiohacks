@@ -56,6 +56,7 @@
     "react-bootstrap": "^0.28.2",
     "react-cookie": "^0.4.3",
     "react-dom": "^0.14.6",
+    "react-recaptcha": "^2.0.1",
     "react-redirect": "^1.0.0",
     "react-redux": "^4.0.6",
     "react-router-redux": "^2.1.0",
