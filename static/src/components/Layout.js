@@ -9,6 +9,7 @@ import { openSnack, eatSnack } from '../actions/snacker.js'
 class Layout extends Component {
   logout() {
     sessionStorage.removeItem('jwt')
+    window.location.assign('/')
   }
 
   render() {
