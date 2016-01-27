@@ -18,9 +18,13 @@ class Layout extends Component {
     let navbarLinks = []
 
     if (!sessionStorage.getItem('jwt')) {
-      navbarLinks.push(<a href="/login">Login</a>)
+        navbarLinks.push(<a href="/">Home</a>)
+        navbarLinks.push(<a href="/register">Register</a>)
+        navbarLinks.push(<a href="/login">Login</a>)
     } else {
-      navbarLinks.push(<a href="#" onClick={this.logout}>Logout</a>)
+        nabbarLinks.push(<a href="/home">Home</a>)
+        navbarLinks.push(<a href="/account">Account</a>)
+        navbarLinks.push(<a href="#" onClick={this.logout}>Logout</a>)
     }
 
     let outerStyles = {
