@@ -12,6 +12,7 @@ import submission from '../reducers/submission.js'
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 
+import { BASE_URI } from '../constants/uris.js'
 
 class Register extends Component {
   constructor() {
@@ -24,37 +25,39 @@ class Register extends Component {
   }
 
   submitForm = (model) => {
+    const { dispatch } = this.props
     const captchaVerify = grecaptcha.getResponse()
 
     if (captchaVerify.length !== 0) {
       console.log(model)
+      dispatch(canNotSubmit())
+      dispatch(loadResponse(BASE_URI + '/user/register', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(model)
+      }))
     } else {
       alert('please do recaptcha')
     }
   };
 
-  onChange = (model) => {
-    const { school } = model
+  // onChange = (model) => {
+  //   const { school } = model
+  //
+  //   if (this.state.school !== 'other' && school === 'other') {
+  //     this.setState({
+  //       customSchool: true
+  //     })
+  //   } else if (this.state.school === 'other' && school !== 'other'){
+  //     this.setState({
+  //       customSchool: false
+  //     })
+  //   }
+  // };
 
-    if (this.state.school !== 'other' && school === 'other') {
-      this.setState({
-        customSchool: true
-      })
-    } else if (this.state.school === 'other' && school !== 'other'){
-      this.setState({
-        customSchool: false
-      })
-    }
-  };
-
-  verifyCaptcha(response) {
-    console.log(response)
-  }
-
-  // onValid = {() => dispatch(canSubmit())}
-  // onInvalid = {() => dispatch(canNotSubmit())}
-
-  // twitter?
   render() {
     const { submission, dispatch } = this.props
 
@@ -63,7 +66,8 @@ class Register extends Component {
         <h2>Register</h2>
         <Formsy.Form
           onValidSubmit = {this.submitForm}
-
+          onValid = {() => dispatch(canSubmit())}
+          onInvalid = {() => dispatch(canNotSubmit())}
         >
           <FormsyText style={{display: 'block'}}
             required
@@ -97,7 +101,7 @@ class Register extends Component {
             floatingLabelText = "Last Name*"
           />
 
-          <FormsyRadioGroup name="type" defaultSelected="other">
+          <FormsyRadioGroup name="scienceType" defaultSelected="other">
             <FormsyRadio
               value="lifesci"
               label="Life Scientist"
@@ -178,7 +182,7 @@ class Register extends Component {
           <FormsySelect
             required
             name='codingBackground'
-            floatingLabelText="Programming Experience">
+            floatingLabelText="Programming Experience*">
             <MenuItem value={'none'} primaryText="None" />
             <MenuItem value={'little'} primaryText="A little" />
             <MenuItem value={'moderate'} primaryText="Moderate" />

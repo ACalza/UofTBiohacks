@@ -27,18 +27,31 @@ module.exports.validateRegistration = function*(next) {
 
   let email = this.request.body.email
   let password = this.request.body.password
-  let name = this.request.body.name
+  let firstName = this.request.body.firstName
+  let lastName = this.request.body.lastName
   let username = this.request.body.username
   let education = this.request.body.education
   let year = this.request.body.year
-  let codingbackground = this.request.body.codingbackground
-  // let likeToSee = this.request.body.likeToSee
-  // let questions = this.request.body.questions
+  let codingBackground = this.request.body.codingBackground
+  let about = this.request.body.about
+  let autogroup = this.request.body.autogroup
+  let customSchool = this.request.body.customSchool
+  let github = this.request.body.github
+  let hearFacebook = this.request.body.hearFacebook
+  let hearMailingList = this.request.body.hearMailingList
+  let hearWordOfMouth = this.request.body.hearWordOfMouth
+  let likeToSee = this.request.body.likeToSee
+  let mentor = this.request.body.mentor
+  let questions = this.request.body.questions
+  let school = this.request.body.school
+  let scienceType = this.request.body.scienceType
+
     // If name, password or email does not exist
   //TO BE FIXED! TODO
   //!year || !education || !codingbackground
-  if (!email || !password || !name || !username || password.length < 8) {
+  if (!email || !password || !firstName  || !lastName || !username || password.length < 8) {
     this.response.status = 400 // set response status before sending
+    console.log('sdsdsdsd')
     return this.body = {
       message: "Not all fields were filled in"
     }
@@ -54,10 +67,12 @@ module.exports.validateRegistration = function*(next) {
     })
     if (modelByEmail || modelByUsername) { // if email OR username already in database
       if (modelByEmail) {
+        console.log('email exists')
         this.body = {
           message: "Email already exists"
         }
       } else {
+        console.log('username exists')
         this.body = {
           message: "Username already exists"
         }
@@ -71,17 +86,28 @@ module.exports.validateRegistration = function*(next) {
 
 // POST /user/register    save POST data to user model and store in database, while issuing a token
 module.exports.saveUsertoDatabase = function*() {
+  console.log('gonna save')
   let user = new User({
     email: this.request.body.email,
     password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
-    name: this.request.body.name,
+    firstName: this.request.body.firstName,
+    lastName: this.request.body.lastName,
     username: this.request.body.username,
-    howDidYouHear: this.request.body.howDidYouHear,
-    codingbackground: this.request.body.codingbackground,
-    likeToSee: this.request.body.likeToSee,
+    education: this.request.body.education,
     year: this.request.body.year,
+    codingBackground: this.request.body.codingBackground,
+    about: this.request.body.about,
+    autogroup: this.request.body.autogroup,
+    customSchool: this.request.body.customSchool,
+    github: this.request.body.github,
+    hearFacebook: this.request.body.hearFacebook,
+    hearMailingList: this.request.body.hearMailingList,
+    hearWordOfMouth: this.request.body.hearWordOfMouth,
+    likeToSee: this.request.body.likeToSee,
+    mentor: this.request.body.mentor,
     questions: this.request.body.questions,
-    education: this.request.body.education
+    school: this.request.body.school,
+    scienceType: this.request.body.scienceType
   })
   try {
     var model = yield user.save() // save new user in database
@@ -141,6 +167,8 @@ module.exports.requestLogin = function*(next) {
           }]
         }).populate('invites').exec()
         // check for matching password
+
+      console.log(userModel)
       if (userModel && bcrypt.compareSync(password, userModel.password)) {
         // mask password and grant token
         userModel.password = undefined;
