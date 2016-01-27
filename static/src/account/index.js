@@ -33,7 +33,7 @@ class Account extends Component {
 
     if(account.authorized){
       content = <div className="controlpanel">
-                  <h2>Hello, {account.userModel.name}</h2>
+                  <h2>Hello, {account.userModel.firstName}</h2>
                   <GroupControl isInGroup={account.isInGroup}
                                 groupModel={account.groupModel}
                                 userModel = {account.userModel}
