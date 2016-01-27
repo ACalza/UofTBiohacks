@@ -16,7 +16,8 @@ const async = require('async');
 const nodemailer = require('nodemailer');
 const Promise = require('bluebird');
 const sgTransport = require('nodemailer-sendgrid-transport');
-
+const constants = require('../../shared/constants')
+const template = require('../templates/template.js')
 
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function*(next) {
@@ -239,9 +240,9 @@ module.exports.resetPassword = function* (){
   try{
     let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
     if(user){
-      this.response.redirect("http://localhost:3001/reset?token="+ this.token)
+      this.response.redirect(constants.FRONT_END_URL + "/reset?token="+ this.token)
     }else{
-      this.response.redirect("http://localhost:3001/reset?")
+      this.response.redirect(constants.FRONT_END_URL + "/reset?")
     }
 
   }catch(err){
@@ -251,7 +252,6 @@ module.exports.resetPassword = function* (){
   }
 }
 module.exports.resetConfirmationPassword = function * (){
-  console.log("here")
   let token = this.request.body.token
   let password = this.request.body.password
   if(password.length < 8){
@@ -283,7 +283,7 @@ module.exports.resetConfirmationPassword = function * (){
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
-      html: 'Hello' + user.name + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+      html: template('Hello ' + user.name + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n')
     };
     yield sendMail(client, email);
     this.body = {
@@ -319,14 +319,15 @@ module.exports.forgotPassword = function*() {
       }
     }
     let client = nodemailer.createTransport(sgTransport(options));
+    let emailbody = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        'http://' + this.request.host + '/user/reset/' + token + '\n\n' +
+        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
-      html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + this.request.host + '/user/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      html: template(emailbody)
     };
     yield sendMail(client, email);
     this.body = {
