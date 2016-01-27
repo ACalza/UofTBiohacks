@@ -188,7 +188,7 @@ module.exports.requestLogin = function*(next) {
         this.body = {
           token: token,
           userModel: userModel,
-          message: "Welcome, " + userModel.name, // user.invites and user.group is populated
+          message: "Welcome, " + userModel.firstName, // user.invites and user.group is populated
           groupModel: groupModel
         };
       } else { // authentication fails
