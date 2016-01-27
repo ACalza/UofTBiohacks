@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import Recaptcha from 'react-recaptcha'
 import FMUI, { FormsyText, FormsySelect, FormsyToggle, FormsyRadio, FormsyRadioGroup, FormsyCheckbox } from 'formsy-material-ui'
-import { Snackbar, RaisedButton, MenuItem } from 'material-ui/lib'
+import { Snackbar, RaisedButton, MenuItem, Checkbox } from 'material-ui/lib'
 
 import mount from '../mount.js'
 
@@ -11,6 +12,7 @@ import submission from '../reducers/submission.js'
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 
+import { BASE_URI } from '../constants/uris.js'
 
 class Register extends Component {
   constructor() {
@@ -23,41 +25,39 @@ class Register extends Component {
   }
 
   submitForm = (model) => {
-    console.log(model)
-  };
+    const { dispatch } = this.props
+    const captchaVerify = grecaptcha.getResponse()
 
-  enableButton = () => {
-    this.setState({
-      canSubmit: true
-    })
-  };
-
-  disableButton = () => {
-    this.setState({
-      canSubmit: false
-    })
-  };
-
-  onChange = (model) => {
-    const { school } = model
-
-    if (school === 'other') {
-      this.setState({
-        customSchool: true
-      })
+    if (captchaVerify.length !== 0) {
+      console.log(model)
+      dispatch(canNotSubmit())
+      dispatch(loadResponse(BASE_URI + '/user/register', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(model)
+      }))
     } else {
-      this.setState({
-        customSchool: false
-      })
+      alert('please do recaptcha')
     }
   };
 
-  // onValid = {() => dispatch(canSubmit())}
-  // onInvalid = {() => dispatch(canNotSubmit())}
+  // onChange = (model) => {
+  //   const { school } = model
+  //
+  //   if (this.state.school !== 'other' && school === 'other') {
+  //     this.setState({
+  //       customSchool: true
+  //     })
+  //   } else if (this.state.school === 'other' && school !== 'other'){
+  //     this.setState({
+  //       customSchool: false
+  //     })
+  //   }
+  // };
 
-  // twitter
-  // github
-  // captcha
   render() {
     const { submission, dispatch } = this.props
 
@@ -101,7 +101,7 @@ class Register extends Component {
             floatingLabelText = "Last Name*"
           />
 
-          <FormsyRadioGroup name="type" defaultSelected="other">
+          <FormsyRadioGroup name="scienceType" defaultSelected="other">
             <FormsyRadio
               value="lifesci"
               label="Life Scientist"
@@ -133,17 +133,20 @@ class Register extends Component {
             floatingLabelText="School*"
           >
             <MenuItem value={'uoft'} primaryText="University of Toronto" />
-            <MenuItem value={'queens'} primaryText="University of Queens" />
+            <MenuItem value={'queens'} primaryText="Queen's University" />
+            <MenuItem value={'waterloo'} primaryText="University of Waterloo" />
+            <MenuItem value={'mcmaster'} primaryText="McMaster University" />
+            <MenuItem value={'ryerson'} primaryText="RyersonU" />
+            <MenuItem value={'york'} primaryText="YorkU" />
+            <MenuItem value={'ottowa'} primaryText="UOttowa" />
             <MenuItem value={'notInSchool'} primaryText="Not in School" />
             <MenuItem value={'other'} primaryText="Other" />
           </FormsySelect>
 
           <FormsyText style={{display: 'block'}}
-            required={this.state.customSchool}
             name = 'customSchool'
-            hintText = "Other School"
-            floatingLabelText = {!this.state.customSchool ? 'Other School' : 'Other School*'}
-            disabled={!this.state.customSchool}
+            hintText = 'Other School if not in list'
+            floatingLabelText = 'Other School'
           />
 
           <FormsySelect
@@ -162,23 +165,24 @@ class Register extends Component {
           <p>
             How did you hear about the event?
           </p>
-          <FormsyCheckbox
+          <FormsyToggle
             name='hearFacebook'
             label="Facebook"
           />
-          <FormsyCheckbox
+          <FormsyToggle
             name='hearMailingList'
             label="Mailing List"
           />
-          <FormsyCheckbox
+          <FormsyToggle
             name='hearWordOfMouth'
             label="Word of Mouth"
           />
 
+
           <FormsySelect
             required
             name='codingBackground'
-            floatingLabelText="Programming Experience">
+            floatingLabelText="Programming Experience*">
             <MenuItem value={'none'} primaryText="None" />
             <MenuItem value={'little'} primaryText="A little" />
             <MenuItem value={'moderate'} primaryText="Moderate" />
@@ -187,6 +191,11 @@ class Register extends Component {
             <MenuItem value={'vim'} primaryText="Vim" />
           </FormsySelect>
 
+          <FormsyText style={{display: 'block'}}
+            name = 'github'
+            hintText = "Just your username."
+            floatingLabelText = "GitHub"
+          />
 
           <FormsyText style={{display: 'block'}}
             name = 'likeToSee'
@@ -237,6 +246,11 @@ class Register extends Component {
             validationError="Does not match"
             hintText = "Confirm Password"
             floatingLabelText = "Confirm Password"
+          />
+
+          <Recaptcha
+            sitekey="6LfJfxYTAAAAAKVuS3AmFJMbY1ls2sWkwS6G5eCx"
+            verifyCallback={this.verifyCaptcha}
           />
 
           <RaisedButton

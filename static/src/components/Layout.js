@@ -7,8 +7,21 @@ import { Snackbar } from 'material-ui/lib'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
 class Layout extends Component {
+  logout() {
+    sessionStorage.removeItem('jwt')
+    window.location.assign('/')
+  }
+
   render() {
     const {dispatch, snacker} = this.props
+
+    let navbarLinks = []
+
+    if (!sessionStorage.getItem('jwt')) {
+      navbarLinks.push(<a href="/login">Login</a>)
+    } else {
+      navbarLinks.push(<a href="#" onClick={this.logout}>Logout</a>)
+    }
 
     let outerStyles = {
       display: 'flex',
@@ -23,6 +36,8 @@ class Layout extends Component {
     return (
       <div style={outerStyles}>
           <div className="content" style={innerStyles}>
+            {navbarLinks.map(l => l)}
+
             {this.props.children}
             <Snackbar
               open={snacker.open}

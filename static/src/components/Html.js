@@ -23,6 +23,8 @@ export default class Html extends Component {
           {metas}
 
           <title>{title}</title>
+
+          <script src='https://www.google.com/recaptcha/api.js' async defer></script>
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{__html: body}} />
