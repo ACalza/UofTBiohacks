@@ -22,7 +22,7 @@ class Layout extends Component {
         navbarLinks.push(<a href="/register">Register</a>)
         navbarLinks.push(<a href="/login">Login</a>)
     } else {
-        nabbarLinks.push(<a href="/home">Home</a>)
+        navbarLinks.push(<a href="/home">Home</a>)
         navbarLinks.push(<a href="/account">Account</a>)
         navbarLinks.push(<a href="#" onClick={this.logout}>Logout</a>)
     }
