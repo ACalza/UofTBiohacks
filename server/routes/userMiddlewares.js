@@ -120,7 +120,7 @@ module.exports.saveUsertoDatabase = function*() {
       }
     }
     let client = nodemailer.createTransport(sgTransport(options));
-    let body = 'Hello, ' + model.firstName + ',\n\n\n\nplease paste the following url http://'
+    let body = 'Hello, ' + model.firstName + ',\n\n\n\nplease paste the following url https://'
                 + this.request.host + '/user/verify/'
                 + model.verificationToken + ' to verify your account'
     let email = {
@@ -406,7 +406,7 @@ module.exports.forgotPassword = function*() {
     let client = nodemailer.createTransport(sgTransport(options));
     let emailbody = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-        'http://' + this.request.host + '/user/reset/' + token + '\n\n' +
+        'https://' + this.request.host + '/user/reset/' + token + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
       from: 'igem@g.skule.ca',
