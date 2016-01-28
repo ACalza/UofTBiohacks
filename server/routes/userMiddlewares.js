@@ -16,27 +16,41 @@ const async = require('async');
 const nodemailer = require('nodemailer');
 const Promise = require('bluebird');
 const sgTransport = require('nodemailer-sendgrid-transport');
-
+const constants = require('../../shared/constants')
+const template = require('../templates/template.js')
 
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function*(next) {
   this.request.body.email = util.trim(this.request.body.email)
   this.request.body.username = util.trim(this.request.body.username)
   this.request.body.name = util.trim(this.request.body.name)
-  console.log(this.request.body)
+
   let email = this.request.body.email
   let password = this.request.body.password
-  let name = this.request.body.name
+  let firstName = this.request.body.firstName
+  let lastName = this.request.body.lastName
   let username = this.request.body.username
   let education = this.request.body.education
   let year = this.request.body.year
-  let codingbackground = this.request.body.codingbackground
-  // let likeToSee = this.request.body.likeToSee
-  // let questions = this.request.body.questions
+  let codingBackground = this.request.body.codingBackground
+  let about = this.request.body.about
+  let autogroup = this.request.body.autogroup
+  let customSchool = this.request.body.customSchool
+  let github = this.request.body.github
+  let hearFacebook = this.request.body.hearFacebook
+  let hearMailingList = this.request.body.hearMailingList
+  let hearWordOfMouth = this.request.body.hearWordOfMouth
+  let likeToSee = this.request.body.likeToSee
+  let mentor = this.request.body.mentor
+  let questions = this.request.body.questions
+  let school = this.request.body.school
+  let scienceType = this.request.body.scienceType
+
+
     // If name, password or email does not exist
-  
-  if (!email || !password || !name || !username || password.length < 8 || !year
-      || !education || !codingbackground) {
+  //TO BE FIXED! TODO
+  //!year || !education || !codingbackground
+  if (!email || !password || !firstName  || !lastName || !username || password.length < 8) {
     this.response.status = 400 // set response status before sending
     return this.body = {
       message: "Not all fields were filled in"
@@ -53,10 +67,12 @@ module.exports.validateRegistration = function*(next) {
     })
     if (modelByEmail || modelByUsername) { // if email OR username already in database
       if (modelByEmail) {
+        console.log('email exists')
         this.body = {
           message: "Email already exists"
         }
       } else {
+        console.log('username exists')
         this.body = {
           message: "Username already exists"
         }
@@ -70,30 +86,53 @@ module.exports.validateRegistration = function*(next) {
 
 // POST /user/register    save POST data to user model and store in database, while issuing a token
 module.exports.saveUsertoDatabase = function*() {
+  let verificationToken = yield crypto.randomBytes(20);
   let user = new User({
     email: this.request.body.email,
     password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
-    name: this.request.body.name,
+    firstName: this.request.body.firstName,
+    lastName: this.request.body.lastName,
     username: this.request.body.username,
-    howDidYouHear: this.request.body.howDidYouHear,
-    codingbackground: this.request.body.codingbackground,
-    likeToSee: this.request.body.likeToSee,
+    education: this.request.body.education,
     year: this.request.body.year,
+    codingBackground: this.request.body.codingBackground,
+    about: this.request.body.about,
+    autogroup: this.request.body.autogroup,
+    customSchool: this.request.body.customSchool,
+    github: this.request.body.github,
+    hearFacebook: this.request.body.hearFacebook,
+    hearMailingList: this.request.body.hearMailingList,
+    hearWordOfMouth: this.request.body.hearWordOfMouth,
+    likeToSee: this.request.body.likeToSee,
+    mentor: this.request.body.mentor,
     questions: this.request.body.questions,
-    education: this.request.body.education
+    school: this.request.body.school,
+    scienceType: this.request.body.scienceType,
+    verificationToken: verificationToken.toString('hex')
   })
   try {
-    var model = yield user.save() // save new user in database
+    let model = yield user.save() // save new user in database
     model.password = undefined;
-    let token = jwt.sign({
-      userModel: model
-    }, config.SECRET, {
-      expiresInMinutes: 60 * 5
-    });
+    let options = {
+      auth : {
+        api_user: config.api_user,
+        api_key: config.api_key
+      }
+    }
+    let client = nodemailer.createTransport(sgTransport(options));
+    let body = 'Hello, ' + model.firstName + ',\n\n\n\nplease paste the following url https://'
+                + this.request.host + '/user/verify/'
+                + model.verificationToken + ' to verify your account'
+    let email = {
+      from: 'igem@g.skule.ca',
+      to: model.email,
+      subject: 'UofT Biohacks Email Verification',
+      html: template(body)
+    };
+    yield sendMail(client, email);
+
     this.body = {
-      token: token,
-      message: "Successfully registered",
-      userModel: model
+      message: "Please check your email to verify your account"
     };
   } catch (err) {
     this.response.status = 500
@@ -102,8 +141,26 @@ module.exports.saveUsertoDatabase = function*() {
   }
 }
 
+module.exports.getAuthentication = function*(){
+  let groupModel = null
+  let userModel = this.userModel
+
+  if (userModel.group) { // return just groupModel if user has a group already
+    groupModel = yield Group.findById(userModel.group).populate('users').exec()
+
+  } else {
+    userModel = yield User.findById(userModel._id).populate('invites').exec() // otherwise fill userModel.invit
+  }
+  userModel.password = undefined
+  this.body = {
+    userModel: userModel,
+    message: "Welcome, " + userModel.firstName,
+    groupModel: groupModel
+  }
+}
+
 // POST /user/login       check for invalid input, query database for matching email and password and grant token
-module.exports.requestLogin = function*(next) {
+module.exports.requestLogin = function*() {
   // assign variable
   let emailOrUsername = util.trim(this.request.body.emailOrUsername)
   let password = this.request.body.password
@@ -121,8 +178,13 @@ module.exports.requestLogin = function*(next) {
             username: emailOrUsername
           }]
         }).populate('invites').exec()
-        // check for matching password
-      if (userModel && bcrypt.compareSync(password, userModel.password)) {
+      //code kind of a cluster....running out of time
+      if(userModel && !userModel.verified){
+        this.body = {
+          message: "Email has not been verified",
+          verification: false
+        }
+      }else if (userModel && bcrypt.compareSync(password, userModel.password)) {
         // mask password and grant token
         userModel.password = undefined;
         this.userModel = userModel // this.userModel persists for the entire session
@@ -141,12 +203,12 @@ module.exports.requestLogin = function*(next) {
         this.body = {
           token: token,
           userModel: userModel,
-          message: "Welcome, " + userModel.name, // user.invites and user.group is populated
+          message: "Welcome, " + userModel.firstName, // user.invites and user.group is populated
           groupModel: groupModel
         };
       } else { // authentication fails
         this.body = {
-          message: "Wrong password and/or emailOrUsername"
+          message: "Wrong password and/or email/username"
         }
       }
     } catch (err) {
@@ -217,21 +279,106 @@ function sendMail(client, email) {
     });
   });
 }
-module.exports.resetPassword = function* (){
+module.exports.verifyRedirect = function*(){
+
   try{
-    let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
-    console.log(this.token)
-    console.log("HERe")
-    if(!user){
-      this.response.redirect("http://localhost:3001/reset?t="+ this.token)
+    let user = yield User.findOne({ verificationToken: this.token})
+    if(user){
+      this.response.redirect(constants.FRONT_END_URL + "/verify?token="+ this.token)
     }else{
-      this.response.redirect("http://localhost:3001/")
+      this.response.redirect(constants.FRONT_END_URL + "/verify?")
     }
 
   }catch(err){
     console.error(err)
     this.response.status = 500
     util.errorResponse(this)
+  }
+}
+
+module.exports.verify = function*(){
+  try{
+    console.log(this.request.body.token)
+    let user = yield User.findOne({verificationToken: this.request.body.token})
+    if(!user){
+      return this.body = {
+        success: false,
+        message: "Email validation token is invalid, make sure you copied the correct URL"
+      }
+    }
+
+    user.verified = true
+    user = yield user.save()
+    console.log(user)
+    this.body = {
+      success: true,
+      message: "Email has been verified, redirecting in 5 seconds! "
+    }
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
+
+module.exports.resetPassword = function* (){
+  try{
+    let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
+    if(user){
+      this.response.redirect(constants.FRONT_END_URL + "/reset?token="+ this.token)
+    }else{
+      this.response.redirect(constants.FRONT_END_URL + "/reset?")
+    }
+
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
+module.exports.resetConfirmationPassword = function * (){
+  let token = this.request.body.token
+  let password = this.request.body.password
+  if(password.length < 8){
+    return this.body = {
+      message: "Password is too short"
+    }
+  }
+  try {
+    let user = yield User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }})
+    if (!user) {
+      return this.body = {
+        message: "Invalid Token or Token has expired",
+        success: false
+      }
+    }
+    user.password = util.bcrypt(this.request.body.password);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    user = yield user.save()
+    let options = {
+      auth : {
+        api_user: config.api_user,
+        api_key: config.api_key
+      }
+    }
+    let client = nodemailer.createTransport(sgTransport(options));
+    let email = {
+      from: 'igem@g.skule.ca',
+      to: user.email,
+      subject: 'UofT Biohacks Password Reset',
+      html: template('Hello ' + user.name + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n')
+    };
+    yield sendMail(client, email);
+    this.body = {
+      message: "Your password has been changed",
+      success: true
+    }
+  } catch (err) {
+    console.error(err)
+    this.response.status = 500;
+    util.errorResponse(this);
   }
 }
 module.exports.forgotPassword = function*() {
@@ -257,18 +404,19 @@ module.exports.forgotPassword = function*() {
       }
     }
     let client = nodemailer.createTransport(sgTransport(options));
+    let emailbody = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        'https://' + this.request.host + '/user/reset/' + token + '\n\n' +
+        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
-      html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + this.request.host + 'user/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      html: template(emailbody)
     };
     yield sendMail(client, email);
     this.body = {
-      message: "An email will be sent shortly to reset your password",
+      message: "An email will be sent to you for further instructions",
       success: true
     }
   } catch (err) {

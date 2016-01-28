@@ -14,7 +14,11 @@ let userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  name: {
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
@@ -22,6 +26,15 @@ let userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  verified: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  verificationToken: {
+    required: true,
+    type: String
   },
   invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
   group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
