@@ -120,7 +120,7 @@ module.exports.saveUsertoDatabase = function*() {
       }
     }
     let client = nodemailer.createTransport(sgTransport(options));
-    let body = 'Hello, ' + model.firstName + '\n\n\nPlease paste the following url http://'
+    let body = 'Hello, ' + model.firstName + ',\n\n\n\nplease paste the following url http://'
                 + this.request.host + '/user/verify/'
                 + model.verificationToken + ' to verify your account'
     let email = {
@@ -160,7 +160,7 @@ module.exports.getAuthentication = function*(){
 }
 
 // POST /user/login       check for invalid input, query database for matching email and password and grant token
-module.exports.requestLogin = function*(next) {
+module.exports.requestLogin = function*() {
   // assign variable
   let emailOrUsername = util.trim(this.request.body.emailOrUsername)
   let password = this.request.body.password
@@ -179,15 +179,12 @@ module.exports.requestLogin = function*(next) {
           }]
         }).populate('invites').exec()
       //code kind of a cluster....running out of time
-      if(!userModel.verified){
-        return this.body = {
+      if(userModel && !userModel.verified){
+        this.body = {
           message: "Email has not been verified",
           verification: false
         }
-      }
-
-      console.log(userModel)
-      if (userModel && bcrypt.compareSync(password, userModel.password)) {
+      }else if (userModel && bcrypt.compareSync(password, userModel.password)) {
         // mask password and grant token
         userModel.password = undefined;
         this.userModel = userModel // this.userModel persists for the entire session
@@ -211,7 +208,7 @@ module.exports.requestLogin = function*(next) {
         };
       } else { // authentication fails
         this.body = {
-          message: "Wrong password and/or emailOrUsername"
+          message: "Wrong password and/or email/username"
         }
       }
     } catch (err) {
@@ -282,6 +279,48 @@ function sendMail(client, email) {
     });
   });
 }
+module.exports.verifyRedirect = function*(){
+
+  try{
+    let user = yield User.findOne({ verificationToken: this.token})
+    if(user){
+      this.response.redirect(constants.FRONT_END_URL + "/verify?token="+ this.token)
+    }else{
+      this.response.redirect(constants.FRONT_END_URL + "/verify?")
+    }
+
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
+
+module.exports.verify = function*(){
+  try{
+    console.log(this.request.body.token)
+    let user = yield User.findOne({verificationToken: this.request.body.token})
+    if(!user){
+      return this.body = {
+        success: false,
+        message: "Email validation token is invalid, make sure you copied the correct URL"
+      }
+    }
+
+    user.verified = true
+    user = yield user.save()
+    console.log(user)
+    this.body = {
+      success: true,
+      message: "Email has been verified, redirecting in 5 seconds! "
+    }
+  }catch(err){
+    console.error(err)
+    this.response.status = 500
+    util.errorResponse(this)
+  }
+}
+
 module.exports.resetPassword = function* (){
   try{
     let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})

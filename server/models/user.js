@@ -27,7 +27,11 @@ let userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  verified: false,
+  verified: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   verificationToken: {
     required: true,
     type: String
