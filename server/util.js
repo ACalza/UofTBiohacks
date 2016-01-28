@@ -10,7 +10,7 @@ module.exports = {
    */
   errorResponse: function(ctx) {
     ctx.body = {
-      message: ctx.response.message,
+      message: "Whoops, something went wrong, please try again!",
       errorcode: ctx.response.status
     }
 

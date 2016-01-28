@@ -2,14 +2,15 @@
 
 const webpack = require('webpack')
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-
+//some nice hardcoding
 module.exports = {
   entry: {
     index: './src/index.js',
     login: './src/login/index.js',
     register: './src/register/index.js',
     account: './src/account/index.js',
-    reset: './src/reset/index.js'
+    reset: './src/reset/index.js',
+    verify: './src/verify/index.js'
   },
   output: {
     path: 'dist',

@@ -14,6 +14,7 @@ import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/sub
 import Layout from '../components/Layout'
 import { BASE_URI } from '../constants/uris.js'
 import { ajaxPost } from '../util/ajax.js'
+import {FRONT_END_URL} from '../../../shared/constants'
 
 class ResetPassword extends Component {
   constructor(props){
@@ -34,8 +35,6 @@ class ResetPassword extends Component {
         valid:true
       })
     }
-
-
   }
   submitForm = (model) => {
     const { dispatch } = this.props
@@ -53,7 +52,7 @@ class ResetPassword extends Component {
       } else {
         console.log(data)
         if(data.success){
-          dispatch(openSnack("You have successfully changed your password"))
+          dispatch(openSnack("You have successfully changed your password, redirecting in 5 seconds"))
           dispatch(canNotSubmit())
           this.setState({
             changedPass: true
@@ -68,11 +67,10 @@ class ResetPassword extends Component {
   };
   render() {
     const { snacker, submission, dispatch } = this.props
-    let content = <Layout><h2>Invalid Token or Token has expired</h2></Layout>
+    let content = null
 
     if(this.state.valid){
-      content = <Layout>
-        <h2>Reset Password</h2>
+      content =
         <Formsy.Form
           onValidSubmit = {this.submitForm}
           onValid = {() => dispatch(canSubmit())}
@@ -102,10 +100,20 @@ class ResetPassword extends Component {
           />
 
         </Formsy.Form>
-      </Layout>
 
+    }else if(this.state.changedPass){
+      content = <p>Password has been successfully resetted!  Redirecting! </p>
+      setTimeout(() => window.location.replace(FRONT_END_URL + "/login") ,5000);
+    }else{
+      content = <p>Invalid Token, redirecting in 5 seconds</p>
+      setTimeout(() => window.location.replace(FRONT_END_URL + "/") ,5000);
     }
-    return content
+    return (
+      <Layout>
+        <h2>Reset Password</h2>
+        {content}
+      </Layout>
+    )
 
 
   }
