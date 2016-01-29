@@ -9,6 +9,7 @@
     "js-prod": "NODE_ENV=prod webpack",
     "build": "webpack --config webpack.node.js; babel-node dist/app.node.js",
     "start": "browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
+    "publish-staging": "rsync -azv dist/ igemuoft@45.55.193.224:/var/www/html/staging.uoftbiohacks",
     "go": "webpack --config webpack.node.js;babel-node dist/app.node.js; webpack; browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "clean": "rm -rf dist/*"
   },

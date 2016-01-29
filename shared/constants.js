@@ -8,6 +8,7 @@ module.exports = {
     STATIC_URL: 'http://localhost:3001'
   },
   prod: {
-    STATIC_URL: 'https://2016.uoftbiohacks.com'
+    // STATIC_URL: 'https://2016.uoftbiohacks.com'
+    STATIC_URL: 'https://staging.uoftbiohacks.com'
   }
 }
