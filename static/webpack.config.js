@@ -2,6 +2,10 @@
 
 const webpack = require('webpack')
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+const definePlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
+})
+
 //some nice hardcoding
 module.exports = {
   entry: {
@@ -27,5 +31,8 @@ module.exports = {
       loader: 'babel'
     }]
   },
-  plugins: [commonsPlugin]
+  plugins: [
+    commonsPlugin,
+    definePlugin
+  ]
 }

@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "js-dev": "NODE_ENV=dev webpack",
+    "js-prod": "NODE_ENV=prod webpack",
     "build": "webpack --config webpack.node.js; babel-node dist/app.node.js",
     "start": "browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "go": "webpack --config webpack.node.js;babel-node dist/app.node.js; webpack; browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
