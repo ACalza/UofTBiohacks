@@ -62,7 +62,7 @@ class Verify extends Component {
   render() {
     const { snacker, submission, dispatch } = this.props
     let content = <p>Verifying Email</p>
-    if(!this.state.valid && !this.state.verifying){
+    if(!this.state.valid){
       content = <p>Invalid Token, redirecting in 5 seconds</p>
       setTimeout(() => window.location.assign("/") ,5000);
     }else if(this.state.emailVerified){
