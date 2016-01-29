@@ -16,7 +16,7 @@ const async = require('async');
 const nodemailer = require('nodemailer');
 const Promise = require('bluebird');
 const sgTransport = require('nodemailer-sendgrid-transport');
-const constants = require('../../shared/constants')
+const constants = require('../config')
 const template = require('../templates/template.js')
 
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
