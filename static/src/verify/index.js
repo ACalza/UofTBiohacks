@@ -64,10 +64,10 @@ class Verify extends Component {
     let content = <p>Verifying Email</p>
     if(!this.state.valid && !this.state.verifying){
       content = <p>Invalid Token, redirecting in 5 seconds</p>
-      setTimeout(() => window.location.replace(FRONT_END_URL + "/") ,5000);
+      setTimeout(() => window.location.assign("/") ,5000);
     }else if(this.state.emailVerified){
       content = <p>Email Verified!</p>
-      setTimeout(() => window.location.replace(FRONT_END_URL + "/login") , 5000);
+      setTimeout(() => window.location.assign("/login") , 5000);
     }
     return(
       <Layout>

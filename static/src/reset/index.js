@@ -103,10 +103,10 @@ class ResetPassword extends Component {
 
     }else if(this.state.changedPass){
       content = <p>Password has been successfully resetted!  Redirecting! </p>
-      setTimeout(() => window.location.replace(FRONT_END_URL + "/login") ,5000);
+      setTimeout(() => window.location.assign('/login') ,5000);
     }else{
       content = <p>Invalid Token, redirecting in 5 seconds</p>
-      setTimeout(() => window.location.replace(FRONT_END_URL + "/") ,5000);
+      setTimeout(() => window.location.assign('/') ,5000);
     }
     return (
       <Layout>
