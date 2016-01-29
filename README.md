@@ -1,17 +1,28 @@
 # UofTBiohacks
-UofTBiohacks CRUD app
+
+UofT Biohacks Registration and Group Management Application
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-To run front end:
+To run RESTful JSON API ([koa](http://koajs.com/)):
 
 ```bash
-npm install -g webpack webpack-dev-server
-npm start
+cd server
+npm install
+node server.js
 ```
 
-To build pre-rendered static frontend:
+To run pre-rendered static frontend (React, redux, webpack):
 
 ```bash
-npm run build release
+cd static
+npm install
+
+# pre-build static files
+npm run build
+# build out bundled+splitting scripts
+webpack
+
+# serve static content
+npm run start
 ```

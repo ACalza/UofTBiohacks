@@ -3,6 +3,9 @@ node_modules
 npm-debug.log
 users.csv
 
+# static
+dist
+
 # Logs
 logs
 *.log
