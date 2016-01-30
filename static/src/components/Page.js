@@ -16,11 +16,11 @@ export default class Page extends Component {
     }
 
     let bodyString
-    // console.log(`went here for ${name}`)
+    console.log(`went to Page.js for ${name}`)
     try {
       bodyString = ReactDOMServer.renderToString(body)
     } catch(e) {
-      console.error(`Page.js, ${name}: `, e)
+      console.log(`Page.js, ${name}: `, e)
     }
 
     const htmlProps = {
