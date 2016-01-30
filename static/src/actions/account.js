@@ -1,6 +1,7 @@
 import { AUTHORIZED_USER, AUTHORIZING_USER, AUTHORIZATION_FAILED } from '../constants/actions.js'
 import { BASE_URI } from '../constants/uris.js'
 import fetch from 'isomorphic-fetch'
+import Promise from 'bluebird'
 import {openSnack} from '../actions/snacker'
 
 function authorizing() {

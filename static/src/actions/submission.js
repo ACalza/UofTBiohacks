@@ -1,5 +1,6 @@
 import { SUBMITED_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE} from '../constants/actions.js'
 import fetch from 'isomorphic-fetch'
+import Promise from 'bluebird'
 import {openSnack} from '../actions/snacker'
 
 export const canSubmit = () => {
