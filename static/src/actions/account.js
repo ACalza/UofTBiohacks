@@ -1,7 +1,9 @@
 import { AUTHORIZED_USER, AUTHORIZING_USER, AUTHORIZATION_FAILED } from '../constants/actions.js'
 import { BASE_URI } from '../constants/uris.js'
 import fetch from 'isomorphic-fetch'
-import Promise from 'bluebird'
+//Dumb ass IE
+var Promise = require('es6-promise').Promise;
+
 import {openSnack} from '../actions/snacker'
 
 function authorizing() {

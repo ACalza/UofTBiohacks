@@ -1,6 +1,7 @@
 import { SUBMITED_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE} from '../constants/actions.js'
 import fetch from 'isomorphic-fetch'
-import Promise from 'bluebird'
+//Dumb ass IE
+var Promise = require('es6-promise').Promise;
 import {openSnack} from '../actions/snacker'
 
 export const canSubmit = () => {
