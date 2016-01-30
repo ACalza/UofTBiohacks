@@ -139,7 +139,7 @@ class Register extends Component {
             <MenuItem value={'mcmaster'} primaryText="McMaster University" />
             <MenuItem value={'ryerson'} primaryText="RyersonU" />
             <MenuItem value={'york'} primaryText="YorkU" />
-            <MenuItem value={'ottowa'} primaryText="UOttowa" />
+            <MenuItem value={'ottowa'} primaryText="University of Ottowa" />
             <MenuItem value={'notInSchool'} primaryText="Not in School" />
             <MenuItem value={'other'} primaryText="Other" />
           </FormsySelect>
