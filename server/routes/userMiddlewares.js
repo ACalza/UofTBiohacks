@@ -404,8 +404,7 @@ module.exports.forgotPassword = function*() {
       }
     }
     let client = nodemailer.createTransport(sgTransport(options));
-    let emailbody = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    let emailbody = 'You are receiving this email because a password change request was submitted for your account. Please click on the following link, or paste it into your browser to complete the process:\n\n' +
         'https://' + this.request.host + '/user/reset/' + token + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
