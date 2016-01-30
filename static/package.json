@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "js-dev": "NODE_ENV=dev webpack",
     "js-prod": "NODE_ENV=prod webpack",
-    "build": "webpack --config webpack.node.js; babel-node dist/app.node.js",
+    "build": "npm run clean; webpack --config webpack.node.js; babel-node dist/app.node.js",
     "start": "browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "publish-staging": "npm run build; npm run js-prod; rsync -azv dist/ igemuoft@45.55.193.224:/var/www/html/staging.uoftbiohacks",
     "go": "webpack --config webpack.node.js;babel-node dist/app.node.js; webpack; browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
