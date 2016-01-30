@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import mount from '../mount.js'
 
@@ -26,16 +27,19 @@ class ResetPassword extends Component {
     }
   }
 
-  componentWillMount(){
-    let params = location.search.split('?token=')
-    console.log(params)
-    if(params.length == 2){
-      this.setState({
-        token: params[1],
-        valid:true
-      })
+  componentWillMount() {
+    if (canUseDOM) {
+      let params = location.search.split('?token=')
+      console.log(params)
+      if(params.length == 2){
+        this.setState({
+          token: params[1],
+          valid:true
+        })
+      }
     }
   }
+
   submitForm = (model) => {
     const { dispatch } = this.props
     if(model.password !== model.confirmPassword){
@@ -101,13 +105,17 @@ class ResetPassword extends Component {
 
         </Formsy.Form>
 
-    }else if(this.state.changedPass){
-      content = <p>Password has been successfully resetted!  Redirecting! </p>
-      setTimeout(() => window.location.assign('/login') ,5000);
-    }else{
-      content = <p>Invalid Token, redirecting in 5 seconds</p>
-      setTimeout(() => window.location.assign('/') ,5000);
+    } else if (canUseDOM) {
+      if (this.state.changedPass) {
+        content = <p>Password has been successfully resetted!  Redirecting! </p>
+        setTimeout(() => window.location.assign('/login') ,5000)
+      } else {
+        content = <p>Invalid Token, redirecting in 5 seconds</p>
+        setTimeout(() => window.location.assign('/') ,5000)
+      }
     }
+
+
     return (
       <Layout>
         <h2>Reset Password</h2>

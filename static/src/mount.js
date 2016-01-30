@@ -17,15 +17,10 @@ const eatSnack = () => {
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-// GLOBAL.navigator = {userAgent: headers['user-agent']}
-
 
 export default function mount(Connected, reducers) {
-
   const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
   const store = createStoreWithMiddleware(combineReducers(reducers))
-
-  //navigator = {userAgent: headers['user-agent']}
 
   const component =
     <Provider store={store}>
@@ -38,6 +33,7 @@ export default function mount(Connected, reducers) {
     const container = document.getElementById('app')
     ReactDOM.render(component, container)
   } else {
+    // if proper serverside render, headers['user-agent']
     GLOBAL.navigator = {userAgent: 'X'}
   }
 

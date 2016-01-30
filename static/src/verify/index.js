@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import mount from '../mount.js'
 
@@ -25,50 +26,55 @@ class Verify extends Component {
   }
 
   componentWillMount(){
-    const {dispatch} = this.props
-    let params = location.search.split('?token=')
+    if (canUseDOM) {
+      const {dispatch} = this.props
+      let params = location.search.split('?token=')
 
-    if(params.length == 2){
-      let token = params[1]
-      this.setState({
-        token: token,
-        valid: true
-      })
-      ajaxPost({token: token}, '/user/verify', null, (err, data) => {
-      if (err) {
-        console.error(err)
-      } else {
-        console.log(data)
-        if(data.success){
-          dispatch(openSnack(data.message))
-          dispatch(canNotSubmit())
-          this.setState({
-            emailVerified: true,
-            verifying: false
-          })
-        }else{
-          dispatch(openSnack(data.message))
-          this.setState({
-            emailVerified: false,
-            verifying: false
-          })
-        }
+      if (params.length == 2) {
+        let token = params[1]
+        this.setState({
+          token: token,
+          valid: true
+        })
+        ajaxPost({token: token}, '/user/verify', null, (err, data) => {
+          if (err) {
+            console.error(err)
+          } else {
+            console.log(data)
+            if(data.success){
+              dispatch(openSnack(data.message))
+              dispatch(canNotSubmit())
+              this.setState({
+                emailVerified: true,
+                verifying: false
+              })
+            }else{
+              dispatch(openSnack(data.message))
+              this.setState({
+                emailVerified: false,
+                verifying: false
+              })
+            }
+          }
+        })
       }
-    })
     }
-
   }
 
   render() {
     const { snacker, submission, dispatch } = this.props
     let content = <p>Verifying Email</p>
-    if(!this.state.valid){
-      content = <p>Invalid Token, redirecting in 5 seconds</p>
-      setTimeout(() => window.location.assign("/") ,5000);
-    }else if(this.state.emailVerified){
-      content = <p>Email Verified!</p>
-      setTimeout(() => window.location.assign("/login") , 5000);
+
+    if (canUseDOM) {
+      if (!this.state.valid) {
+        content = <p>Invalid Token, redirecting in 5 seconds</p>
+        setTimeout(() => window.location.assign("/") ,5000)
+      } else if (this.state.emailVerified){
+        content = <p>Email Verified!</p>
+        setTimeout(() => window.location.assign("/login") , 5000)
+      }
     }
+
     return(
       <Layout>
         <h2>Email Verification</h2>

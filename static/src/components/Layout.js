@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import snacker from '../reducers/snacker.js'
 
@@ -17,14 +18,16 @@ class Layout extends Component {
 
     let navbarLinks = []
 
-    if (!sessionStorage.getItem('jwt')) {
-        navbarLinks.push(<a href="/">Home</a>)
-        navbarLinks.push(<a href="/register">Register</a>)
-        navbarLinks.push(<a href="/login">Login</a>)
+    if (canUseDOM && !sessionStorage.getItem('jwt')) {
+      // Not logged in
+      navbarLinks.push(<a key="1" href="/">Home</a>)
+      navbarLinks.push(<a key="2" href="/register">Register</a>)
+      navbarLinks.push(<a key="3" href="/login">Login</a>)
     } else {
-        navbarLinks.push(<a href="/home">Home</a>)
-        navbarLinks.push(<a href="/account">Account</a>)
-        navbarLinks.push(<a href="#" onClick={this.logout}>Logout</a>)
+      // Logged in
+      navbarLinks.push(<a key="1" href="/">Home</a>)
+      navbarLinks.push(<a key="2" href="/account">Account</a>)
+      navbarLinks.push(<a key="3" href="#" onClick={this.logout}>Logout</a>)
     }
 
     let outerStyles = {

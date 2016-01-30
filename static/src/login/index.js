@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import FMUI, { FormsyText } from 'formsy-material-ui'
-import {Snackbar, RaisedButton} from 'material-ui/lib'
+import { Snackbar, RaisedButton } from 'material-ui/lib'
 import TextField from 'material-ui/lib/text-field'
 
 import mount from '../mount.js'
@@ -16,7 +17,7 @@ import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import ReactRedirect from "react-redirect"
 
-import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
+import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 
 
 import Layout from '../components/Layout'
@@ -51,7 +52,7 @@ class Login extends Component {
   checkLoggedIn = () => {
     let content = null
 
-    if(sessionStorage.jwt){
+    if(canUseDOM && sessionStorage.jwt) {
       content = <ReactRedirect location='/account'>
                 </ReactRedirect>
     }

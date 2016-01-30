@@ -20,7 +20,7 @@ export default class Page extends Component {
     try {
       bodyString = ReactDOMServer.renderToString(body)
     } catch(e) {
-      console.log(e)
+      console.error(`Page.js, ${name}: `, e)
     }
 
     const htmlProps = {

@@ -17,7 +17,7 @@ Object.keys(routes).forEach(async function(route) {
     try {
       component = React.createElement(component)
     } catch(e) {
-      console.error(e)
+      console.error('build.js: ', e)
     }
   }
   let name = route.split("/")[0]

@@ -153,7 +153,7 @@ class Register extends Component {
           <FormsySelect
             required
             name='year'
-            floatingLabelText="Year of Study">
+            floatingLabelText="Year of Study*">
             <MenuItem value={'1'} primaryText="1" />
             <MenuItem value={'2'} primaryText="2" />
             <MenuItem value={'3'} primaryText="3" />
