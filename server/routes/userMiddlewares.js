@@ -35,7 +35,6 @@ module.exports.validateRegistration = function*(next) {
   let codingBackground = this.request.body.codingBackground
   let about = this.request.body.about
   let autogroup = this.request.body.autogroup
-  let customSchool = this.request.body.customSchool
   let github = this.request.body.github
   let hearFacebook = this.request.body.hearFacebook
   let hearMailingList = this.request.body.hearMailingList
@@ -50,7 +49,8 @@ module.exports.validateRegistration = function*(next) {
     // If name, password or email does not exist
   //TO BE FIXED! TODO
   //!year || !education || !codingbackground
-  if (!email || !password || !firstName  || !lastName || !username || password.length < 8) {
+  if (!email || !password || !firstName  || !lastName || !username || password.length < 8
+      || !education) {
     this.response.status = 400 // set response status before sending
     return this.body = {
       message: "Not all fields were filled in"

@@ -132,6 +132,12 @@ module.exports.inviteUserstoGroup = function* (){
               userModel: this.userModel,
               message: user.username + " has already been invited!"
             }
+          }else if(user.group){
+            return this.body = {
+              groupModel: this.groupModel,
+              userModel: this.userModel,
+              message: user.username + " is already in a group!"
+            }
           }
           user.invites.push([this.groupModel._id])
           user = yield user.save()

@@ -11,17 +11,21 @@ export default class PureTextInput extends PureComponent {
       validations,
       validationError,
       hintText,
-      floatingLabelText
+      floatingLabelText,
+      type,
+      multiLine
     } = this.props
 
     return (
     <FormsyText style={{display: 'block'}}
       required={required}
       name={name}
+      type={type}
       validations={validations}
       validationError={validationError}
       hintText={hintText}
       floatingLabelText={floatingLabelText}
+      multiLine={multiLine || false}
     />)
   }
 }

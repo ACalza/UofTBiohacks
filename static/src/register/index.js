@@ -7,16 +7,19 @@ import FMUI, { FormsyText, FormsySelect, FormsyToggle, FormsyRadio, FormsyRadioG
 import { Snackbar, RaisedButton, MenuItem, Checkbox } from 'material-ui/lib'
 import { Row, Col } from 'react-bootstrap'
 
-
+import { openSnack } from '../actions/snacker'
 import MyRadioGroup from '../components/MyRadioGroup.js'
 import PureTextInput from '../components/PureTextInput.js'
 import PureRadioGroup from '../components/PureRadioGroup.js'
 import PureSelect from '../components/PureSelect.js'
+import PureCheckBox from '../components/PureCheckBox'
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import Layout from '../components/Layout'
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
+
+
 
 import { BASE_URI } from '../constants/uris.js'
 
@@ -29,17 +32,34 @@ class Register extends Component {
 
     this.state = {
       customSchool: false,
-      canSubmit: false
+      canSubmit: false,
+      disabled: false
     }
   }
 
   submitForm = (model) => {
     const { dispatch } = this.props
     const captchaVerify = grecaptcha.getResponse()
+    model.year = Number(model.year)
 
     if (captchaVerify.length !== 0) {
+      if(model.customSchool){
+        model.education = model.customSchool
+      }
+      if(model.mentor){
+        model.mentor = true
+      }else{
+        model.mentor = false
+      }
+      if(model.autogroup){
+        model.autogroup = true
+      }else{
+        model.autogroup = true
+      }
+
       console.log(model)
       dispatch(canNotSubmit())
+      dispatch(openSnack("Validating..."))
       dispatch(loadResponse(BASE_URI + '/user/register', {
         method: 'POST',
         headers: {
@@ -49,7 +69,7 @@ class Register extends Component {
         body: JSON.stringify(model)
       }))
     } else {
-      alert('please do recaptcha')
+      dispatch(openSnack('Please do recaptcha'))
     }
   };
 
@@ -120,14 +140,16 @@ class Register extends Component {
                     floatingLabelText = "Last Name*"
                   />
                 </div>
-
-                <MyRadioGroup name="scienceType" pairs={[
-                    { value: 'lifesci', label: 'Life Science' },
-                    { value: 'compsci', label: 'Computer Science' },
-                    { value: 'bioinformatics', label: 'Bioinformatics' },
-                    { value: 'other', label: 'Other' }
-                  ]}
-                />
+                <p>What is your program of study?</p>
+                <div className="fullWidth">
+                  <MyRadioGroup name="scienceType" pairs={[
+                      { value: 'lifesci', label: 'Life Science' },
+                      { value: 'compsci', label: 'Computer Science' },
+                      { value: 'bioinformatics', label: 'Bioinformatics' },
+                      { value: 'other', label: 'Other' }
+                    ]}
+                  />
+                </div>
 
                 <div className="fullWidth">
                   <PureTextInput
@@ -142,7 +164,7 @@ class Register extends Component {
                   <PureSelect
                     required
                     name='school'
-                    floatingLabelText="School*"
+                    floatingLabelText='School*'
                     items={[
                       { value: 'uoft', text: "University of Toronto" },
                       { value: 'queens', text: "Queen's University" },
@@ -150,7 +172,7 @@ class Register extends Component {
                       { value: 'mcmaster', text: "McMaster University" },
                       { value: 'ryerson', text: "Ryerson University" },
                       { value: 'york', text: "York University" },
-                      { value: 'ottowa', text: "University of Ottawa" },
+                      { value: 'ottawa', text: "University of Ottawa" },
                       { value: 'notInSchool', text: "Not in School" },
                       { value: 'other', text: "Other" }
                     ]}
@@ -177,7 +199,7 @@ class Register extends Component {
                       { value: '4', text: "4" },
                       { value: '5', text: "5" },
                       { value: '5+', text: "5+" },
-                      { value: 'na', text: "n/a" }
+                      { value: '-1', text: "n/a" }
                     ]}
                   />
                 </div>
@@ -193,18 +215,22 @@ class Register extends Component {
                 ]} />
 
                 <div className="fullWidth">
-                  <FormsySelect
+                  <PureSelect
                     required
                     name='codingBackground'
-                    floatingLabelText="Programming Experience*">
-                    <MenuItem value={'none'} primaryText="None" />
-                    <MenuItem value={'little'} primaryText="A little" />
-                    <MenuItem value={'moderate'} primaryText="Moderate" />
-                    <MenuItem value={'good'} primaryText="Good" />
-                    <MenuItem value={'proficient'} primaryText="Proficient" />
-                    <MenuItem value={'vim'} primaryText="Vim" />
-                  </FormsySelect>
+                    floatingLabelText='Coding Background*'
+                    items={[
+                      { value: 'none', text: "None" },
+                      { value: 'little', text: "A little" },
+                      { value: 'moderate', text: "Moderate" },
+                      { value: 'good', text: "Good" },
+                      { value: 'proficient', text: "Proficient" },
+                      { value: 'vim', text: "Vim" }
+                    ]}
+                  />
+
                 </div>
+
 
                 <div className="fullWidth">
                   <PureTextInput
@@ -241,10 +267,12 @@ class Register extends Component {
                   />
                 </div>
 
-                <MyRadioGroup name="mentor" pairs={[
-                  { value: 'mentor', label: 'Would you like to be a mentor?' },
-                  { value: 'autogroup', label: 'Would you like to be auto-assigned to a group?' },
-                ]} />
+                <PureCheckBox
+                  items = {[{value: 'mentor', text: 'Would you like to be a mentor?'}]}
+                /><br></br>
+                <PureCheckBox
+                  items = {[{value: 'autogroup', text: 'Would you like to be automatically joined with another group?'}]}
+                /><br></br>
 
                 <div className="fullWidth">
                   <PureTextInput
