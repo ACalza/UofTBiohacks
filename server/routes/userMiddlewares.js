@@ -132,7 +132,8 @@ module.exports.saveUsertoDatabase = function*() {
     yield sendMail(client, email);
 
     this.body = {
-      message: "Please check your email to verify your account"
+      message: "Please check your email to verify your account",
+      success: true
     };
   } catch (err) {
     this.response.status = 500
