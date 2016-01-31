@@ -144,12 +144,13 @@ class GroupControl extends Component {
           <tbody>
             {groupModel.users.map((user, i) =>
               <TableRow>
-                <td key={user.name}>{user.name}</td>
+                <td key={user.firstName}>{user.firstName + " " + user.lastName}</td>
                 <td key={user.username}>{user.username}</td>
                 <td key={user.email}>{user.email}</td>
               </TableRow>
-              )
-            }
+            )
+
+          }
           </tbody>
         </table>
           <RaisedButton
