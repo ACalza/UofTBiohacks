@@ -10,7 +10,7 @@ import Snackbar from 'material-ui/lib/snackbar'
 import './styles/vendor/bootstrap.scss'
 import './styles/index.scss'
 
-import './assets/js/bootstrap.js'
+// import './assets/js/bootstrap.js'
 
 const eatSnack = () => {
   alert('eating snack')
