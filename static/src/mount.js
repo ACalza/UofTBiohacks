@@ -7,7 +7,10 @@ import thunkMiddleware from 'redux-thunk'
 
 import Snackbar from 'material-ui/lib/snackbar'
 
+import './styles/vendor/bootstrap.scss'
 import './styles/index.scss'
+
+import './assets/js/bootstrap.js'
 
 const eatSnack = () => {
   alert('eating snack')
@@ -15,7 +18,7 @@ const eatSnack = () => {
 
 // Required for material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin'
-injectTapEventPlugin()
+// injectTapEventPlugin()
 
 
 export default function mount(Connected, reducers) {
@@ -28,7 +31,7 @@ export default function mount(Connected, reducers) {
     </Provider>
 
   if (canUseDOM) {
-    // injectTapEventPlugin()
+    injectTapEventPlugin()
 
     const container = document.getElementById('app')
     ReactDOM.render(component, container)

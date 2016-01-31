@@ -63,7 +63,7 @@ class Register extends Component {
 
     return(
       <Layout>
-      <div style={{width: '35%', margin: '0 auto'}}>
+      <div className="container">
         <h2>Register</h2>
         <Formsy.Form
           onValidSubmit = {this.submitForm}
