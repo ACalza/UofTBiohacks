@@ -41,7 +41,7 @@ Object.keys(routes).forEach(async function(route) {
   try {
     page =
     '<!doctype html>\n'
-    + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name}/>)
+    + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name.replace('.js', '')}/>)
   } catch(e) {
     console.log('static markup:' , e)
   }
