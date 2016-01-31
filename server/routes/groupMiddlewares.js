@@ -138,10 +138,10 @@ module.exports.inviteUserstoGroup = function* (){
           yield Group.update({_id: this.groupModel._id}, {$push: {pendingInvites: user._id}})
           user.password = undefined
           let groupModel = yield Group.findById(this.groupModel._id).populate(["users", "pendingInvites"]).exec()
-
+          console.log(groupModel)
           this.body = {
             groupModel: groupModel,
-            userModel: user,
+            userModel: this.userModel,
             message:'successfully invited ' + user.username
           }
 
