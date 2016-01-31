@@ -1,3 +1,12 @@
+'use strict'
+
+const webpack = require('webpack')
+const definePlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
+})
+
+// NOTE IF YOU CHANGE THIS FILE, CHANGE webpack.config.js
+
 module.exports = {
   entry: './src/build.js',
   output: {
@@ -16,5 +25,8 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel'
     }]
-  }
+  },
+  plugins: [
+    definePlugin
+  ]
 }

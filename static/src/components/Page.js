@@ -16,7 +16,7 @@ export default class Page extends Component {
     }
 
     let bodyString
-    console.log(`went to Page.js for ${name}`)
+    // console.log(`went to Page.js for ${name}`)
     try {
       bodyString = ReactDOMServer.renderToString(body)
     } catch(e) {

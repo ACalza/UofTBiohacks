@@ -16,26 +16,24 @@ Object.keys(routes).forEach(async function(route) {
   console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
 
   // Handle un-connect() wrapped components
-  console.log(routes[route])
-  console.log(Object.keys(routes[route]()))
+  // console.log(routes[route])
+  // console.log(Object.keys(routes[route]()))
   let component
   try {
     component = routes[route]().default
   } catch(e) {
     console.log('component err, ', e)
   }
-  console.log(`got the default export for ${route}`)
 
   if (typeof(component) === 'function') {
     try {
-      console.log(route)
+      // console.log(route)
       component = React.createElement(component)
     } catch(e) {
       console.log('build.js: ', e)
     }
   }
   let name = route.split("/")[0]
-  console.log(`Before page for ${name}`)
 
   route = 'dist/' + route
 

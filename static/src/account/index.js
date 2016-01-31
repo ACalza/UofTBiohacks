@@ -34,7 +34,7 @@ class Account extends Component {
   render() {
     const { snacker, submission, account, dispatch } = this.props
     let content = null
-    console.log(this.props)
+    // console.log(this.props)
     // if (account.authorized) {
     //   content =
     //   <div className="controlpanel">
