@@ -57,7 +57,7 @@ class Account extends Component {
     }
 
     return(
-      <Layout>
+      <Layout push>
         {content}
       </Layout>
     )

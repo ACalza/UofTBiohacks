@@ -76,7 +76,7 @@ class Verify extends Component {
     }
 
     return(
-      <Layout>
+      <Layout push>
         <h2>Email Verification</h2>
         {content}
       </Layout>

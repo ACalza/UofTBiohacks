@@ -110,7 +110,7 @@ class Login extends Component {
         onTouchTap={this.handleForgetPasswordSubmit} />,
     ];
     return(
-      <Layout>
+      <Layout push>
         <h2>Login Page</h2>
         <Formsy.Form
           onValidSubmit = {this.submitForm}

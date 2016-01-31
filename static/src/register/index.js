@@ -66,7 +66,7 @@ class Register extends Component {
     const { submission, dispatch } = this.props
 
     return(
-      <Layout>
+      <Layout push>
         <div className="container">
           <Row>
             <Col className="WideForm" xs={12} md={6} mdOffset={3}>
@@ -154,9 +154,9 @@ class Register extends Component {
                     <MenuItem value={'queens'} primaryText="Queen's University" />
                     <MenuItem value={'waterloo'} primaryText="University of Waterloo" />
                     <MenuItem value={'mcmaster'} primaryText="McMaster University" />
-                    <MenuItem value={'ryerson'} primaryText="RyersonU" />
-                    <MenuItem value={'york'} primaryText="YorkU" />
-                    <MenuItem value={'ottowa'} primaryText="University of Ottowa" />
+                    <MenuItem value={'ryerson'} primaryText="Ryerson University" />
+                    <MenuItem value={'york'} primaryText="York University" />
+                    <MenuItem value={'ottowa'} primaryText="University of Ottawa" />
                     <MenuItem value={'notInSchool'} primaryText="Not in School" />
                     <MenuItem value={'other'} primaryText="Other" />
                   </FormsySelect>

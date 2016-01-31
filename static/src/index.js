@@ -25,7 +25,7 @@ class Index extends Component {
     const { counter } = this.props
 
     return(
-      <Layout>
+      <Layout push>
         <div>
           <h1>Hello World, {counter}</h1>
         </div>

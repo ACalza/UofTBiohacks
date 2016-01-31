@@ -4,32 +4,23 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import snacker from '../reducers/snacker.js'
 
+import Navigation from './Navigation.js'
+
 import { Snackbar } from 'material-ui/lib'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
 class Layout extends Component {
-  logout() {
-    sessionStorage.removeItem('jwt')
-    window.location.assign('/')
-  }
-
   render() {
-    const {dispatch, snacker} = this.props
+    const { snacker, push, dispatch } = this.props
 
-    let navbarLinks = []
-
-    if (canUseDOM && !sessionStorage.getItem('jwt')) {
-      // Not logged in
-      navbarLinks.push(<a key="1" href="/">Home</a>)
-      navbarLinks.push(<a key="2" href="/register">Register</a>)
-      navbarLinks.push(<a key="3" href="/login">Login</a>)
+    let status
+    if (canUseDOM && sessionStorage.getItem('jwt')) {
+      status = 'loggedIn'
     } else {
-      // Logged in
-      navbarLinks.push(<a key="1" href="/">Home</a>)
-      navbarLinks.push(<a key="2" href="/account">Account</a>)
-      navbarLinks.push(<a key="3" href="#" onClick={this.logout}>Logout</a>)
+      status = 'loggedOut'
     }
 
+    // TODO move to CSS
     let outerStyles = {
       display: 'flex',
       flexDirection: 'column',
@@ -40,12 +31,15 @@ class Layout extends Component {
       paddingBottom: '30px',
       background: '#eee'
     }
+
     return (
       <div style={outerStyles}>
           <div className="content" style={innerStyles}>
-            {navbarLinks.map(l => l)}
+            {push ? <div className="headerPush" /> : null}
+            <Navigation title="" status={status} />
 
             {this.props.children}
+
             <Snackbar
               open={snacker.open}
               message={snacker.message}
