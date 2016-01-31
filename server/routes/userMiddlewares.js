@@ -177,7 +177,7 @@ module.exports.requestLogin = function*() {
           }, {
             username: emailOrUsername
           }]
-        }).populate('invites').exec()
+        }).populate('invites').select('+password').aexec()
       //code kind of a cluster....running out of time
       if(userModel && !userModel.verified){
         this.body = {
@@ -345,7 +345,7 @@ module.exports.resetConfirmationPassword = function * (){
     }
   }
   try {
-    let user = yield User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }})
+    let user = yield User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }}).select('+password  ')
     if (!user) {
       return this.body = {
         message: "Invalid Token or Token has expired",
