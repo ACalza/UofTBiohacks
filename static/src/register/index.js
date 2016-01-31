@@ -8,6 +8,9 @@ import { Snackbar, RaisedButton, MenuItem, Checkbox } from 'material-ui/lib'
 import { Row, Col } from 'react-bootstrap'
 
 
+import MyRadioGroup from '../components/MyRadioGroup.js'
+import PureTextInput from '../components/PureTextInput.js'
+
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import Layout from '../components/Layout'
@@ -77,7 +80,7 @@ class Register extends Component {
                 onInvalid = {() => dispatch(canNotSubmit())}
               >
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'email'
                     validations="isEmail"
@@ -88,7 +91,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'username'
                     validations={{matchRegexp: /.+/}}
@@ -99,7 +102,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'firstName'
                     hintText = "First Name"
@@ -108,7 +111,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'lastName'
                     hintText = "Last Name"
@@ -116,14 +119,15 @@ class Register extends Component {
                   />
                 </div>
 
-                <input type="radio" name="scienceType" value="lifesci">Life Science</input><br></br>
-                <input type="radio" name="scienceType" value="compsci">Computer Science</input><br></br>
-                <input type="radio" name="scienceType" value="bioinformatics">Bioinformatics</input><br></br>
-                <input type="radio" name="scienceType" value="other">Other</input>
-
+                <MyRadioGroup type="radio" name="scienceType" pairs={[
+                  { value: 'lifesci', text: 'Life Science' },
+                  { value: 'compsci', text: 'Computer Science' },
+                  { value: 'bioinformatics', text: 'Bioinformatics' },
+                  { value: 'other', text: 'Other' }
+                ]} />
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'education'
                     hintText = "e.g. subject POST"
@@ -150,7 +154,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     name = 'customSchool'
                     hintText = 'Other School if not in list'
                     floatingLabelText = 'Other School'
@@ -175,11 +179,12 @@ class Register extends Component {
                 <p>
                   How did you hear about the event?
                 </p>
-                <input type="checkbox" name="hearFrom" value="hearFacebook">Facebook</input><br></br>
-                <input type="checkbox" name="hearFrom" value="hearMailingList">Mailing List</input><br></br>
-                <input type="checkbox" name="hearFrom" value="hearWordOfMouth">Word of Mouth</input><br></br>
-                <input type="checkbox" name="hearFrom" value="hearOther">Other</input><br></br>
-
+                <MyRadioGroup type="checkbox" name="hearFrom" pairs={[
+                  { value: 'hearFacebook', text: 'Facebook' },
+                  { value: 'hearMailingList', text: 'Mailing List' },
+                  { value: 'hearWordOfMouth', text: 'Word of Mouth' },
+                  { value: 'hearOther', text: 'Other' }
+                ]} />
 
                 <div className="fullWidth">
                   <FormsySelect
@@ -196,7 +201,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     name = 'github'
                     hintText = "Just your username."
                     floatingLabelText = "GitHub"
@@ -204,7 +209,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     name = 'likeToSee'
                     hintText = "Anything you would like to see?"
                     floatingLabelText = "Anything you would like to see?"
@@ -213,7 +218,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     name = 'questions'
                     hintText = "Any questions?"
                     floatingLabelText = "Any questions?"
@@ -222,7 +227,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     name = 'about'
                     hintText = "Just a few lines."
                     floatingLabelText = "Tell us about yourself"
@@ -230,11 +235,13 @@ class Register extends Component {
                   />
                 </div>
 
-                <input type="checkbox" name="mentor" value="mentor">Would you like to be a mentor?</input><br></br>
-                <input type="checkbox" name="autogroup" value="autogroup">Would you like to be auto-assigned to a group?</input><br></br>
+                <MyRadioGroup type="checkbox" name="mentor" pairs={[
+                  { value: 'mentor', text: 'Would you like to be a mentor?' },
+                  { value: 'autogroup', text: 'Would you like to be auto-assigned to a group?' },
+                ]} />
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'password'
                     type = 'password'
@@ -246,7 +253,7 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
+                  <PureTextInput
                     required
                     name = 'confirmpassword'
                     type = 'password'
