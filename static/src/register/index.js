@@ -19,7 +19,7 @@ import submission from '../reducers/submission.js'
 import Layout from '../components/Layout'
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 
-
+import { ajaxPost } from '../util/ajax.js'
 
 import { BASE_URI } from '../constants/uris.js'
 
@@ -54,20 +54,28 @@ class Register extends Component {
       if(model.autogroup){
         model.autogroup = true
       }else{
-        model.autogroup = true
+        model.autogroup = false
       }
 
       console.log(model)
       dispatch(canNotSubmit())
       dispatch(openSnack("Validating..."))
-      dispatch(loadResponse(BASE_URI + '/user/register', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(model)
-      }))
+      ajaxPost(model, '/user/register', null, (err, data) => {
+        if (err) {
+          console.error(err)
+        } else {
+          if(data.success){
+            dispatch(openSnack(data.message + ". Redirecting in 5 seconds"))
+            dispatch(canNotSubmit())
+            this.setState({
+              disabled: true
+            })
+            setTimeout(() => window.location.assign('/') ,5000)
+          }else{
+            dispatch(openSnack(data.message))
+          }
+        }
+      })
     } else {
       dispatch(openSnack('Please do recaptcha'))
     }
@@ -109,6 +117,7 @@ class Register extends Component {
                     validationError={'Invalid email'}
                     hintText = "Email"
                     floatingLabelText = "Email*"
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -120,6 +129,7 @@ class Register extends Component {
                     validationError="At least one character please"
                     hintText = "Username (will be lowercased)"
                     floatingLabelText = "Username*"
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -129,6 +139,7 @@ class Register extends Component {
                     name = 'firstName'
                     hintText = "First Name"
                     floatingLabelText = "First Name*"
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -138,6 +149,7 @@ class Register extends Component {
                     name = 'lastName'
                     hintText = "Last Name"
                     floatingLabelText = "Last Name*"
+                    disabled={this.state.disabled}
                   />
                 </div>
                 <p>What is your program of study?</p>
@@ -148,6 +160,7 @@ class Register extends Component {
                       { value: 'bioinformatics', label: 'Bioinformatics' },
                       { value: 'other', label: 'Other' }
                     ]}
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -157,6 +170,7 @@ class Register extends Component {
                     name = 'education'
                     hintText = "e.g. subject POST"
                     floatingLabelText = "Educational Background*"
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -176,6 +190,7 @@ class Register extends Component {
                       { value: 'notInSchool', text: "Not in School" },
                       { value: 'other', text: "Other" }
                     ]}
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -184,6 +199,7 @@ class Register extends Component {
                     name = 'customSchool'
                     hintText = 'Other School if not in list'
                     floatingLabelText = 'Other School'
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -201,6 +217,7 @@ class Register extends Component {
                       { value: '5+', text: "5+" },
                       { value: '-1', text: "n/a" }
                     ]}
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -212,7 +229,8 @@ class Register extends Component {
                   { value: 'hearMailingList', label: 'Mailing List' },
                   { value: 'hearWordOfMouth', label: 'Word of Mouth' },
                   { value: 'hearOther', label: 'Other' }
-                ]} />
+                ]}
+                disabled={this.state.disabled} />
 
                 <div className="fullWidth">
                   <PureSelect
@@ -227,6 +245,7 @@ class Register extends Component {
                       { value: 'proficient', text: "Proficient" },
                       { value: 'vim', text: "Vim" }
                     ]}
+                    disabled={this.state.disabled}
                   />
 
                 </div>
@@ -237,6 +256,7 @@ class Register extends Component {
                     name = 'github'
                     hintText = "Just your username."
                     floatingLabelText = "GitHub"
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -246,6 +266,7 @@ class Register extends Component {
                     hintText = "Anything you would like to see?"
                     floatingLabelText = "Anything you would like to see?"
                     multiLine={true}
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -255,6 +276,7 @@ class Register extends Component {
                     hintText = "Any questions?"
                     floatingLabelText = "Any questions?"
                     multiLine={true}
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -264,15 +286,16 @@ class Register extends Component {
                     hintText = "Just a few lines."
                     floatingLabelText = "Tell us about yourself"
                     multiLine={true}
+                    disabled={this.state.disabled}
                   />
                 </div>
 
                 <PureCheckBox
                   items = {[{value: 'mentor', text: 'Would you like to be a mentor?'}]}
-                /><br></br>
+                />
                 <PureCheckBox
                   items = {[{value: 'autogroup', text: 'Would you like to be automatically joined with another group?'}]}
-                /><br></br>
+                />
 
                 <div className="fullWidth">
                   <PureTextInput
@@ -283,6 +306,7 @@ class Register extends Component {
                     validationError="At least eight characters please"
                     hintText = "What is your password?"
                     floatingLabelText = "Password*"
+                    disabled={this.state.disabled}
                   />
                 </div>
 
@@ -295,6 +319,7 @@ class Register extends Component {
                     validationError="Does not match"
                     hintText = "Confirm Password"
                     floatingLabelText = "Confirm Password*"
+                    disabled={this.state.disabled}
                   />
                 </div>
 

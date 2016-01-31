@@ -7,11 +7,11 @@ import { RadioGroup } from 'formsy-react-components'
 
 export default class MyRadioGroup extends PureComponent {
   render() {
-    const { type, name, pairs } = this.props
+    const { type, name, pairs, disabled } = this.props
 
     return (
     <fieldset>
-      <RadioGroup type="stacked" name={name} options={pairs}></RadioGroup>
+      <RadioGroup type="stacked" name={name} options={pairs} disabled={disabled}></RadioGroup>
     </fieldset>)
   }
 }

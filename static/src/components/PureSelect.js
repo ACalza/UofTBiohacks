@@ -10,13 +10,14 @@ export default class PureTextInput extends PureComponent {
       required,
       name,
       floatingLabelText,
-      items
+      items,
+      disabled
     } = this.props
 
 
 
     return (
-    <FormsySelect required={required} name={name} floatingLabelText={floatingLabelText}>
+    <FormsySelect required={required} name={name} floatingLabelText={floatingLabelText} disabled={disabled}>
       {items.map( (item, i) =>
         <MenuItem key={i} value={item.value} primaryText={item.text} />
       )}

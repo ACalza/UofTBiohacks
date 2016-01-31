@@ -5,10 +5,10 @@ import {FormsyRadio, FormsyRadioGroup } from 'formsy-material-ui'
 
 export default class PureRadioGroup extends PureComponent {
   render() {
-    const { type, name, pairs } = this.props
+    const { type, name, pairs, disabled } = this.props
 
     return (
-      <FormsyRadioGroup name={name}>
+      <FormsyRadioGroup name={name} disabled={disabled}>
         {pairs.map( (pair, i) =>
           <FormsyRadio
             key={i}

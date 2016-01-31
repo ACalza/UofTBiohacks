@@ -56,7 +56,6 @@ class ResetPassword extends Component {
       if (err) {
         console.error(err)
       } else {
-        console.log(data)
         if(data.success){
           dispatch(openSnack("You have successfully changed your password, redirecting in 5 seconds"))
           dispatch(canNotSubmit())
