@@ -1,7 +1,7 @@
 'use strict'
 
 const webpack = require('webpack')
-const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'common'});
 const definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
 })
