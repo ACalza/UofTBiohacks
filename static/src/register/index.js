@@ -16,7 +16,7 @@ import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/su
 import { BASE_URI } from '../constants/uris.js'
 
 
-import '../styles/WideForm.scss'
+import '../styles/Register.scss'
 
 class Register extends Component {
   constructor() {
@@ -76,37 +76,45 @@ class Register extends Component {
                 onValid = {() => dispatch(canSubmit())}
                 onInvalid = {() => dispatch(canNotSubmit())}
               >
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'email'
-                  validations="isEmail"
-                  validationError={'Invalid email'}
-                  hintText = "Email"
-                  floatingLabelText = "Email*"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'email'
+                    validations="isEmail"
+                    validationError={'Invalid email'}
+                    hintText = "Email"
+                    floatingLabelText = "Email*"
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'username'
-                  validations={{matchRegexp: /.+/}}
-                  validationError="At least one character please"
-                  hintText = "Username"
-                  floatingLabelText = "Username*"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'username'
+                    validations={{matchRegexp: /.+/}}
+                    validationError="At least one character please"
+                    hintText = "Username (will be lowercased)"
+                    floatingLabelText = "Username*"
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'firstName'
-                  hintText = "First Name"
-                  floatingLabelText = "First Name*"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'firstName'
+                    hintText = "First Name"
+                    floatingLabelText = "First Name*"
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'lastName'
-                  hintText = "Last Name"
-                  floatingLabelText = "Last Name*"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'lastName'
+                    hintText = "Last Name"
+                    floatingLabelText = "Last Name*"
+                  />
+                </div>
 
                 <FormsyRadioGroup name="scienceType" defaultSelected="other">
                   <FormsyRadio
@@ -127,47 +135,55 @@ class Register extends Component {
                   />
                 </FormsyRadioGroup>
 
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'education'
-                  hintText = "e.g. subject POST"
-                  floatingLabelText = "Educational Background*"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'education'
+                    hintText = "e.g. subject POST"
+                    floatingLabelText = "Educational Background*"
+                  />
+                </div>
 
-                <FormsySelect
-                  required
-                  name='school'
-                  floatingLabelText="School*"
-                >
-                  <MenuItem value={'uoft'} primaryText="University of Toronto" />
-                  <MenuItem value={'queens'} primaryText="Queen's University" />
-                  <MenuItem value={'waterloo'} primaryText="University of Waterloo" />
-                  <MenuItem value={'mcmaster'} primaryText="McMaster University" />
-                  <MenuItem value={'ryerson'} primaryText="RyersonU" />
-                  <MenuItem value={'york'} primaryText="YorkU" />
-                  <MenuItem value={'ottowa'} primaryText="University of Ottowa" />
-                  <MenuItem value={'notInSchool'} primaryText="Not in School" />
-                  <MenuItem value={'other'} primaryText="Other" />
-                </FormsySelect>
+                <div className="fullWidth">
+                  <FormsySelect
+                    required
+                    name='school'
+                    floatingLabelText="School*"
+                  >
+                    <MenuItem value={'uoft'} primaryText="University of Toronto" />
+                    <MenuItem value={'queens'} primaryText="Queen's University" />
+                    <MenuItem value={'waterloo'} primaryText="University of Waterloo" />
+                    <MenuItem value={'mcmaster'} primaryText="McMaster University" />
+                    <MenuItem value={'ryerson'} primaryText="RyersonU" />
+                    <MenuItem value={'york'} primaryText="YorkU" />
+                    <MenuItem value={'ottowa'} primaryText="University of Ottowa" />
+                    <MenuItem value={'notInSchool'} primaryText="Not in School" />
+                    <MenuItem value={'other'} primaryText="Other" />
+                  </FormsySelect>
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'customSchool'
-                  hintText = 'Other School if not in list'
-                  floatingLabelText = 'Other School'
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    name = 'customSchool'
+                    hintText = 'Other School if not in list'
+                    floatingLabelText = 'Other School'
+                  />
+                </div>
 
-                <FormsySelect
-                  required
-                  name='year'
-                  floatingLabelText="Year of Study*">
-                  <MenuItem value={'1'} primaryText="1" />
-                  <MenuItem value={'2'} primaryText="2" />
-                  <MenuItem value={'3'} primaryText="3" />
-                  <MenuItem value={'4'} primaryText="4" />
-                  <MenuItem value={'5'} primaryText="5" />
-                  <MenuItem value={'5+'} primaryText="5+" />
-                  <MenuItem value={'na'} primaryText="n/a" />
-                </FormsySelect>
+                <div className="fullWidth">
+                  <FormsySelect
+                    required
+                    name='year'
+                    floatingLabelText="Year of Study*">
+                    <MenuItem value={'1'} primaryText="1" />
+                    <MenuItem value={'2'} primaryText="2" />
+                    <MenuItem value={'3'} primaryText="3" />
+                    <MenuItem value={'4'} primaryText="4" />
+                    <MenuItem value={'5'} primaryText="5" />
+                    <MenuItem value={'5+'} primaryText="5+" />
+                    <MenuItem value={'na'} primaryText="n/a" />
+                  </FormsySelect>
+                </div>
 
                 <p>
                   How did you hear about the event?
@@ -186,44 +202,54 @@ class Register extends Component {
                 />
 
 
-                <FormsySelect
-                  required
-                  name='codingBackground'
-                  floatingLabelText="Programming Experience*">
-                  <MenuItem value={'none'} primaryText="None" />
-                  <MenuItem value={'little'} primaryText="A little" />
-                  <MenuItem value={'moderate'} primaryText="Moderate" />
-                  <MenuItem value={'good'} primaryText="Good" />
-                  <MenuItem value={'proficient'} primaryText="Proficient" />
-                  <MenuItem value={'vim'} primaryText="Vim" />
-                </FormsySelect>
+                <div className="fullWidth">
+                  <FormsySelect
+                    required
+                    name='codingBackground'
+                    floatingLabelText="Programming Experience*">
+                    <MenuItem value={'none'} primaryText="None" />
+                    <MenuItem value={'little'} primaryText="A little" />
+                    <MenuItem value={'moderate'} primaryText="Moderate" />
+                    <MenuItem value={'good'} primaryText="Good" />
+                    <MenuItem value={'proficient'} primaryText="Proficient" />
+                    <MenuItem value={'vim'} primaryText="Vim" />
+                  </FormsySelect>
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'github'
-                  hintText = "Just your username."
-                  floatingLabelText = "GitHub"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    name = 'github'
+                    hintText = "Just your username."
+                    floatingLabelText = "GitHub"
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'likeToSee'
-                  hintText = "Anything you would like to see?"
-                  floatingLabelText = "Anything you would like to see?"
-                  multiLine={true}
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    name = 'likeToSee'
+                    hintText = "Anything you would like to see?"
+                    floatingLabelText = "Anything you would like to see?"
+                    multiLine={true}
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'questions'
-                  hintText = "Any questions?"
-                  floatingLabelText = "Any questions?"
-                  multiLine={true}
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    name = 'questions'
+                    hintText = "Any questions?"
+                    floatingLabelText = "Any questions?"
+                    multiLine={true}
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'about'
-                  hintText = "Just a few lines."
-                  floatingLabelText = "Tell us about yourself"
-                  multiLine={true}
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    name = 'about'
+                    hintText = "Just a few lines."
+                    floatingLabelText = "Tell us about yourself"
+                    multiLine={true}
+                  />
+                </div>
 
                 <FormsyToggle style={{display: 'block'}}
                   name='autogroup'
@@ -235,25 +261,29 @@ class Register extends Component {
                   label="Would you like to be a mentor?"
                 />
 
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'password'
-                  type = 'password'
-                  validations={{matchRegexp: /.{7}.+/}}
-                  validationError="At least eight characters please"
-                  hintText = "What is your password?"
-                  floatingLabelText = "Password"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'password'
+                    type = 'password'
+                    validations={{matchRegexp: /.{7}.+/}}
+                    validationError="At least eight characters please"
+                    hintText = "What is your password?"
+                    floatingLabelText = "Password*"
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  required
-                  name = 'confirmpassword'
-                  type = 'password'
-                  validations="equalsField:password"
-                  validationError="Does not match"
-                  hintText = "Confirm Password"
-                  floatingLabelText = "Confirm Password"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    required
+                    name = 'confirmpassword'
+                    type = 'password'
+                    validations="equalsField:password"
+                    validationError="Does not match"
+                    hintText = "Confirm Password"
+                    floatingLabelText = "Confirm Password*"
+                  />
+                </div>
 
                 <div className="recaptcha-wrapper">
                   <Recaptcha
@@ -262,11 +292,13 @@ class Register extends Component {
                   />
                 </div>
 
-                <RaisedButton
-                  type = "submit"
-                  label = "Submit"
-                  disabled = {!submission.canSubmit}
-                />
+                <div className="fullWidth">
+                  <RaisedButton
+                    type = "submit"
+                    label = "Submit"
+                    disabled = {!submission.canSubmit}
+                  />
+                </div>
               </Formsy.Form>
             </Col>
           </Row>
