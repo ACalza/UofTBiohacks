@@ -7,6 +7,13 @@ import counter from './reducers/counter.js'
 import snacker from './reducers/snacker.js'
 import Layout from './components/Layout'
 
+import about from './markdown/about.md'
+import why from './markdown/why.md'
+import overview from './markdown/overview.md'
+import faq from './markdown/faq.md'
+
+console.log(faq)
+
 class Index extends Component {
   tick = () => {
     const { dispatch } = this.props
