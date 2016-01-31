@@ -167,7 +167,7 @@ class GroupControl extends Component {
                     <p>
                       {groupModel.pendingInvites.map((user, i) =>
 
-                        <li key={Math.random()*1000000}>{user.username}</li>
+                        <li key={i}>{user.username}</li>
 
                       )
                       }
