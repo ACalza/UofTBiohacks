@@ -116,24 +116,11 @@ class Register extends Component {
                   />
                 </div>
 
-                <FormsyRadioGroup name="scienceType" defaultSelected="other">
-                  <FormsyRadio
-                    value="lifesci"
-                    label="Life Scientist"
-                  />
-                  <FormsyRadio
-                    value="compsci"
-                    label="Computer Scientist"
-                  />
-                  <FormsyRadio
-                    value="bioinformatics"
-                    label="Bioinformatics"
-                  />
-                  <FormsyRadio
-                    value="other"
-                    label="Other"
-                  />
-                </FormsyRadioGroup>
+                <input type="radio" name="scienceType" value="lifesci">Life Science</input><br></br>
+                <input type="radio" name="scienceType" value="compsci">Computer Science</input><br></br>
+                <input type="radio" name="scienceType" value="bioinformatics">Bioinformatics</input><br></br>
+                <input type="radio" name="scienceType" value="other">Other</input>
+
 
                 <div className="fullWidth">
                   <FormsyText style={{display: 'block'}}
@@ -188,18 +175,10 @@ class Register extends Component {
                 <p>
                   How did you hear about the event?
                 </p>
-                <FormsyToggle
-                  name='hearFacebook'
-                  label="Facebook"
-                />
-                <FormsyToggle
-                  name='hearMailingList'
-                  label="Mailing List"
-                />
-                <FormsyToggle
-                  name='hearWordOfMouth'
-                  label="Word of Mouth"
-                />
+                <input type="checkbox" name="hearFrom" value="hearFacebook">Facebook</input><br></br>
+                <input type="checkbox" name="hearFrom" value="hearMailingList">Mailing List</input><br></br>
+                <input type="checkbox" name="hearFrom" value="hearWordOfMouth">Word of Mouth</input><br></br>
+                <input type="checkbox" name="hearFrom" value="hearOther">Other</input><br></br>
 
 
                 <div className="fullWidth">
@@ -251,15 +230,8 @@ class Register extends Component {
                   />
                 </div>
 
-                <FormsyToggle style={{display: 'block'}}
-                  name='autogroup'
-                  label="Auto group?"
-                />
-
-                <FormsyToggle style={{display: 'block'}}
-                  name='mentor'
-                  label="Would you like to be a mentor?"
-                />
+                <input type="checkbox" name="mentor" value="mentor">Would you like to be a mentor?</input><br></br>
+                <input type="checkbox" name="autogroup" value="autogroup">Would you like to be auto-assigned to a group?</input><br></br>
 
                 <div className="fullWidth">
                   <FormsyText style={{display: 'block'}}
