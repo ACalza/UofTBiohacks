@@ -80,7 +80,9 @@ module.exports.saveGrouptoDatabase = function* (){
 // /group/:group   query database by group id and attach to this.groupModel
 module.exports.findGroupbyId = function* (id, next) {         //middleware for attaching matching group document to this.groupModel
     try {
-      let groupModel = yield Group.findById(id).populate('users').exec();
+
+      let groupModel = yield Group.findById(id).populate(['users', 'pendingInvites']).exec();
+
       if (!groupModel) {
         this.status = 404                              // this is a koa context that encapsulates req and res
         util.errorResponse(this)
@@ -132,12 +134,15 @@ module.exports.inviteUserstoGroup = function* (){
             }
           }
           user.invites.push([this.groupModel._id])
-          let result = yield user.save()
-          result.password = undefined
+          user = yield user.save()
+          yield Group.update({_id: this.groupModel._id}, {$push: {pendingInvites: user._id}})
+          user.password = undefined
+          let groupModel = yield Group.findById(this.groupModel._id).populate(["users", "pendingInvites"]).exec()
+
           this.body = {
-            groupModel: this.groupModel,
-            userModel: result,
-            message:'successfully invited ' + user.name
+            groupModel: groupModel,
+            userModel: user,
+            message:'successfully invited ' + user.username
           }
 
       } catch(err){
@@ -166,7 +171,8 @@ module.exports.acceptInvite = function* (){
         let userResult = yield User.update({_id: this.userModel._id}, {$set: {group: this.groupModel._id}})
         // push current user to group.users
 
-        let groupResult = yield Group.update({_id: this.groupModel._id}, {$addToSet: {users: this.userModel._id}})
+        let groupResult = yield Group.update({_id: this.groupModel._id}, {$addToSet: {users: this.userModel._id},
+                                                                           $pull: {pendingInvites: this.userModel._id}})
         //Mongoose won't let me chain the update, so I need to re-search and get.
         groupResult = yield Group.findById(this.groupModel._id).populate("users").exec()
         let user = yield User.findOne({_id: this.userModel._id})
@@ -188,7 +194,7 @@ module.exports.rejectInvite = function* (){
 
       // remove current group from user.invites
       let userResult = yield User.update({_id: this.userModel._id}, {$pull: {invites: this.groupModel._id}})
-
+      yield Group.update({_id: this.groupModel._id}, {$pull: {pendingInvites: this.userModel._id}})
       let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
       this.body = {
           userModel: user,
@@ -204,7 +210,6 @@ module.exports.rejectInvite = function* (){
 // GET /group/:group/leave
 module.exports.leaveGroup = function* (){
     try {
-        console.log(this.groupModel._id)
         // remove user.group field
         let userResult = yield User.update({_id: this.userModel._id}, {$unset: {group: ""}, $pull : {invites:  this.groupModel._id}})
         // remove user from group.users array
