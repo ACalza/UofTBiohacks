@@ -87,6 +87,7 @@ module.exports.validateRegistration = function*(next) {
 // POST /user/register    save POST data to user model and store in database, while issuing a token
 module.exports.saveUsertoDatabase = function*() {
   let verificationToken = yield crypto.randomBytes(20);
+
   let user = new User({
     email: this.request.body.email,
     password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
@@ -98,11 +99,8 @@ module.exports.saveUsertoDatabase = function*() {
     codingBackground: this.request.body.codingBackground,
     about: this.request.body.about,
     autogroup: this.request.body.autogroup,
-    customSchool: this.request.body.customSchool,
     github: this.request.body.github,
-    hearFacebook: this.request.body.hearFacebook,
-    hearMailingList: this.request.body.hearMailingList,
-    hearWordOfMouth: this.request.body.hearWordOfMouth,
+    hearFrom: this.request.body.hearFrom,
     likeToSee: this.request.body.likeToSee,
     mentor: this.request.body.mentor,
     questions: this.request.body.questions,
@@ -178,7 +176,7 @@ module.exports.requestLogin = function*() {
           }, {
             username: emailOrUsername
           }]
-        }).populate('invites').select('+password').aexec()
+        }).populate('invites').select('+password').exec()
       //code kind of a cluster....running out of time
       if(userModel && !userModel.verified){
         this.body = {

@@ -45,7 +45,7 @@ let userSchema = mongoose.Schema({
   github: String,
   education: String,
   mentor: Boolean,
-  autoGroup: Boolean,
+  autogroup: Boolean,
   scienceType: String,
   school: String,
   year: Number,

@@ -57,7 +57,6 @@ class Register extends Component {
         model.autogroup = false
       }
 
-      console.log(model)
       dispatch(canNotSubmit())
       dispatch(openSnack("Validating..."))
       ajaxPost(model, '/user/register', null, (err, data) => {
@@ -73,6 +72,7 @@ class Register extends Component {
             setTimeout(() => window.location.assign('/') ,5000)
           }else{
             dispatch(openSnack(data.message))
+            dispatch(canSubmit())
           }
         }
       })
