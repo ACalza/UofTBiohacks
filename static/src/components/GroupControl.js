@@ -98,7 +98,7 @@ class GroupControl extends Component {
 
             <FormsyText style={{display: 'block'}}
               name = 'name'
-              required hintText = "What is your group name?"
+               hintText = "What is your group name?"
               floatingLabelText = "Group Name"
             />
             <RaisedButton
@@ -124,7 +124,7 @@ class GroupControl extends Component {
 
           <FormsyText style={{display: 'block'}}
             name = 'emailOrUsername'
-            required hintText = "Username or Email"
+             hintText = "Username or Email"
             floatingLabelText = "Invite a user to your group"
           />
 
@@ -157,6 +157,27 @@ class GroupControl extends Component {
             label = "Leave Group"
             onTouchTap = {this.leaveGroupHandler}
           />
+          {
+            (()=> {
+              if(groupModel.pendingInvites.length > 0){
+                return (
+                  <div className="pendingInvites">
+                  <h2>Pending Invites</h2>
+
+                    <p>
+                      {groupModel.pendingInvites.map((user, i) =>
+
+                        <li key={Math.random()*1000000}>{user.username}</li>
+
+                      )
+                      }
+                    </p>
+
+                </div>
+                )
+              }
+            })()
+          }
         </Formsy.Form>
       </div>
     )
@@ -166,6 +187,7 @@ class GroupControl extends Component {
   render() {
     const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel, account} = this.props
     let content = null
+    console.log(groupModel)
     if(!isInGroup && !account.authorizing){
       if(!hasInvites){
         content =
