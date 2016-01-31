@@ -10,7 +10,11 @@ import { Row, Col } from 'react-bootstrap'
 
 import MyRadioGroup from '../components/MyRadioGroup.js'
 import PureTextInput from '../components/PureTextInput.js'
+
 import PureRadioGroup from '../components/PureRadioGroup.js'
+
+import PureSelect from '../components/PureSelect.js'
+
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import Layout from '../components/Layout'
@@ -139,21 +143,22 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsySelect
+                  <PureSelect
                     required
                     name='school'
                     floatingLabelText="School*"
-                  >
-                    <MenuItem value={'uoft'} primaryText="University of Toronto" />
-                    <MenuItem value={'queens'} primaryText="Queen's University" />
-                    <MenuItem value={'waterloo'} primaryText="University of Waterloo" />
-                    <MenuItem value={'mcmaster'} primaryText="McMaster University" />
-                    <MenuItem value={'ryerson'} primaryText="Ryerson University" />
-                    <MenuItem value={'york'} primaryText="York University" />
-                    <MenuItem value={'ottowa'} primaryText="University of Ottawa" />
-                    <MenuItem value={'notInSchool'} primaryText="Not in School" />
-                    <MenuItem value={'other'} primaryText="Other" />
-                  </FormsySelect>
+                    items={[
+                      { value: 'uoft', text: "University of Toronto" },
+                      { value: 'queens', text: "Queen's University" },
+                      { value: 'waterloo', text: "University of Waterloo" },
+                      { value: 'mcmaster', text: "McMaster University" },
+                      { value: 'ryerson', text: "Ryerson University" },
+                      { value: 'york', text: "York University" },
+                      { value: 'ottowa', text: "University of Ottawa" },
+                      { value: 'notInSchool', text: "Not in School" },
+                      { value: 'other', text: "Other" }
+                    ]}
+                  />
                 </div>
 
                 <div className="fullWidth">
@@ -165,18 +170,20 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                  <FormsySelect
-                    required
-                    name='year'
-                    floatingLabelText="Year of Study*">
-                    <MenuItem value={'1'} primaryText="1" />
-                    <MenuItem value={'2'} primaryText="2" />
-                    <MenuItem value={'3'} primaryText="3" />
-                    <MenuItem value={'4'} primaryText="4" />
-                    <MenuItem value={'5'} primaryText="5" />
-                    <MenuItem value={'5+'} primaryText="5+" />
-                    <MenuItem value={'na'} primaryText="n/a" />
-                  </FormsySelect>
+                <PureSelect
+                  required
+                  name='year'
+                  floatingLabelText="Year of Study*"
+                  items={[
+                    { value: '1', text: "1" },
+                    { value: '2', text: "2" },
+                    { value: '3', text: "3" },
+                    { value: '4', text: "4" },
+                    { value: '5', text: "5" },
+                    { value: '5+', text: "5+" },
+                    { value: 'na', text: "n/a" }
+                  ]}
+                />
                 </div>
 
                 <p>
