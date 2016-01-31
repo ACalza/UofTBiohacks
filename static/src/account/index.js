@@ -86,4 +86,11 @@ class Account extends Component {
 
 const mapStateToProps = ({ snacker, submission, account }) => ({ snacker, submission, account })
 
+class Test extends Component {
+  render() {
+    return(<h1>ACCOUNT FFS</h1>)
+  }
+}
+
 export default mount(connect(mapStateToProps)(Account), { snacker, submission, account })
+// export default Test
