@@ -3,7 +3,7 @@ import PureComponent from 'react-pure-render/component'
 
 import {FormsyRadio, FormsyRadioGroup } from 'formsy-material-ui'
 
-export default class MyRadioGroup extends PureComponent {
+export default class PureRadioGroup extends PureComponent {
   render() {
     const { type, name, pairs } = this.props
 

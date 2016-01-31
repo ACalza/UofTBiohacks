@@ -10,9 +10,7 @@ import { Row, Col } from 'react-bootstrap'
 
 import MyRadioGroup from '../components/MyRadioGroup.js'
 import PureTextInput from '../components/PureTextInput.js'
-
 import PureRadioGroup from '../components/PureRadioGroup.js'
-
 import PureSelect from '../components/PureSelect.js'
 
 import snacker from '../reducers/snacker.js'
@@ -122,17 +120,15 @@ class Register extends Component {
                     floatingLabelText = "Last Name*"
                   />
                 </div>
-                <div className="fullWidth">
 
-                <PureRadioGroup name="scienceType"
-                    pairs={[
-                            { value: 'lifesci', text: 'Life Science' },
-                            {value: 'compsci', text: 'Computer Science' },
-                            { value: 'bioinformatics', text: 'Bioinformatics' },
-                            { value: 'other', text: 'Other' }
-                          ]}
+                <MyRadioGroup name="scienceType" pairs={[
+                    { value: 'lifesci', label: 'Life Science' },
+                    { value: 'compsci', label: 'Computer Science' },
+                    { value: 'bioinformatics', label: 'Bioinformatics' },
+                    { value: 'other', label: 'Other' }
+                  ]}
                 />
-                </div>
+
                 <div className="fullWidth">
                   <PureTextInput
                     required
@@ -170,30 +166,30 @@ class Register extends Component {
                 </div>
 
                 <div className="fullWidth">
-                <PureSelect
-                  required
-                  name='year'
-                  floatingLabelText="Year of Study*"
-                  items={[
-                    { value: '1', text: "1" },
-                    { value: '2', text: "2" },
-                    { value: '3', text: "3" },
-                    { value: '4', text: "4" },
-                    { value: '5', text: "5" },
-                    { value: '5+', text: "5+" },
-                    { value: 'na', text: "n/a" }
-                  ]}
-                />
+                  <PureSelect
+                    required
+                    name='year'
+                    floatingLabelText="Year of Study*"
+                    items={[
+                      { value: '1', text: "1" },
+                      { value: '2', text: "2" },
+                      { value: '3', text: "3" },
+                      { value: '4', text: "4" },
+                      { value: '5', text: "5" },
+                      { value: '5+', text: "5+" },
+                      { value: 'na', text: "n/a" }
+                    ]}
+                  />
                 </div>
 
                 <p>
                   How did you hear about the event?
                 </p>
                 <MyRadioGroup type="checkbox" name="hearFrom" pairs={[
-                  { value: 'hearFacebook', text: 'Facebook' },
-                  { value: 'hearMailingList', text: 'Mailing List' },
-                  { value: 'hearWordOfMouth', text: 'Word of Mouth' },
-                  { value: 'hearOther', text: 'Other' }
+                  { value: 'hearFacebook', label: 'Facebook' },
+                  { value: 'hearMailingList', label: 'Mailing List' },
+                  { value: 'hearWordOfMouth', label: 'Word of Mouth' },
+                  { value: 'hearOther', label: 'Other' }
                 ]} />
 
                 <div className="fullWidth">
@@ -245,9 +241,9 @@ class Register extends Component {
                   />
                 </div>
 
-                <MyRadioGroup type="checkbox" name="mentor" pairs={[
-                  { value: 'mentor', text: 'Would you like to be a mentor?' },
-                  { value: 'autogroup', text: 'Would you like to be auto-assigned to a group?' },
+                <MyRadioGroup name="mentor" pairs={[
+                  { value: 'mentor', label: 'Would you like to be a mentor?' },
+                  { value: 'autogroup', label: 'Would you like to be auto-assigned to a group?' },
                 ]} />
 
                 <div className="fullWidth">
