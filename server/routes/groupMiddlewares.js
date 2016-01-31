@@ -185,14 +185,14 @@ module.exports.acceptInvite = function* (){
 // GET /group/:group/reject
 module.exports.rejectInvite = function* (){
   try{
-      console.log('user ' + this.userModel._id + ' reject invitation from group ' + this.groupModel._id)
+
       // remove current group from user.invites
       let userResult = yield User.update({_id: this.userModel._id}, {$pull: {invites: this.groupModel._id}})
 
       let user = yield User.findOne({_id: this.userModel._id}).populate('group invites').exec()    // get the curernt most update of userModel
       this.body = {
           userModel: user,
-          message: this.userModel._id + "successfully rejected " + this.groupModel._id
+          message: 'You have succesfully rejected an invitation from group ' + this.groupModel.name
       }
   }catch(err){
       console.error(err)

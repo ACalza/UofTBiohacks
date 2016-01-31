@@ -34,26 +34,6 @@ class Account extends Component {
   render() {
     const { snacker, submission, account, dispatch } = this.props
     let content = null
-    // console.log(this.props)
-    // if (account.authorized) {
-    //   content =
-    //   <div className="controlpanel">
-    //     <h2>Hello, {account.userModel.firstName}</h2>
-    //     <GroupControl
-    //       isInGroup={account.isInGroup}
-    //       groupModel={account.groupModel}
-    //       userModel = {account.userModel}
-    //       hasInvites={account.hasInvites}
-    //       canInvite = {account.canInvite}
-    //     />
-    //   </div>
-    // } else if (!account.authorizing && !account.authorized){
-    //   //redirect for tampering with jwt or jwt expired
-    //   content = null
-    // }
-    // else {
-    //   content = <p>Loading...</p>
-    // }
 
     if (canUseDOM) {
       if (account.authorized) {

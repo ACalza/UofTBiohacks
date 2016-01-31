@@ -61,6 +61,18 @@ class GroupControl extends Component {
       }
     }))
   };
+  rejectInviteHandler = (modelid) => {
+    const {dispatch} = this.props
+    dispatch(canNotSubmit())
+    dispatch(authorize(BASE_URI + '/group/' + modelid + '/reject', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': 'bearer ' + sessionStorage.jwt
+      }
+    }))
+  };
 
   leaveGroupHandler = () => {
     const {dispatch, groupModel} = this.props
@@ -167,13 +179,21 @@ class GroupControl extends Component {
           <div className="invites">
           <h2>Pending Invites</h2>
             {userModel.invites.map((model, i) =>
-              <div key={i/2.0}>{model.name}
+              <div key={Math.random()*1000000}>{model.name}
                 <RaisedButton
-                  key={i}
+                  key={Math.random()*1000000}
                   type = "Submit"
                   label = "Accept"
                   onTouchTap = {() => {
                     this.acceptInviteHandler(model._id)
+                  }}
+                />
+                <RaisedButton
+                  key={Math.random()*1000000}
+                  type = "Submit"
+                  label = "Reject"
+                  onTouchTap = {() => {
+                    this.rejectInviteHandler(model._id)
                   }}
                 />
               </div>
