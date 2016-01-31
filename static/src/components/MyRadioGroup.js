@@ -1,6 +1,6 @@
 import React from 'react'
 import PureComponent from 'react-pure-render/component'
-
+import {FormsyRadio, FormsyRadioGroup, FormsyCheckbox } from 'formsy-material-ui'
 export default class MyRadioGroup extends PureComponent {
   render() {
     const { type, name, pairs } = this.props

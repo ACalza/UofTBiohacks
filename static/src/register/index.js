@@ -10,7 +10,7 @@ import { Row, Col } from 'react-bootstrap'
 
 import MyRadioGroup from '../components/MyRadioGroup.js'
 import PureTextInput from '../components/PureTextInput.js'
-
+import PureRadioGroup from '../components/PureRadioGroup.js'
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
 import Layout from '../components/Layout'
@@ -118,14 +118,17 @@ class Register extends Component {
                     floatingLabelText = "Last Name*"
                   />
                 </div>
+                <div className="fullWidth">
 
-                <MyRadioGroup type="radio" name="scienceType" pairs={[
-                  { value: 'lifesci', text: 'Life Science' },
-                  { value: 'compsci', text: 'Computer Science' },
-                  { value: 'bioinformatics', text: 'Bioinformatics' },
-                  { value: 'other', text: 'Other' }
-                ]} />
-
+                <PureRadioGroup name="scienceType"
+                    pairs={[
+                            { value: 'lifesci', text: 'Life Science' },
+                            {value: 'compsci', text: 'Computer Science' },
+                            { value: 'bioinformatics', text: 'Bioinformatics' },
+                            { value: 'other', text: 'Other' }
+                          ]}
+                />
+                </div>
                 <div className="fullWidth">
                   <PureTextInput
                     required
