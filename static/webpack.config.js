@@ -5,6 +5,7 @@ const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 const definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
 })
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // NOTE IF YOU CHANGE THIS FILE, CHANGE webpack.node.js
 
@@ -33,11 +34,15 @@ module.exports = {
       loader: 'babel'
     }, {
       test: /\.scss$/,
-      loader: 'ignore'
-    }]
+      loader: ExtractTextPlugin.extract('style', 'css!sass')
+    }, {
+     test: /\.(woff2?|ttf|eot|svg)$/,
+     loader: 'url?limit=100000'
+   }]
   },
   plugins: [
     commonsPlugin,
-    definePlugin
+    definePlugin,
+    new ExtractTextPlugin('[name].css')
   ]
 }
