@@ -28,6 +28,9 @@ module.exports = {
     }, {
       test: /\.scss$/,
       loader: 'ignore'
+    }, {
+      test: /\.md$/,
+      loader: 'ignore'
     }]
   },
   plugins: [
