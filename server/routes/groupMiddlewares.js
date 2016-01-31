@@ -174,7 +174,7 @@ module.exports.acceptInvite = function* (){
         let groupResult = yield Group.update({_id: this.groupModel._id}, {$addToSet: {users: this.userModel._id},
                                                                            $pull: {pendingInvites: this.userModel._id}})
         //Mongoose won't let me chain the update, so I need to re-search and get.
-        groupResult = yield Group.findById(this.groupModel._id).populate("users").exec()
+        groupResult = yield Group.findById(this.groupModel._id).populate(["users", "pendingInvites").exec()
         let user = yield User.findOne({_id: this.userModel._id})
         this.body = {
             userModel: user,
