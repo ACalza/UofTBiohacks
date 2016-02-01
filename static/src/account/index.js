@@ -50,8 +50,7 @@ class Account extends Component {
           />
         </div>
       } else if (!account.authorizing && !account.authorized){
-        //redirect for tampering with jwt or jwt expired
-        content = null
+        window.location.assign("/login")
       }
     } else {
       content = <p>Loading...</p>
