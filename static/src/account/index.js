@@ -14,6 +14,7 @@ import Layout from '../components/Layout'
 import ReactRedirect from "react-redirect"
 import GroupControl from '../components/GroupControl'
 import { BASE_URI } from '../constants/uris.js'
+import { Row, Col } from 'react-bootstrap'
 
 class Account extends Component {
 
@@ -58,8 +59,14 @@ class Account extends Component {
 
     return(
       <Layout push>
-        {content}
-      </Layout>
+        <div className="container">
+          <Row>
+            <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+            {content}
+            </Col>
+        </Row>
+      </div>
+    </Layout>
     )
   }
 }

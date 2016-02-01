@@ -29,7 +29,6 @@ import '../styles/Register.scss'
 class Register extends Component {
   constructor() {
     super()
-
     this.state = {
       customSchool: false,
       canSubmit: false,

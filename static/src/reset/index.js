@@ -16,7 +16,7 @@ import Layout from '../components/Layout'
 import { BASE_URI } from '../constants/uris.js'
 import { ajaxPost } from '../util/ajax.js'
 import {FRONT_END_URL} from '../../../shared/constants'
-
+import { Row, Col } from 'react-bootstrap'
 import '../styles/navigation.scss'
 
 class ResetPassword extends Component {
@@ -119,8 +119,14 @@ class ResetPassword extends Component {
 
     return (
       <Layout push>
-        <h2>Reset Password</h2>
-        {content}
+        <div className="container">
+          <Row>
+            <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+              <h2>Reset Password</h2>
+              {content}
+            </Col>
+          </Row>
+        </div>
       </Layout>
     )
 

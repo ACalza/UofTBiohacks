@@ -13,6 +13,7 @@ import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/sub
 import Layout from '../components/Layout'
 import {FRONT_END_URL} from '../../../shared/constants'
 import { ajaxPost } from '../util/ajax.js'
+import { Row, Col } from 'react-bootstrap'
 
 class Verify extends Component {
   constructor(props){
@@ -56,6 +57,8 @@ class Verify extends Component {
             }
           }
         })
+      }else{
+        dispatch(openSnack("Invalid Token, redirecting in 5 seconds"))
       }
     }
   }
@@ -74,8 +77,14 @@ class Verify extends Component {
 
     return(
       <Layout push>
-        <h2>Email Verification</h2>
-        <CircularProgress size={2} />
+        <div className="container">
+          <Row>
+              <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+                <h2>Email Verification</h2>
+                <CircularProgress size={2} />
+              </Col>
+          </Row>
+        </div>
       </Layout>
     )
   }

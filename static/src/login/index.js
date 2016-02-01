@@ -18,7 +18,7 @@ import submission from '../reducers/submission.js'
 import ReactRedirect from "react-redirect"
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
-
+import { Row, Col } from 'react-bootstrap'
 
 import Layout from '../components/Layout'
 
@@ -111,52 +111,57 @@ class Login extends Component {
     ];
     return(
       <Layout push>
-        <h2>Login Page</h2>
-        <Formsy.Form
-          onValidSubmit = {this.submitForm}
-          onValid = {() => dispatch(canSubmit())}
-          onInvalid = {() => dispatch(canNotSubmit())}
-        >
+        <div className="container">
+          <Row>
+            <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+              <h2>Login Page</h2>
+              <Formsy.Form
+                onValidSubmit = {this.submitForm}
+                onValid = {() => dispatch(canSubmit())}
+                onInvalid = {() => dispatch(canNotSubmit())}
+              >
 
-          <FormsyText style={{display: 'block'}}
-            name = 'emailOrUsername'
-            required hintText = "What is your email or username?"
-            floatingLabelText = "Email or Username"
-          />
+                <FormsyText style={{display: 'block'}}
+                  name = 'emailOrUsername'
+                  required hintText = "What is your email or username?"
+                  floatingLabelText = "Email or Username"
+                />
 
-          <FormsyText style={{display: 'block'}}
-            name = 'password'
-            type = 'password'
-            required hintText = "What is your password?"
-            floatingLabelText = "Password"
-          />
+                <FormsyText style={{display: 'block'}}
+                  name = 'password'
+                  type = 'password'
+                  required hintText = "What is your password?"
+                  floatingLabelText = "Password"
+                />
 
-          <RaisedButton
-            type = "submit"
-            label = "Submit"
-            disabled = {!submission.canSubmit}
-          />
+                <RaisedButton
+                  type = "submit"
+                  label = "Submit"
+                  disabled = {!submission.canSubmit}
+                />
 
-        </Formsy.Form>
-        <a href="#" onClick={()=> this.handleForgetPassword()}>Forgot Password?</a>
-        <Dialog
-            title="Password reset"
-            actions={actions}
-            modal={false}
-            open={this.state.forgotPassword}
-            onRequestClose={this.handleClose}>
+              </Formsy.Form>
+              <a href="#" onClick={()=> this.handleForgetPassword()}>Forgot Password?</a>
+              <Dialog
+                  title="Password reset"
+                  actions={actions}
+                  modal={false}
+                  open={this.state.forgotPassword}
+                  onRequestClose={this.handleClose}>
 
-            <TextField
-              floatingLabelText="Email"
-              hintText="Enter your Email"
-              errorStyle={{color: this.state.forgotPasswordErrorColor}}
-              value={this.state.forgotPasswordEmail}
-              onChange={this.handleforgetInputChange}
-              errorText={this.state.forgotPasswordError}
-            />
-          </Dialog>
-        {this.checkLoggedIn()}
-
+                  <TextField
+                    floatingLabelText="Email"
+                    hintText="Enter your Email"
+                    errorStyle={{color: this.state.forgotPasswordErrorColor}}
+                    value={this.state.forgotPasswordEmail}
+                    onChange={this.handleforgetInputChange}
+                    errorText={this.state.forgotPasswordError}
+                  />
+                </Dialog>
+              {this.checkLoggedIn()}
+            </Col>
+          </Row>
+        </div>
       </Layout>
     )
   }
