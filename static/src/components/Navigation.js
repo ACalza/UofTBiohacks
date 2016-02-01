@@ -3,13 +3,10 @@ import React, { Component } from 'react'
 import '../styles/navigation.scss'
 
 export default class Navigation extends Component {
-<<<<<<< HEAD
   // logout() {
   //   sessionStorage.removeItem('jwt')
   //   window.location.assign('/')
   // }
-=======
->>>>>>> 10c40214f70ff12c83763fa03814a64120f077f9
 
   render() {
     // loggedIn or loggedOut
