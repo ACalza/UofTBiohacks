@@ -7,12 +7,13 @@ import mount from '../mount.js'
 import snacker from '../reducers/snacker.js'
 import {Snackbar, RaisedButton} from 'material-ui/lib'
 
-
+import CircularProgress from 'material-ui/lib/circular-progress';
 import {openSnack} from '../actions/snacker'
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 import Layout from '../components/Layout'
 import {FRONT_END_URL} from '../../../shared/constants'
 import { ajaxPost } from '../util/ajax.js'
+import {Spinner} from 'elemental'
 
 class Verify extends Component {
   constructor(props){
@@ -40,7 +41,6 @@ class Verify extends Component {
           if (err) {
             console.error(err)
           } else {
-            console.log(data)
             if(data.success){
               dispatch(openSnack(data.message))
               dispatch(canNotSubmit())
@@ -63,14 +63,12 @@ class Verify extends Component {
 
   render() {
     const { snacker, submission, dispatch } = this.props
-    let content = <p>Verifying Email</p>
+
 
     if (canUseDOM) {
       if (!this.state.valid) {
-        content = <p>Invalid Token, redirecting in 5 seconds</p>
         setTimeout(() => window.location.assign("/") ,5000)
       } else if (this.state.emailVerified){
-        content = <p>Email Verified!</p>
         setTimeout(() => window.location.assign("/login") , 5000)
       }
     }
@@ -78,7 +76,7 @@ class Verify extends Component {
     return(
       <Layout push>
         <h2>Email Verification</h2>
-        {content}
+        <CircularProgress size={2} />
       </Layout>
     )
   }
