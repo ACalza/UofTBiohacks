@@ -214,7 +214,7 @@ class Register extends Component {
                       { value: '3', text: "3" },
                       { value: '4', text: "4" },
                       { value: '5', text: "5" },
-                      { value: '5+', text: "5+" },
+                      { value: '99999', text: "5+" },
                       { value: '-1', text: "n/a" }
                     ]}
                     disabled={this.state.disabled}
