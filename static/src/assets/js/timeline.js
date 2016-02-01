@@ -27,7 +27,7 @@ export default {
     'title': 'Presentations',
   },
   '11:30 a.m.': {
-    // Please insert BrendanFrey.jpg here in a bubble on the side
+    // Please insert AlanDavidson.jpg here in a bubble on the side
     'title': 'Closing Keynote Speech from Prof. Alan Davidson',
     'content': 'Alan Davidson is a Professor at University of Toronto Department of Molecular Genetics and Department of Biochemistry. He is well-known with his research in bioinformatics, protein structure determination, in vitro biochemical studies and in vivo functional studies.'
   },
