@@ -22,13 +22,17 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 
 
 export default function mount(Connected, reducers) {
-  const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
-  const store = createStoreWithMiddleware(combineReducers(reducers))
+  let component
 
-  const component =
-    <Provider store={store}>
+  if (reducers) {
+    const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
+    const store = createStoreWithMiddleware(combineReducers(reducers))
+    component = <Provider store={store}>
       <Connected />
     </Provider>
+  } else {
+    component = <Connected />
+  }
 
   if (canUseDOM) {
     injectTapEventPlugin()

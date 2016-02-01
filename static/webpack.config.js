@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const webpack = require('webpack')
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'common'});
 const definePlugin = new webpack.DefinePlugin({
@@ -41,6 +42,13 @@ module.exports = {
     }, {
      test: /\.md$/,
      loader: "html!markdown"
+   }, {
+     test: /\.json$/,
+     loader: 'json'
+   }],
+   postLoaders: [{
+      include: path.resolve(__dirname, 'node_modules/pixi.js'),
+      loader: 'transform?brfs'
     }]
   },
   plugins: [
