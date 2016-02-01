@@ -38,22 +38,31 @@ class Register extends Component {
   }
 
   submitForm = (model) => {
+    console.log(model)
+
     const { dispatch } = this.props
     const captchaVerify = grecaptcha.getResponse()
     model.year = Number(model.year)
 
+    if (model.school === 'other' && (model.customSchool === undefined || model.customSchool === '')) {
+      dispatch(openSnack('Please fill in other school'))
+      return
+    }
+
     if (captchaVerify.length !== 0) {
-      if(model.customSchool){
-        model.education = model.customSchool
+      if (model.customSchool) {
+        model.school = model.customSchool
       }
-      if(model.mentor){
+
+      if (model.mentor) {
         model.mentor = true
-      }else{
+      } else {
         model.mentor = false
       }
-      if(model.autogroup){
+
+      if (model.autogroup) {
         model.autogroup = true
-      }else{
+      } else {
         model.autogroup = false
       }
 
@@ -160,6 +169,7 @@ class Register extends Component {
                       { value: 'bioinformatics', label: 'Bioinformatics' },
                       { value: 'other', label: 'Other' }
                     ]}
+                    value="other"
                     disabled={this.state.disabled}
                   />
                 </div>
@@ -224,13 +234,19 @@ class Register extends Component {
                 <p>
                   How did you hear about the event?
                 </p>
-                <MyRadioGroup type="checkbox" name="hearFrom" pairs={[
-                  { value: 'hearFacebook', label: 'Facebook' },
-                  { value: 'hearMailingList', label: 'Mailing List' },
-                  { value: 'hearWordOfMouth', label: 'Word of Mouth' },
-                  { value: 'hearOther', label: 'Other' }
-                ]}
-                disabled={this.state.disabled} />
+                <div className="fullWidth">
+                  <MyRadioGroup
+                    type="checkbox"
+                    name="hearFrom"
+                    pairs={[
+                      { value: 'hearFacebook', label: 'Facebook' },
+                      { value: 'hearMailingList', label: 'Mailing List' },
+                      { value: 'hearWordOfMouth', label: 'Word of Mouth' },
+                      { value: 'hearOther', label: 'Other' }
+                    ]}
+                    disabled={this.state.disabled}
+                  />
+                </div>
 
                 <div className="fullWidth">
                   <PureSelect
@@ -291,10 +307,14 @@ class Register extends Component {
                 </div>
 
                 <PureCheckBox
-                  items = {[{value: 'mentor', text: 'Would you like to be a mentor?'}]}
+                  name="mentor"
+                  label="Would you like to be a mentor?"
+                  disabled={this.state.disabled}
                 />
                 <PureCheckBox
-                  items = {[{value: 'autogroup', text: 'Would you like to be automatically joined with another group?'}]}
+                  name="autogroup"
+                  label="Would you like to be automatically joined with another group?"
+                  disabled={this.state.disabled}
                 />
 
                 <div className="fullWidth">
