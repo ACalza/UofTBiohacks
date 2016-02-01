@@ -13,7 +13,6 @@ import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/sub
 import Layout from '../components/Layout'
 import {FRONT_END_URL} from '../../../shared/constants'
 import { ajaxPost } from '../util/ajax.js'
-import {Spinner} from 'elemental'
 
 class Verify extends Component {
   constructor(props){
