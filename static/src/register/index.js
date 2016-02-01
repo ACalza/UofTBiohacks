@@ -38,8 +38,6 @@ class Register extends Component {
   }
 
   submitForm = (model) => {
-    console.log(model)
-
     const { dispatch } = this.props
     const captchaVerify = grecaptcha.getResponse()
     model.year = Number(model.year)
@@ -89,20 +87,6 @@ class Register extends Component {
       dispatch(openSnack('Please do recaptcha'))
     }
   };
-
-  // onChange = (model) => {
-  //   const { school } = model
-  //
-  //   if (this.state.school !== 'other' && school === 'other') {
-  //     this.setState({
-  //       customSchool: true
-  //     })
-  //   } else if (this.state.school === 'other' && school !== 'other'){
-  //     this.setState({
-  //       customSchool: false
-  //     })
-  //   }
-  // };
 
   render() {
     const { submission, dispatch } = this.props
