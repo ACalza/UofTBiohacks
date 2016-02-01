@@ -3,6 +3,13 @@ import React, { Component } from 'react'
 import '../styles/navigation.scss'
 
 export default class Navigation extends Component {
+<<<<<<< HEAD
+  // logout() {
+  //   sessionStorage.removeItem('jwt')
+  //   window.location.assign('/')
+  // }
+=======
+>>>>>>> 10c40214f70ff12c83763fa03814a64120f077f9
 
   render() {
     // loggedIn or loggedOut
@@ -26,10 +33,10 @@ export default class Navigation extends Component {
           links.push(<li key={i}><a href={link} className="navLink nav-link">{link.substr(1)}</a></li>)
 
         if (link === '!logout')
-          links.push(<li key={i}><a onClick={()=> {
+          links.push(<li key={i}><a onClick={() => {
             sessionStorage.removeItem('jwt')
-            window.location.assign('/')}
-          } className="navLink nav-link">log out</a></li>)
+            window.location.assign('/')
+          }} className="navLink nav-link">log out</a></li>)
       })
 
       return links

@@ -1,6 +1,7 @@
 'use strict'
 let config = require('./config');
-let bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+const Promise = require('bluebird')
 
 module.exports = {
   /**
@@ -21,6 +22,26 @@ module.exports = {
    */
   bcrypt: function(password) {
     return bcrypt.hashSync(password, 8) // Auto-generate a salt (8) and hash the password and salt
+  },
+
+  bcryptHashAsync: function(password) {
+    return new Promise( (resolve, reject) => {
+      bcrypt.hash(password, 8, (err, hash) => {
+        if (err) return reject(err)
+
+        resolve(hash)
+      })
+    })
+  },
+
+  bcryptCompareAsync: function(password, hash) {
+    return new Promise( (resolve, reject) => {
+      bcrypt.compare(password, hash, (err, res) => {
+        if (err) return reject(err)
+
+        resolve(res)
+      })
+    })
   },
 
   trim: function(string) {

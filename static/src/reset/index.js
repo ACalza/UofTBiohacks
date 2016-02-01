@@ -54,8 +54,8 @@ class ResetPassword extends Component {
     const { dispatch } = this.props
     if(model.password !== model.confirmPassword){
       dispatch(openSnack("Passwords do not Match!"))
-    }else if(model.password.length <= 8){
-      dispatch(openSnack("Password must be greater than 8 characters"))
+    }else if(model.password.length < 8){
+      dispatch(openSnack("Password must be greater than 7 characters"))
     }else{
       model.token = this.state.token
       ajaxPost(model, '/user/reset', null, (err, data) => {
