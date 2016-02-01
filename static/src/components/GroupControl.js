@@ -8,6 +8,8 @@ import {Snackbar, RaisedButton} from 'material-ui/lib'
 import account from '../reducers/account.js'
 import { authorize } from '../actions/account.js'
 
+import { Row, Col } from 'react-bootstrap'
+
 import { openSnack, eatSnack } from '../actions/snacker.js'
 
 import snacker from '../reducers/snacker.js'
@@ -96,17 +98,19 @@ class GroupControl extends Component {
             onValid = {() => dispatch(canSubmit())}
             onInvalid = {() => dispatch(canNotSubmit())}>
 
-            <FormsyText style={{display: 'block'}}
-              name = 'name'
-              hintText = "What is your group name?"
-              floatingLabelText = "Group Name"
-            />
-            <RaisedButton
-              type = "submit"
-              label = "Submit"
-              disabled = {!submission.canSubmit}
-            />
-          </Formsy.Form>
+
+                <FormsyText style={{display: 'block'}}
+                  name = 'name'
+                  hintText = "What is your group name?"
+                  floatingLabelText = "Group Name"
+                />
+
+                <RaisedButton style={{display: 'block'}}
+                  type = "submit"
+                  label = "Submit"
+                  disabled = {!submission.canSubmit}
+                />
+            </Formsy.Form>
         </div>
       )
   };
