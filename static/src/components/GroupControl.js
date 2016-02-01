@@ -98,7 +98,7 @@ class GroupControl extends Component {
 
             <FormsyText style={{display: 'block'}}
               name = 'name'
-               hintText = "What is your group name?"
+              hintText = "What is your group name?"
               floatingLabelText = "Group Name"
             />
             <RaisedButton
@@ -232,6 +232,7 @@ class GroupControl extends Component {
     return (
       <div className="groupControl">
         {content}
+        <p>You are welcome to create a group and invite your friends, or contact your friends to be invited into their group.</p>
       </div>
     )
   }

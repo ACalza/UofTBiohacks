@@ -44,7 +44,7 @@ class Layout extends Component {
               open={snacker.open}
               message={snacker.message}
               action="close"
-              autoHideDuration={4000}
+              autoHideDuration={10000}
               onActionTouchTap={() => dispatch(eatSnack())}
               onRequestClose={() => dispatch(eatSnack())}
             />
