@@ -41,6 +41,14 @@ class ResetPassword extends Component {
       }
     }
   }
+  componentDidMount(){
+    const { dispatch } = this.props
+    if(!this.state.valid){
+      dispatch(openSnack("Error proccessing token, redirecting in 5 seconds"))
+      setTimeout(() => window.location.assign('/') ,5000)
+    }
+
+  }
 
   submitForm = (model) => {
     const { dispatch } = this.props
@@ -50,8 +58,6 @@ class ResetPassword extends Component {
       dispatch(openSnack("Password must be greater than 8 characters"))
     }else{
       model.token = this.state.token
-      console.log(BASE_URI + '/user/reset')
-      console.log(model)
       ajaxPost(model, '/user/reset', null, (err, data) => {
       if (err) {
         console.error(err)
@@ -62,8 +68,10 @@ class ResetPassword extends Component {
           this.setState({
             changedPass: true
           })
+          setTimeout(() => window.location.assign("/") ,5000)
         }else{
-          dispatch(openSnack("Error proccessing password, invalid token/password"))
+          dispatch(openSnack("Error proccessing token, redirecting in 5 seconds"))
+          setTimeout(() => window.location.assign("/") ,5000)
         }
       }
     })
@@ -106,14 +114,9 @@ class ResetPassword extends Component {
 
         </Formsy.Form>
 
-    } else if (canUseDOM) {
-      if (this.state.changedPass) {
-        content = <p>Password has been successfully resetted!  Redirecting! </p>
-        setTimeout(() => window.location.assign('/login') ,5000)
-      } else {
-        content = <p>Invalid Token, redirecting in 5 seconds</p>
-        setTimeout(() => window.location.assign('/') ,5000)
-      }
+    } else {
+      content = <p>Invalid Token, redirecting in 5 seconds</p>
+
     }
 
 
