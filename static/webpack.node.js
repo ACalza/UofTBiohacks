@@ -30,7 +30,7 @@ module.exports = {
       loader: 'ignore'
     }, {
       test: /\.md$/,
-      loader: 'ignore'
+      loaders: ['html', 'markdown']
     }]
   },
   plugins: [
