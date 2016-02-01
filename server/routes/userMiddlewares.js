@@ -88,9 +88,18 @@ module.exports.validateRegistration = function*(next) {
 module.exports.saveUsertoDatabase = function*() {
   let verificationToken = yield crypto.randomBytes(20);
 
+  let hashedPassword
+  try {
+    hashedPassword = yield util.bcryptHashAsync(this.request.body.password)
+  } catch(err) {
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
+  }
+
   let user = new User({
     email: this.request.body.email,
-    password: util.bcrypt(this.request.body.password), //8 bit hashing 2^8 rounds is sufficent for now
+    password: hashedPassword, //8 bit hashing 2^8 rounds is sufficent for now
     firstName: this.request.body.firstName,
     lastName: this.request.body.lastName,
     username: this.request.body.username,
@@ -108,6 +117,7 @@ module.exports.saveUsertoDatabase = function*() {
     scienceType: this.request.body.scienceType,
     verificationToken: verificationToken.toString('hex')
   })
+
   try {
     let model = yield user.save() // save new user in database
     model.password = undefined;
@@ -177,13 +187,16 @@ module.exports.requestLogin = function*() {
             username: emailOrUsername
           }]
         }).populate('invites').select('+password').exec()
+
       //code kind of a cluster....running out of time
-      if(userModel && !userModel.verified){
+      let passwordComparison = yield util.bcryptCompareAsync(password, userModel.password)
+      
+      if (userModel && !userModel.verified) {
         this.body = {
           message: "Email has not been verified",
           verification: false
         }
-      }else if (userModel && bcrypt.compareSync(password, userModel.password)) {
+      } else if (userModel && passwordComparison) {
         // mask password and grant token
         userModel.password = undefined;
         this.userModel = userModel // this.userModel persists for the entire session
@@ -351,7 +364,8 @@ module.exports.resetConfirmationPassword = function * (){
         success: false
       }
     }
-    user.password = util.bcrypt(this.request.body.password);
+    //user.password = util.bcrypt(this.request.body.password);
+    user.password = yield util.bcryptHashAsync(this.request.body.password)
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
 
