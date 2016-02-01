@@ -12,6 +12,7 @@ import './styles/Home.scss'
 
 // import viz from './assets/js/viz.js'
 
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import about from './markdown/about.md'
 import why from './markdown/why.md'
@@ -25,9 +26,16 @@ class Index extends Component {
   }
 
   render() {
+    let status
+    if (canUseDOM && sessionStorage.getItem('jwt')) {
+      status = 'loggedIn'
+    } else {
+      status = 'loggedOut'
+    }
+
     return(
       <div className="fillY">
-        <Navigation />
+        <Navigation title="" status={status} />
         <div className="Splash">
           <div id="viz" />
           <div className="headerPush" />
