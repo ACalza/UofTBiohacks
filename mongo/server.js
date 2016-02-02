@@ -6,6 +6,6 @@ let app = express();
 
 app.use('/mongo_express', mongo_express(mongo_express_config))
 
-app.listen(3002, function () {
-  console.log('Example app listening on port 3002!');
+app.listen(6009, function () {
+  console.log('Example app listening on port 6009!');
 });

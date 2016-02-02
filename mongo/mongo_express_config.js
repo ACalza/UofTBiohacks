@@ -17,12 +17,13 @@ if (process.env.VCAP_SERVICES) {
     mongo = env[dbLabel][0].credentials;
   }
 } else {
+
   mongo = {
-    db:       'db',
+    db:       'biohacks',
     host:     'localhost',
-    password: 'pass',
+    password: 'W7Gs67ep6s57DDpfqC4EQt',
     port:     27017,
-    url:      '"mongodb://localhost:27017/db',
+    url:      '"mongodb://localhost:27017/biohacks',
     username: 'admin',
   };
 }
