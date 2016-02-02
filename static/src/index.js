@@ -10,7 +10,7 @@ import Timeline from './components/Timeline.js'
 
 import './styles/Home.scss'
 
-// import viz from './assets/js/viz.js'
+import viz from './assets/js/viz.js'
 
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
@@ -64,7 +64,7 @@ class Index extends Component {
         <div style={{backgroundColor: '#eee'}}>
           <Timeline />
         </div>
-        <div className="lightBlock">
+        <div className="lightBlock2">
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
@@ -77,7 +77,7 @@ class Index extends Component {
             </Row>
           </div>
         </div>
-        <div className="darkBlock">
+        <div className="darkBlock2">
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
@@ -90,7 +90,7 @@ class Index extends Component {
             </Row>
           </div>
         </div>
-        <div className="lightBlock">
+        <div className="lightBlock2">
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>

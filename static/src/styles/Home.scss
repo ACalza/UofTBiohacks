@@ -68,6 +68,15 @@
   background-color: $titleDarkBlue;
 }
 
+.lightBlock2, .darkBlock2 {
+  background-color: #eee;
+
+  .panel {
+    background-color: white;
+    border-shadow: 0px 0px 2px 2px rgba(0,0,0,0.5);
+  }
+}
+
 .my-panel-default {
   border: 0;
   padding: 15px;

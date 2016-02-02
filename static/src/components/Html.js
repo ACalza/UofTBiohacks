@@ -49,7 +49,7 @@ export default class Html extends Component {
           <link href={`/${name}.css`} rel="stylesheet"></link>
         </head>
         <body>
-          <div id="app" dangerouslySetInnerHTML={{__html: body}} />
+          <div id="app" className="fillY" dangerouslySetInnerHTML={{__html: body}} />
           <script src={'/common.js'} />
           <script src={`/${name}.js`} />
 
