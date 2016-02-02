@@ -21,7 +21,7 @@ import faq from './markdown/faq.md'
 
 class Index extends Component {
   componentDidMount() {
-    // viz('viz')
+    viz('viz')
     console.log('home mounted')
   }
 
