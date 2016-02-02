@@ -333,6 +333,11 @@ class Register extends Component {
                   />
                 </div>
 
+                <p>
+                  If you would like us to pass your resume onto our sponsors,
+                  please email it to <a href="mailto:uoftbiohacks@gmail.com">uoftbiohacks@gmail.com</a>.
+                </p>
+
                 <div className="fullWidth">
                   <RaisedButton
                     type = "submit"
