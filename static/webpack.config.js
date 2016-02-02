@@ -7,6 +7,7 @@ const definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
 })
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // NOTE IF YOU CHANGE THIS FILE, CHANGE webpack.node.js
 
@@ -54,6 +55,7 @@ module.exports = {
   plugins: [
     commonsPlugin,
     definePlugin,
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new CopyWebpackPlugin([{ from: 'public' }])
   ]
 }
