@@ -102,7 +102,7 @@ module.exports.saveUsertoDatabase = function*() {
     password: hashedPassword, //8 bit hashing 2^8 rounds is sufficent for now
     firstName: this.request.body.firstName,
     lastName: this.request.body.lastName,
-    username: this.request.body.username,
+    username: this.request.body.username.toLowerCase(),
     education: this.request.body.education,
     year: this.request.body.year,
     codingBackground: this.request.body.codingBackground,
@@ -190,7 +190,7 @@ module.exports.requestLogin = function*() {
 
       //code kind of a cluster....running out of time
       let passwordComparison = yield util.bcryptCompareAsync(password, userModel.password)
-      
+
       if (userModel && !userModel.verified) {
         this.body = {
           message: "Email has not been verified",
