@@ -9,6 +9,15 @@ $timeOffset: 140px;
 $timelineBlockBorderColor: $titleLightBlue;
 $timelineBGColour: #eee;
 
+.headshot-wrapper {
+  text-align: center;
+
+  .headshot {
+    width: 50%;
+    border-radius: 50%;
+  }
+}
+
 .Timeline {
   margin-top: -90px;
   position: relative;
@@ -20,7 +29,7 @@ $timelineBGColour: #eee;
   &::before {
     content: '';
     position: absolute;
-    top: -10%;
+    top: -5%;
     left: 50%;
     height: 110%;
     width: 4px;

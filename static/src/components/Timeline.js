@@ -18,7 +18,7 @@ export default class Timeline extends Component {
           <span className="time">{time}</span>
           <span className="circle"></span>
           <h3 className="timeline-title">{timeline[time].title}</h3>
-          <p>{timeline[time].content}</p>
+          <div dangerouslySetInnerHTML={{__html: timeline[time].content}}></div>
         </div>
       )
     })
