@@ -2,7 +2,9 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({ name: 'common'});
+const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({
+  name: 'common'
+});
 const definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
 })
@@ -14,7 +16,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 // some nice hardcoding
 module.exports = {
   entry: {
-    index: './src/index.js',
+    index: ['font-awesome-webpack!./font-awesome.config.js', './src/index.js'],
     login: './src/login/index.js',
     register: './src/register/index.js',
     account: './src/account/index.js',
@@ -38,16 +40,22 @@ module.exports = {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style', 'css!sass')
     }, {
-     test: /\.(woff2?|ttf|eot|svg)$/,
-     loader: 'url?limit=100000'
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url?limit=10000&mimetype=application/font-woff'
     }, {
-     test: /\.md$/,
-     loader: "html!markdown"
-   }, {
-     test: /\.json$/,
-     loader: 'json'
-   }],
-   postLoaders: [{
+      test: /\.(|ttf|eot|svg)$/,
+      loader: 'url?limit=100000'
+    }, {
+      test: /\.(ttf|eot|svg)\?v=[0-9]\.[0-9]\.[0-9]$/,
+      loader: 'file'
+    }, {
+      test: /\.md$/,
+      loader: "html!markdown"
+    }, {
+      test: /\.json$/,
+      loader: 'json'
+    }],
+    postLoaders: [{
       include: path.resolve(__dirname, 'node_modules/pixi.js'),
       loader: 'transform?brfs'
     }]
@@ -56,6 +64,8 @@ module.exports = {
     commonsPlugin,
     definePlugin,
     new ExtractTextPlugin('[name].css'),
-    new CopyWebpackPlugin([{ from: 'public' }])
+    new CopyWebpackPlugin([{
+      from: 'public'
+    }])
   ]
 }

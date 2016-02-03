@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk'
 
 import Snackbar from 'material-ui/lib/snackbar'
 
+// import 'font-awesome-webpack!../font-awesome.config.js'
 import './styles/vendor/bootstrap.scss'
 import './styles/index.scss'
 
