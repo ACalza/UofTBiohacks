@@ -51,13 +51,6 @@ module.exports = {
     }, {
       test: /\.md$/,
       loader: "html!markdown"
-    }, {
-      test: /\.json$/,
-      loader: 'json'
-    }],
-    postLoaders: [{
-      include: path.resolve(__dirname, 'node_modules/pixi.js'),
-      loader: 'transform?brfs'
     }]
   },
   plugins: [
