@@ -16,8 +16,8 @@ export default class Timeline extends Component {
       timelineBlocks.push(
         <div className={blockClass} key={i}>
           <span className="time">{time}</span>
-          <span className="circle"></span>
-          <h3 className="timeline-title">{timeline[time].title}</h3>
+          <span className="circle"><i className={timeline[time].icon}></i></span>
+          <h3 className="timeline-title" dangerouslySetInnerHTML={{__html: timeline[time].title}}></h3>
           <div dangerouslySetInnerHTML={{__html: timeline[time].content}}></div>
         </div>
       )
