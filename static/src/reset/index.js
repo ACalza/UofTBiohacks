@@ -124,7 +124,7 @@ class ResetPassword extends Component {
       <Layout push>
         <div className="container">
           <Row>
-            <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+            <Col className="WideForm" xs={12} md={6} mdOffset={3} style={{textAlign: 'center'}}>
               <h2>Reset Password</h2>
               {content}
             </Col>

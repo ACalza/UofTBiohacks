@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import FMUI, { FormsyText } from 'formsy-material-ui'
 import TextField from 'material-ui/lib/text-field'
-import {Snackbar, RaisedButton} from 'material-ui/lib'
+import {Snackbar, RaisedButton, List, ListItem } from 'material-ui/lib'
 
 import account from '../reducers/account.js'
 import { authorize } from '../actions/account.js'
@@ -37,6 +37,7 @@ class GroupControl extends Component {
       body: JSON.stringify(model)
     }))
   };
+
   inviteUser = (model) => {
     const {dispatch, groupModel} = this.props
     dispatch(canNotSubmit())
@@ -51,6 +52,7 @@ class GroupControl extends Component {
     }))
 
   };
+
   acceptInviteHandler = (modelid) => {
     const {dispatch} = this.props
     dispatch(canNotSubmit())
@@ -63,6 +65,7 @@ class GroupControl extends Component {
       }
     }))
   };
+
   rejectInviteHandler = (modelid) => {
     const {dispatch} = this.props
     dispatch(canNotSubmit())
@@ -88,6 +91,7 @@ class GroupControl extends Component {
       }
     }))
   };
+
   createGroupView = () => {
     const {dispatch, submission} = this.props
     return (
@@ -98,12 +102,13 @@ class GroupControl extends Component {
             onValid = {() => dispatch(canSubmit())}
             onInvalid = {() => dispatch(canNotSubmit())}>
 
-
-                <FormsyText style={{display: 'block'}}
-                  name = 'name'
-                  hintText = "What is your group name?"
-                  floatingLabelText = "Group Name"
-                />
+                <div className="fullWidth">
+                  <FormsyText
+                    name = 'name'
+                    hintText = "What is your group name?"
+                    floatingLabelText = "Group Name"
+                  />
+                </div>
 
                 <RaisedButton style={{display: 'block'}}
                   type = "submit"
@@ -126,42 +131,51 @@ class GroupControl extends Component {
           onInvalid = {() => dispatch(canNotSubmit())}
           onValidSubmit = {this.inviteUser}>
 
-          <FormsyText style={{display: 'block'}}
-            name = 'emailOrUsername'
-             hintText = "Username or Email"
-            floatingLabelText = "Invite a user to your group"
-          />
+          <div className="fullWidth">
+            <FormsyText
+              name = 'emailOrUsername'
+               hintText = "Username or Email"
+              floatingLabelText = "Invite a user to your group"
+            />
+          </div>
 
-          <RaisedButton
-            type = "submit"
-            label = "Submit"
-            disabled = {!submission.canSubmit}
-          />
+          <div className="fullWidth padBotTen">
+            <RaisedButton
+              type = "submit"
+              label = "Submit"
+              disabled = {!submission.canSubmit}
+            />
+          </div>
+
           <table className="table table-bordered">
-          <thead>
-            <tr>
-            <th>Full name</th>
-            <th>Username</th>
-            <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groupModel.users.map((user, i) =>
-              <TableRow>
-                <td key={user.firstName}>{user.firstName + " " + user.lastName}</td>
-                <td key={user.username}>{user.username}</td>
-                <td key={user.email}>{user.email}</td>
-              </TableRow>
-            )
+            <thead>
+              <tr>
+              <th>Full name</th>
+              <th>Username</th>
+              <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groupModel.users.map((user, i) =>
+                <TableRow>
+                  <td key={user.firstName}>{user.firstName + " " + user.lastName}</td>
+                  <td key={user.username}>{user.username}</td>
+                  <td key={user.email}>{user.email}</td>
+                </TableRow>
+              )
 
-          }
-          </tbody>
-        </table>
-          <RaisedButton
-            type = "submit"
-            label = "Leave Group"
-            onTouchTap = {this.leaveGroupHandler}
-          />
+            }
+            </tbody>
+          </table>
+
+          <div className="fullWidth padBotTen">
+            <RaisedButton
+              type = "submit"
+              label = "Leave Group"
+              onTouchTap = {this.leaveGroupHandler}
+            />
+          </div>
+
           {
             (()=> {
               if(groupModel.pendingInvites.length > 0){
@@ -169,14 +183,11 @@ class GroupControl extends Component {
                   <div className="pendingInvites">
                   <h2>Pending Invites</h2>
 
-                    <p>
+                    <List>
                       {groupModel.pendingInvites.map((user, i) =>
-
-                        <li key={i}>{user.username}</li>
-
-                      )
-                      }
-                    </p>
+                        <ListItem key={i} primaryText={user.username} />
+                      )}
+                    </List>
 
                 </div>
                 )
@@ -186,11 +197,10 @@ class GroupControl extends Component {
         </Formsy.Form>
       </div>
     )
-
-};
+  };
 
   render() {
-    const {dispatch, snacker, isInGroup, hasInvites, groupModel, userModel, account} = this.props
+    const { dispatch, snacker, isInGroup, hasInvites, groupModel, userModel, account } = this.props
     let content = null
     if(!isInGroup && !account.authorizing){
       if(!hasInvites){
@@ -205,24 +215,33 @@ class GroupControl extends Component {
           <div className="invites">
           <h2>Pending Invites</h2>
             {userModel.invites.map((model, i) =>
-              <div key={Math.random()*1000000}>{model.name}
-                <RaisedButton
-                  key={Math.random()*1000000}
-                  type = "Submit"
-                  label = "Accept"
-                  onTouchTap = {() => {
-                    this.acceptInviteHandler(model._id)
-                  }}
-                />
-                <RaisedButton
-                  key={Math.random()*1000000}
-                  type = "Submit"
-                  label = "Reject"
-                  onTouchTap = {() => {
-                    this.rejectInviteHandler(model._id)
-                  }}
-                />
-              </div>
+              <Row key={i}>
+                <Col xs={4} md={6} style={{lineHeight: '36px'}}>
+                  {model.name}
+                </Col>
+                <Col xs={4} md={3} style={{textAlign: 'center'}}>
+                  <div className="fullWidth">
+                    <RaisedButton
+                      type = "Submit"
+                      label = "Accept"
+                      onTouchTap = {() => {
+                        this.acceptInviteHandler(model._id)
+                      }}
+                    />
+                  </div>
+                </Col>
+                <Col xs={4} md={3} style={{textAlign: 'center'}}>
+                  <div className="fullWidth">
+                    <RaisedButton
+                      type = "Submit"
+                      label = "Reject"
+                      onTouchTap = {() => {
+                        this.rejectInviteHandler(model._id)
+                      }}
+                    />
+                  </div>
+                </Col>
+              </Row>
           )}
           {this.createGroupView()}
           </div>
@@ -236,7 +255,7 @@ class GroupControl extends Component {
     return (
       <div className="groupControl">
         {content}
-        <p>You are welcome to create a group and invite your friends, or contact your friends to be invited into their group.</p>
+        <p style={{paddingTop: '10px'}}>You are welcome to create a group and invite your friends, or contact your friends to be invited into their group.</p>
       </div>
     )
   }

@@ -28,7 +28,7 @@ class Verify extends Component {
 
   componentWillMount(){
     if (canUseDOM) {
-      const {dispatch} = this.props
+      const { dispatch } = this.props
       let params = location.search.split('?token=')
 
       if (params.length == 2) {
@@ -79,7 +79,7 @@ class Verify extends Component {
       <Layout push>
         <div className="container">
           <Row>
-              <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+              <Col className="WideForm" xs={12} md={6} mdOffset={3} style={{textAlign: 'center'}}>
                 <h2>Email Verification</h2>
                 <CircularProgress size={2} />
               </Col>

@@ -121,24 +121,30 @@ class Login extends Component {
                 onInvalid = {() => dispatch(canNotSubmit())}
               >
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'emailOrUsername'
-                  required hintText = "What is your email or username?"
-                  floatingLabelText = "Email or Username"
-                />
+                <div className="fullWidth">
+                  <FormsyText
+                    name = 'emailOrUsername'
+                    required hintText = "What is your email or username?"
+                    floatingLabelText = "Email or Username"
+                  />
+                </div>
 
-                <FormsyText style={{display: 'block'}}
-                  name = 'password'
-                  type = 'password'
-                  required hintText = "What is your password?"
-                  floatingLabelText = "Password"
-                />
+                <div className="fullWidth">
+                  <FormsyText style={{display: 'block'}}
+                    name = 'password'
+                    type = 'password'
+                    required hintText = "What is your password?"
+                    floatingLabelText = "Password"
+                  />
+                </div>
 
-                <RaisedButton
-                  type = "submit"
-                  label = "Submit"
-                  disabled = {!submission.canSubmit}
-                />
+                <div className="fullWidth">
+                  <RaisedButton
+                    type = "submit"
+                    label = "Submit"
+                    disabled = {!submission.canSubmit}
+                  />
+                </div>
 
               </Formsy.Form>
               <a href="#" onClick={()=> this.handleForgetPassword()}>Forgot Password?</a>
@@ -149,14 +155,16 @@ class Login extends Component {
                   open={this.state.forgotPassword}
                   onRequestClose={this.handleClose}>
 
-                  <TextField
-                    floatingLabelText="Email"
-                    hintText="Enter your Email"
-                    errorStyle={{color: this.state.forgotPasswordErrorColor}}
-                    value={this.state.forgotPasswordEmail}
-                    onChange={this.handleforgetInputChange}
-                    errorText={this.state.forgotPasswordError}
-                  />
+                  <div className="fullWidth">
+                    <TextField
+                      floatingLabelText="Email"
+                      hintText="Enter your Email"
+                      errorStyle={{color: this.state.forgotPasswordErrorColor}}
+                      value={this.state.forgotPasswordEmail}
+                      onChange={this.handleforgetInputChange}
+                      errorText={this.state.forgotPasswordError}
+                    />
+                  </div>
                 </Dialog>
               {this.checkLoggedIn()}
             </Col>
