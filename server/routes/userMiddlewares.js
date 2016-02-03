@@ -182,7 +182,7 @@ module.exports.requestLogin = function*() {
       // query database for matching email OR username
       let userModel = yield User.findOne({
           $or: [{
-            email: emailOrUsername
+            email: emailOrUsername.toLowerCase()
           }, {
             username: emailOrUsername
           }]
