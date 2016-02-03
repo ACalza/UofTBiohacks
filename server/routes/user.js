@@ -40,13 +40,6 @@ router.param('token', function*(id, next){
       .get('/verify/:token', userMiddlewares.verifyRedirect)
       .post('/verify', userMiddlewares.verify)
 
-router.use('/all', userMiddlewares.validateAdmin)
-router.use('/all', userMiddlewares.getUsers)
-router.get('/all', function* (){  // returns json array without encrypted passwords
-    this.body = this.users;
-}),
-router.use('/all/csv', userMiddlewares.validateAdmin)
-router.post('/all/csv', userMiddlewares.getCSV)
 
 
 

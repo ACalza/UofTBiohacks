@@ -253,35 +253,6 @@ module.exports.getUsers = function*(next) {
       util.errorResponse(this);
     }
   }
-  // middlware /user/all and /user/all/csv
-module.exports.validateAdmin = function*(next) {
-  if (this.userModel && this.userModel.username === 'admin' && this.userModel.email === 'igem@g.skule.ca') {
-    yield next;
-  } else {
-    this.response.status = 403;
-    util.errorResponse(this);
-  }
-}
-
-// GET   /user/all/csv    downloads CSV containing userdata
-module.exports.getCSV = function*() {
-  this.response.set('Content-disposition', 'attachment; filename=users.csv');
-  this.type = 'text/csv';
-
-  let data = [{
-    email: "email",
-    name: "name",
-    username: "username",
-    group: "group"
-  }].concat(this.users);
-  this.body = streamify(data)
-    .pipe(through.obj(function(chunk, enc, callback) {
-      let curRow = chunk.email + ', ' + chunk.name + ', ' + chunk.username + ',' + chunk.group + '\n';
-      this.push(curRow);
-
-      callback()
-    }))
-}
 
 function sendMail(client, email) {
   return new Promise(function(res, rej) {
