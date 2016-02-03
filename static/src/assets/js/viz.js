@@ -1,5 +1,5 @@
 import d3 from 'd3'
-import PIXI from 'pixi.js'
+
 
 /**
  * Voronoi graph as an illustration of dividing cells.
@@ -7,16 +7,19 @@ import PIXI from 'pixi.js'
  * @return {none}    just calls render() at the end
  */
 export default function(id) {
+  const canvas = document.createElement('canvas')
   // ==== PIXI renderer ====
-  const W = window.innerWidth
-  const H = window.innerHeight
-  const renderer = new PIXI.autoDetectRenderer(W, H, { transparent: true, antialias: true })
-  document.getElementById(id).appendChild(renderer.view)
+  const W = canvas.width = window.innerWidth
+  const H = canvas.height = window.innerHeight
+  // const renderer = new PIXI.autoDetectRenderer(W, H, { transparent: true, antialias: true })
+  document.getElementById(id).appendChild(canvas)
+
+  const ctx = canvas.getContext('2d')
 
   // PIXI stage and graphics child
-  let stage = new PIXI.Container()
-  let graphics = new PIXI.Graphics()
-  stage.addChild(graphics)
+  // let stage = new PIXI.Container()
+  // let graphics = new PIXI.Graphics()
+  // stage.addChild(graphics)
 
   // ==== Nodes ====
   const numFactor = 10000
@@ -55,17 +58,19 @@ export default function(id) {
 
   // ==== Render ====
   const draw = () => {
-    graphics.clear()
+    clear()
 
     const path = voronoi(nodes)
-    graphics.lineStyle(2, 0xffffff, 1)
+    ctx.lineWidth = 2
+    ctx.strokeStyle = '#ffffff'
     for (let i=0; i < path.length; i++) {
+      ctx.beginPath()
       const p = path[i]
 
       // Midpoint between first and last points
       const cX = (p[0][0] + p[p.length-1][0]) / 2
       const cY = (p[0][1] + p[p.length-1][1]) / 2
-      graphics.moveTo(cX, cY)
+      ctx.moveTo(cX, cY)
 
       // Generate a midpoint between p0-p1, p1-p2, pn-pm,
       // until pm is the last point
@@ -75,41 +80,55 @@ export default function(id) {
         const mpX = (p[j][0] + p[j+1][0]) / 2
         const mpY = (p[j][1] + p[j+1][1]) / 2
 
-        graphics.quadraticCurveTo(p[j][0], p[j][1], mpX, mpY)
+        ctx.quadraticCurveTo(p[j][0], p[j][1], mpX, mpY)
       }
 
       // Complete the shape with curve from midpoint of pn-pm,
       // using pm (last point) as control, to cX,cY
-      graphics.quadraticCurveTo(p[p.length-1][0], p[p.length-1][1], cX, cY)
+      ctx.quadraticCurveTo(p[p.length-1][0], p[p.length-1][1], cX, cY)
+
+      ctx.closePath()
+      ctx.stroke()
     }
 
     const links = voronoi.links(nodes)
-    graphics.lineStyle(2, 0xffffff, 0.1)
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'
     for (let i=0; i < links.length; i++) {
       const { source, target } = links[i]
 
-      graphics.moveTo(source.x, source.y)
-      graphics.lineTo(target.x, target.y)
+      ctx.beginPath(0)
+
+      ctx.moveTo(source.x, source.y)
+      ctx.lineTo(target.x, target.y)
+
+      ctx.closePath()
+      ctx.stroke()
     }
 
 
-    graphics.lineStyle(0)
-    // graphics.lineStyle(2, 0x578ed6, 1)
-    graphics.beginFill(0xffffff, 0.5)
+    ctx.fillStyle = 'rgba(255,255,255,0.5)'
     for (let i=0; i < nodes.length; i++) {
       const { x, y, radius } = nodes[i]
 
-      graphics.drawCircle(x, y, radius)
+      ctx.beginPath()
+      ctx.arc(x, y, radius, 0, Math.PI*2)
+      ctx.closePath()
+
+      ctx.fill()
     }
   }
 
+  const clear = () => {
+    ctx.clearRect(0,0,W,H)
+  }
+
   const render = () => {
+    clear()
     draw()
-    renderer.render(stage)
+
     requestAnimationFrame(render)
   }
 
   // render()
   draw()
-  renderer.render(stage)
 }
