@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import FMUI, { FormsyText } from 'formsy-material-ui'
 import TextField from 'material-ui/lib/text-field'
-import {Snackbar, RaisedButton, List, ListItem } from 'material-ui/lib'
+import {RaisedButton, List, ListItem } from 'material-ui/lib'
 
 import account from '../reducers/account.js'
 import { authorize } from '../actions/account.js'
@@ -14,7 +14,6 @@ import { openSnack, eatSnack } from '../actions/snacker.js'
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
-import ReactRedirect from "react-redirect"
 import { BASE_URI } from '../constants/uris.js'
 
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn,

@@ -11,7 +11,7 @@ import account from '../reducers/account.js'
 
 import { authorize } from '../actions/account.js'
 import Layout from '../components/Layout'
-import ReactRedirect from "react-redirect"
+
 import GroupControl from '../components/GroupControl'
 import { BASE_URI } from '../constants/uris.js'
 import { Row, Col } from 'react-bootstrap'

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import FMUI, { FormsyText } from 'formsy-material-ui'
-import { Snackbar, RaisedButton } from 'material-ui/lib'
+import {RaisedButton } from 'material-ui/lib'
 import TextField from 'material-ui/lib/text-field'
 
 import mount from '../mount.js'
@@ -15,7 +15,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
-import ReactRedirect from "react-redirect"
+
 
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 import { Row, Col } from 'react-bootstrap'
@@ -53,8 +53,7 @@ class Login extends Component {
     let content = null
 
     if(canUseDOM && sessionStorage.jwt) {
-      content = <ReactRedirect location='/account'>
-                </ReactRedirect>
+      window.location.assign("/account")
     }
     return content
   };

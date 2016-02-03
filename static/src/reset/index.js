@@ -42,6 +42,7 @@ class ResetPassword extends Component {
     }
   }
   componentDidMount(){
+    console.log(this.state.valid);
     const { dispatch } = this.props
     if(!this.state.valid){
       dispatch(openSnack("Error proccessing token, redirecting in 5 seconds"))
