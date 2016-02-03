@@ -5,7 +5,7 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 import mount from '../mount.js'
 
 import snacker from '../reducers/snacker.js'
-import {Snackbar, RaisedButton} from 'material-ui/lib'
+import {RaisedButton} from 'material-ui/lib'
 
 import CircularProgress from 'material-ui/lib/circular-progress';
 import {openSnack} from '../actions/snacker'
