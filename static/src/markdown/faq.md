@@ -2,9 +2,9 @@
 
 ### Where, when, how?
 
-UofT BioHacks 2016 will take place on March 12­13, 2016. It will be a two day
+UofT BioHacks 2016 will take place on March 12-­13, 2016. It will be a two day
 event hosted in University of Toronto Bahen Centre for Information Technology
-Building. 
+Building.
 
 ### How do I join to a group?
 
@@ -21,7 +21,7 @@ A laptop, charger and yourself!
 
 ### How many members per team?
 
-4 members per team
+Up to 4 members per team
 
 ### I don’t have a team, should I still register?
 
@@ -34,4 +34,3 @@ Yes, refreshments and food will be provided. Participants with dietery restricti
 ### Are there any prizes awarded?
 
 Yes, judging committe will select top three teams according to their 5-10 min presentations. Top three teams will receive awards.
-
