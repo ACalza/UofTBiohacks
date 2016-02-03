@@ -1,1 +1,1 @@
-export const googleAnalyticsId = 'UA-XXXXX-X'
+export const googleAnalyticsId = 'UA-73256549-1'

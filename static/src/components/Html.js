@@ -47,6 +47,8 @@ export default class Html extends Component {
 
           <link href={`/common.css`} rel="stylesheet"></link>
           <link href={`/${name}.css`} rel="stylesheet"></link>
+
+          <GoogleAnalytics />
         </head>
         <body>
           <div id="app" className="fillY" dangerouslySetInnerHTML={{__html: body}} />
@@ -55,7 +57,6 @@ export default class Html extends Component {
 
           <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-          <GoogleAnalytics />
         </body>
       </html>
     )
