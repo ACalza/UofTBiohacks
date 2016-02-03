@@ -38,7 +38,7 @@ class Index extends Component {
         <div className="Splash">
           <div id="viz" />
           <div className="headerPush" />
-          <img className="aboveCanvas" src="http://45.55.193.224:1234/BioHacksLogo.svg" />
+          <img className="aboveCanvas" src="/BioHacksLogo.svg" />
           <h1 className="aboveCanvas"><span className="darkBlue">UofT</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
         </div>
         <div className="registerBlock">
