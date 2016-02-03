@@ -187,7 +187,11 @@ module.exports.requestLogin = function*() {
             username: emailOrUsername
           }]
         }).populate('invites').select('+password').exec()
-
+      if(!userModel){
+        return this.body = {
+          message: "Wrong password and/or email/username"
+        }
+      }
       //code kind of a cluster....running out of time
       let passwordComparison = yield util.bcryptCompareAsync(password, userModel.password)
 
