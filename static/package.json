@@ -12,6 +12,7 @@
     "build": "npm run clean; npm run webpack-node; npm run babel-node-webpack; npm run babel-node-webpack",
     "start": "browser-sync --no-notify start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "publish-staging": "npm run build; npm run js-prod; rsync -azv dist/ igemuoft@45.55.193.224:/var/www/html/staging.uoftbiohacks",
+    "publish-production": "npm run build; npm run js-prod; rsync -azv dist/ igemuoft@45.55.193.224:/var/www/html/uoftbiohacks",
     "go": "webpack --config webpack.node.js;babel-node dist/app.node.js; webpack; browser-sync start --files \"dist/*.html, dist/*.js\" --server \"dist\"",
     "clean": "rm -rf dist/*"
   },
