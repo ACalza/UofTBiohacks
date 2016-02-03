@@ -1,5 +1,4 @@
 import { SUBMIT_FORM, CAN_SUBMIT, CAN_NOT_SUBMIT, SUBMIT_RESPONSE } from '../constants/actions.js'
-import { routeActions } from 'react-router-redux'
 
 
 const initialState = {

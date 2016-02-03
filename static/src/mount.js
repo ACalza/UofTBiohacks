@@ -5,22 +5,13 @@ import { Provider } from 'react-redux'
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 import thunkMiddleware from 'redux-thunk'
 
-import Snackbar from 'material-ui/lib/snackbar'
-
-// import 'font-awesome-webpack!../font-awesome.config.js'
 import './styles/vendor/bootstrap.scss'
 import './styles/index.scss'
 
 // import './assets/js/bootstrap.js'
 
-const eatSnack = () => {
-  alert('eating snack')
-}
-
-// Required for material-ui
+// Required for material-ui atm.
 import injectTapEventPlugin from 'react-tap-event-plugin'
-// injectTapEventPlugin()
-
 
 export default function mount(Connected, reducers) {
   let component
