@@ -2,28 +2,33 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import mount from '../mount.js'
 
+// Components
 import Recaptcha from 'react-recaptcha'
 import FMUI, { FormsyText, FormsySelect, FormsyToggle, FormsyRadio, FormsyRadioGroup, FormsyCheckbox } from 'formsy-material-ui'
 import { Snackbar, RaisedButton, MenuItem, Checkbox } from 'material-ui/lib'
 import { Row, Col } from 'react-bootstrap'
-
-import { openSnack } from '../actions/snacker'
+import Layout from '../components/Layout'
 import MyRadioGroup from '../components/MyRadioGroup.js'
 import PureTextInput from '../components/PureTextInput.js'
 import PureRadioGroup from '../components/PureRadioGroup.js'
 import PureSelect from '../components/PureSelect.js'
 import PureCheckBox from '../components/PureCheckBox'
 
+// Reducers
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
-import Layout from '../components/Layout'
+
+// Actions
+import { openSnack } from '../actions/snacker'
 import { canSubmit, submitForm, canNotSubmit, loadResponse } from '../actions/submission.js'
 
+// Util
 import { ajaxPost } from '../util/ajax.js'
 
+// Constants
 import { BASE_URI } from '../constants/uris.js'
 
-
+// Styles
 import '../styles/Register.scss'
 
 class Register extends Component {
