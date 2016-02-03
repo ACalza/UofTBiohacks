@@ -10,12 +10,12 @@ import snacker from '../reducers/snacker.js'
 import { RaisedButton } from 'material-ui/lib'
 import TextField from 'material-ui/lib/text-field'
 
-import {openSnack} from '../actions/snacker'
+import { openSnack } from '../actions/snacker'
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 import Layout from '../components/Layout'
 import { BASE_URI } from '../constants/uris.js'
 import { ajaxPost } from '../util/ajax.js'
-import {FRONT_END_URL} from '../../../shared/constants'
+import { FRONT_END_URL } from '../../../shared/constants'
 import { Row, Col } from 'react-bootstrap'
 import '../styles/navigation.scss'
 
@@ -41,6 +41,7 @@ class ResetPassword extends Component {
       }
     }
   }
+
   componentDidMount(){
     const { dispatch } = this.props
     if(!this.state.valid){
@@ -90,27 +91,33 @@ class ResetPassword extends Component {
           onInvalid = {() => dispatch(canNotSubmit())}
         >
 
-          <FormsyText style={{display: 'block'}}
-            name = 'password'
-            type = 'password'
-            required hintText = "What is your new password?"
-            floatingLabelText = "Password"
-            disabled = {this.state.changedPass}
-          />
+          <div className="fullWidth">
+            <FormsyText style={{display: 'block'}}
+              name = 'password'
+              type = 'password'
+              required hintText = "What is your new password?"
+              floatingLabelText = "Password"
+              disabled = {this.state.changedPass}
+            />
+          </div>
 
-          <FormsyText style={{display: 'block'}}
-            name = 'confirmPassword'
-            type = 'password'
-            required hintText = "Confirm your new password"
-            floatingLabelText = "Confirm Password"
-            disabled = {this.state.changedPass}
-          />
+          <div className="fullWidth">
+            <FormsyText style={{display: 'block'}}
+              name = 'confirmPassword'
+              type = 'password'
+              required hintText = "Confirm your new password"
+              floatingLabelText = "Confirm Password"
+              disabled = {this.state.changedPass}
+            />
+          </div>
 
-          <RaisedButton
-            type = "submit"
-            label = "Submit"
-            disabled = {!submission.canSubmit}
-          />
+          <div className="fullWidth">
+            <RaisedButton
+              type = "submit"
+              label = "Submit"
+              disabled = {!submission.canSubmit}
+            />
+          </div>
 
         </Formsy.Form>
 
