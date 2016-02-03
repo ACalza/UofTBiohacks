@@ -25,11 +25,11 @@ module.exports.validateRegistration = function*(next) {
   this.request.body.username = util.trim(this.request.body.username)
   this.request.body.name = util.trim(this.request.body.name)
 
-  let email = this.request.body.email
+  let email = this.request.body.email.toLowerCase()
   let password = this.request.body.password
   let firstName = this.request.body.firstName
   let lastName = this.request.body.lastName
-  let username = this.request.body.username
+  let username = this.request.body.username.toLowerCase()
   let education = this.request.body.education
   let year = this.request.body.year
   let codingBackground = this.request.body.codingBackground
@@ -60,10 +60,10 @@ module.exports.validateRegistration = function*(next) {
     util.errorResponse(this)
   } else{
     let modelByEmail = yield User.findOne({
-      email: this.request.body.email
+      email: this.request.body.email.toLowerCase()
     })
     let modelByUsername = yield User.findOne({
-      username: this.request.body.username
+      username: this.request.body.username.toLowerCase()
     })
     if (modelByEmail || modelByUsername) { // if email OR username already in database
       if (modelByEmail) {
@@ -98,7 +98,7 @@ module.exports.saveUsertoDatabase = function*() {
   }
 
   let user = new User({
-    email: this.request.body.email,
+    email: this.request.body.email.toLowerCase(),
     password: hashedPassword, //8 bit hashing 2^8 rounds is sufficent for now
     firstName: this.request.body.firstName,
     lastName: this.request.body.lastName,
@@ -171,7 +171,7 @@ module.exports.getAuthentication = function*(){
 // POST /user/login       check for invalid input, query database for matching email and password and grant token
 module.exports.requestLogin = function*() {
   // assign variable
-  let emailOrUsername = util.trim(this.request.body.emailOrUsername)
+  let emailOrUsername = util.trim(this.request.body.emailOrUsername).toLowerCase()
   let password = this.request.body.password
     // check for invalid input
   if (!emailOrUsername || !password) {
@@ -182,12 +182,16 @@ module.exports.requestLogin = function*() {
       // query database for matching email OR username
       let userModel = yield User.findOne({
           $or: [{
-            email: emailOrUsername.toLowerCase()
+            email: emailOrUsername
           }, {
             username: emailOrUsername
           }]
         }).populate('invites').select('+password').exec()
-
+      if(!userModel){
+        return this.body = {
+          message: "Wrong password and/or email/username"
+        }
+      }
       //code kind of a cluster....running out of time
       let passwordComparison = yield util.bcryptCompareAsync(password, userModel.password)
 

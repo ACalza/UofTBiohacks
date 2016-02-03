@@ -24,9 +24,9 @@ let app = koa();
 if (process.env.mongodblocal === 'true') {
   mongoose.connect('mongodb://localhost/biohacks')
 } else {
-  mongoose.connect('mongodb://biohacks:hacker@ds037095.mongolab.com:37095/biohacks', {
-    user: 'biohacks',
-    pass: 'hacker'
+  mongoose.connect('mongodb://localhost/biohacks/', {
+    user: 'igemuoftbiohacks',
+    pass: 'IDe26PhnmpOMrhjIOS6GZQ'
   })
 }
 var db = mongoose.connection;
