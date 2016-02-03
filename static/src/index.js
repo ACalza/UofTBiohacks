@@ -47,7 +47,7 @@ class Index extends Component {
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
-                    <h2><i className="fa fa-calendar"></i>March 12-13</h2>
+                    <h2><i className="fa fa-calendar"></i> March 12-13</h2>
 
                     <div className="buttonHolder">
                       <button type="button" className="btn btn-primary btn-lg"><a href="/register">Register</a></button>

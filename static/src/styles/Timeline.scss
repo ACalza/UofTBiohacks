@@ -2,15 +2,22 @@
 
 $triangHeight: 20px;
 $triangBorder: 17px;
-$triangOffset: 20px;
+$triangOffset: 30px;
 
-$timeOffset: 140px;
+$timeOffset: 160px;
 
-$timelineBlockBorderColor: $titleLightBlue;
+$timelineBlockBorderColor: $titleDarkBlue;
 $timelineBGColour: #eee;
 
+.left .headshot-wrapper {
+  text-align: right;
+}
+
+.right .headshot-wrapper {
+  text-align: left;
+}
+
 .headshot-wrapper {
-  text-align: center;
 
   .headshot {
     width: 50%;
@@ -39,8 +46,9 @@ $timelineBGColour: #eee;
   .timeline-block {
     position: relative;
     padding: 10px;
-    border: 2px solid $timelineBlockBorderColor;
-    border-radius: 5px;
+    // border: 2px solid $timelineBlockBorderColor;
+    border-color: $timelineBlockBorderColor;
+    // border-radius: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
 
@@ -66,6 +74,7 @@ $timelineBGColour: #eee;
 
     &.right {
       margin-left: calc(50% + #{$triangHeight} + #{$triangOffset});
+      border-left: 2px solid $timelineBlockBorderColor;
 
       &::before, &::after {
         right: 100%;
@@ -84,12 +93,17 @@ $timelineBGColour: #eee;
       }
 
       .circle {
-        left: -50px;
+        left: -74px;
+
+        &:hover {
+          left: -79px;
+        }
       }
     }
 
     &.left {
       margin-right: calc(50% + #{$triangHeight} + #{$triangOffset});
+      border-right: 2px solid $timelineBlockBorderColor;
 
       &::before, &::after {
         left: 100%;
@@ -107,8 +121,16 @@ $timelineBGColour: #eee;
         right: -$timeOffset;
       }
 
+      .timeline-title, p {
+        text-align: right;
+      }
+
       .circle {
-        right: -54px;
+        right: -79px;
+
+        &:hover {
+          right: -84px;
+        }
       }
     }
   }
@@ -129,14 +151,39 @@ $timelineBGColour: #eee;
   }
 
   .circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: absolute;
     top: 50%;
-    margin-top: -10px;
-    height: 20px;
-    width: 20px;
+    margin-top: -25px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
     border: 4px solid $titleDarkBlue;
     background: #eee;
+    text-align: center;
+    line-height: 50px;
+    z-index: 2001;
+
+    transition: all 500ms ease;
+
+    i {
+      font-size: 25px;
+      color: $titleDarkBlue;
+    }
+
+    &:hover {
+      background-color: $titleDarkBlue;
+      width: 60px;
+      height: 60px;
+      margin-top: -30px;
+
+      i {
+        color: #eee;
+      }
+    }
   }
 
   .timeline-title {
@@ -165,21 +212,33 @@ $timelineBGColour: #eee;
       }
 
       .circle {
-        left: -50px !important;
+        left: -85px !important;
+
+        &:hover {
+          left: -90px !important;
+        }
       }
 
       &.left, &.right {
-        margin-left: 60px !important;
+        margin-left: 80px !important;
         margin-right: 0;
       }
 
       &.left {
+        .headshot-wrapper, .timeline-title, p {
+          text-align: left;
+        }
+
+        border-right: 0;
+        border-left: 2px solid $timelineBlockBorderColor;
+
+
         &::before, &::after {
           left: -40px !important;
         }
 
         &::before {
-          border-right-color: inherit !important;
+          border-right-color: $timelineBlockBorderColor !important;
           border-left-color: transparent;
         }
 

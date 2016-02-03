@@ -1,10 +1,15 @@
 export default {
   '1:00 p.m.': {
     'title': 'Arrival and Registration',
+    'icon': 'fa fa-sign-in'
   },
   '2:00 p.m.': {
-    // Please insert BrendanFrey.jpg here in a bubble on the side
+    'title': 'Opening Ceremony',
+    'icon': 'fa fa-flash'
+  },
+  '2:30 p.m.': {
     'title': 'Opening Keynote Speech from Prof. Brendan John Frey',
+    'icon': 'fa fa-certificate',
     'content':
     `
       <p>
@@ -18,28 +23,36 @@ export default {
       </div>
     `
   },
-  '2:30 p.m.': {
-    'title': 'Opening Keynote'
-  },
   '3:00 p.m.': {
-    'title': 'Workshops'
+    'title': 'Workshops',
+    'icon': 'fa fa-sticky-note-o'
   },
   '4:00 p.m.': {
     'title': 'Sponsor Demos',
-    'content': 'Stay tuned!'
+    'icon': 'fa fa-info',
+    'content': '<p>Stay tuned!</p>'
   },
   '5:00 p.m.': {
-    'title': 'Hacking Starts!'
+    'title': `Hacking Starts!`,
+    'icon': 'fa fa-code',
+    'content':
+    `
+      Work away at a new and interesting problem. Mentors will be available
+      all night.
+    `
   },
   '9:00 a.m.': {
-    'title': 'Presentation Sign-Up'
+    'title': 'Presentation Sign-Up',
+    'icon': 'fa fa-pencil-square-o'
   },
   '9:30 a.m.': {
     'title': 'Presentations',
+    'icon': 'fa fa-laptop'
   },
   '11:30 a.m.': {
     // Please insert AlanDavidson.jpg here in a bubble on the side
     'title': 'Closing Keynote Speech from Prof. Alan Davidson',
+    'icon': 'fa fa-language',
     'content':
     `
       <p>
@@ -54,6 +67,7 @@ export default {
     `
   },
   '12:00 p.m.': {
-    'title': 'Closing Ceremony'
+    'title': 'Closing Ceremony',
+    'icon': 'fa fa-flash'
   }
 }
