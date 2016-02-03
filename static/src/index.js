@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
 
 import mount from './mount.js'
 
@@ -12,8 +13,7 @@ import './styles/Home.scss'
 
 import viz from './assets/js/viz.js'
 
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment'
-
+// Markdown
 import about from './markdown/about.md'
 import why from './markdown/why.md'
 import overview from './markdown/overview.md'
@@ -22,7 +22,6 @@ import faq from './markdown/faq.md'
 class Index extends Component {
   componentDidMount() {
     viz('viz')
-    console.log('home mounted')
   }
 
   render() {

@@ -14,7 +14,7 @@ export default {
         machine learning.
       </p>
       <div class="headshot-wrapper">
-        <img class="headshot" src="/img/BrendanFrey.jpg" />
+        <img class="headshot" src="/img/BrendanFrey2.jpg" />
       </div>
     `
   },
