@@ -7,7 +7,7 @@ import mount from '../mount.js'
 import FMUI, { FormsyText } from 'formsy-material-ui'
 import submission from '../reducers/submission.js'
 import snacker from '../reducers/snacker.js'
-import {Snackbar, RaisedButton} from 'material-ui/lib'
+import { RaisedButton } from 'material-ui/lib'
 import TextField from 'material-ui/lib/text-field'
 
 import { openSnack } from '../actions/snacker'
@@ -43,7 +43,6 @@ class ResetPassword extends Component {
   }
 
   componentDidMount(){
-    console.log(this.state.valid);
     const { dispatch } = this.props
     if(!this.state.valid){
       dispatch(openSnack("Error proccessing token, redirecting in 5 seconds"))
