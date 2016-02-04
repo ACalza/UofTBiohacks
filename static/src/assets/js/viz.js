@@ -24,11 +24,26 @@ export default function(id) {
   // ==== Nodes ====
   const numFactor = 10000
   const numNodes = Math.floor(W * H / numFactor)
-  let nodes = Array(numNodes).fill().map( (_, i) => ({
-    x: Math.floor(Math.random()*W),
-    y: Math.floor(Math.random()*H),
-    radius: 20 + Math.floor(Math.random()*10-5)
-  }))
+  // let nodes = Array(numNodes).map( (_, i) => ({
+  //   x: Math.floor(Math.random()*W),
+  //   y: Math.floor(Math.random()*H),
+  //   radius: 20 + Math.floor(Math.random()*10-5)
+  // }))
+  // console.log("nodes", nodes)
+  // for(let i = 0; i < nodes.length; i++){
+  //
+  // }
+  let nodes = new Array(numNodes);
+  for(let i = 0; i < numNodes; i++){
+    nodes[i] = {
+      x: Math.floor(Math.random()*W),
+      y: Math.floor(Math.random()*H),
+      radius: 20 + Math.floor(Math.random()*10-5)
+    }
+    
+    //nodes[i].fill()
+  }
+  console.log("nodes", nodes)
 
   // ==== Force ====
   const charge = -700
