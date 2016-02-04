@@ -18,7 +18,7 @@ export default class Footer extends Component {
         <div className="container">
           <Row>
             <Col xs={12} md={6}>
-              Copyight &copy; {new Date().getYear() - 100 + 2000} iGEM Toronto.
+              Copyight &copy; {new Date().getYear() - 100 + 2000} <a href="http://igem.skule.ca">iGEM Toronto</a>.
             </Col>
             <Col xs={12} md={6}>
               Proudly powered by{Object.keys(poweredLinks).map( (link, i) =>

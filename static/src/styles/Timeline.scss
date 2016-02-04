@@ -214,6 +214,14 @@ $timelineBGColour: #eee;
         left: 0 !important;
       }
 
+      &.left {
+        .circle {
+          &:hover {
+            transform: translate(-5px, -5px);
+          }
+        }
+      }
+
       .circle {
         left: -85px !important;
 

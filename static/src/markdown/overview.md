@@ -1,5 +1,5 @@
 UofT BioHacks 2016 organized by iGEM Toronto will be hosted in University of
-Toronto Bahen Centre for Information Technology Building on March 12­13, 2016
+Toronto Bahen Centre for Information Technology Building on March 12­-13, 2016
 welcoming undergraduate students, professors and companies from all around
 Canada. Event will feature opening and closing keynote speeches from pioneers in
 Biology, Computer Science and Engineering disciplines, brainstorming sessions

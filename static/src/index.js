@@ -7,7 +7,7 @@ import mount from './mount.js'
 import { Row, Col } from 'react-bootstrap'
 import Navigation from './components/Navigation.js'
 import Timeline from './components/Timeline.js'
-// import Footer from './components/Footer.js'
+import Footer from './components/Footer.js'
 
 import './styles/Home.scss'
 
@@ -43,7 +43,7 @@ class Index extends Component {
         </div>
         <div className="registerBlock">
           <div className="container">
-            <Row>
+            <Row style={{marginBottom: '30px'}}>
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default grey" style={{marginBottom: '0'}}>
                   <div className="my-panel-body">
@@ -56,7 +56,7 @@ class Index extends Component {
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                 </div>
-                <div className="downTriangle light" />
+                <div className="downTriangle light" style={{marginBottom: '-13%'}}/>
               </Col>
             </Row>
           </div>
@@ -64,12 +64,17 @@ class Index extends Component {
         <div style={{backgroundColor: '#eee'}}>
           <Timeline />
         </div>
-        <div className="lightBlock2">
+        <div style={{backgroundColor: '#eee'}}>
+          <div className="downTriangle up" style={{backgroundColor: 'rgba(0,0,0,0)', marginTop: '-9%'}}/>
+        </div>
+        <div className="darkBlock">
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
-                <div className="panel my-panel-default">
+                <div className="downTriangle up light" style={{backgroundColor: 'rgba(0,0,0,0)', marginTop: '-20%'}}/>
+                <div className="panel my-panel-default grey">
                   <div className="my-panel-body">
+                    <h2 style={{textAlign: 'center'}}>Why?</h2>
                     <div id="why" dangerouslySetInnerHTML={{__html: why}} />
                   </div>
                 </div>
@@ -77,12 +82,13 @@ class Index extends Component {
             </Row>
           </div>
         </div>
-        <div className="darkBlock2">
+        <div className="darkBlock2" style={{paddingTop: '15px'}}>
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
+                    <h2 style={{textAlign: 'center'}}>What?</h2>
                     <div id="overview" dangerouslySetInnerHTML={{__html: overview}} />
                   </div>
                 </div>
@@ -96,6 +102,7 @@ class Index extends Component {
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
+                    <h2 style={{textAlign: 'center'}}>FAQ</h2>
                     <div id="faq" dangerouslySetInnerHTML={{__html: faq}} />
                   </div>
                 </div>
@@ -103,7 +110,7 @@ class Index extends Component {
             </Row>
           </div>
         </div>
-
+        <Footer />
       </div>
     )
   }

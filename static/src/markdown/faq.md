@@ -1,5 +1,3 @@
-## FAQ
-
 ### Where, when, how?
 
 UofT BioHacks 2016 will take place on March 12-­13, 2016. It will be a two day
