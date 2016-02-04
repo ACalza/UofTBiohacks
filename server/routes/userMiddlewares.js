@@ -356,7 +356,7 @@ module.exports.resetConfirmationPassword = function * (){
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
-      html: template('Hello ' + user.name + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n')
+      html: template('Hello ' + user.firstName + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n')
     };
     yield sendMail(client, email);
     this.body = {
