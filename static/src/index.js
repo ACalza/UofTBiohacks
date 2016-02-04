@@ -41,11 +41,13 @@ class Index extends Component {
           <img className="aboveCanvas" src="/BioHacksLogo.svg" />
           <h1 className="aboveCanvas"><span className="darkBlue">UofT</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
         </div>
+        <div className="downTriangle up" style={{background: '#eee'}}/>
         <div className="registerBlock">
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>
-                <div className="panel my-panel-default">
+                <div className="downTriangle light up" style={{background: '#47566D'}}/>
+                <div className="panel my-panel-default grey" style={{marginBottom: '0'}}>
                   <div className="my-panel-body">
                     <h2><i className="fa fa-calendar"></i> March 12-13</h2>
 
@@ -56,6 +58,7 @@ class Index extends Component {
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                 </div>
+                <div className="downTriangle light" />
               </Col>
             </Row>
           </div>
