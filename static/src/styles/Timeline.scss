@@ -96,7 +96,8 @@ $timelineBGColour: #eee;
         left: -74px;
 
         &:hover {
-          left: -79px;
+          // left: -79px;
+          transform: translate(-5px, -5px);
         }
       }
     }
@@ -129,7 +130,8 @@ $timelineBGColour: #eee;
         right: -79px;
 
         &:hover {
-          right: -84px;
+          transform: translate(5px, -5px)
+          // right: -84px;
         }
       }
     }
@@ -178,7 +180,8 @@ $timelineBGColour: #eee;
       background-color: $titleDarkBlue;
       width: 60px;
       height: 60px;
-      margin-top: -30px;
+      // margin-top: -30px;
+      // transform: translate(0, -30px);
 
       i {
         color: #eee;
@@ -215,7 +218,8 @@ $timelineBGColour: #eee;
         left: -85px !important;
 
         &:hover {
-          left: -90px !important;
+          // left: -90px !important;
+          transform: translate(-5px);
         }
       }
 

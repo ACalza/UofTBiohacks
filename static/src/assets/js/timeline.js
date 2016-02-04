@@ -68,6 +68,6 @@ export default {
   },
   '12:00 p.m.': {
     'title': 'Closing Ceremony',
-    'icon': 'fa fa-flash'
+    'icon': 'fa fa-fire'
   }
 }
