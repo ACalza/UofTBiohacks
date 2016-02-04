@@ -41,6 +41,9 @@ export default class Html extends Component {
           <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
           <meta name="theme-color" content="#ffffff" />
 
+          <meta property="og:url" content="https://2016.uoftbiohacks.com" />
+          <meta property="og:image" content="/img/uoftbiohacks-og.jpg" />
+
           <title>{title}</title>
 
           <script src='https://www.google.com/recaptcha/api.js' async defer></script>

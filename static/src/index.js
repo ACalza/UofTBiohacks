@@ -56,7 +56,7 @@ class Index extends Component {
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                 </div>
-                <div className="downTriangle light" style={{marginBottom: '-13%'}}/>
+                <div className="downTriangle light" style={{marginBottom: '-10%'}}/>
               </Col>
             </Row>
           </div>
