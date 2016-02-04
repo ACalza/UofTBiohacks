@@ -9,6 +9,7 @@ import submission from '../reducers/submission.js'
 import snacker from '../reducers/snacker.js'
 import { RaisedButton } from 'material-ui/lib'
 import TextField from 'material-ui/lib/text-field'
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 import { openSnack } from '../actions/snacker'
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
@@ -122,7 +123,7 @@ class ResetPassword extends Component {
         </Formsy.Form>
 
     } else {
-      content = <p>Invalid Token, redirecting in 5 seconds</p>
+      content = <CircularProgress size={2} />
 
     }
 
