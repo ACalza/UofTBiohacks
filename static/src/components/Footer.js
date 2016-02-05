@@ -31,6 +31,12 @@ export default class Footer extends Component {
               )}.
             </Col>
           </Row>
+          <div className="footer-socials">
+            <a target="_blank" href="http://igem.skule.ca"><i className="fa fa-globe"></i></a>
+            <a target="_blank" href="https://twitter.com/igem_toronto"><i className="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/iGEMToronto/"><i className="fa fa-facebook"></i></a>
+            <a target="_blank" href="mailto:igem@g.skule.ca"><i className="fa fa-envelope"></i></a>
+          </div>
         </div>
       </footer>
     )

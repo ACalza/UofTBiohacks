@@ -2,6 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({
   name: 'common'
 });
@@ -38,7 +39,7 @@ module.exports = {
       loader: 'babel'
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css!sass')
+      loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url?limit=10000&mimetype=application/font-woff'
@@ -53,6 +54,9 @@ module.exports = {
       loader: "html!markdown"
     }]
   },
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ],
   plugins: [
     commonsPlugin,
     definePlugin,

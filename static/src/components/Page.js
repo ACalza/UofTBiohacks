@@ -11,9 +11,12 @@ export default class Page extends Component {
     // see: https://support.google.com/webmasters/answer/79812?hl=en
     const metas = {
       viewport: 'width=device-width, initial-scale=1',
-      description: 'UofT BioHacks 2016 Website',
-      author: 'iGEM Toronto'
-    }
+      // description: 'UofT BioHacks 2016 Website',
+      description: `
+        UofT BioHacks 2016 will be a two day event at the Bahen Centre, Toronto.
+        Come with any experience and hack away to solve real-world biological problems!
+      `,
+      author: 'iGEM Toronto' }
 
     let bodyString
     // console.log(`went to Page.js for ${name}`)

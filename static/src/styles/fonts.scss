@@ -1,6 +1,11 @@
 @font-face {
-  font-family: 'Nord';
-  src: url(../assets/NordRegular.ttf)
+    font-family: 'nordregular';
+    src: url('../assets/fonts/nordregular/nordregular-webfont.eot');
+    src: url('../assets/fonts/nordregular/nordregular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/nordregular/nordregular-webfont.woff2') format('woff2'),
+         url('../assets/fonts/nordregular/nordregular-webfont.woff') format('woff'),
+         url('../assets/fonts/nordregular/nordregular-webfont.ttf') format('truetype'),
+         url('../assets/fonts/nordregular/nordregular-webfont.svg#nordregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
-@import url(https://fonts.googleapis.com/css?family=Dancing+Script);
-$dancing: 'Dancing Script', cursive;
