@@ -38,7 +38,7 @@ export default function(id) {
   // Events
   const onMouseMove = (e) => {
     nodes[0].x = e.clientX
-    nodes[0].y = e.clientY
+    nodes[0].y = e.clientY + window.scrollY
     force.nodes(nodes)
   }
 
@@ -48,9 +48,9 @@ export default function(id) {
       nodes = genNodes(numNodes)
       force.nodes(nodes).start()
       nodes[0].x = e.clientX
-      nodes[0].y = e.clientY
+      nodes[0].y = e.clientY + window.scrollY
       render()
-      
+
       canvas.addEventListener('mousemove', onMouseMove, false)
       document.getElementById('splashLogo').addEventListener('mousemove', onMouseMove, false)
       document.getElementById('splashTitle').addEventListener('mousemove', onMouseMove, false)
