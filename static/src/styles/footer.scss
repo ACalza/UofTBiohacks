@@ -18,6 +18,7 @@ footer {
 }
 
 .footer-socials {
+  padding-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,12 +30,21 @@ footer {
 
     width: 60px;
     height: 60px;
-    border: 2px solid $titleDarkBlue;
-
-
+    border-radius: 50%;
+    margin: 5px;
+    border: 2px solid $grey-200;
+    transition: all 500ms ease;
 
     i {
       font-size: 30px;
+    }
+
+    &:hover {
+      background-color: $grey-200;
+
+      i {
+        color: $titleDarkBlue;
+      }
     }
   }
 }

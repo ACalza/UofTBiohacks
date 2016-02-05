@@ -55,7 +55,6 @@ class Index extends Component {
                   </div>
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
-                  <h3 style={{textAlign: 'center'}}><i>Presented by</i></h3>
                   <div style={{textAlign: 'center'}}>
                     <a href="http://igem.skule.ca"><img style={{width: '40%'}} src="/img/igem.png" /></a>
                   </div>
