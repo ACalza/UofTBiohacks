@@ -36,19 +36,33 @@ export default function(id) {
   let nodes = genNodes(numNodes)
 
   // Events
+  const onMouseMove = (e) => {
+    nodes[0].x = e.clientX
+    nodes[0].y = e.clientY
+    force.nodes(nodes)
+  }
+
   const onClick = (e) => {
     if (!started) {
       started = true
       nodes = genNodes(numNodes)
       force.nodes(nodes).start()
+      nodes[0].x = e.clientX
+      nodes[0].y = e.clientY
       render()
-      console.log(e)
+      
+      canvas.addEventListener('mousemove', onMouseMove, false)
+      document.getElementById('splashLogo').addEventListener('mousemove', onMouseMove, false)
+      document.getElementById('splashTitle').addEventListener('mousemove', onMouseMove, false)
     } else {
-      console.log('Already started!')
+      started = false
+      document.getElementById('splashLogo').addEventListener('mousemove', onMouseMove, false)
+      document.getElementById('splashTitle').addEventListener('mousemove', onMouseMove, false)
     }
   }
   canvas.addEventListener('click', onClick, false)
   document.getElementById('splashLogo').addEventListener('click', onClick, false)
+  document.getElementById('splashTitle').addEventListener('click', onClick, false)
 
   // ==== Force ====
   const charge = -700
@@ -144,7 +158,9 @@ export default function(id) {
     clear()
     draw()
 
-    requestAnimationFrame(render)
+    if (started) {
+      requestAnimationFrame(render)
+    }
   }
 
   // Initially one draw one frame, post full force simulation
