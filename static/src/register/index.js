@@ -108,6 +108,7 @@ class Register extends Component {
                 onValidSubmit = {this.submitForm}
                 onValid = {() => dispatch(canSubmit())}
                 onInvalid = {() => dispatch(canNotSubmit())}
+                autocomplete={false}
               >
                 <div className="fullWidth">
                   <PureTextInput
