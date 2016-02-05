@@ -12,9 +12,11 @@ export default class Page extends Component {
     const metas = {
       viewport: 'width=device-width, initial-scale=1',
       // description: 'UofT BioHacks 2016 Website',
-      description: 'UofT BioHacks 2016 will be hosted on Jan 12 to Jan 13, 2016 at Bahen Centre, University of Toronto. In this two day event, you will have a chance to attend keynote speeches from Prof. Brendan John Frey on genome biology and machine learning, and from Prof. Alan Davidson on bioinformatics and biochemistry. There will be bioinformatics workshops followed by a hacking night to solve real-world problems in biology.',
-      author: 'iGEM Toronto'
-    }
+      description: `
+        UofT BioHacks 2016 will be a two day event at the Bahen Centre, Toronto.
+        Come with any experience and hack away to solve real-world biological problems!
+      `,
+      author: 'iGEM Toronto' }
 
     let bodyString
     // console.log(`went to Page.js for ${name}`)
