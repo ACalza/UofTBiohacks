@@ -43,6 +43,12 @@ export default class Html extends Component {
 
           <meta property="og:url" content="https://2016.uoftbiohacks.com" />
           <meta property="og:image" content="/img/uoftbiohacks-og.jpg" />
+          <meta property="og:description" content="UofT BioHacks 2016 will be hosted on Jan 12 to Jan 13, 2016 at Bahen Centre, University of Toronto. In this two day event, you will have a chance to attend keynote speeches from Prof. Brendan John Frey on genome biology and machine learning, and from Prof. Alan Davidson on bioinformatics and biochemistry. There will be bioinformatics workshops followed by a hacking night to solve real-world problems in biology. " />
+
+          <meta property="twitter:card" content="summary" />
+          <meta property="twitter:url" content="https://2016.uoftbiohacks.com" />
+          <meta property="twitter:image" content="/img/uoftbiohacks-og.jpg" />
+          <meta property="twitter:description" content="UofT BioHacks 2016 will be hosted on Jan 12 to Jan 13, 2016 at Bahen Centre, University of Toronto. In this two day event, you will have a chance to attend keynote speeches from Prof. Brendan John Frey on genome biology and machine learning, and from Prof. Alan Davidson on bioinformatics and biochemistry. There will be bioinformatics workshops followed by a hacking night to solve real-world problems in biology. " />
 
           <title>{title}</title>
 
