@@ -60,9 +60,10 @@ export default function(id) {
       document.getElementById('splashTitle').addEventListener('mousemove', onMouseMove, false)
     }
   }
-  canvas.addEventListener('click', onClick, false)
-  document.getElementById('splashLogo').addEventListener('click', onClick, false)
-  document.getElementById('splashTitle').addEventListener('click', onClick, false)
+
+  // canvas.addEventListener('click', onClick, false)
+  // document.getElementById('splashLogo').addEventListener('click', onClick, false)
+  // document.getElementById('splashTitle').addEventListener('click', onClick, false)
 
   // ==== Force ====
   const charge = -700
