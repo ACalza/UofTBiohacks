@@ -118,7 +118,6 @@ class Login extends Component {
                 onValidSubmit = {this.submitForm}
                 onValid = {() => dispatch(canSubmit())}
                 onInvalid = {() => dispatch(canNotSubmit())}
-                autoComplete="off"
               >
 
                 <div className="fullWidth">

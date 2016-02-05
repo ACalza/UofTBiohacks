@@ -107,8 +107,7 @@ class Register extends Component {
               <Formsy.Form
                 onValidSubmit = {this.submitForm}
                 onValid = {() => dispatch(canSubmit())}
-                onInvalid = {() => dispatch(canNotSubmit())}
-                autoComplete="off"
+                onInvalid = {() => dispatch(canNotSubmit())}      
               >
                 <div className="fullWidth">
                   <PureTextInput
