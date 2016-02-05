@@ -47,7 +47,7 @@ class Index extends Component {
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default grey" style={{marginBottom: '0'}}>
                   <div className="my-panel-body">
-                    <h2><i className="fa fa-calendar"></i> March 12-13</h2>
+                    <h2 style={{textAlign: 'center'}}><i className="fa fa-calendar"></i> March 12-13</h2>
 
                     <div className="buttonHolder">
                       <button type="button" className="btn btn-primary btn-lg"><a href="/register">Register</a></button>
@@ -55,6 +55,10 @@ class Index extends Component {
                   </div>
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
+                  <h3 style={{textAlign: 'center'}}><i>Presented by</i></h3>
+                  <div style={{textAlign: 'center'}}>
+                    <a href="http://igem.skule.ca"><img style={{width: '40%'}} src="/img/igem.png" /></a>
+                  </div>
                 </div>
                 <div className="downTriangle light" style={{marginBottom: '-10%'}}/>
               </Col>
@@ -83,6 +87,40 @@ class Index extends Component {
           </div>
         </div>
         <div className="darkBlock2" style={{paddingTop: '15px'}}>
+          <div className="container">
+            <Row>
+              <Col className="sponsors-wrapper" xs={12} md={8} mdOffset={2} style={{textAlign: 'center'}}>
+                <div className="panel my-panel-default">
+                  <div className="my-panel-body">
+                    <h2>Sponsors</h2>
+                    <a target="_blank" href="http://synaptivemedical.com/"><img style={{width: '50%'}} src="/img/synaptive.png" /></a>
+
+                    <p style={{paddingTop: '10px'}}>
+                      If you are interested in becoming a sponsor, check out our <a href="/U-of-T-BioHacks-2016-Sponsorship-Package.pdf">sponshorship package</a>.
+                    </p>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+        <div className="darkBlock2">
+          <div className="container">
+            <Row>
+              <Col className="sponsors-wrapper" xs={12} md={8} mdOffset={2} style={{textAlign: 'center'}}>
+                <div className="panel my-panel-default">
+                  <div className="my-panel-body">
+                    <h2>Partners</h2>
+                    <a target="_blank" href="https://cssu.ca/"><img style={{width: '25%'}} src="/img/cssu.png" /></a>
+                    <br></br>
+                    <a target="_blank" href="http://web.cs.toronto.edu/"><img style={{width: '50%', paddingTop: '10px'}} src="/img/dcs.png" /></a>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+        <div className="darkBlock2">
           <div className="container">
             <Row>
               <Col xs={12} md={8} mdOffset={2}>

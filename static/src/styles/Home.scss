@@ -2,6 +2,16 @@
 @import './colours.scss';
 @import './lumxcolors.scss';
 
+.sponsors-wrapper {
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+
+  img {
+    width: 30%;
+  }
+}
+
 .my-panel-default.grey {
   background-color: #eee !important;
 }
@@ -79,10 +89,6 @@
       color: $titleLightBlue
     }
   }
-
-  .MainLogo {
-    background-image: url(../assets/BioHacksLogo.svg);
-  }
 }
 
 #viz {
@@ -141,12 +147,13 @@
   .my-panel-default {
 
     .my-panel-body {
-      display: flex;
-      justify-content: space-between;
+      // display: flex;
+      // justify-content: space-between;
 
       .buttonHolder {
         display: flex;
         align-items: center;
+        justify-content: center;
 
         .btn-lg {
           font-size: 25px;

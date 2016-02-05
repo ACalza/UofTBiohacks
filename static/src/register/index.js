@@ -101,6 +101,9 @@ class Register extends Component {
           <Row>
             <Col className="WideForm" xs={12} md={6} mdOffset={3}>
               <h2>Register</h2>
+              <p>
+                If you are interested in volunteering, see this <a target="_blank" href="http://goo.gl/forms/l2rdrdzGzw">form</a>.
+              </p>
               <Formsy.Form
                 onValidSubmit = {this.submitForm}
                 onValid = {() => dispatch(canSubmit())}
