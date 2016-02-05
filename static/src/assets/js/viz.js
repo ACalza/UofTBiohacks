@@ -1,55 +1,59 @@
 import d3 from 'd3'
 
-
 /**
  * Voronoi graph as an illustration of dividing cells.
  * @param  {string} id the id of the dom element to append the renderer into
  * @return {none}    just calls render() at the end
  */
 export default function(id) {
+  // Create, append, get canvas context
   const canvas = document.createElement('canvas')
-  // ==== PIXI renderer ====
   const W = canvas.width = window.innerWidth
   const H = canvas.height = window.innerHeight
-  // const renderer = new PIXI.autoDetectRenderer(W, H, { transparent: true, antialias: true })
   document.getElementById(id).appendChild(canvas)
-
   const ctx = canvas.getContext('2d')
 
-  // PIXI stage and graphics child
-  // let stage = new PIXI.Container()
-  // let graphics = new PIXI.Graphics()
-  // stage.addChild(graphics)
+  // Visualization state
+  let started = false
 
   // ==== Nodes ====
   const numFactor = 10000
   const numNodes = Math.floor(W * H / numFactor)
-  // let nodes = Array(numNodes).map( (_, i) => ({
-  //   x: Math.floor(Math.random()*W),
-  //   y: Math.floor(Math.random()*H),
-  //   radius: 20 + Math.floor(Math.random()*10-5)
-  // }))
-  // console.log("nodes", nodes)
-  // for(let i = 0; i < nodes.length; i++){
-  //
-  // }
-  let nodes = new Array(numNodes);
-  for(let i = 0; i < numNodes; i++){
-    nodes[i] = {
-      x: Math.floor(Math.random()*W),
-      y: Math.floor(Math.random()*H),
-      radius: 20 + Math.floor(Math.random()*10-5)
+
+  const genNodes = (num) => {
+    let nodes = new Array(num)
+    for (let i=0; i < num; i++) {
+      nodes[i] = {
+        x: Math.floor(Math.random()*W),
+        y: Math.floor(Math.random()*H),
+        radius: 20 + Math.floor(Math.random()*10-5)
+      }
     }
-    
-    //nodes[i].fill()
+
+    return nodes
   }
-  console.log("nodes", nodes)
+
+  let nodes = genNodes(numNodes)
+
+  // Events
+  const onClick = (e) => {
+    if (!started) {
+      started = true
+      nodes = genNodes(numNodes)
+      force.nodes(nodes).start()
+      render()
+      console.log(e)
+    } else {
+      console.log('Already started!')
+    }
+  }
+  canvas.addEventListener('click', onClick, false)
+  document.getElementById('splashLogo').addEventListener('click', onClick, false)
 
   // ==== Force ====
   const charge = -700
   let force = d3.layout.force()
     .nodes(nodes)
-    // .links(links)
     .size([W, H])
     .linkStrength(0.1)
     .friction(0.9)
@@ -58,7 +62,6 @@ export default function(id) {
     .gravity(0.1)
     .theta(0.8)
     .alpha(0.1)
-    // .start()
 
   force.start()
   for (var i = 0; i < nodes.length; ++i) {
@@ -144,6 +147,6 @@ export default function(id) {
     requestAnimationFrame(render)
   }
 
-  // render()
+  // Initially one draw one frame, post full force simulation
   draw()
 }
