@@ -186,6 +186,7 @@ class Register extends Component {
                       { value: 'queens', text: "Queen's University" },
                       { value: 'waterloo', text: "University of Waterloo" },
                       { value: 'mcmaster', text: "McMaster University" },
+                      { value: 'trent', text: 'Trent University' },
                       { value: 'ryerson', text: "Ryerson University" },
                       { value: 'york', text: "York University" },
                       { value: 'ottawa', text: "University of Ottawa" },
