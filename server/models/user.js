@@ -40,7 +40,7 @@ let userSchema = mongoose.Schema({
   invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
   group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
   hearFrom: String,
-  codingbackground: String,
+  codingBackground: String,
   likeToSee: String,
   github: String,
   education: String,
@@ -49,6 +49,7 @@ let userSchema = mongoose.Schema({
   scienceType: String,
   school: String,
   year: Number,
+  about: String,
   questions: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date
