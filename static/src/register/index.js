@@ -289,12 +289,12 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
-                <p>Tell us more about yourself and why you want to be apart of UofTBiohacks</p>
+
                 <div className="fullWidth">
                   <PureTextInput
                     name = 'about*'
                     required
-                    hintText = "Just a few lines."
+                    hintText = "A paragraph or two"
                     floatingLabelText = "Tell us about yourself"
                     multiLine={true}
                     disabled={this.state.disabled}

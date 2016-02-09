@@ -25,15 +25,16 @@ export default class Navigation extends Component {
       routes.forEach( (link, i) => {
         if (link === '/')
           links.push(<li key={i}><a href={link} className="navLink nav-link">home</a></li>)
-
-        if (link.charAt(0) === '/' && link !== '/')
+        else if (link === '/register')
+          links.push(<li key={i}><a href={link} className="navLink nav-link">apply</a></li>)
+        else if (link.charAt(0) === '/' && link !== '/')
           links.push(<li key={i}><a href={link} className="navLink nav-link">{link.substr(1)}</a></li>)
-
-        if (link === '!logout')
+        else if (link === '!logout')
           links.push(<li key={i}><a onClick={() => {
             sessionStorage.removeItem('jwt')
             window.location.assign('/')
           }} className="navLink nav-link">log out</a></li>)
+
       })
 
       return links
