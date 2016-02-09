@@ -241,6 +241,7 @@ module.exports.updateAbout = function*(){
     let about = this.request.body.about
     if(!about && about.length === 0){
       this.body = {
+        success: false,
         userModel: this.userModel,
         message: "About field not filled in"
       }
@@ -248,8 +249,9 @@ module.exports.updateAbout = function*(){
       this.userModel.about = about
       let userModel = yield this.userModel.save()
       this.body = {
+        success: true,
         userModel: this.userModel,
-        message: "Successfully updated about"
+        message: "Successfully updated your bio!"
       }
     }
   }catch(err){

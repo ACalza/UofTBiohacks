@@ -10,15 +10,52 @@ import { Row, Col } from 'react-bootstrap'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
 
+import { ajaxPost } from '../util/ajax.js'
+
 class About extends Component {
   constructor(props){
     super(props)
     this.state = {
-      disabled: true
+      disabled: true,
+      canSubmit: false,
+      display: 'none',
+      editDisplay: 'block'
     }
   }
   handleEdit = () => {
-    console.log("here edit")
+    this.setState({
+      disabled:false,
+      display: 'block',
+      editDisplay: 'none'
+    })
+  };
+  submitForm = (model) => {
+    const {dispatch} = this.props
+    ajaxPost(model, '/user/update/about', sessionStorage.jwt, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        if(data.success){
+          dispatch(openSnack(data.message))
+          this.setState({
+            disabled: true,
+            canSubmit: false,
+            display: 'none',
+            editDisplay: 'block'
+          })
+        }else{
+          dispatch(openSnack(data.message))
+        }
+      }
+    })
+
+  };
+  handleCancel = () => {
+    this.setState({
+      disabled: true,
+      display: 'none',
+      editDisplay: 'block'
+    })
   };
   render() {
     const { userModel } = this.props
@@ -32,15 +69,39 @@ class About extends Component {
             name = 'about'
             required
             hintText = "A paragraph or two"
-            floatingLabelText = "Update about yourself"
+            floatingLabelText = "Update your Bio"
             multiLine={true}
             disabled={this.state.disabled}
             value={userModel.about || ""}
           />
-          <a href="#edit" onClick={()=> this.handleEdit()}>Edit</a>
-          <a name="edit"></a>
-          <p>You are welcome to update your 'about' so we can get to know you a bit more</p>
+
+          <a href="#edit" style={{display: this.state.editDisplay}} onClick={() => this.handleEdit()}>Edit</a>
         </div>
+        <a name="edit"></a>
+        <Row>
+          <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+            <RaisedButton
+              style={{display: this.state.display}}
+              type = "submit"
+              label = "Submit"
+              disabled = {this.state.disabled}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+            <RaisedButton
+              style={{display: this.state.display}}
+              type = "cancel"
+              label = "cancel"
+              onMouseUp = {() => this.handleCancel()}
+              onTouchEnd = {() => this.handleCancel()}
+              disabled = {this.state.disabled}
+            />
+          </Col>
+        </Row>
+        <p>You are welcome to update your bio so we can get to know more about you</p>
+
       </Formsy.Form>
 
     )
