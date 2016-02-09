@@ -45,7 +45,7 @@ class Register extends Component {
     const { dispatch } = this.props
     const captchaVerify = grecaptcha.getResponse()
     model.year = Number(model.year)
-
+    console.log(model)
     if (model.school === 'other' && (model.customSchool === undefined || model.customSchool === '')) {
       dispatch(openSnack('Please fill in other school'))
       return
@@ -100,7 +100,7 @@ class Register extends Component {
         <div className="container">
           <Row>
             <Col className="WideForm" xs={12} md={6} mdOffset={3}>
-              <h2>Register</h2>
+              <h2>Apply</h2>
               <p>
                 If you are interested in volunteering, see this <a target="_blank" href="http://goo.gl/forms/l2rdrdzGzw">form</a>.
               </p>
@@ -292,10 +292,10 @@ class Register extends Component {
 
                 <div className="fullWidth">
                   <PureTextInput
-                    name = 'about*'
+                    name = 'about'
                     required
                     hintText = "A paragraph or two"
-                    floatingLabelText = "Tell us about yourself"
+                    floatingLabelText = "Tell us about yourself*"
                     multiLine={true}
                     disabled={this.state.disabled}
                   />
