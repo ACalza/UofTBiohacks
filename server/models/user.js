@@ -49,7 +49,10 @@ let userSchema = mongoose.Schema({
   scienceType: String,
   school: String,
   year: Number,
-  about: String,
+  about: {
+    required: true,
+    type:String
+  },
   questions: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date

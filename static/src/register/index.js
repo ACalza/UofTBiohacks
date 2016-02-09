@@ -158,6 +158,7 @@ class Register extends Component {
                       { value: 'lifesci', label: 'Life Science' },
                       { value: 'compsci', label: 'Computer Science' },
                       { value: 'bioinformatics', label: 'Bioinformatics' },
+                      { value: 'engineering', label: 'Engineering' },
                       { value: 'other', label: 'Other' }
                     ]}
                     value="other"
@@ -288,10 +289,11 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
-
+                <p>Tell us more about yourself and why you want to be apart of UofTBiohacks</p>
                 <div className="fullWidth">
                   <PureTextInput
-                    name = 'about'
+                    name = 'about*'
+                    required
                     hintText = "Just a few lines."
                     floatingLabelText = "Tell us about yourself"
                     multiLine={true}

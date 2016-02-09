@@ -50,7 +50,7 @@ module.exports.validateRegistration = function*(next) {
   //TO BE FIXED! TODO
   //!year || !education || !codingbackground
   if (!email || !password || !firstName  || !lastName || !username || password.length < 8
-      || !education) {
+      || !education || !about) {
     this.response.status = 400 // set response status before sending
     return this.body = {
       message: "Not all fields were filled in"
