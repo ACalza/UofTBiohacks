@@ -11,25 +11,20 @@ const User = require('../models/user');               // User is User Model
  // Initiate router instance
 let router = new Router();
 
-//router.get('/', userMiddlewares.getAllUsers)
-//router.get('/excel', userMiddlewares.excel)
 
 router.use('/register', userMiddlewares.validateRegistration);
 router.post('/register', userMiddlewares.saveUsertoDatabase);
 
-router.get('/reset/test', function*(){
-  this.body = {
-    test: "hello world"
-  }
-})
+
 router.get('/auth', userMiddlewares.getAuthentication)
 
 router.post('/login', userMiddlewares.requestLogin);
 router.get('/logout', function*(){
     this.body = {
-        message: "logged out"
+      message: "logged out"
     };
 });
+router.post('/update/about', userMiddlewares.updateAbout)
 router.param('token', function*(id, next){
       this.token = id
       yield next

@@ -235,28 +235,29 @@ module.exports.requestLogin = function*() {
   }
 }
 
-// middleware /user/all            attach all user data to this.users
-module.exports.getUsers = function*(next) {
-    try {
-      var users = yield User.find({}).populate('invites group').exec();
-      for (var i = 0; i < users.length; i++) {
-        users[i] = users[i].toJSON()
-        users[i].password = undefined;
-        users[i]._id = undefined;
-        users[i].__v = undefined;
-        users[i].invites = undefined;
-        if (users[i].group) {
-          users[i].group = users[i].group.name
-        }
+//middleware /user/update/about
+module.exports.updateAbout = function*(){
+  try{
+    let about = this.request.body.about
+    if(!about && about.length === 0){
+      this.body = {
+        userModel: this.userModel,
+        message: "About field not filled in"
       }
-      this.users = users;
-      yield next;
-    } catch (err) {
-      console.error(err);
-      this.response.status = 500;
-      util.errorResponse(this);
+    }else{
+      this.userModel.about = about
+      let userModel = yield this.userModel.save()
+      this.body = {
+        userModel: this.userModel,
+        message: "Successfully updated about"
+      }
     }
+  }catch(err){
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
   }
+}
 
 function sendMail(client, email) {
   return new Promise(function(res, rej) {
@@ -266,6 +267,7 @@ function sendMail(client, email) {
     });
   });
 }
+
 module.exports.verifyRedirect = function*(){
 
   try{

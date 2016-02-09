@@ -45,7 +45,6 @@ class Register extends Component {
     const { dispatch } = this.props
     const captchaVerify = grecaptcha.getResponse()
     model.year = Number(model.year)
-    console.log(model)
     if (model.school === 'other' && (model.customSchool === undefined || model.customSchool === '')) {
       dispatch(openSnack('Please fill in other school'))
       return

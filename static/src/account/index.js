@@ -13,6 +13,7 @@ import { authorize } from '../actions/account.js'
 import Layout from '../components/Layout'
 
 import GroupControl from '../components/GroupControl'
+import About from '../components/About'
 import { BASE_URI } from '../constants/uris.js'
 import { Row, Col } from 'react-bootstrap'
 
@@ -48,6 +49,7 @@ class Account extends Component {
             hasInvites={account.hasInvites}
             canInvite = {account.canInvite}
           />
+          <About userModel={account.userModel}/>
         </div>
       } else if (!account.authorizing && !account.authorized){
         window.location.assign("/login")

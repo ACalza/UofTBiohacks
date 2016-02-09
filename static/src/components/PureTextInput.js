@@ -14,7 +14,8 @@ export default class PureTextInput extends PureComponent {
       floatingLabelText,
       type,
       multiLine,
-      disabled
+      disabled,
+      value
     } = this.props
 
     return (
@@ -28,6 +29,7 @@ export default class PureTextInput extends PureComponent {
       floatingLabelText={floatingLabelText}
       disabled={disabled}
       multiLine={multiLine || false}
+      value={value}
     />)
   }
 }
