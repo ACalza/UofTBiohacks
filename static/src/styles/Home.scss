@@ -6,6 +6,20 @@
 #downArrow {
     font-size: 3em;
     z-index: 1011;
+    transition: all 500ms ease;
+    animation: oscillate 2s infinite; 
+}
+
+@keyframes oscillate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3); 
+  }
+  100% {
+    transform: scale(1); 
+  }
 }
 
 .sponsors-wrapper {
