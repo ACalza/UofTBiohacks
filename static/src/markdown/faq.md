@@ -8,7 +8,7 @@ Building.
 
 Theme of UofT BioHacks 2016 is bioinformatics and computational biology.
 
-### Does registration guarantee a space in the hackathon?
+### Does registration guarantee a space at UofT BioHacks 2016?
 
 Due to the high demand and limited space, registration does not guarantee a spot in the competitions. Selected candidates will recieve an invitation email. Candidates who accept the invitations will be guaranteed for a spot in the competition. Priority will be given to members who have detailed registration forms and are in groups.
 
