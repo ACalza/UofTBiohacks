@@ -2,6 +2,12 @@
 @import './colours.scss';
 @import './lumxcolors.scss';
 
+
+#downArrow {
+    font-size: 3em;
+    z-index: 1011;
+}
+
 .sponsors-wrapper {
   // display: flex;
   // align-items: center;
@@ -78,6 +84,7 @@
     padding: 10px;
     padding-bottom: 2px;
     font-family: 'Nord';
+    font-size: 4em;
     background-color: #d1d2d5;
     border: 2px solid #487DAF;
 
