@@ -51,10 +51,10 @@ module.exports.validateRegistration = function*(next) {
   //!year || !education || !codingbackground
   if (!email || !password || !firstName  || !lastName || !username || password.length < 8
       || !education) {
-    this.response.status = 400 // set response status before sending
-    return this.body = {
+    this.body = {
       message: "Not all fields were filled in"
     }
+    this.response.status = 400 // set response status before sending
   } else if (!this.checkBody('email').isEmail().goOn) {
     this.response.status = 400
     util.errorResponse(this)
