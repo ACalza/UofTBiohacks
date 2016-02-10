@@ -4,7 +4,7 @@ UofT BioHacks 2016 will take place on March 12-­13, 2016. It will be a two day
 event hosted in University of Toronto Bahen Centre for Information Technology
 Building.
 
-### What is the theme of the hackathon?
+### What is the theme of UofT BioHacks 2016?
 
 Theme of UofT BioHacks 2016 is bioinformatics and computational biology.
 
