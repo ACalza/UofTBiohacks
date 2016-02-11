@@ -50,12 +50,15 @@ module.exports.validateRegistration = function*(next) {
   //TO BE FIXED! TODO
   //!year || !education || !codingbackground
   if (!email || !password || !firstName  || !lastName || !username || password.length < 8
-      || !education) {
+      || !education || !about) {
     this.body = {
       message: "Not all fields were filled in"
     }
-    this.response.status = 400 // set response status before sending
-  } else if (!this.checkBody('email').isEmail().goOn) {
+  } else if(about.length > 1200){
+    return this.body = {
+      message: "Your bio exceeds 1200 characters"
+    }
+  }else if (!this.checkBody('email').isEmail().goOn) {
     this.response.status = 400
     util.errorResponse(this)
   } else{
@@ -244,6 +247,12 @@ module.exports.updateAbout = function*(){
         success: false,
         userModel: this.userModel,
         message: "About field not filled in"
+      }
+    }else if(about.length > 1200){
+      this.body = {
+        success:false,
+        userModel: this.userModel,
+        message: "Your bio exceeds 1200 characters"
       }
     }else{
       this.userModel.about = about

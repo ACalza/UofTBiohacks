@@ -293,7 +293,7 @@ class Register extends Component {
                   <PureTextInput
                     name = 'about'
                     required
-                    hintText = "A paragraph or two"
+                    hintText = "1200 character limit"
                     floatingLabelText = "Tell us about yourself*"
                     multiLine={true}
                     disabled={this.state.disabled}
