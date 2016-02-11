@@ -49,7 +49,9 @@ class Register extends Component {
       dispatch(openSnack('Please fill in other school'))
       return
     }
-
+    if(model.about && model.about.length > 1200){
+      return dispatch(openSnack("Your bio exceeds 1200 characters"))
+    }
     if (captchaVerify.length !== 0) {
       if (model.customSchool) {
         model.school = model.customSchool

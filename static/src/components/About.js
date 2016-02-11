@@ -9,7 +9,7 @@ import { Row, Col } from 'react-bootstrap'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+
 
 import { ajaxPost } from '../util/ajax.js'
 
@@ -31,12 +31,13 @@ class About extends Component {
     })
   };
 
-  componentDidMount() {
-    injectTapEventPlugin()
-  }
+  
 
   submitForm = (model) => {
     const {dispatch} = this.props
+    if(model.about && model.about.length > 1200){
+      return dispatch(openSnack("Your bio exceeds 1200 characters"))
+    }
     ajaxPost(model, '/user/update/about', sessionStorage.jwt, (err, data) => {
       if (err) {
         console.error(err)
@@ -74,7 +75,7 @@ class About extends Component {
           <PureTextInput
             name = 'about'
             required
-            hintText = "A paragraph or two"
+            hintText = "1200 character limit"
             floatingLabelText = "Update your Bio"
             multiLine={true}
             disabled={this.state.disabled}
@@ -92,15 +93,15 @@ class About extends Component {
               label = "Submit"
               disabled = {this.state.disabled}
             />
-          </Col> 
+          </Col>
           <Col className="WideForm" xs={12} md={6}>
             <RaisedButton
               style={{display: this.state.display}}
               type = "cancel"
               label = "cancel"
               onMouseUp = {() => this.handleCancel()}
-              onTouchEnd = {() => this.handleCancel()}  
-              // onTouchStart = {() => this.handleCancel()} 
+              onTouchEnd = {() => this.handleCancel()}
+              // onTouchStart = {() => this.handleCancel()}
               disabled = {this.state.disabled}
             />
           </Col>
