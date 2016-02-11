@@ -9,6 +9,7 @@ import { Row, Col } from 'react-bootstrap'
 
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { ajaxPost } from '../util/ajax.js'
 
@@ -29,6 +30,11 @@ class About extends Component {
       editDisplay: 'none'
     })
   };
+
+  componentDidMount() {
+    injectTapEventPlugin()
+  }
+
   submitForm = (model) => {
     const {dispatch} = this.props
     ajaxPost(model, '/user/update/about', sessionStorage.jwt, (err, data) => {
@@ -79,23 +85,22 @@ class About extends Component {
         </div>
         <a name="edit"></a>
         <Row>
-          <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+          <Col className="WideForm" xs={12} md={6}>
             <RaisedButton
               style={{display: this.state.display}}
               type = "submit"
               label = "Submit"
               disabled = {this.state.disabled}
             />
-          </Col>
-        </Row>
-        <Row>
-          <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+          </Col> 
+          <Col className="WideForm" xs={12} md={6}>
             <RaisedButton
               style={{display: this.state.display}}
               type = "cancel"
               label = "cancel"
               onMouseUp = {() => this.handleCancel()}
-              onTouchEnd = {() => this.handleCancel()}
+              onTouchEnd = {() => this.handleCancel()}  
+              // onTouchStart = {() => this.handleCancel()} 
               disabled = {this.state.disabled}
             />
           </Col>
