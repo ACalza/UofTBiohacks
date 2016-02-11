@@ -16,6 +16,7 @@ import GroupControl from '../components/GroupControl'
 import About from '../components/About'
 import { BASE_URI } from '../constants/uris.js'
 import { Row, Col } from 'react-bootstrap'
+import CircularProgress from 'material-ui/lib/circular-progress'
 
 class Account extends Component {
 
@@ -55,7 +56,7 @@ class Account extends Component {
         window.location.assign("/login")
       }
     } else {
-      content = <p>Loading...</p>
+      content = <CircularProgress size={2} />
     }
 
     return(
