@@ -6,8 +6,8 @@
 #downArrow {
     font-size: 3em;
     z-index: 1011;
-    transition: all 500ms ease;
-    animation: oscillate 2s infinite; 
+    // transition: all 500ms ease;
+    // animation: oscillate 2s infinite; 
 }
 
 @keyframes oscillate {

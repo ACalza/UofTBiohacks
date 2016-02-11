@@ -64,6 +64,7 @@ if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) { //If Chrome
   canvas.addEventListener('click', onClick, false)
   document.getElementById('splashLogo').addEventListener('click', onClick, false)
   document.getElementById('splashTitle').addEventListener('click', onClick, false)
+  document.getElementById('downArrow').addEventListener('click', onClick, false)
 }
   // ==== Force ====
   const charge = -700

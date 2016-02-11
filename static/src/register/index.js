@@ -102,9 +102,7 @@ class Register extends Component {
           <Row>
             <Col className="WideForm" xs={12} md={6} mdOffset={3}>
               <h2>Apply</h2>
-              <p>
-                If you are interested in volunteering, see this <a target="_blank" href="http://goo.gl/forms/l2rdrdzGzw">form</a>.
-              </p>
+              
               <Formsy.Form
                 onValidSubmit = {this.submitForm}
                 onValid = {() => dispatch(canSubmit())}
@@ -350,7 +348,9 @@ class Register extends Component {
                   If you would like us to pass your resume onto our sponsors,
                   please email it to <a href="mailto:uoftbiohacks@gmail.com">uoftbiohacks@gmail.com</a>.
                 </p>
-
+                <p>
+                  If you are interested in volunteering, see this <a target="_blank" href="http://goo.gl/forms/l2rdrdzGzw">form</a>.
+                </p>
                 <div className="fullWidth">
                   <RaisedButton
                     type = "submit"
