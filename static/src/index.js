@@ -97,6 +97,7 @@ class Index extends Component {
                     <a target="_blank" href="http://synaptivemedical.com/"><img style={{width: '50%', paddingBottom: '20px'}} src="/img/synaptive.png" /></a><br></br>
                     <a target="_blank" href="http://www.array.ca/"><img style={{width: '50%', paddingBottom: '20px'}} src="/img/ArrayLogo.jpg" /></a><br></br>
                     <a target="_blank" href="https://www.nymi.com/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/Logo_Nymi_Horizontal.png" /></a><br></br> 
+                    <a target="_blank" href="http://hatchery.engineering.utoronto.ca/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/hatchery.png" /></a><br></br> 
 
                     <p style={{paddingTop: '10px'}}>
                       If you are interested in becoming a sponsor, check out our <a href="/U-of-T-BioHacks-2016-Sponsorship-Package.pdf">sponshorship package</a>.
