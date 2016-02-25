@@ -9,7 +9,7 @@ import TextField from 'material-ui/lib/text-field'
 import mount from '../mount.js'
 
 import { ajaxPost } from '../util/ajax.js'
-
+import { openSnack } from '../actions/snacker'
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 
@@ -26,50 +26,70 @@ import { BASE_URI } from '../constants/uris.js'
 
 class Admin extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      authorized: false
+    }
+  }
   submitForm = (model) => {
     const {dispatch, submission} = this.props
 
-    console.log(model)
-    // dispatch(loadResponse(BASE_URI + '/admin/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(model)
-    // }))
+    ajaxPost(model, '/admin/login', model, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        if(data.success){
+          dispatch(openSnack(data.message))
+          this.setState({authorized: true})
+        }else{
+          dispatch(openSnack(data.message))
+        }
+      }
+    })
 
   };
+  renderLogin = () => {
+    return(
+      <div className="adminLogin">
+        <h2>Admin Page</h2>
+        <p>IPs are logged</p>
+        <Formsy.Form
+          onValidSubmit = {this.submitForm}
+        >
+          <div className="fullWidth">
+            <FormsyText style={{display: 'block'}}
+              name = 'password'
+              type = 'password'
+              required hintText = "What is your password?"
+              floatingLabelText = "Password"
+            />
+          </div>
 
+          <div className="fullWidth">
+            <RaisedButton
+              type = "submit"
+              label = "Submit"
+            />
+          </div>
+        </Formsy.Form>
+      </div>
+    )
+  };
   render() {
-
+    let content = null
+    console.log(this.state.authorized)
+    if (!this.state.authorized){
+      content = <div><br></br><br></br>{this.renderLogin()}</div>
+    }else {
+      content = <p>Admin shit</p>
+    }
     return(
       <Layout>
         <div className="container">
           <Row>
             <Col className="WideForm" xs={12} md={6} mdOffset={3}>
-              <br></br>
-              <h2>Admin Page</h2>
-              <p>IPs are logged, and if you are here to brute force, we will find you and we will kill you - Liam Neesan</p>
-              <Formsy.Form
-                onValidSubmit = {this.submitForm}
-              >
-                <div className="fullWidth">
-                  <FormsyText style={{display: 'block'}}
-                    name = 'password'
-                    type = 'password'
-                    required hintText = "What is your password?"
-                    floatingLabelText = "Password"
-                  />
-                </div>
-
-                <div className="fullWidth">
-                  <RaisedButton
-                    type = "submit"
-                    label = "Submit"
-                  />
-                </div>
-              </Formsy.Form>
+              {content}
             </Col>
           </Row>
         </div>
