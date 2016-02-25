@@ -22,7 +22,8 @@ module.exports = {
     register: './src/register/index.js',
     account: './src/account/index.js',
     reset: './src/reset/index.js',
-    verify: './src/verify/index.js'
+    verify: './src/verify/index.js',
+    admin: './src/admin/index.js'
   },
   output: {
     path: 'dist',
