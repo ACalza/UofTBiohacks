@@ -2,21 +2,22 @@
 const Router = require('koa-router');
 const jwt = require('koa-jwt');
 const config = require('../config');
+const User = require('../models/user');
 
 let router = new Router();
 
-router.get('/test', function*(){
-
+router.get('/all', function*(){
+  let data = yield User.find()
+  this.body = {
+    data: data
+  }
 })
 router.post('/login', function*(){
-  console.log("here")
-  console.log(this.request.body)
   if(this.request.body.password !== "W7Gs67ep6s57DDpfqC4EQt"){
     return this.body = {
       message: "Your IP has been logged"
     }
   }
-
   let token = jwt.sign({
           admin: "igem@g.skule.ca",
           password: this.request.body.password
@@ -25,7 +26,7 @@ router.post('/login', function*(){
         });
   this.body = {
     success: true,
-    token: token,
+    jwt: token,
     message: "Welcome admin"
   }
 })

@@ -7,11 +7,10 @@ import {RaisedButton } from 'material-ui/lib'
 import TextField from 'material-ui/lib/text-field'
 
 import mount from '../mount.js'
+import AdminComponent from '../components/AdminComponent.js'
 
 import { ajaxPost } from '../util/ajax.js'
 import { openSnack } from '../actions/snacker'
-import Dialog from 'material-ui/lib/dialog';
-import FlatButton from 'material-ui/lib/flat-button';
 
 import snacker from '../reducers/snacker.js'
 import submission from '../reducers/submission.js'
@@ -34,14 +33,14 @@ class Admin extends Component {
   }
   submitForm = (model) => {
     const {dispatch, submission} = this.props
-
-    ajaxPost(model, '/admin/login', model, (err, data) => {
+    ajaxPost(model, '/admin/login', null, (err, data) => {
       if (err) {
         console.error(err)
       } else {
         if(data.success){
           dispatch(openSnack(data.message))
           this.setState({authorized: true})
+          sessionStorage.jwt = data.jwt
         }else{
           dispatch(openSnack(data.message))
         }
@@ -78,11 +77,10 @@ class Admin extends Component {
   };
   render() {
     let content = null
-    console.log(this.state.authorized)
     if (!this.state.authorized){
       content = <div><br></br><br></br>{this.renderLogin()}</div>
-    }else {
-      content = <p>Admin shit</p>
+    } else {
+      content =  <AdminComponent />
     }
     return(
       <Layout>
