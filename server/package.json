@@ -12,6 +12,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "bcrypt": "^0.8.5",
+    "bcryptjs": "^2.3.0",
     "bluebird": "^3.2.1",
     "crypto-promise": "^1.0.2",
     "jsdoc": "^3.4.0",

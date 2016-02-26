@@ -36,6 +36,9 @@ router.param('token', function*(id, next){
       .post('/verify', userMiddlewares.verify)
 
 
+router.get('/biohackinvite/accept', userMiddlewares.acceptBiohackinvite)
+router.get('/biohackinvite/reject', userMiddlewares.rejectBiohackinvite)
+
 
 
 module.exports = router;

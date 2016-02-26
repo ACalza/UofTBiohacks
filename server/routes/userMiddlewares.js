@@ -19,6 +19,41 @@ const sgTransport = require('nodemailer-sendgrid-transport');
 const constants = require('../config')
 const template = require('../templates/template.js')
 
+
+// GET /biohackinvite/accept      set doesAcceptInvite to false
+module.exports.acceptBiohackinvite = function*(){
+  try{
+    this.userModel.doesAcceptInvite = true
+    let userModel = yield this.userModel.save()
+    this.body = {
+      success: true,
+      userModel: this.userModel,
+      message: "You have just accepted the invitation to the BioHacks!"
+    }
+  }catch(err){
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
+  }
+}
+// GET /biohackinvite/reject        set doesAcceptInvite to false
+module.exports.rejectBiohackinvite = function*(){
+  try{
+    this.userModel.doesAcceptInvite = false
+    let userModel = yield this.userModel.save()
+    this.body = {
+      success: true,
+      userModel: this.userModel,
+      message: "You have just rejected the invitation. You would not be able to login anymore!"
+    }
+  }catch(err){
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
+  }
+}
+
+
 // POST /user/register    trim form data, validate not undefined, and check for duplicates in the database
 module.exports.validateRegistration = function*(next) {
   this.request.body.email = util.trim(this.request.body.email)
@@ -86,6 +121,7 @@ module.exports.validateRegistration = function*(next) {
     }
   }
 }
+
 
 // POST /user/register    save POST data to user model and store in database, while issuing a token
 module.exports.saveUsertoDatabase = function*() {
@@ -198,7 +234,14 @@ module.exports.requestLogin = function*() {
       //code kind of a cluster....running out of time
       let passwordComparison = yield util.bcryptCompareAsync(password, userModel.password)
 
-      if (userModel && !userModel.verified) {
+      if (userModel.isinvited !== null && userModel.isinvited !== undefined &&
+                userModel.doesAcceptInvite !== null && userModel.doesAcceptInvite !== undefined) {
+        if (userModel.isinvited == true && userModel.doesAcceptInvite == false){
+          this.body = {
+            message: 'already rejected the invitation'
+          }
+        }
+      } else if (userModel && !userModel.verified) {
         this.body = {
           message: "Email has not been verified",
           verification: false
