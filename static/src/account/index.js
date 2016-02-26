@@ -56,8 +56,8 @@ class Account extends Component {
         window.location.assign("/login")
       }
     } else {
-      content = 
-      <div style="{{display: 'block', textAlign: 'center'}}"> 
+      content =
+      <div style="{{display: 'block', textAlign: 'center'}}">
         <CircularProgress size={2} />
       </div>
     }

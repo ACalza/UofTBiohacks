@@ -16,7 +16,7 @@ router.use('/register', userMiddlewares.validateRegistration);
 router.post('/register', userMiddlewares.saveUsertoDatabase);
 
 
-router.get('/auth', userMiddlewares.getAuthentication)
+router.get('/auth', userMiddlewares.getAuthentication);
 
 router.post('/login', userMiddlewares.requestLogin);
 router.get('/logout', function*(){

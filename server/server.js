@@ -45,17 +45,18 @@ app.use(function* (next) {                // set content type to JSON
   yield next;
 });
 
+let exclusions = ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/, "/user/reset",
+                                "/user/verify", /^\/user\/verify\/.*/, "/admin/login"]
 // authorization middleware
-app.use(jwt({ secret: config.SECRET }).unless({ path: ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/, "/user/reset",
-                                                       "/user/verify", /^\/user\/verify\/.*/] }));
+app.use(jwt({ secret: config.SECRET }).unless({ path: exclusions}));
 authUser.unless = require('koa-unless');
-app.use(authUser.unless({path: ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/, "/user/reset",
-                                "/user/verify", /^\/user\/verify\/.*/] }));
+app.use(authUser.unless({path: exclusions }));
 
 
 // Mount Routor: Route Path is fixed at the Router level
 app.use(mount('/user', require('./routes/user').middleware()));         //Routes for User
 app.use(mount('/group', require('./routes/group').middleware()));       //Routes for Group
+app.use(mount('/admin', require('./routes/admin').middleware()));  //routes for admin
 //
 
 app.listen(port)

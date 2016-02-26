@@ -13,7 +13,7 @@ function authorizedUser(response){
   return { type: AUTHORIZED_USER, response }
 }
 function failAuthorization(){
-  return {type: AUTHORIZATION_FAILED }
+  return { type: AUTHORIZATION_FAILED }
 }
 
 export const authorize = (uri, options={}) => {
