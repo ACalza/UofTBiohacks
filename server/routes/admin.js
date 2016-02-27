@@ -12,6 +12,7 @@ router.get('/all', function*(){
     data: data
   }
 })
+
 router.post('/login', function*(){
   if(this.request.body.password !== "W7Gs67ep6s57DDpfqC4EQt"){
     return this.body = {

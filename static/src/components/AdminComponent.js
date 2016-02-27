@@ -10,22 +10,22 @@ import { Row, Col } from 'react-bootstrap'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
 
-import Table from 'material-ui/lib/table/table'
-import TableHeaderColumn from 'material-ui/lib/table/table-header-column'
-import TableRow from 'material-ui/lib/table/table-row'
-import TableHeader from 'material-ui/lib/table/table-header'
-import TableRowColumn from 'material-ui/lib/table/table-row-column'
-import TableBody from 'material-ui/lib/table/table-body'
 import { ajaxGet } from '../util/ajax.js'
 import DataGrid from 'react-datagrid'
+import UserPanel from './UserPanel.js'
 
 require('react-datagrid/index.css')
 
+
+
 class AdminComponent extends Component {
+
   constructor(props){
     super(props)
     this.state = {
-      data: null
+      data: null,
+      selectedID: null,
+      selectedUser: null
     }
   }
   componentWillMount(){
@@ -45,39 +45,53 @@ class AdminComponent extends Component {
 
   }
 
-  selectedUser = (model) => {
-    console.log(model)
-    console.log("Here")
+  selectedUser = (newSelectedId, data) => {
+    this.setState({
+      selectedID: newSelectedId,
+      selectedUser: data
+    })
   };
 
   render() {
-
-    var data = [
-      { id: '1', firstName: 'John', lastName: 'Bobson'},
-      { id: '2', firstName: 'Bob', lastName: 'Mclaren'}
-    ]
-    var columns = [
-      { name: 'firstName',  width: 50},
-      { name: 'lastName',  width: 50}
-    ]
-
-
     if(!this.state.data){
       return <p>Loading</p>
+    } else {
+      let data = this.state.data
+      for(let i = 0; i < data.length; i++){
+        data[i].id = data[i].email
+        if(!data[i].isinvited)
+          data[i].isinvited = data[i].isinvited ? 'true' : 'false'
+        if(!data[i].doesAcceptInvite)
+          data[i].doesAcceptInvite = data[i].doesAcceptInvite ? 'true' : 'false'
+
+      }
+
+      let columns = [
+        { name: 'email', },
+        { name: 'firstName'},
+        { name: 'lastName'},
+        { name: 'isinvited'},
+        { name: 'doesAcceptInvite'}
+      ]
+      return (
+
+        <div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <h2>Welcome Administrator</h2>
+          <UserPanel user={this.state.selectedUser} />
+          <DataGrid idProperty="id"
+                    dataSource={data}
+                    columns={columns}
+                    selected={this.state.selectedID}
+                    onSelectionChange={this.selectedUser}
+                    />
+
+        </div>
+      )
+
     }
-    return (
-
-      <div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h2>Welcome Administrator</h2>
-
-        <DataGrid idProperty="id" dataSource={data} columns={columns} />
-
-      </div>
-    )
-
   }
 }
 
