@@ -39,6 +39,7 @@ class Admin extends Component {
       } else {
         if(data.success){
           dispatch(openSnack(data.message))
+          console.log(data)
           this.setState({authorized: true})
           sessionStorage.jwt = data.jwt
         }else{

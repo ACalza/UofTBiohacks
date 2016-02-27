@@ -26,7 +26,7 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel'
     }, {
-      test: /\.scss$/,
+      test: /\.s?css$/,
       loader: 'ignore'
     }, {
       test: /\.md$/,

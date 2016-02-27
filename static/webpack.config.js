@@ -39,7 +39,7 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel'
     }, {
-      test: /\.scss$/,
+      test: /\.s?css$/,
       loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
