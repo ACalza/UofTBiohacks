@@ -9,14 +9,13 @@ import { Row, Col } from 'react-bootstrap'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
 
-import { ajaxGet } from '../util/ajax.js'
+import { ajaxPost } from '../util/ajax.js'
 
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
-import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 
 class UserPanel extends Component {
@@ -24,16 +23,34 @@ class UserPanel extends Component {
   constructor(props){
     super(props)
   }
+  acceptUser = (e) => {
+    let { user } = this.props
+    const { dispatch } = this.props
+
+    ajaxPost(user, '/admin/acceptuser', sessionStorage.jwt, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        dispatch(openSnack(data.message))
+      }
+    })
+    user.isinvited = "true"
+  };
 
   render() {
     const { user } = this.props
     if(!user){
       return null
     }
+    let button = null
+
+    if (user.isinvited === "false")
+      button = <RaisedButton label="Accept User" onMouseUp={this.acceptUser}/>
+
     return (
       <div className="userPanel">
         <Card>
-          <CardTitle title={user.email} subtitle={user.firstName + " " + user.lastName} />
+          <CardTitle title={user.firstName + " " + user.lastName} subtitle={user.email} />
           <CardText>
             <b>About: </b>{user.about} <br></br>
             <b>school: </b>{user.school} <br></br>
@@ -44,8 +61,7 @@ class UserPanel extends Component {
             <b>github: </b>{user.github}<br></br>
           </CardText>
           <CardActions>
-            <FlatButton label="Action1" />
-            <FlatButton label="Action2" />
+            {button}
           </CardActions>
         </Card>
       </div>

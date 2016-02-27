@@ -32,4 +32,17 @@ router.post('/login', function*(){
   }
 })
 
+router.post('/acceptuser', function*(){
+  try {
+    yield User.update({_id: this.request.body._id}, {isinvited: true})
+    this.body = {
+      message: "Successfully invited " + this.request.body.firstName + " " + this.request.body.lastName
+    }
+  }catch(err){
+    this.response.status = 500
+    console.error(err)
+    util.errorResponse(this)
+  }
+})
+
 module.exports = router
