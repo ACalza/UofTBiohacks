@@ -14,6 +14,7 @@ import Layout from '../components/Layout'
 
 import GroupControl from '../components/GroupControl'
 import About from '../components/About'
+import Confirmation from '../components/Confirmation'
 import { BASE_URI } from '../constants/uris.js'
 import { Row, Col } from 'react-bootstrap'
 import CircularProgress from 'material-ui/lib/circular-progress'
@@ -37,12 +38,13 @@ class Account extends Component {
   render() {
     const { snacker, submission, account, dispatch } = this.props
     let content = null
-
+    let confirmation = null
     if (canUseDOM) {
       if (account.authorized) {
         content =
         <div className="controlpanel">
           <h2>Hello, {account.userModel.firstName}</h2>
+          <Confirmation user={account.userModel} />
           <GroupControl
             isInGroup={account.isInGroup}
             groupModel={account.groupModel}
@@ -62,11 +64,13 @@ class Account extends Component {
       </div>
     }
 
+
     return(
       <Layout push>
         <div className="container">
           <Row>
             <Col className="WideForm" xs={12} md={6} mdOffset={3}>
+            {confirmation}
             {content}
             </Col>
         </Row>

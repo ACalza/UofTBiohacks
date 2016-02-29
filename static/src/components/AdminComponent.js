@@ -13,7 +13,6 @@ import snacker from '../reducers/snacker.js'
 import { ajaxGet } from '../util/ajax.js'
 import DataGrid from 'react-datagrid'
 import UserPanel from './UserPanel.js'
-import CircularProgress from 'material-ui/lib/circular-progress'
 
 require('react-datagrid/index.css')
 
@@ -55,27 +54,15 @@ class AdminComponent extends Component {
 
   render() {
     if(!this.state.data){
-      return
-      <div>
-      <br></br>
-      <br></br>
-      <CircularProgress size={2} />
-      </div>
-
+      return <p>Loading</p>
     } else {
       let data = this.state.data
       for(let i = 0; i < data.length; i++){
         data[i].id = data[i].email
-        //I do this because the value is litterely a boolean, so I cant !data
-        if(data[i].isinvited === undefined || data[i].isinvited === false || data[i].invited === 'false')
-          data[i].isinvited ='false'
-        else
-          date[i].isinvited = 'true'
-
-        if(data[i].doesAcceptInvite === undefined || data[i].doesAcceptInvite === false || data[i].doesAcceptInvite === 'false')
-          data[i].doesAcceptInvite = 'false'
-        else
-          data[i].doesAcceptInvite = 'true'
+        if(!data[i].isinvited)
+          data[i].isinvited = data[i].isinvited ? 'true' : 'false'
+        if(!data[i].doesAcceptInvite)
+          data[i].doesAcceptInvite = data[i].doesAcceptInvite ? 'true' : 'false'
 
       }
 

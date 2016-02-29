@@ -31,7 +31,7 @@ class About extends Component {
     })
   };
 
-  
+
 
   submitForm = (model) => {
     const {dispatch} = this.props
@@ -101,7 +101,6 @@ class About extends Component {
               label = "cancel"
               onMouseUp = {() => this.handleCancel()}
               onTouchEnd = {() => this.handleCancel()}
-              // onTouchStart = {() => this.handleCancel()}
               disabled = {this.state.disabled}
             />
           </Col>
