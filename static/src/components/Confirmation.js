@@ -22,23 +22,70 @@ class UserPanel extends Component {
 
   constructor(props){
     super(props)
+    this.state = {
+      disableButtons: false
+    }
   }
   acceptInvitation = (e) => {
-    const { user, dispatch } = this.props
-
-    ajaxGet(user, '/user/biohackinvite/accept', sessionStorage.jwt, (err, data) => {
+    const { dispatch } = this.props
+    this.setState({
+      disableButtons: true
+    })
+    ajaxGet('/user/biohackinvite/accept', sessionStorage.jwt, (err, data) => {
       if (err) {
         console.error(err)
       } else {
-        dispatch(openSnack(data.message))
+        if(data.success) {
+          dispatch(openSnack(data.message))
+        } else {
+          this.setState({
+            disableButtons: false
+          })
+          dispatch(openSnack(data.message))
+        }
       }
     })
   };
 
+  declineInvitation = (e) => {
+    const { dispatch } = this.props
+    this.setState({
+      disableButtons: true
+    })
+    ajaxGet('/user/biohackinvite/reject', sessionStorage.jwt, (err, data) => {
+      if (err) {
+        console.error(err)
+      } else {
+        if(data.success){
+          dispatch(openSnack(data.message))
+          delete sessionStorage.jwt
+          setTimeout(() => window.location.assign('/') , 5000)
+        }else{
+          dispatch(openSnack(data.message))
+          this.setState({
+            disableButtons: false
+          })
+        }
+
+      }
+    })
+  }
   render() {
     const { user } = this.props
+    let buttons = null
     if(!user.isinvited)
       return null
+    if(!user.doesAcceptInvite)
+        buttons = <div className="actionButtons">
+                      <RaisedButton label="Accept Invitation"
+                                    onMouseUp={this.acceptInvitation}
+                                    onTouchEnd = {this.acceptInvitation}
+                                    disable = {this.state.disableButtons}/>
+                      <RaisedButton label="Decline Invitation"
+                                    onMouseUp={this.declineInvitation}
+                                    onTouchEnd = {this.declineInvitation}
+                                    disable = {this.state.disableButtons}/>
+                    </div>
     return (
       <div className="userConfirmation">
         <Card>
@@ -47,13 +94,7 @@ class UserPanel extends Component {
             <p>You must RSVP within 72 hours confirming if you are going. If you accepted the invitation and cannot make it, email igem@g.skul.ca.</p>
           </CardText>
           <CardActions>
-            <RaisedButton label="Accept Invitation"
-                          onMouseUp={this.acceptInvitation}
-                          onTouchEnd = {this.acceptInvitation} />
-            <RaisedButton label="Decline Invitation"
-                          onMouseUp={this.declineInvitation}
-                          onTouchEnd = {this.declineInvitation} />
-
+            {buttons}
           </CardActions>
         </Card>
       </div>
