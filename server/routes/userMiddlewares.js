@@ -28,7 +28,7 @@ module.exports.acceptBiohackinvite = function*(){
     this.body = {
       success: true,
       userModel: this.userModel,
-      message: "You have just accepted the invitation to the BioHacks!"
+      message: "You have successfully accepted"
     }
   }catch(err){
     this.response.status = 500
@@ -44,7 +44,7 @@ module.exports.rejectBiohackinvite = function*(){
     this.body = {
       success: true,
       userModel: this.userModel,
-      message: "You have just rejected the invitation. You would not be able to login anymore!"
+      message: "You have rejected your invitation, redirecting"
     }
   }catch(err){
     this.response.status = 500

@@ -9,7 +9,7 @@ import { Row, Col } from 'react-bootstrap'
 import { openSnack, eatSnack } from '../actions/snacker.js'
 import snacker from '../reducers/snacker.js'
 
-import { ajaxPost } from '../util/ajax.js'
+import { ajaxPost, ajaxGet } from '../util/ajax.js'
 
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
@@ -26,7 +26,7 @@ class UserPanel extends Component {
   acceptInvitation = (e) => {
     const { user, dispatch } = this.props
 
-    ajaxPost(user, '/user/biohackinvite/accept', sessionStorage.jwt, (err, data) => {
+    ajaxGet(user, '/user/biohackinvite/accept', sessionStorage.jwt, (err, data) => {
       if (err) {
         console.error(err)
       } else {
