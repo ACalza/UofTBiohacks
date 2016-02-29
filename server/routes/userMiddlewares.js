@@ -238,7 +238,7 @@ module.exports.requestLogin = function*() {
                 userModel.doesAcceptInvite !== null && userModel.doesAcceptInvite !== undefined) {
         if (userModel.isinvited == true && userModel.doesAcceptInvite == false){
           this.body = {
-            message: 'already rejected the invitation'
+            message: 'You have already rejected your invitation'
           }
         }
       } else if (userModel && !userModel.verified) {
