@@ -210,6 +210,7 @@ module.exports.getAuthentication = function*(){
 // POST /user/login       check for invalid input, query database for matching email and password and grant token
 module.exports.requestLogin = function*() {
   // assign variable
+
   let emailOrUsername = util.trim(this.request.body.emailOrUsername).toLowerCase()
   let password = this.request.body.password
     // check for invalid input
@@ -234,17 +235,13 @@ module.exports.requestLogin = function*() {
       //code kind of a cluster....running out of time
       let passwordComparison = yield util.bcryptCompareAsync(password, userModel.password)
 
-      if (userModel.isinvited !== null && userModel.isinvited !== undefined &&
-                userModel.doesAcceptInvite !== null && userModel.doesAcceptInvite !== undefined) {
-        if (userModel.isinvited == true && userModel.doesAcceptInvite == false){
-          this.body = {
-            message: 'You have already rejected your invitation'
-          }
+      if (userModel.doesAcceptInvite === false){
+        this.body = {
+          message: 'You have already rejected your invitation'
         }
       } else if (userModel && !userModel.verified) {
         this.body = {
-          message: "Email has not been verified",
-          verification: false
+          message: "Email has not been verified"
         }
       } else if (userModel && passwordComparison) {
         // mask password and grant token
