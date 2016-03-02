@@ -72,7 +72,9 @@ class UserPanel extends Component {
   }
   render() {
     const { user } = this.props
+    console.log(user)
     let buttons = null
+    let cardText = <p>You must RSVP within 72 hours for a confirmation to be elgible for the event. If you have accepted the invite and cannot go, please contact us at igem@g.skule.ca</p>
     if(!user.isinvited)
       return null
     if(!user.doesAcceptInvite)
@@ -80,18 +82,21 @@ class UserPanel extends Component {
                       <RaisedButton label="Accept Invitation"
                                     onMouseUp={this.acceptInvitation}
                                     onTouchEnd = {this.acceptInvitation}
-                                    disable = {this.state.disableButtons}/>
+                                    disabled = {this.state.disableButtons}/>
                       <RaisedButton label="Decline Invitation"
                                     onMouseUp={this.declineInvitation}
                                     onTouchEnd = {this.declineInvitation}
-                                    disable = {this.state.disableButtons}/>
+                                    disabled = {this.state.disableButtons}/>
                     </div>
+    else if(user.doesAcceptInvite){
+      cardText = <p>You have accepted the invitation. If you are unable to make it to the event, please contact us at igem@g.skule.ca</p>
+    }
     return (
       <div className="userConfirmation">
         <Card>
           <CardTitle title="You have been invited!" subtitle={user.email} />
           <CardText>
-            <p>You must RSVP within 72 hours confirming if you are going. If you accepted the invitation and cannot make it, email igem@g.skul.ca.</p>
+            {cardText}
           </CardText>
           <CardActions>
             {buttons}
