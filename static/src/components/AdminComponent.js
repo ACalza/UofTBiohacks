@@ -24,6 +24,7 @@ class AdminComponent extends Component {
     super(props)
     this.state = {
       data: null,
+      filteredData: null,
       selectedID: null,
       selectedUser: null
     }
@@ -36,7 +37,10 @@ class AdminComponent extends Component {
         console.error(err)
       } else {
         if (data){
-          this.setState({data: data.data})
+          this.setState({
+            data: data.data,
+            filteredData: data.data
+          })
         }else{
           dispatch(openSnack("Your IP has been logged"))
         }
@@ -44,7 +48,28 @@ class AdminComponent extends Component {
     })
 
   }
+  handleFilter = (column, value, allFilterValues) => {
+		//reset data to original data-array
+	    this.setState({filteredData: this.state.data})
+	    //go over all filters and apply them
+    	Object.keys(allFilterValues).forEach( (name) => {
+    		var columnFilter = (allFilterValues[name] + '').toUpperCase()
 
+    		if (columnFilter == ''){
+    			return
+    		}
+
+        let data = this.state.data
+    		data = data.filter(function(item){
+    		    if ((item[name] + '').toUpperCase().indexOf(columnFilter) === 0){
+    		        return true
+    		    }
+    		})
+        this.setState({filteredData: data})
+    	})
+
+
+	};
   selectedUser = (newSelectedId, data) => {
     this.setState({
       selectedID: newSelectedId,
@@ -54,9 +79,9 @@ class AdminComponent extends Component {
 
   render() {
     if(!this.state.data){
-      return <p>Loading</p>
+      return <p>Loading </p>
     } else {
-      let data = this.state.data
+      let data = this.state.filteredData
       for(let i = 0; i < data.length; i++){
         data[i].id = data[i].email
         if(!data[i].isinvited)
@@ -86,6 +111,8 @@ class AdminComponent extends Component {
                     columns={columns}
                     selected={this.state.selectedID}
                     onSelectionChange={this.selectedUser}
+                    onFilter={this.handleFilter}
+                    liveFilter={true}
                     />
 
         </div>
