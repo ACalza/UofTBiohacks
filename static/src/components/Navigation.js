@@ -16,7 +16,7 @@ export default class Navigation extends Component {
     // TODO extend a "base links"
     const routes = {
       whenLoggedIn: ['/', '/account', '!logout'],
-      whenLoggedOut: ['/', '/register', '/login' ]
+      whenLoggedOut: ['/', '/login' ]
     }
 
     const linkPusher = (routes) => {
@@ -25,8 +25,6 @@ export default class Navigation extends Component {
       routes.forEach( (link, i) => {
         if (link === '/')
           links.push(<li key={i}><a href={link} className="navLink nav-link">home</a></li>)
-        else if (link === '/register')
-          links.push(<li key={i}><a href={link} className="navLink nav-link">apply</a></li>)
         else if (link.charAt(0) === '/' && link !== '/')
           links.push(<li key={i}><a href={link} className="navLink nav-link">{link.substr(1)}</a></li>)
         else if (link === '!logout')
