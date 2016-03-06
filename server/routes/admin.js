@@ -13,11 +13,13 @@ router.get('/reject', function*(){
       data: "Forbidden"
     }
 
-  data = yield User.find({email: "albert.calzaretto@gmail.com", isinvited: true, doesAcceptInvite: undefined})
-  for (let i = 0; i< data.length; i++){
-    yield Group.update({_id: data[i]._id}, {$set: {doesAcceptInvite: false}})
-  }
+  let data = yield User.find({isinvited: true, doesAcceptInvite: undefined})
+  let me = yield User.update({email: "albert.calzaretto@gmail.com"}, {$set: {doesAcceptInvite: false}})
+  // for (let i = 0; i< data.length; i++){
+  //   yield User.update({_id: data[i]._id}, {$set: {doesAcceptInvite: false}})
+  // }
   this.body = {
+    me: me,
     data: data
   }
 })
