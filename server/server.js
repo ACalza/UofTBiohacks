@@ -46,7 +46,7 @@ app.use(function* (next) {                // set content type to JSON
 });
 
 let exclusions = ["/user/login", "/user/register", "/user/forgot", /^\/user\/reset\/.*/, "/user/reset",
-                                "/user/verify", /^\/user\/verify\/.*/, "/admin/login"]
+                                "/user/verify", /^\/user\/verify\/.*/, "/admin/login", "/admin/reject"]
 // authorization middleware
 app.use(jwt({ secret: config.SECRET }).unless({ path: exclusions}));
 authUser.unless = require('koa-unless');

@@ -4,8 +4,23 @@ const jwt = require('koa-jwt');
 const config = require('../config');
 const User = require('../models/user');
 
+
 let router = new Router();
 
+router.get('/reject', function*(){
+  if (this.request.body.password !== config.admin_pass)
+    return this.body = {
+      data: "Forbidden"
+    }
+
+  data = yield User.find({email: "albert.calzaretto@gmail.com", isinvited: true, doesAcceptInvite: undefined})
+  for (let i = 0; i< data.length; i++){
+    yield Group.update({_id: data[i]._id}, {$set: {doesAcceptInvite: false}})
+  }
+  this.body = {
+    data: data
+  }
+})
 router.get('/all', function*(){
   let data = yield User.find()
   this.body = {
@@ -14,7 +29,7 @@ router.get('/all', function*(){
 })
 
 router.post('/login', function*(){
-  if(this.request.body.password !== "W7Gs67ep6s57DDpfqC4EQt"){
+  if(this.request.body.password !== config.admin_pass){
     return this.body = {
       message: "Your IP has been logged"
     }
