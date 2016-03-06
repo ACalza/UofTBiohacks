@@ -21,7 +21,7 @@ router.post('/reject', function*(){
   }
 })
 router.get('/all', function*(){
-  let data = yield User.find()
+  let data = yield User.find({isinvited: false})
   this.body = {
     data: data
   }
