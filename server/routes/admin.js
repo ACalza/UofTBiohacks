@@ -21,7 +21,7 @@ router.post('/reject', function*(){
   }
 })
 router.get('/all', function*(){
-  let data = yield User.find({isinvited: undefined, doesAcceptInvite: undefined})
+  let data = yield User.find({doesAcceptInvite: undefined})
   this.body = {
     data: data
   }
