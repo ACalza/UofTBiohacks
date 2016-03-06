@@ -10,17 +10,14 @@ let router = new Router();
 router.post('/reject', function*(){
   if (this.request.body.password !== config.admin_pass)
     return this.body = {
-      data: "Forbidden"
+      response: "Forbidden"
     }
-
   let data = yield User.find({isinvited: true, doesAcceptInvite: undefined})
-  let me = yield User.update({email: "albert.calzaretto@gmail.com"}, {$set: {doesAcceptInvite: false}})
-  // for (let i = 0; i< data.length; i++){
-  //   yield User.update({_id: data[i]._id}, {$set: {doesAcceptInvite: false}})
-  // }
+  for (let i = 0; i< data.length; i++){
+    yield User.update({_id: data[i]._id}, {$set: {doesAcceptInvite: false}})
+  }
   this.body = {
-    me: me,
-    data: data
+    response: "success"
   }
 })
 router.get('/all', function*(){
