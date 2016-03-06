@@ -7,7 +7,7 @@ const User = require('../models/user');
 
 let router = new Router();
 
-router.get('/reject', function*(){
+router.post('/reject', function*(){
   if (this.request.body.password !== config.admin_pass)
     return this.body = {
       data: "Forbidden"
