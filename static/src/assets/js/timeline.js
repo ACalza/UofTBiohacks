@@ -8,15 +8,15 @@ export default {
     'icon': 'fa fa-flash'
   },
   '2:30 p.m.': {
-    'title': 'Opening Keynote Speech from Prof. Brendan John Frey',
+    'title': 'Opening Keynote Speech from Hui Yuan Xiong',
     'icon': 'fa fa-certificate',
     'content':
     `
       <p>
-        Brendan John Frey is a Professor at University of Toronto, the Canada
-        Research Chair in Information Processing and Machine Learning and the CEO of
-        Deep Genomics. He is well-known with his research in genome biology and
-        machine learning.
+        Hui Yuan Xiong is the co-founder of Deep Genomics along with Prof. Brendan John Frey, 
+        an Engineering Science graduate and a researcher at Frey Lab. His research in genomics, machine learning
+        and various other areas have led to top-tier academic publications and commercial applications featured in Wired,
+        Scientific American, Quanta, CBC, and the National Post.
       </p>
       <div class="headshot-wrapper">
         <img class="headshot" src="/img/BrendanFrey2.jpg" />
