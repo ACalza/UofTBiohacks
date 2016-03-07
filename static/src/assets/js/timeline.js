@@ -19,7 +19,7 @@ export default {
         Scientific American, Quanta, CBC, and the National Post.
       </p>
       <div class="headshot-wrapper">
-        <img class="headshot" src="/img/BrendanFrey2.jpg" />
+        <img class="headshot" src="/img/Hui-Xiong.jpg" />
       </div>
     `
   },
