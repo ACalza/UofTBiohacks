@@ -69,7 +69,7 @@ class UserPanel extends Component {
 
       }
     })
-  };
+  }
 
   render() {
     const { user } = this.props

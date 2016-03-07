@@ -95,8 +95,7 @@ class AdminComponent extends Component {
         { name: 'email', },
         { name: 'firstName'},
         { name: 'lastName'},
-        { name: 'isinvited'},
-        { name: 'doesAcceptInvite'}
+        { name: 'isinvited'}
       ]
       return (
 
@@ -105,6 +104,7 @@ class AdminComponent extends Component {
           <br></br>
           <br></br>
           <h2>Welcome Administrator</h2>
+          
           <UserPanel user={this.state.selectedUser} />
           <DataGrid idProperty="id"
                     dataSource={data}
