@@ -6,7 +6,7 @@ Ribonucleic acids (RNAs) not only play a role in the Central Dogma of Molecular 
 
 As a visual representation of the secondary structure, the RNA sequence is laid out in a straight line, and the base pairings are represented by connecting arcs (See figure below). Typically, the arcs will be nested. i.e. they will not cross each other (top). However, in certain cases, the arcs do cross (bottom). This special topology is called a pseudoknot which adds significant time complexity to the structure prediction problem (NP hard). As a result, most of the existing prediction programs assume pseudoknot-free structure. However, pseudoknots are often observed in RNAs of functional significance such as ribosomal RNAs, transfer messenger RNAs, and viral RNAs. The current state-of-the-art pseudoknot structure prediction methods have insufficient accuracy. Thus, construct a computational strategy to better predict the pseudoknot-containing RNA secondary structure. 
 
-(https://github.com/ACalza/UofTBiohacks/blob/master/static/src/RNA%20Secondary%20Struct.png)
+![alt text](https://github.com/ACalza/UofTBiohacks/blob/master/static/src/RNA%20Secondary%20Struct.png)
 
 #### Useful Readings
 * [RNA Structure Prediction: An Overview of Methods](https://drive.google.com/open?id=0B2ujBo4yLWjjdWdlX3pXcVJWX1E)
