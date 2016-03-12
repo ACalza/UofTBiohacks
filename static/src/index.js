@@ -18,6 +18,7 @@ import about from './markdown/about.md'
 import why from './markdown/why.md'
 import overview from './markdown/overview.md'
 import faq from './markdown/faq.md'
+import challenges from './markdown/challenges.md'
 
 class Index extends Component {
   componentDidMount() {
@@ -86,6 +87,20 @@ class Index extends Component {
             </Row>
           </div>
         </div>
+        <div className="lightBlock2">
+          <div className="container">
+            <Row>
+              <Col xs={12} md={8} mdOffset={2}>
+                <div className="panel my-panel-default">
+                  <div className="my-panel-body">
+                    <a href="https://2016.uoftbiohacks.com/UofT-BioHacks-2016-Judging-Rubric.pdf">Judging Rubric</a>
+                    <div id="faq" dangerouslySetInnerHTML={{__html: challenges}} />
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
         <div className="darkBlock2" style={{paddingTop: '15px'}}>
           <div className="container">
             <Row>
@@ -96,8 +111,8 @@ class Index extends Component {
                     <a target="_blank" href="http://www.ontariogenomics.ca/"><img style={{width: '80%', paddingBottom: '20px'}} src="/img/OGI.png" /></a><br></br>
                     <a target="_blank" href="http://synaptivemedical.com/"><img style={{width: '50%', paddingBottom: '20px'}} src="/img/synaptive.png" /></a><br></br>
                     <a target="_blank" href="http://www.array.ca/"><img style={{width: '50%', paddingBottom: '20px'}} src="/img/ArrayLogo.jpg" /></a><br></br>
-                    <a target="_blank" href="https://www.nymi.com/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/Logo_Nymi_Horizontal.png" /></a><br></br> 
-                    <a target="_blank" href="http://hatchery.engineering.utoronto.ca/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/hatchery.png" /></a><br></br> 
+                    <a target="_blank" href="https://www.nymi.com/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/Logo_Nymi_Horizontal.png" /></a><br></br>
+                    <a target="_blank" href="http://hatchery.engineering.utoronto.ca/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/hatchery.png" /></a><br></br>
 
                     <p style={{paddingTop: '10px'}}>
                       If you are interested in becoming a sponsor, check out our <a href="/U-of-T-BioHacks-2016-Sponsorship-Package.pdf">sponshorship package</a>.
