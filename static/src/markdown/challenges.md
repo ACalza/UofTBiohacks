@@ -24,7 +24,7 @@ With the emergence of high throughput sequencing technologies, development of au
 
 #####Tools
 * [BLAST](http://blast.ncbi.nlm.nih.gov/Blast.cgi)
-* [Gene ontology](http://geneontology.org/)
+* [Gene Ontology Consortium](http://geneontology.org/)
 * [HHpred](http://toolkit.tuebingen.mpg.de/hhpred)
 * [Pfam](http://pfam.xfam.org/)
 * [GLIMMER](http://www.cbcb.umd.edu/software/glimmer-mg/)
