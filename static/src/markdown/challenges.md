@@ -1,5 +1,27 @@
 #Challenges 
 
+## 1. Phylogenetic Trees
+Phylogenetic tree reconstruction is an attempt to discover the ancestral relationship between the members of a set of sequences. It involves the construction of a tree, where the nodes represent separate evolutionary paths, and the lengths of the branches give an estimate of how distantly related the sequences represented by those branches are.
+
+Currently, there are several methods of constructing phylogenetic trees. Many common ones fall into categories such as distance methods, parsimony methods, and maximum likelihood methods; each type of method may give you different trees, and have different tradeoffs. For this challenge, your team will come up with a new method to construct a phylogenetic tree from the species found below. Your method will be evaluated by the judges. To start off with, you should begin by creating alignments. 
+
+Species genomes
+* [Escherichia coli](http://www.ncbi.nlm.nih.gov/genome/?term=Escherichia%20coli)
+* [Yersinia pestis](http://www.ncbi.nlm.nih.gov/genome/?term=Yersinia+pestis)
+* [Vibrio cholerae](http://www.ncbi.nlm.nih.gov/genome/?term=Vibrio+cholerae)
+* [Haemophilus influenzae](http://www.ncbi.nlm.nih.gov/genome/?term=Haemophilus+influenzae)
+* [Pseudomonas aeruginosa](http://www.ncbi.nlm.nih.gov/genome/?term=Pseudomonas+aeruginosa)
+* [Salmonella typhimurium](http://www.ncbi.nlm.nih.gov/genome/?term=Salmonella+typhimurium)
+* [Neisseria meningitidis](http://www.ncbi.nlm.nih.gov/genome/?term=Neisseria+meningitidis)
+* [Helicobacter pylori](http://www.ncbi.nlm.nih.gov/genome/?term=Helicobacter+pylori)
+* [Pasteurella multocida](http://www.ncbi.nlm.nih.gov/genome/?term=Pasteurella+multocida)
+* [Ralstonia solanacearum](http://www.ncbi.nlm.nih.gov/genome/?term=Ralstonia+solanacearum)
+
+## 2. Gene Annotation/Prediction
+Gene annotation/prediction is a process where a function or family is predicted from reading a nucleotide or amino acid sequence. This process is one of the most important steps in studying the metabolism, phylogeny, and the overall genomic properties of a sequenced species. 
+
+With the emergence of high throughput sequencing technologies, development of automated gene annotation methods has exploded, creating significantly more precise and efficient algorithms. Existing tools use a variety of approaches such as sequence alignment, artificial neural networks and statistical modeling to name a few. Your challenge is to develop a novel method for gene prediction, or construct a pipeline that uses a combination of existing approaches to improve gene annotation. 
+
 ## 3. Mass Spectrum to Protein
 
 Protein Mass spectrometry is application of mass spectrometry to proteins. Mass spectrometry is a technique that sorts ions according to their mass and gives exact chemical composition of a sample. Mass spectrum is a plot representing an intensity vs mass to charge ratio (m/z).  Peaks found on a protein mass spectrum can be used to identify aminoacid residues present. This challenge focusses on obtaining information (structure, chemical composition) of a protein by utilizing mass spectrum given by designing a computational tool. You can use following mass spectrum data from a to C to develop your tool and identify the given examples.
