@@ -22,6 +22,13 @@ Gene annotation/prediction is a process where a function or family is predicted 
 
 With the emergence of high throughput sequencing technologies, development of automated gene annotation methods has exploded, creating significantly more precise and efficient algorithms. Existing tools use a variety of approaches such as sequence alignment, artificial neural networks and statistical modeling to name a few. Your challenge is to develop a novel method for gene prediction, or construct a pipeline that uses a combination of existing approaches to improve gene annotation. 
 
+Tools
+* [BLAST](http://blast.ncbi.nlm.nih.gov/Blast.cgi)
+* [Gene ontology](http://geneontology.org/)
+* [HHpred](http://toolkit.tuebingen.mpg.de/hhpred)
+* [Pfam](http://pfam.xfam.org/)
+* [GLIMMER](http://www.cbcb.umd.edu/software/glimmer-mg/)
+
 ## 3. Mass Spectrum to Protein
 
 Protein Mass spectrometry is application of mass spectrometry to proteins. Mass spectrometry is a technique that sorts ions according to their mass and gives exact chemical composition of a sample. Mass spectrum is a plot representing an intensity vs mass to charge ratio (m/z).  Peaks found on a protein mass spectrum can be used to identify aminoacid residues present. This challenge focusses on obtaining information (structure, chemical composition) of a protein by utilizing mass spectrum given by designing a computational tool. You can use following mass spectrum data from a to C to develop your tool and identify the given examples.
