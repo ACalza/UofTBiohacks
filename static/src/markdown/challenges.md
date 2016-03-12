@@ -5,7 +5,7 @@ Phylogenetic tree reconstruction is an attempt to discover the ancestral relatio
 
 Currently, there are several methods of constructing phylogenetic trees. Many common ones fall into categories such as distance methods, parsimony methods, and maximum likelihood methods; each type of method may give you different trees, and have different tradeoffs. For this challenge, your team will come up with a new method to construct a phylogenetic tree from the species found below. Your method will be evaluated by the judges. To start off with, you should begin by creating alignments. 
 
-Species genomes
+#####Species genomes
 * [Escherichia coli](http://www.ncbi.nlm.nih.gov/genome/?term=Escherichia%20coli)
 * [Yersinia pestis](http://www.ncbi.nlm.nih.gov/genome/?term=Yersinia+pestis)
 * [Vibrio cholerae](http://www.ncbi.nlm.nih.gov/genome/?term=Vibrio+cholerae)
@@ -22,7 +22,7 @@ Gene annotation/prediction is a process where a function or family is predicted 
 
 With the emergence of high throughput sequencing technologies, development of automated gene annotation methods has exploded, creating significantly more precise and efficient algorithms. Existing tools use a variety of approaches such as sequence alignment, artificial neural networks and statistical modeling to name a few. Your challenge is to develop a novel method for gene prediction, or construct a pipeline that uses a combination of existing approaches to improve gene annotation. 
 
-Tools
+#####Tools
 * [BLAST](http://blast.ncbi.nlm.nih.gov/Blast.cgi)
 * [Gene ontology](http://geneontology.org/)
 * [HHpred](http://toolkit.tuebingen.mpg.de/hhpred)
