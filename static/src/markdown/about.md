@@ -4,4 +4,4 @@ Returning for its 2nd year at UofT, BioHacks is a two day hackathon that will fe
 
 Bioinformatics is a classic interdisciplinary field. At BioHacks2018, we're looking to bring computer scicene and life science students together to problem solve and apply domain knowledge. In addition, we want to expose our students to some of the fascinating research and industry oportunities local to Toronto.
 
-We're inspiring each other to excel in bioinformatics learning, and invite you to join us in pioneering the field as well!
+We're inspiring each other to excel in bioinformatics learning, and invite you to join us in pioneering the field!
