@@ -53,6 +53,7 @@ class Index extends Component {
 
                     <div className="buttonHolder">
                       <button type="button" className="btn btn-primary btn-lg"><a href="https://goo.gl/forms/V3ujQb3Wt1qNXMYr1" target="_blank">Volunteer</a></button>
+                      <button style={{marginLeft: '20px'}} type="button" className="btn btn-primary btn-lg"><a href="/BCB-biohacks-2018-sponsor-package.pdf" target="_blank">Sponsor</a></button>
                     </div>
                   </div>
                   <hr />
