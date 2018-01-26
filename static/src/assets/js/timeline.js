@@ -1,20 +1,44 @@
 export default {
   //March 17th
-  '8:30 a.m. - Atrium': {
+  '8:30 a.m.': {
     'title': 'Registration and Team Formation',
     'icon': 'fa fa-sign-in'
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
   },
-  '9:00 a.m. - Atrium': {
+  '9:00 a.m.': {
     'title': 'Breakfast',
     'icon': 'fa fa-coffee'
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
   },
-  '9:30 a.m. - BA1180': {
+  '9:30 a.m.': {
     'title': 'Opening Ceremonies',
     'icon': 'fa fa-fire'
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   },
-  '10:00 a.m. - BA1180': {
+  '10:00 a.m.': {
     'title': 'Opening Keynote Speech',
     'icon': 'fa fa-key'
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   },
   '11:00 a.m.': {
     'title': 'Hacking Begins!',
@@ -27,37 +51,85 @@ export default {
       </p>
     `
   },
-  '12:00 p.m. - Atrium': {
+  '12:00 p.m.': {
     'title': 'Lunch',
     'icon': 'fa fa-cutlery'
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
   },
-  '4:00 p.m. - BA1180': {
+  '4:00 p.m.': {
     'title': 'Workshops',
     'icon': 'fa fa-cog'
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   },
-  '7:00 p.m. - Atrium': {
+  '7:00 p.m.': {
     'title': 'Dinner',
     'icon': 'fa fa-cutlery'
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
   },
   //March 18th
-  '9:00 a.m. - Atrium': {
+  '9:00 a.m.': {
     'title': 'Breakfast',
     'icon': 'fa fa-coffee'
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
   },
   '9:00 a.m.': {
     'title': 'Presentation Sign-Up',
     'icon': 'fa fa-pencil-square-o'
+    'content':
+    `
+      <p>
+        Stay tuned!
+      </p>
+    `
   },
   '9:30 a.m.': {
     'title': 'Presentations',
     'icon': 'fa fa-laptop'
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   },
   '11:30 a.m.': {
     'title': 'Closing Keynote Speech',
     'icon': 'fa fa-key'
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   },
   '12:00 p.m.': {
     'title': 'Closing Ceremony',
     'icon': 'fa fa-trophy'
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   }
 }
