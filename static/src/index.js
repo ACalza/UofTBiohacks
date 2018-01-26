@@ -59,7 +59,7 @@ class Index extends Component {
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                   <div style={{textAlign: 'center'}}>
-                    <a href="http://igem.skule.ca"><img style={{width: '40%'}} src="/img/igem.png" /></a>
+                    <img style={{width: '40%'}} src="/img/BCB.png" />
                   </div>
                 </div>
                 <div className="downTriangle light" style={{marginBottom: '-10%'}}/>
@@ -131,6 +131,8 @@ class Index extends Component {
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
                     <h2>Partners</h2>
+                    <a href="http://igemtoronto.ca/"><img style={{width: '30%'}} src="/img/igem.png" /></a>
+                    <br></br>
                     <a target="_blank" href="https://cssu.ca/"><img style={{width: '25%'}} src="/img/cssu.png" /></a>
                     <br></br>
                     <a target="_blank" href="http://web.cs.toronto.edu/"><img style={{width: '50%', paddingTop: '10px'}} src="/img/dcs.png" /></a>
