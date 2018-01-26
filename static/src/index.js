@@ -52,7 +52,7 @@ class Index extends Component {
                     <h2 style={{textAlign: 'center'}}><i className="fa fa-calendar"></i> March 12-13</h2>
 
                     <div className="buttonHolder">
-                      <button type="button" className="btn btn-primary btn-lg"><a href="/register">Apply</a></button>
+                      <button type="button" className="btn btn-primary btn-lg"><a href="https://goo.gl/forms/V3ujQb3Wt1qNXMYr1" target="_blank">Volunteer</a></button>
                     </div>
                   </div>
                   <hr />
