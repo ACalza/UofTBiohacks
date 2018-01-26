@@ -12,7 +12,7 @@ import MyRadioGroup from '../components/MyRadioGroup.js'
 import PureTextInput from '../components/PureTextInput.js'
 import PureRadioGroup from '../components/PureRadioGroup.js'
 import PureSelect from '../components/PureSelect.js'
-import PureCheckBox from '../components/PureCheckBox'
+import PureCheckBox from '../components/PureCheckbox.js'
 
 import CircularProgress from 'material-ui/lib/circular-progress';
 

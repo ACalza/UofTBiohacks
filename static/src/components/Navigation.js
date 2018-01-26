@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import '../styles/navigation.scss'
+import '../styles/Navigation.scss'
 
 export default class Navigation extends Component {
   // logout() {
