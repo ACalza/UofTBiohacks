@@ -18,6 +18,7 @@ With the emergence of high throughput sequencing technologies, development of au
 * [UCSC genome browser](https://genome.ucsc.edu/)
 
 ##### Useful Reading 
+* [GENCODE: The reference human genome annotation for The ENCODE Project](http://genome.cshlp.org/content/22/9/1760.full.html)
 * [The Sequence of The Human Genome](https://drive.google.com/file/d/15dxceQvrkhzzy2Vws5mgdzl1l41vUnri/view?usp=sharing)
 * [A Beginner's Guide To Eukaryotic genome annotation](https://drive.google.com/file/d/1Ji5NwvLjpfyCHRykXEYiC9kBY1Hz23aW/view?usp=sharing)
 * [What is Genome Annotation?](https://support.ncbi.nlm.nih.gov/link/portal/28045/28049/Article/755/What-is-genome-annotation)
@@ -25,7 +26,7 @@ With the emergence of high throughput sequencing technologies, development of au
 * [Annotation for Amateur](http://www.plantgdb.org/tutorial/annotatemodule/)
 
 
-## 2. Phylogenetic Trees
+## 2. The McLaughlin Center Genomic Medicine Challenge
 Phylogenetic tree reconstruction is an attempt to discover the ancestral relationship between the members of a set of sequences. It involves the construction of a tree, where the nodes represent separate evolutionary paths, and the lengths of the branches give an estimate of how distantly related the sequences represented by those branches are.
 
 Currently, there are several methods of constructing phylogenetic trees. Many common ones fall into categories such as distance methods, parsimony methods, and maximum likelihood methods; each type of method may give you different trees, and have different tradeoffs. For this challenge, your team will come up with a new method to construct a phylogenetic tree from the species found below. Your method will be evaluated by the judges. To start off with, you should begin by creating alignments.
