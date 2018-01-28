@@ -1,4 +1,4 @@
-Bioinformatics and Computational Biology X CSSU Presents: BCB BioHacks 2018
+# Bioinformatics and Computational Biology X CSSU Presents: BCB BioHacks 2018
 
 Returning for its 2nd year at UofT, BioHacks is a two day hackathon that will feature academic speakers, workshops, and industry guests. We can't wait to welcome a hundred undergraduate participants to learn, build, and share their solutions to current challenges in bioinformatics.
 
