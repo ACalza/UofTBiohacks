@@ -71,7 +71,7 @@ export default {
       </p>
     `
   },
-  '7:00 p.m.': {
+  '6:00 p.m.': {
     'title': 'Dinner',
     'icon': 'fa fa-cutlery'
     'content':
