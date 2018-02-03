@@ -49,7 +49,7 @@ class Index extends Component {
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default grey" style={{marginBottom: '0'}}>
                   <div className="my-panel-body">
-                    <h2 style={{textAlign: 'center'}}><i className="fa fa-calendar"></i> March 17-18</h2>
+                    <h2 style={{textAlign: 'center'}}><i className="fa fa-calendar"></i> March 17-18 2018</h2>
 
                     <div className="buttonHolder">
                       <a className="btn btn-primary btn-lg" href="https://goo.gl/forms/V3ujQb3Wt1qNXMYr1">Volunteer</a>
