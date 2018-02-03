@@ -27,7 +27,7 @@ export default class Page extends Component {
     }
 
     const htmlProps = {
-      title: 'UofT BioHacks',
+      title: 'BCB BioHacks',
       meta: metas,
       body: bodyString,
       name: name

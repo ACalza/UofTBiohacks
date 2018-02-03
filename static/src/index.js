@@ -40,7 +40,7 @@ class Index extends Component {
           <div id="viz" />
           <div className="headerPush" />
           <img id="splashLogo" className="aboveCanvas" src="/BioHacksLogo.svg" />
-          <h1 id="splashTitle" className="aboveCanvas"><span className="darkBlue">UofT</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
+          <h1 id="splashTitle" className="aboveCanvas"><span className="darkBlue">BCB</span> <span className="lightBlue">Bio</span><span className="darkBlue">Hacks</span></h1>
           <i id="downArrow" className="fa fa-arrow-down"></i>
         </div>
         <div className="registerBlock">
