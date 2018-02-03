@@ -80,7 +80,7 @@ class Index extends Component {
                 <div className="downTriangle up light" style={{backgroundColor: 'rgba(0,0,0,0)', marginTop: '-20%'}}/>
                 <div className="panel my-panel-default grey">
                   <div className="my-panel-body">
-                    <h2 style={{textAlign: 'center'}}>Why?</h2>
+                    <h2 style={{textAlign: 'center'}}>About BioHacks</h2>
                     <div id="why" dangerouslySetInnerHTML={{__html: why}} />
                   </div>
                 </div>
