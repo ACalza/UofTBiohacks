@@ -142,20 +142,6 @@ class Index extends Component {
             </Row>
           </div>
         </div>
-        <div className="darkBlock2">
-          <div className="container">
-            <Row>
-              <Col xs={12} md={8} mdOffset={2}>
-                <div className="panel my-panel-default">
-                  <div className="my-panel-body">
-                    <h2 style={{textAlign: 'center'}}>What?</h2>
-                    <div id="overview" dangerouslySetInnerHTML={{__html: overview}} />
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </div>
         <div className="lightBlock2">
           <div className="container">
             <Row>
