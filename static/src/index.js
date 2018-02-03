@@ -60,6 +60,8 @@ class Index extends Component {
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                   <div style={{textAlign: 'center'}}>
                     <img style={{width: '40%'}} src="/img/BCB.png" />
+                    <br></br>
+                    <a target="_blank" href="https://cssu.ca/"><img style={{width: '25%'}} src="/img/cssu.png" /></a>
                   </div>
                 </div>
                 <div className="downTriangle light" style={{marginBottom: '-10%'}}/>
@@ -108,14 +110,16 @@ class Index extends Component {
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
                     <h2>Sponsors</h2>
-                    <a target="_blank" href="http://www.ontariogenomics.ca/"><img style={{width: '80%', paddingBottom: '20px'}} src="/img/OGI.png" /></a><br></br>
-                    <a target="_blank" href="http://synaptivemedical.com/"><img style={{width: '50%', paddingBottom: '20px'}} src="/img/synaptive.png" /></a><br></br>
-                    <a target="_blank" href="http://www.array.ca/"><img style={{width: '50%', paddingBottom: '20px'}} src="/img/ArrayLogo.jpg" /></a><br></br>
-                    <a target="_blank" href="https://www.nymi.com/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/Logo_Nymi_Horizontal.png" /></a><br></br>
-                    <a target="_blank" href="http://hatchery.engineering.utoronto.ca/"><img style={{width: '30%', paddingBottom: '20px'}} src="/img/hatchery.png" /></a><br></br>
+                    <a target="_blank" href="http://web.cs.toronto.edu/"><img style={{width: '50%', paddingTop: '20px'}} src="/img/dcs.png" /></a>
+                    <br></br>
+                    <a target="_blank" href="http://www.mclaughlin.utoronto.ca/"><img style={{width: '50%', paddingTop: '20px'}} src="/img/MC_logo_Centered_RGB.jpg" /></a>
+                    <br></br>
+                    <a target="_blank" href="http://www.cagef.utoronto.ca/"><img style={{width: '50%', paddingTop: '20px'}} src="/img/CAGEF_01-2_small-2.png" /></a>
+                    <br></br>
+                    <a target="_blank" href="https://awakechocolate.ca/"><img style={{width: '50%', paddingTop: '20px'}} src="/img/awake.png" /></a>
 
                     <p style={{paddingTop: '10px'}}>
-                      If you are interested in becoming a sponsor, check out our <a href="/U-of-T-BioHacks-2016-Sponsorship-Package.pdf">sponshorship package</a>.
+                      If you are interested in becoming a sponsor, check out our <a href="/BCB-biohacks-2018-sponsor-package.pdf">sponshorship package</a>.
                     </p>
                   </div>
                 </div>
@@ -131,10 +135,7 @@ class Index extends Component {
                   <div className="my-panel-body">
                     <h2>Partners</h2>
                     <a href="http://igemtoronto.ca/"><img style={{width: '30%'}} src="/img/igem.png" /></a>
-                    <br></br>
-                    <a target="_blank" href="https://cssu.ca/"><img style={{width: '25%'}} src="/img/cssu.png" /></a>
-                    <br></br>
-                    <a target="_blank" href="http://web.cs.toronto.edu/"><img style={{width: '50%', paddingTop: '10px'}} src="/img/dcs.png" /></a>
+                    <a target="_blank" href="https://cssu.ca/"><img style={{paddingLeft: '20px', width: '30%'}} src="/img/cssu.png" /></a>
                   </div>
                 </div>
               </Col>
