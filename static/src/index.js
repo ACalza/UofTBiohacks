@@ -94,7 +94,6 @@ class Index extends Component {
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
-                    <a href="https://2016.uoftbiohacks.com/UofT-BioHacks-2016-Judging-Rubric.pdf">Judging Rubric</a>
                     <div id="faq" dangerouslySetInnerHTML={{__html: challenges}} />
                   </div>
                 </div>
