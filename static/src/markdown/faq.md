@@ -1,37 +1,47 @@
 ### Where, when, how?
 
-UofT BioHacks 2016 will take place on March 12-­13, 2016. It will be a two day
+UofT BioHacks 2018 will take place on March 17th-18th, 2018. It will be a two day
 event hosted in University of Toronto Bahen Centre for Information Technology
-Building.
+Building. Registration opens February 18th 2018!
 
-### What is the theme of UofT BioHacks 2016?
+### What is the theme of UofT BioHacks 2018?
 
-Theme of UofT BioHacks 2016 is bioinformatics and computational biology.
+Rethinking Genome Annotation.
 
-### Does registration guarantee a space at UofT BioHacks 2016?
+### Is it free to register?
 
-Due to the high demand and limited space, registration does not guarantee a spot in the competitions. Selected candidates will recieve an invitation email. Candidates who accept the invitations will be guaranteed for a spot in the competition. Priority will be given to members who have detailed registration forms and are in groups.
+Thanks to our generous sponsors, YES! 
+
+### Will this event run overnight? 
+
+We will not be running activities overnight, however you are highly encouraged to keep hacking!
+
+### Does registration guarantee a space at UofT BioHacks 2018?
+
+Due to the high demand and limited space, registration does not guarantee a spot in the competitions. Selected candidates will recieve an invitation email. Candidates who accept the invitations will be guaranteed for a spot in the competition. Priority will be given to members who have detailed registration forms. If you don't get a spot right away, we'll put you on the waitlist and let you know if something opens up!
 
 ### How much coding or biology background do I need?
 
-We do not expect advanced biology or coding background. Teams are encouraged to have members with different backgrounds who work together. Additionally, there will be workshops provided to improve your coding skills.
+We do not expect an advanced bioinformatics background. However, this hackathon is not for first time coders. Teams are encouraged to have members with different backgrounds who work together. Additionally, there will be workshops provided to improve your bioinformatics skills. To gauge your bioinformatics comfort, try a few problems at [Rosalind](http://rosalind.info/problems/locations/). The "Bioinformatics Stronghold" should not be out of reach for you. 
 
-### How do I join to a group?
+### How do I form a team?
 
-In order to join to a group, you can
-1) Create a group and invite your friends by using their UserIDs or email addresses.
+In order to join a team, you can
+1) Create a team and invite your friends by using their UserIDs or email addresses.
 OR
-2) You can contact your friend and ask to be invited to their group.
+2) You can contact your friend and ask to be invited to their team.
+OR
+3) Show up the day of and find others who need a team!!
 
-Note: You cannot send an invitation to a friend who is already in a group. Participants should not be in a group to receive invitations.
+Note: You cannot send an invitation to a friend who is already on a team. 
 
-### I don’t have a group, should I still register?
+### I don’t have a team, should I still register?
 
 Definitely! We will help you find your team members.
 
 ### How many members per team?
 
-Up to 4 members per team
+Up to 5 members per team
 
 ### What you should bring?
 
@@ -39,20 +49,28 @@ A laptop, charger and yourself!
 
 ### Will there be hardware (medical devices or gadgets) provided?
 
-No, we do not provide hardware.
+Nope! We will not provide any hardware.
 
-### Will there be APIs or resources provided?
+### Is there any preparation I can do to before?
 
-We will provide APIs and resources in advance.
+1) Read up! Google around or check out some of our provided links.
 
-### Will there be transportation provided?
+2) Brainstorm ideas with your team!
 
-Unfortunately, we do not provide transportation. However, we encourage participants travelling from same university/location to organize their transportations in group in order to benefit from group discounts.
+3) Brush up on your coding skills
 
 ### Will there be food?
 
-Yes, refreshments and food will be provided. Participants with dietery restrictions should bring their own food.
+Yes, refreshments and food will be provided. 
 
 ### Are there any prizes awarded?
 
-Yes, judging committe will select top three teams according to their 5-10 min presentations. Top three teams will receive awards.
+Yes! Prizes will be awarded for the different challanges based on submissions and presentations so put your best foot forward!!
+
+### Are there language constraints?
+
+Code your submission however you're comfortable, but keep in mind that you might encounter large volumes of data. For this reason we often recommend python or R. 
+
+### My questions is infrequently asked!
+
+If you've got lingering Q's we have A's! Shoot us an email at BCBbiohacks2018@gmail.com and we'll be happy to help you out.

@@ -1,73 +1,135 @@
 export default {
-  '1:00 p.m.': {
-    'title': 'Arrival and Registration',
-    'icon': 'fa fa-sign-in'
-  },
-  '2:00 p.m.': {
-    'title': 'Opening Ceremony',
-    'icon': 'fa fa-flash'
-  },
-  '2:30 p.m.': {
-    'title': 'Opening Keynote Speech from Hui Yuan Xiong',
-    'icon': 'fa fa-certificate',
+  //March 17th
+  '8:30 a.m.': {
+    'title': 'Registration and Team Formation',
+    'icon': 'fa fa-sign-in',
     'content':
     `
       <p>
-        Hui Yuan Xiong is the co-founder of Deep Genomics along with Prof. Brendan John Frey, 
-        an Engineering Science graduate and a researcher at Frey Lab. His research in genomics, machine learning
-        and various other areas have led to top-tier academic publications and commercial applications featured in Wired,
-        Scientific American, Quanta, CBC, and the National Post.
+        Atrium, Bahen Center for Information Technology
       </p>
-      <div class="headshot-wrapper">
-        <img class="headshot" src="/img/Hui-Xiong.jpg" />
-      </div>
     `
   },
-  '3:00 p.m.': {
-    'title': 'Workshops',
-    'icon': 'fa fa-sticky-note-o'
+  '9:00 a.m.': {
+    'title': 'Breakfast',
+    'icon': 'fa fa-coffee',
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
   },
-  '4:00 p.m.': {
-    'title': 'Sponsor Demos',
-    'icon': 'fa fa-info',
-    'content': '<p>Stay tuned!</p>'
+  '9:30 a.m.': {
+    'title': 'Opening Ceremonies',
+    'icon': 'fa fa-fire',
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   },
-  '5:00 p.m.': {
-    'title': `Hacking Starts!`,
+  '10:00 a.m.': {
+    'title': 'Opening Keynote Speech',
+    'icon': 'fa fa-key',
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
+  },
+  '11:00 a.m.': {
+    'title': 'Hacking Begins!',
     'icon': 'fa fa-code',
     'content':
     `
-      Work away at a new and interesting problem. Mentors will be available
-      all night.
+      <p>
+        Get comfy in any of the following rooms: BA2179, BA2139, BA2145,
+        BA3200, BA2270. Mentors will be circulating to answer questions!
+      </p>
+    `
+  },
+  '12:00 p.m.': {
+    'title': 'Lunch',
+    'icon': 'fa fa-cutlery',
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
+  },
+  '4:00 p.m.': {
+    'title': 'Workshops',
+    'icon': 'fa fa-cog',
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
+  },
+  '6:00 p.m.': {
+    'title': 'Dinner',
+    'icon': 'fa fa-cutlery',
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
+    `
+  },
+  //March 18th
+  '9:00 a.m.': {
+    'title': 'Breakfast',
+    'icon': 'fa fa-coffee',
+    'content':
+    `
+      <p>
+        Atrium, Bahen Center for Information Technology
+      </p>
     `
   },
   '9:00 a.m.': {
     'title': 'Presentation Sign-Up',
-    'icon': 'fa fa-pencil-square-o'
-  },
-  '9:30 a.m.': {
-    'title': 'Presentations',
-    'icon': 'fa fa-laptop'
-  },
-  '11:30 a.m.': {
-    // Please insert AlanDavidson.jpg here in a bubble on the side
-    'title': 'Closing Keynote Speech from Prof. Alan Davidson',
-    'icon': 'fa fa-language',
+    'icon': 'fa fa-pencil-square-o',
     'content':
     `
       <p>
-        Alan Davidson is a Professor at University of Toronto Department of
-        Molecular Genetics and Department of Biochemistry. He is well-known with his
-        research in bioinformatics, protein structure determination, in vitro
-        biochemical studies and in vivo functional studies.
+        Stay tuned!
       </p>
-      <div class="headshot-wrapper">
-        <img class="headshot" src="/img/AlanDavidson.jpg" />
-      </div>
+    `
+  },
+  '9:30 a.m.': {
+    'title': 'Presentations',
+    'icon': 'fa fa-laptop',
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
+  },
+  '11:30 a.m.': {
+    'title': 'Closing Keynote Speech',
+    'icon': 'fa fa-key',
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
     `
   },
   '12:00 p.m.': {
     'title': 'Closing Ceremony',
-    'icon': 'fa fa-fire'
+    'icon': 'fa fa-trophy',
+    'content':
+    `
+      <p>
+        BA1180
+      </p>
+    `
   }
 }

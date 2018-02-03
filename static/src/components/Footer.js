@@ -18,24 +18,11 @@ export default class Footer extends Component {
         <div className="container">
           <Row>
             <Col xs={12} md={6}>
-              Copyight &copy; {new Date().getYear() - 100 + 2000} <a href="http://igem.skule.ca">iGEM Toronto</a>.
-            </Col>
-            <Col xs={12} md={6}>
-              Proudly powered by{Object.keys(poweredLinks).map( (link, i) =>
-                <span key={i}>
-                  &nbsp;
-                  { i === Object.keys(poweredLinks).length - 1 ? 'and ' : ''}
-                  <a target="_blank" href={poweredLinks[link]}>{link}</a>
-                  { i === Object.keys(poweredLinks).length - 1 ? '' : ','}
-                </span>
-              )}.
+              Copyight &copy; {new Date().getYear() - 100 + 2000} BCB
             </Col>
           </Row>
           <div className="footer-socials">
-            <a target="_blank" href="http://igem.skule.ca"><i className="fa fa-globe"></i></a>
-            <a target="_blank" href="https://twitter.com/igem_toronto"><i className="fa fa-twitter"></i></a>
-            <a target="_blank" href="https://www.facebook.com/iGEMToronto/"><i className="fa fa-facebook"></i></a>
-            <a target="_blank" href="mailto:igem@g.skule.ca"><i className="fa fa-envelope"></i></a>
+            <a target="_blank" href="mailto:bcbbiohacks2018@gmail.com"><i className="fa fa-envelope"></i></a>
           </div>
         </div>
       </footer>

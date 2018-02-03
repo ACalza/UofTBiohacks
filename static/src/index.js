@@ -49,16 +49,17 @@ class Index extends Component {
               <Col xs={12} md={8} mdOffset={2}>
                 <div className="panel my-panel-default grey" style={{marginBottom: '0'}}>
                   <div className="my-panel-body">
-                    <h2 style={{textAlign: 'center'}}><i className="fa fa-calendar"></i> March 12-13</h2>
+                    <h2 style={{textAlign: 'center'}}><i className="fa fa-calendar"></i> March 17-18</h2>
 
                     <div className="buttonHolder">
-                      <button type="button" className="btn btn-primary btn-lg"><a href="/register">Apply</a></button>
+                      <div type="button" className="btn btn-primary btn-lg"><a href="https://goo.gl/forms/V3ujQb3Wt1qNXMYr1">Volunteer</a></div>
+                      <div style={{marginLeft: '20px'}} type="button" className="btn btn-primary btn-lg"><a href="/BCB-biohacks-2018-sponsor-package.pdf">Sponsor</a></div>
                     </div>
                   </div>
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                   <div style={{textAlign: 'center'}}>
-                    <a href="http://igem.skule.ca"><img style={{width: '40%'}} src="/img/igem.png" /></a>
+                    <img style={{width: '40%'}} src="/img/BCB.png" />
                   </div>
                 </div>
                 <div className="downTriangle light" style={{marginBottom: '-10%'}}/>
@@ -130,6 +131,8 @@ class Index extends Component {
                 <div className="panel my-panel-default">
                   <div className="my-panel-body">
                     <h2>Partners</h2>
+                    <a href="http://igemtoronto.ca/"><img style={{width: '30%'}} src="/img/igem.png" /></a>
+                    <br></br>
                     <a target="_blank" href="https://cssu.ca/"><img style={{width: '25%'}} src="/img/cssu.png" /></a>
                     <br></br>
                     <a target="_blank" href="http://web.cs.toronto.edu/"><img style={{width: '50%', paddingTop: '10px'}} src="/img/dcs.png" /></a>
