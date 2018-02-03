@@ -2,7 +2,7 @@ export default {
   //March 17th
   '8:30 a.m.': {
     'title': 'Registration and Team Formation',
-    'icon': 'fa fa-sign-in'
+    'icon': 'fa fa-sign-in',
     'content':
     `
       <p>
@@ -12,7 +12,7 @@ export default {
   },
   '9:00 a.m.': {
     'title': 'Breakfast',
-    'icon': 'fa fa-coffee'
+    'icon': 'fa fa-coffee',
     'content':
     `
       <p>
@@ -22,7 +22,7 @@ export default {
   },
   '9:30 a.m.': {
     'title': 'Opening Ceremonies',
-    'icon': 'fa fa-fire'
+    'icon': 'fa fa-fire',
     'content':
     `
       <p>
@@ -32,7 +32,7 @@ export default {
   },
   '10:00 a.m.': {
     'title': 'Opening Keynote Speech',
-    'icon': 'fa fa-key'
+    'icon': 'fa fa-key',
     'content':
     `
       <p>
@@ -46,14 +46,14 @@ export default {
     'content':
     `
       <p>
-        Get comfy in any of the following rooms: BA2179, BA2139, BA2145, 
+        Get comfy in any of the following rooms: BA2179, BA2139, BA2145,
         BA3200, BA2270. Mentors will be circulating to answer questions!
       </p>
     `
   },
   '12:00 p.m.': {
     'title': 'Lunch',
-    'icon': 'fa fa-cutlery'
+    'icon': 'fa fa-cutlery',
     'content':
     `
       <p>
@@ -63,7 +63,7 @@ export default {
   },
   '4:00 p.m.': {
     'title': 'Workshops',
-    'icon': 'fa fa-cog'
+    'icon': 'fa fa-cog',
     'content':
     `
       <p>
@@ -73,7 +73,7 @@ export default {
   },
   '6:00 p.m.': {
     'title': 'Dinner',
-    'icon': 'fa fa-cutlery'
+    'icon': 'fa fa-cutlery',
     'content':
     `
       <p>
@@ -84,7 +84,7 @@ export default {
   //March 18th
   '9:00 a.m.': {
     'title': 'Breakfast',
-    'icon': 'fa fa-coffee'
+    'icon': 'fa fa-coffee',
     'content':
     `
       <p>
@@ -94,7 +94,7 @@ export default {
   },
   '9:00 a.m.': {
     'title': 'Presentation Sign-Up',
-    'icon': 'fa fa-pencil-square-o'
+    'icon': 'fa fa-pencil-square-o',
     'content':
     `
       <p>
@@ -104,7 +104,7 @@ export default {
   },
   '9:30 a.m.': {
     'title': 'Presentations',
-    'icon': 'fa fa-laptop'
+    'icon': 'fa fa-laptop',
     'content':
     `
       <p>
@@ -114,7 +114,7 @@ export default {
   },
   '11:30 a.m.': {
     'title': 'Closing Keynote Speech',
-    'icon': 'fa fa-key'
+    'icon': 'fa fa-key',
     'content':
     `
       <p>
@@ -124,7 +124,7 @@ export default {
   },
   '12:00 p.m.': {
     'title': 'Closing Ceremony',
-    'icon': 'fa fa-trophy'
+    'icon': 'fa fa-trophy',
     'content':
     `
       <p>
