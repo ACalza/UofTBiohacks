@@ -87,6 +87,5 @@ python or R.
 
 ### My questions is infrequently asked!
 
-If you've got lingering Q's we have A's! Shoot us an email at <a
-href="mailto:BCBbiohacks2018@gmail.com">BCBbiohacks2018@gmail.com</a> and we'll
-be happy to help you out.
+If you've got lingering Q's we have A's! Shoot us an email at
+BCBbiohacks2018@gmail.com and we'll be happy to help you out.
