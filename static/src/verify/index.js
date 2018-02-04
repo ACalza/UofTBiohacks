@@ -11,7 +11,6 @@ import CircularProgress from 'material-ui/lib/circular-progress';
 import {openSnack} from '../actions/snacker'
 import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/submission.js'
 import Layout from '../components/Layout'
-import {FRONT_END_URL} from '../../../shared/constants'
 import { ajaxPost } from '../util/ajax.js'
 import { Row, Col } from 'react-bootstrap'
 

@@ -16,7 +16,6 @@ import { canSubmit, submitForm, canNotSubmit, loadResponse} from '../actions/sub
 import Layout from '../components/Layout'
 import { BASE_URI } from '../constants/uris.js'
 import { ajaxPost } from '../util/ajax.js'
-import { FRONT_END_URL } from '../../../shared/constants'
 import { Row, Col } from 'react-bootstrap'
 import '../styles/Navigation.scss'
 

@@ -1,7 +1,3 @@
-// module.exports = {
-//   FRONT_END_URL: "http://localhost:3001"
-// }
-
 module.exports = {
   // NOTE dev and prod MUST have identical structure
   dev: {
