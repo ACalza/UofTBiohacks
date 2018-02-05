@@ -13,8 +13,8 @@ export default class Page extends Component {
       viewport: 'width=device-width, initial-scale=1',
       // description: 'UofT BioHacks 2016 Website',
       description: `
-        UofT BioHacks 2016 will be a two day event at the Bahen Centre, Toronto.
-        Come with any experience and hack away to solve real-world biological problems!
+        Tackle intersting problems in computational biology at BCB Biohacks, 
+        on Mach 17th - 18th 2018. Apply today!
       `,
       author: 'iGEM Toronto' }
 
