@@ -13,10 +13,10 @@ export default class Page extends Component {
       viewport: 'width=device-width, initial-scale=1',
       // description: 'UofT BioHacks 2016 Website',
       description: `
-        Tackle intersting problems in computational biology at BCB Biohacks, 
-        on Mach 17th - 18th 2018. Apply today!
+        Tackle interesting problems in computational biology at BCB BioHacks, 
+        on March 17th - 18th 2018. Apply today!
       `,
-      author: 'iGEM Toronto' }
+      author: 'UofT BCB' }
 
     let bodyString
     // console.log(`went to Page.js for ${name}`)
