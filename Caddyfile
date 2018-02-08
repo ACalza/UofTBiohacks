@@ -1,0 +1,4 @@
+http://uoftbiohacks.com {
+   root /srv
+   log stdout
+}

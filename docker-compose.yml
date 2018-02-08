@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  frontend:
+    image: biohacks
+    # build: ./static
+    volumes:
+      - frontend-static:/app
+
+  caddy:
+    image: abiosoft/caddy
+    volumes:
+      - ./Caddyfile:/etc/Caddyfile
+      - .caddy:/root/.caddy
+      - frontend-static:/srv
+    ports:
+      - 3000:3000
+
+volumes:
+  frontend-static:
+    driver: local
