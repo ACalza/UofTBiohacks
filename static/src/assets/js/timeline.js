@@ -1,16 +1,19 @@
-export default {
+export default [
   //March 17th
-  '8:30 a.m.': {
+  {
+    'time': '8:30 a.m.',
     'title': 'Registration and Team Formation',
     'icon': 'fa fa-sign-in',
     'content':
     `
       <p>
+        <i>March 17</i><br />
         University College (UC), 15 King's College Cir
       </p>
     `
   },
-  '9:00 a.m.': {
+  {
+    'time': '9:00 a.m.',
     'title': 'Breakfast',
     'icon': 'fa fa-coffee',
     'content':
@@ -20,7 +23,8 @@ export default {
       </p>
     `
   },
-  '9:30 a.m.': {
+  {
+    'time': '9:30 a.m.',
     'title': 'Opening Ceremonies',
     'icon': 'fa fa-fire',
     'content':
@@ -30,7 +34,8 @@ export default {
       </p>
     `
   },
-  '10:00 a.m.': {
+  {
+    'time': '10:00 a.m.',
     'title': 'Opening Keynote Speech',
     'icon': 'fa fa-key',
     'content':
@@ -40,7 +45,8 @@ export default {
       </p>
     `
   },
-  '11:00 a.m.': {
+  {
+    'time': '11:00 a.m.',
     'title': 'Hacking Begins!',
     'icon': 'fa fa-code',
     'content':
@@ -50,7 +56,8 @@ export default {
       </p>
     `
   },
-  '12:00 p.m.': {
+  {
+    'time': '12:00 p.m.',
     'title': 'Lunch',
     'icon': 'fa fa-cutlery',
     'content':
@@ -60,7 +67,8 @@ export default {
       </p>
     `
   },
-  '3:00p.m.': {
+  {
+    'time': '3:00 p.m.',
     'title': 'Workshops',
     'icon': 'fa fa-cog',
     'content':
@@ -70,7 +78,8 @@ export default {
       </p>
     `
   },
-  '6:00 p.m.': {
+  {
+    'time': '6:00 p.m.',
     'title': 'Dinner',
     'icon': 'fa fa-cutlery',
     'content':
@@ -81,17 +90,20 @@ export default {
     `
   },
   //March 18th
-  '9:00 a.m.': {
+  {
+    'time': '9:00 a.m.',
     'title': 'Breakfast',
     'icon': 'fa fa-coffee',
     'content':
     `
       <p>
+        <i>March 18</i><br/>
         University College
       </p>
     `
   },
-  '9:00 a.m.': {
+  {
+    'time': '9:00 a.m.',
     'title': 'Presentation Sign-Up',
     'icon': 'fa fa-pencil-square-o',
     'content':
@@ -101,7 +113,8 @@ export default {
       </p>
     `
   },
-  '9:30 a.m.': {
+  {
+    'time': '9:30 a.m.',
     'title': 'Presentations',
     'icon': 'fa fa-laptop',
     'content':
@@ -111,7 +124,8 @@ export default {
       </p>
     `
   },
-  '11:30 a.m.': {
+  {
+    'time': '11:30 a.m.',
     'title': 'Closing Keynote Speech',
     'icon': 'fa fa-key',
     'content':
@@ -121,7 +135,8 @@ export default {
       </p>
     `
   },
-   '12:00 p.m.': {
+  {
+    'time': '12:00 p.m.',
     'title': 'Lunch',
     'icon': 'fa fa-cutlery',
     'content':
@@ -131,7 +146,8 @@ export default {
       </p>
     `
   },
-  '1:00 p.m.': {
+  {
+    'time': '12:00 p.m.',
     'title': 'Closing Ceremony',
     'icon': 'fa fa-trophy',
     'content':
@@ -141,4 +157,4 @@ export default {
       </p>
     `
   }
-}
+]
