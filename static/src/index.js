@@ -59,7 +59,7 @@ class Index extends Component {
                   <hr />
                   <div id="intro" dangerouslySetInnerHTML={{__html: about}} />
                   <div style={{textAlign: 'center'}}>
-                    <img style={{width: '40%'}} src="/img/BCB.png" />
+                    <img style={{width: '60%', paddingBottom: '20px'}} src="/img/BCB.png" />
                     <br></br>
                     <a target="_blank" href="https://cssu.ca/"><img style={{width: '25%'}} src="/img/cssu.png" /></a>
                   </div>
