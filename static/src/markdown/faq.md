@@ -1,21 +1,15 @@
 ### Where, when, how?
 
 UofT BioHacks 2018 will take place on March 17th-18th, 2018. It will be a two day
-event hosted in University of Toronto Bahen Centre for Information Technology
-Building. Registration opens February 18th 2018!
+event hosted in University College. Registration opens February 16th 2018!
 
 ### What is the theme of UofT BioHacks 2018?
 
 Rethinking Genome Annotation.
 
-### Is it free to register?
-
-Thanks to our generous sponsors, YES!
-
 ### Will this event run overnight?
 
-We will not be running activities overnight, however you are highly encouraged
-to keep hacking!
+We will release details for this later. Likely YES!
 
 ### Does registration guarantee a space at UofT BioHacks 2018?
 
@@ -52,7 +46,7 @@ Definitely! We will help you find your team members.
 
 ### How many members per team?
 
-Up to 5 members per team
+Up to 4 members per team
 
 ### What you should bring?
 
