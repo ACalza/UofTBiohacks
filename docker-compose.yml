@@ -2,8 +2,7 @@ version: '2'
 
 services:
   frontend:
-    image: biohacks
-    # build: ./static
+    image: us.gcr.io/biohacks-194200/biohacks:5dcb2ec7532a6c52b500b16815604d58f871b457
     volumes:
       - frontend-static:/app
 
@@ -14,7 +13,8 @@ services:
       - .caddy:/root/.caddy
       - frontend-static:/srv
     ports:
-      - 3000:3000
+      - 80:80
+      - 443:443
 
 volumes:
   frontend-static:

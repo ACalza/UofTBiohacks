@@ -1,4 +1,5 @@
-http://uoftbiohacks.com {
+uoftbiohacks.com, 2018.uoftbiohacks.com {
    root /srv
    log stdout
+   tls bcbbiohacks2018@gmail.com
 }
