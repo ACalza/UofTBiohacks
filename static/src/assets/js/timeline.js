@@ -6,7 +6,7 @@ export default {
     'content':
     `
       <p>
-        Atrium, Bahen Center for Information Technology
+        University College (UC), 15 King's College Cir
       </p>
     `
   },
@@ -16,7 +16,7 @@ export default {
     'content':
     `
       <p>
-        Atrium, Bahen Center for Information Technology
+        University College
       </p>
     `
   },
@@ -26,7 +26,7 @@ export default {
     'content':
     `
       <p>
-        BA1180
+        UC140
       </p>
     `
   },
@@ -36,7 +36,7 @@ export default {
     'content':
     `
       <p>
-        BA1180
+        UC140
       </p>
     `
   },
@@ -46,8 +46,7 @@ export default {
     'content':
     `
       <p>
-        Get comfy in any of the following rooms: BA2179, BA2139, BA2145,
-        BA3200, BA2270. Mentors will be circulating to answer questions!
+        Get comfy in any of the following rooms:  UC 44/51/53/55/57/63. Mentors will be circulating to answer questions!
       </p>
     `
   },
@@ -57,17 +56,17 @@ export default {
     'content':
     `
       <p>
-        Atrium, Bahen Center for Information Technology
+        University College
       </p>
     `
   },
-  '4:00 p.m.': {
+  '3:00p.m.': {
     'title': 'Workshops',
     'icon': 'fa fa-cog',
     'content':
     `
       <p>
-        BA1180
+        UC140
       </p>
     `
   },
@@ -77,7 +76,7 @@ export default {
     'content':
     `
       <p>
-        Atrium, Bahen Center for Information Technology
+        University College
       </p>
     `
   },
@@ -88,7 +87,7 @@ export default {
     'content':
     `
       <p>
-        Atrium, Bahen Center for Information Technology
+        University College
       </p>
     `
   },
@@ -108,7 +107,7 @@ export default {
     'content':
     `
       <p>
-        BA1180
+        UC140
       </p>
     `
   },
@@ -118,7 +117,7 @@ export default {
     'content':
     `
       <p>
-        BA1180
+        UC140
       </p>
     `
   },
@@ -128,7 +127,7 @@ export default {
     'content':
     `
       <p>
-        BA1180
+        UC140
       </p>
     `
   }
