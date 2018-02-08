@@ -121,7 +121,17 @@ export default {
       </p>
     `
   },
-  '12:00 p.m.': {
+   '12:00 p.m.': {
+    'title': 'Lunch',
+    'icon': 'fa fa-cutlery',
+    'content':
+    `
+      <p>
+        University College
+      </p>
+    `
+  },
+  '1:00 p.m.': {
     'title': 'Closing Ceremony',
     'icon': 'fa fa-trophy',
     'content':
