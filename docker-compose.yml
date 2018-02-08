@@ -2,7 +2,7 @@ version: '2'
 
 services:
   frontend:
-    image: us.gcr.io/biohacks-194200/biohacks:5dcb2ec7532a6c52b500b16815604d58f871b457
+    image: us.gcr.io/biohacks-194200/biohacks:ab8e9935850a3a11b7bebfcb8913f1c6afc970bc
     volumes:
       - frontend-static:/app
 
