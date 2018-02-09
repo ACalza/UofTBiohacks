@@ -3,7 +3,7 @@
 const Router = require('koa-router');
 const jwt = require('koa-jwt');
 // Require internally
-const userMiddlewares = require('./userMiddlewares');
+const userMiddlewares = require('./userMiddlewares.js');
 const util = require('../util');                      // for error function
 const config = require('../config');                  // temporary KEY
 const User = require('../models/user');               // User is User Model
@@ -39,6 +39,6 @@ router.param('token', function*(id, next){
 router.get('/biohackinvite/accept', userMiddlewares.acceptBiohackinvite)
 router.get('/biohackinvite/reject', userMiddlewares.rejectBiohackinvite)
 
-
+console.log('/user routes:', router.stack.map(i => i.path));
 
 module.exports = router;

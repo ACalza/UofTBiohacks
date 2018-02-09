@@ -16,8 +16,12 @@ const async = require('async');
 const nodemailer = require('nodemailer');
 const Promise = require('bluebird');
 const sgTransport = require('nodemailer-sendgrid-transport');
-const constants = require('../config')
+const constants = require('../config.js')
 const template = require('../templates/template.js')
+
+// TODO remove old nodemailer stuff
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 // GET /biohackinvite/accept      set doesAcceptInvite to false
@@ -159,24 +163,24 @@ module.exports.saveUsertoDatabase = function*() {
 
   try {
     let model = yield user.save() // save new user in database
+    // TODO this would be done in feathers with a post hook
     model.password = undefined;
-    let options = {
-      auth : {
-        api_user: config.api_user,
-        api_key: config.api_key
-      }
-    }
-    let client = nodemailer.createTransport(sgTransport(options));
-    let body = 'Hello, ' + model.firstName + ',\n\n\n\nplease paste the following url https://'
-                + this.request.host + '/user/verify/'
+
+    // TODO replace this.request.host with an env variable
+    // or maybe use it for dev? nice how it picks up on IP:PORT
+    // TODO handle https for dev vs staging vs prod
+    let body = 'Hello, ' + model.firstName + ',\n\n\n\nplease paste the following url '
+                + process.env.API_BASE_URL + '/user/verify/'
                 + model.verificationToken + ' to verify your account'
-    let email = {
-      from: 'igem@g.skule.ca',
-      to: model.email,
-      subject: 'UofT Biohacks Email Verification',
-      html: template(body)
+
+    const msg = {
+        to: model.email,
+        from: 'bcbbiohacks2018@gmail.com',
+        subject: 'BCB BioHacks Email Verification',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: template(body)
     };
-    yield sendMail(client, email);
+    yield sgMail.send(msg);
 
     this.body = {
       message: "Please check your email to verify your account",
@@ -320,16 +324,16 @@ function sendMail(client, email) {
 }
 
 module.exports.verifyRedirect = function*(){
-
   try{
     let user = yield User.findOne({ verificationToken: this.token})
-    if(user){
-      this.response.redirect(constants.FRONT_END_URL + "/verify?token="+ this.token)
-    }else{
-      this.response.redirect(constants.FRONT_END_URL + "/verify?")
+    if (user) {
+      this.response.redirect(process.env.SPA_BASE_URL + "/verify?token="+ this.token)
+    } else {
+      // TODO wtf?
+      this.response.redirect('http://' + this.request.host + "/verify?")
     }
 
-  }catch(err){
+  } catch(err) {
     console.error(err)
     this.response.status = 500
     util.errorResponse(this)
@@ -338,7 +342,7 @@ module.exports.verifyRedirect = function*(){
 
 module.exports.verify = function*(){
   try{
-    console.log(this.request.body.token)
+    console.log('in verify, body token:', this.request.body.token)
     let user = yield User.findOne({verificationToken: this.request.body.token})
     if(!user){
       return this.body = {
@@ -446,7 +450,7 @@ module.exports.forgotPassword = function*() {
     }
     let client = nodemailer.createTransport(sgTransport(options));
     let emailbody = 'You are receiving this email because a password change request was submitted for your account. Please click on the following link, or paste it into your browser to complete the process:\n\n' +
-        'https://' + this.request.host + '/user/reset/' + token + '\n\n' +
+        'http://' + this.request.host + '/user/reset/' + token + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
       from: 'igem@g.skule.ca',

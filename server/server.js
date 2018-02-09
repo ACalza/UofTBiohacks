@@ -1,5 +1,8 @@
 'use strict'
 
+require('dotenv').config()
+// TODO use envalid
+
 // Require Modules
 const koa = require('koa');
 const mongoose = require('mongoose');
@@ -24,9 +27,10 @@ let app = koa();
 if (process.env.mongodblocal === 'true') {
   mongoose.connect('mongodb://localhost/biohacks')
 } else {
-  mongoose.connect('mongodb://localhost/biohacks/', {
-    user: 'igemuoftbiohacks',
-    pass: 'IDe26PhnmpOMrhjIOS6GZQ'
+  console.log(`Using mongo db: ${process.env.MONGO_DB}`)
+  mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB}/`, {
+    user: process.env.MONGO_USER,
+    pass: process.env.MONGO_PASS
   })
 }
 var db = mongoose.connection;
@@ -57,7 +61,7 @@ app.use(authUser.unless({path: exclusions }));
 app.use(mount('/user', require('./routes/user').middleware()));         //Routes for User
 app.use(mount('/group', require('./routes/group').middleware()));       //Routes for Group
 app.use(mount('/admin', require('./routes/admin').middleware()));  //routes for admin
-//
 
+// TODO promise.all(dbs and shit) first
 app.listen(port)
-console.log(`Koa server listening on port ${port}`)
+  .on('listening', () => console.log(`Koa server listening on port ${port}`))
