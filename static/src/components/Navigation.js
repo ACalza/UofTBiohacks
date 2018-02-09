@@ -16,7 +16,8 @@ export default class Navigation extends Component {
     // TODO extend a "base links"
     const routes = {
       whenLoggedIn: ['/', '/account', '!logout'],
-      whenLoggedOut: ['/', '/login' ]
+      // TODO feature toggle for /register and its button
+      whenLoggedOut: ['/', '/login', '/register' ]
     }
 
     const linkPusher = (routes) => {
