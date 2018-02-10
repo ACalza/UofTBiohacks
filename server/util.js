@@ -1,6 +1,6 @@
 'use strict'
 let config = require('./config');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const Promise = require('bluebird')
 
 module.exports = {

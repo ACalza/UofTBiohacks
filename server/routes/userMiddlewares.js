@@ -1,7 +1,7 @@
 "use strict"
 // Require modules
 const jwt = require('koa-jwt');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const json2xls = require('json2xls');
 const fs = require('fs');
 const streamify = require('stream-array');
