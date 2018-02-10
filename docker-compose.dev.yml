@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  api:
+    build: ./server
+    command: ./node_modules/.bin/nodemon server.js
+    volumes:
+      - ./server:/home/node
+    environment:
+      MONGO_HOST: db
+
+  db:
+    image: mongo:3.6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: biohacks
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    driver: local
