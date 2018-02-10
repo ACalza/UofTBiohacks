@@ -13,13 +13,9 @@ const User = require('../models/user'); // User is user Model
 const Group = require('../models/group');
 const crypto = require('crypto-promise')
 const async = require('async');
-const nodemailer = require('nodemailer');
 const Promise = require('bluebird');
-const sgTransport = require('nodemailer-sendgrid-transport');
 const constants = require('../config.js')
 const template = require('../templates/template.js')
-
-// TODO remove old nodemailer stuff
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -408,14 +404,13 @@ module.exports.resetConfirmationPassword = function * (){
         api_key: config.api_key
       }
     }
-    let client = nodemailer.createTransport(sgTransport(options));
     let email = {
       from: 'igem@g.skule.ca',
       to: user.email,
       subject: 'UofT Biohacks Password Reset',
       html: template('Hello ' + user.firstName + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n')
     };
-    yield sendMail(client, email);
+    yield sgMail.send(email);
     this.body = {
       message: "Your password has been changed",
       success: true
@@ -448,7 +443,7 @@ module.exports.forgotPassword = function*() {
         api_key: config.api_key
       }
     }
-    let client = nodemailer.createTransport(sgTransport(options));
+
     let emailbody = 'You are receiving this email because a password change request was submitted for your account. Please click on the following link, or paste it into your browser to complete the process:\n\n' +
         'http://' + this.request.host + '/user/reset/' + token + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
@@ -458,7 +453,7 @@ module.exports.forgotPassword = function*() {
       subject: 'UofT Biohacks Password Reset',
       html: template(emailbody)
     };
-    yield sendMail(client, email);
+    yield sgMail.send(email);
     this.body = {
       message: "An email will be sent to you for further instructions",
       success: true
