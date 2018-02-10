@@ -23,12 +23,14 @@ var port = process.env.PORT || 3000;
 // Instance of Koa
 let app = koa();
 
+const MONGO_HOST = process.env.MONGO_HOST || 'localhost'
+
 // Connect to database
 if (process.env.mongodblocal === 'true') {
   mongoose.connect('mongodb://localhost/biohacks')
 } else {
   console.log(`Using mongo db: ${process.env.MONGO_DB}`)
-  mongoose.connect(`mongodb://${process.env.MONGO_HOST}/${process.env.MONGO_DB}/`, {
+  mongoose.connect(`mongodb://${MONGO_HOST}/${process.env.MONGO_DB}/`, {
     user: process.env.MONGO_USER,
     pass: process.env.MONGO_PASS
   })
