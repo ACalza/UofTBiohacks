@@ -3,21 +3,36 @@ version: '2'
 services:
   api:
     build: ./server
+    # for prod, use node over nodemom
     command: ./node_modules/.bin/nodemon server.js
+    # for prod, no volume mounting source code
     volumes:
       - ./server:/home/node
+    ports:
+      - "4000:4000"
     environment:
+      # since http://db exists via container networking
       MONGO_HOST: db
+      MONGO_DB: hackathon
+      MONGO_USER: myuser
+      MONGO_PASS: password
 
   db:
-    image: mongo:3.6
+    build: ./mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: biohacks
+      # only used for .js scripts in /docker-entrypoint-initdb.d/
+      # MONGO_INITDB_DATABASE: biohacks
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_DB: hackathon
+      MONGO_USER: myuser
+      MONGO_PASS: password
     volumes:
       - mongo-data:/data/db
+      - mongo-configdb:/data/configdb
 
 volumes:
   mongo-data:
+    driver: local
+  mongo-configdb:
     driver: local
