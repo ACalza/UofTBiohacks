@@ -13,22 +13,24 @@ const mount = require('koa-mount');
 const logger = require('koa-logger');
 
 // Require Internally
-const util = require('./util');
+const util = require('./util.js');
 const config = require('./config');
 const authUser = require('./auth/authuser');
 
 // Declare variable
-var port = process.env.BIOHACKS_PORT || 3000;
+var port = process.env.PORT || 3000;
 
 // Instance of Koa
 let app = koa();
+
+const MONGO_HOST = process.env.MONGO_HOST || 'localhost'
 
 // Connect to database
 if (process.env.mongodblocal === 'true') {
   mongoose.connect('mongodb://localhost/biohacks')
 } else {
   console.log(`Using mongo db: ${process.env.MONGO_DB}`)
-  mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB}/`, {
+  mongoose.connect(`mongodb://${MONGO_HOST}/${process.env.MONGO_DB}/`, {
     user: process.env.MONGO_USER,
     pass: process.env.MONGO_PASS
   })
