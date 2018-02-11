@@ -11,22 +11,22 @@ services:
     ports:
       - "4000:4000"
     environment:
-      # since http://db exists via container networking
-      MONGO_HOST: db
-      MONGO_DB: hackathon
-      MONGO_USER: myuser
-      MONGO_PASS: password
+      - MONGO_HOST=db
+      - SENDGRID_API_KEY
+      - SPA_BASE_URL
+      - API_BASE_URL
+      - MONGO_DB
+      - MONGO_USER
+      - MONGO_PASS
 
   db:
     build: ./mongo
     environment:
-      # only used for .js scripts in /docker-entrypoint-initdb.d/
-      # MONGO_INITDB_DATABASE: biohacks
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_DB: hackathon
-      MONGO_USER: myuser
-      MONGO_PASS: password
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_DB
+      - MONGO_USER
+      - MONGO_PASS
     volumes:
       - mongo-data:/data/db
       - mongo-configdb:/data/configdb
