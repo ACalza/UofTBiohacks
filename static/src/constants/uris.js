@@ -5,7 +5,7 @@ if (__DEV__) {
 } else {
   console.log('USERING NON_DEV URL')
   // TODO not this shit
-  baseUri = 'http://167.114.148.229:3000'
+  baseUri = 'http://167.114.148.229:4000'
   // baseUri = 'https://api.uoftbiohacks.com'
 }
 
