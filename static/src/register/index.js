@@ -155,9 +155,9 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
-                <p>Subject POST</p>
+                <p>What is your program of study?</p>
                 <div className="fullWidth">
-                  <MyRadioGroup name="education" pairs={[
+                  <MyRadioGroup name="scienceType" pairs={[
                       { value: 'lifesci', label: 'Life Science' },
                       { value: 'compsci', label: 'Computer Science' },
                       { value: 'bioinformatics', label: 'Bioinformatics' },
@@ -165,6 +165,16 @@ class Register extends Component {
                       { value: 'other', label: 'Other' }
                     ]}
                     value="other"
+                    disabled={this.state.disabled}
+                  />
+                </div>
+
+                <div className="fullWidth">
+                  <PureTextInput
+                    required
+                    name = 'education'
+                    hintText = "e.g. subject POST"
+                    floatingLabelText = "Educational Background*"
                     disabled={this.state.disabled}
                   />
                 </div>
@@ -218,7 +228,22 @@ class Register extends Component {
                   />
                 </div>
 
-
+                <p>
+                  How did you hear about the event?
+                </p>
+                <div className="fullWidth">
+                  <MyRadioGroup
+                    type="checkbox"
+                    name="hearFrom"
+                    pairs={[
+                      { value: 'hearFacebook', label: 'Facebook' },
+                      { value: 'hearMailingList', label: 'Mailing List' },
+                      { value: 'hearWordOfMouth', label: 'Word of Mouth' },
+                      { value: 'hearOther', label: 'Other' }
+                    ]}
+                    disabled={this.state.disabled}
+                  />
+                </div>
 
                 <div className="fullWidth">
                   <PureSelect
@@ -238,23 +263,6 @@ class Register extends Component {
 
                 </div>
 
-                <p>
-                  How did you hear about the event?
-                </p>
-                <div className="fullWidth">
-                  <MyRadioGroup
-                    type="checkbox"
-                    name="hearFrom"
-                    pairs={[
-                      { value: 'hearFacebook', label: 'Facebook' },
-                      { value: 'hearMailingList', label: 'Mailing List' },
-                      { value: 'hearWordOfMouth', label: 'Word of Mouth' },
-                      { value: 'hearOther', label: 'Other' }
-                    ]}
-                    disabled={this.state.disabled}
-                  />
-                </div>
-
 
                 <div className="fullWidth">
                   <PureTextInput
@@ -267,9 +275,19 @@ class Register extends Component {
 
                 <div className="fullWidth">
                   <PureTextInput
-                    name = 'github'
-                    hintText = "What is your GitHub?"
-                    floatingLabelText = "GitHub"
+                    name = 'likeToSee'
+                    hintText = "Anything you would like to see?"
+                    floatingLabelText = "Anything you would like to see?"
+                    multiLine={true}
+                    disabled={this.state.disabled}
+                  />
+                </div>
+
+                <div className="fullWidth">
+                  <PureTextInput
+                    name = 'questions'
+                    hintText = "Any questions?"
+                    floatingLabelText = "Any questions?"
                     multiLine={true}
                     disabled={this.state.disabled}
                   />
@@ -286,7 +304,11 @@ class Register extends Component {
                   />
                 </div>
 
-            
+                <PureCheckBox
+                  name="mentor"
+                  label="Would you like to be a mentor?"
+                  disabled={this.state.disabled}
+                />
                 <PureCheckBox
                   name="autogroup"
                   label="Would you like to be automatically joined with another group?"
