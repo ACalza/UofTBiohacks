@@ -1,4 +1,4 @@
-version: '2'
+version: '2.3'
 
 services:
   api:
@@ -30,6 +30,24 @@ services:
     volumes:
       - mongo-data:/data/db
       - mongo-configdb:/data/configdb
+
+  frontend:
+    build:
+      context: ./static
+      target: dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./static:/home/node/
+    command: ./node_modules/.bin/webpack --watch
+
+  caddy:
+    image: abiosoft/caddy
+    volumes:
+      - ./Caddyfile.dev:/etc/Caddyfile
+      - ./static/dist:/srv
+    ports:
+      - 4001:80
 
 volumes:
   mongo-data:
