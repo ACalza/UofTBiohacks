@@ -11,7 +11,21 @@ docker-compose -f docker-compose.dev.yml up api
 
 See [./server](./server) for commands to test api + db is working.
 
-(TODO add frontend to docker compose)
+Front end:
+```bash
+alias dcd="docker-compose -f docker-compose.dev.yml"
+dcd build frontend
+dcd up frontend
+
+```
+Run Caddy
+```bash
+dcd up caddy
+```
+Run babel-node
+```bash
+dcd exec frontend ./node_modules/.bin/babel-node ./dist/app.node.js
+```
 
 ```bash
 cd static
