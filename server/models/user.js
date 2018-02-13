@@ -43,7 +43,6 @@ let userSchema = mongoose.Schema({
   group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
   hearFrom: String,
   codingBackground: String,
-  github: String,
   likeToSee: String,
   github: String,
   education: String,
