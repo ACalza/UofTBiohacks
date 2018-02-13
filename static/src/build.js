@@ -12,50 +12,51 @@ const routes = {}
 console.log(chalk.magenta('Found these pages:'))
 Object.keys(routes).map(r => console.log(r))
 
-Object.keys(routes).forEach(async function(route) {
-  console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
-
-  // Handle un-connect() wrapped components
-  // console.log(routes[route])
-  // console.log(Object.keys(routes[route]()))
-  let component
-  try {
-    component = routes[route]().default
-  } catch(e) {
-    console.log('component err, ', e)
-  }
-
-  if (typeof(component) === 'function') {
+let ps = Object.keys(routes).forEach(route => () => {
+  return new Promise((resolve, reject) => {
+    console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
+    let component
     try {
-      // console.log(route)
-      component = React.createElement(component)
+      component = routes[route]().default
     } catch(e) {
-      console.log('build.js: ', e)
+      console.log('component err, ', e)
+      return reject(e);
     }
-  }
-  let name = route.split("/")[0]
 
-  route = 'dist/' + route
+    if (typeof(component) === 'function') {
+      try {
+        component = React.createElement(component)
+      } catch(e) {
+        console.log('build.js: ', e)
+        return reject(e);
+      }
+    }
+    let name = route.split("/")[0]
 
-  let page
-  try {
-    page =
-    '<!doctype html>\n'
-    + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name.replace('.js', '')}/>)
-  } catch(e) {
-    console.log('static markup:' , e)
-  }
+    route = 'dist/' + route
 
-  console.log(chalk.green(`Created element for ${route}`))
-
-  try {
+    let page
+    try {
+      page =
+      '<!doctype html>\n'
+      + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name.replace('.js', '')}/>)
+    } catch(e) {
+      console.log('static markup:' , e)
+      return reject(e);
+    }
+    console.log(chalk.green(`Created element for ${route}`))
     const dir = route.replace(/\/index.js$/, '')
     const filename = route.replace(/\.js$/, '.html')
-    await mkdirpAsync(dir)
-    await fsp.writeFile(filename, page)
-    console.log('wrote ' + chalk.green(filename))
-  } catch(e) {
-    console.log('didnt write')
-    console.error(e)
-  }
+    mkdirpAsync(dir)
+    .then(res => return fsp.writeFile(filename, page))
+    .then(res => {
+      console.log('wrote ' + chalk.green(filename))
+      resolve("wrote " + filename)
+    })
+    .catch(err => {
+      console.error(err)
+      reject(err)
+    })
+  })
 })
+Promise.all(ps.map(p => p())).then(console.log).catch(console.error)

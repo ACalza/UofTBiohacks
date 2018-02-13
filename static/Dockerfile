@@ -9,7 +9,7 @@ RUN npm install -s
 
 COPY --chown=node:node . /home/node
 
-RUN npm run js-prod-min
+RUN ./node_modules/.bin/webpack -p
 RUN ./node_modules/.bin/webpack --config webpack.node.js
 # RUN ./node_modules/.bin/babel-node ./dist/app.node.js
 
