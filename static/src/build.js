@@ -12,7 +12,7 @@ const routes = {}
 console.log(chalk.magenta('Found these pages:'))
 Object.keys(routes).map(r => console.log(r))
 
-let ps = Object.keys(routes).forEach((route) => () => {
+const routeRenders = Object.keys(routes).map((route) => () => {
   return new Promise((resolve, reject) => {
     console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
     let component
@@ -59,4 +59,5 @@ let ps = Object.keys(routes).forEach((route) => () => {
     })
   })
 })
-Promise.all(ps.map(p => p())).then(console.log).catch(console.error)
+
+Promise.all(routeRenders.map(p => p())).then(console.log).catch(console.error)
