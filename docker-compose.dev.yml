@@ -35,8 +35,6 @@ services:
     build:
       context: ./static
       target: dev
-    ports:
-      - "8080:8080"
     volumes:
       - ./static:/home/node/
     command: ./node_modules/.bin/webpack --watch

@@ -16,8 +16,8 @@ Front end:
 alias dcd="docker-compose -f docker-compose.dev.yml"
 dcd build frontend
 dcd up frontend
-
 ```
+
 Run Caddy
 ```bash
 dcd up caddy
@@ -25,6 +25,8 @@ dcd up caddy
 Run babel-node
 ```bash
 dcd exec frontend ./node_modules/.bin/babel-node ./dist/app.node.js
+dcd exec frontend ./node_modules/.bin/webpack
+dcd exec frontend ./node_modules/.bin/webpack --config webpack.node.js
 ```
 
 ```bash
