@@ -10,17 +10,26 @@ import Page from './components/Page.js'
 const routes = {}
 
 console.log(chalk.magenta('Found these pages:'))
-Object.keys(routes).map(r => console.log(r))
+Object.keys(routes).forEach(console.log)
 
 const routeRenders = Object.keys(routes).map((route) => () => {
   return new Promise((resolve, reject) => {
     console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
+
+    let message = ''
+
     let component
     try {
       component = routes[route]().default
     } catch(e) {
-      console.error('component err, ', e)
-      return reject(e);
+      if (e.name === 'SyntaxError') {
+        console.log('Ignoring syntax error:', e)
+        message += `Bailed on syntax error for ${route}; `
+        // return resolve(`Bailed on syntax error for ${route}`)
+      } else {
+        console.error('component loading error:', e)
+        return reject(e)
+      }
     }
 
     if (typeof(component) === 'function') {
@@ -28,11 +37,11 @@ const routeRenders = Object.keys(routes).map((route) => () => {
         component = React.createElement(component)
       } catch(e) {
         console.error('build.js: ', e)
-        return reject(e);
+        return reject(e)
       }
     }
-    let name = route.split("/")[0]
 
+    let name = route.split("/")[0]
     route = 'dist/' + route
 
     let page
@@ -44,20 +53,30 @@ const routeRenders = Object.keys(routes).map((route) => () => {
       console.error('static markup:' , e)
       return reject(e);
     }
+
     console.log(chalk.green(`Created element for ${route}`))
+
     const dir = route.replace(/\/index.js$/, '')
     const filename = route.replace(/\.js$/, '.html')
     mkdirpAsync(dir)
-    .then(res => fsp.writeFile(filename, page))
-    .then(res => {
-      console.log('wrote ' + chalk.green(filename))
-      resolve("wrote " + filename)
-    })
-    .catch(err => {
-      console.error(err)
-      reject(err)
-    })
+      .then(_ => fsp.writeFile(filename, page))
+      .then(_ => {
+        console.log('wrote ' + chalk.green(filename))
+        resolve(message + "wrote " + filename)
+      })
+      .catch(reject)
   })
 })
 
-Promise.all(routeRenders.map(p => p())).then(console.log).catch(console.error)
+Promise.all(routeRenders.map(t => t()))
+  .then((res) => {
+    console.log('Final result:', res)
+  })
+  .then(() => {
+    console.log('Forcefully exiting')
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error('Error in route renders:', err)
+    process.exit(1)
+  })
