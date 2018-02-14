@@ -12,14 +12,14 @@ const routes = {}
 console.log(chalk.magenta('Found these pages:'))
 Object.keys(routes).map(r => console.log(r))
 
-let ps = Object.keys(routes).forEach(route => () => {
+let ps = Object.keys(routes).forEach((route) => () => {
   return new Promise((resolve, reject) => {
     console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
     let component
     try {
       component = routes[route]().default
     } catch(e) {
-      console.log('component err, ', e)
+      console.error('component err, ', e)
       return reject(e);
     }
 
@@ -27,7 +27,7 @@ let ps = Object.keys(routes).forEach(route => () => {
       try {
         component = React.createElement(component)
       } catch(e) {
-        console.log('build.js: ', e)
+        console.error('build.js: ', e)
         return reject(e);
       }
     }
@@ -41,14 +41,14 @@ let ps = Object.keys(routes).forEach(route => () => {
       '<!doctype html>\n'
       + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name.replace('.js', '')}/>)
     } catch(e) {
-      console.log('static markup:' , e)
+      console.error('static markup:' , e)
       return reject(e);
     }
     console.log(chalk.green(`Created element for ${route}`))
     const dir = route.replace(/\/index.js$/, '')
     const filename = route.replace(/\.js$/, '.html')
     mkdirpAsync(dir)
-    .then(res => return fsp.writeFile(filename, page))
+    .then(res => fsp.writeFile(filename, page))
     .then(res => {
       console.log('wrote ' + chalk.green(filename))
       resolve("wrote " + filename)
