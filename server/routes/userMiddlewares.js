@@ -14,7 +14,6 @@ const Group = require('../models/group');
 const crypto = require('crypto-promise')
 const async = require('async');
 const Promise = require('bluebird');
-const constants = require('../config.js')
 const template = require('../templates/template.js')
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -365,9 +364,10 @@ module.exports.resetPassword = function* (){
   try{
     let user = yield User.findOne({ resetPasswordToken: this.token, resetPasswordExpires: { $gt: Date.now() }})
     if(user){
-      this.response.redirect(constants.FRONT_END_URL + "/reset?token="+ this.token)
+      this.response.redirect(process.env.SPA_BASE_URL + "/reset?token="+ this.token)
     }else{
-      this.response.redirect(constants.FRONT_END_URL + "/reset?")
+      // TODO wtf
+      this.response.redirect(process.env.SPA_BASE_URL + "/reset?")
     }
 
   }catch(err){
