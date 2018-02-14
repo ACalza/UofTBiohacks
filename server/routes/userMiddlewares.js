@@ -405,9 +405,9 @@ module.exports.resetConfirmationPassword = function * (){
       }
     }
     let email = {
-      from: 'igem@g.skule.ca',
+      from: 'bcbbiohacks2018@gmail.com',
       to: user.email,
-      subject: 'UofT Biohacks Password Reset',
+      subject: 'BCB Biohacks Password Reset',
       html: template('Hello ' + user.firstName + ', \n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n')
     };
     yield sgMail.send(email);
@@ -448,9 +448,9 @@ module.exports.forgotPassword = function*() {
         'http://' + process.env.API_BASE_URL + '/user/reset/' + token + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
-      from: 'igem@g.skule.ca',
+      from: 'bcbbiohacks2018@gmail.com',
       to: user.email,
-      subject: 'UofT Biohacks Password Reset',
+      subject: 'BCB Biohacks Password Reset',
       html: template(emailbody)
     };
     yield sgMail.send(email);
