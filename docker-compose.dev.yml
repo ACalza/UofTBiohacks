@@ -7,7 +7,7 @@ services:
     command: ./node_modules/.bin/nodemon server.js
     # for prod, no volume mounting source code
     volumes:
-      - ./server:/home/node
+      - ./server/src:/home/node/src
     ports:
       - "4000:4000"
     environment:
@@ -36,14 +36,15 @@ services:
       context: ./static
       target: dev
     volumes:
-      - ./static:/home/node/
+      - frontend-dist:/home/node/dist
+      - ./static/src:/home/node/src
     command: ./node_modules/.bin/webpack --watch
 
   caddy:
     image: abiosoft/caddy
     volumes:
       - ./Caddyfile.dev:/etc/Caddyfile
-      - ./static/dist:/srv
+      - frontend-dist:/srv
     ports:
       - 4001:80
 
@@ -51,4 +52,6 @@ volumes:
   mongo-data:
     driver: local
   mongo-configdb:
+    driver: local
+  frontend-dist:
     driver: local
