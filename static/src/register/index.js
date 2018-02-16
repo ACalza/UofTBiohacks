@@ -203,12 +203,13 @@ class Register extends Component {
                     name='college'
                     floatingLabelText='UofT College'
                     items={[
-                      { value: 'St.Michaels', text: "St.Michaels" },
-                      { value: 'Victoria', text: 'Victoria' },
-                      { value: 'Innis', text: "Innis" },
-                      { value: 'New College', text: "New College" },
-                      { value: 'University College', text: "University College" },
-                      { value: 'Trinity', text: 'Trinity' }
+                      { value: "St.Michael's", text: "St.Michaels College" },
+                      { value: 'Victoria', text: 'Victoria College' },
+                      { value: 'Innis', text: 'Innis College' },
+                      { value: 'New', text: 'New College' },
+                      { value: 'University', text: 'University College' },
+                      { value: 'Trinity', text: 'Trinity' },
+                      { value: 'Woodsworth', text: 'Woodsworth College' }
                     ]}
                     disabled={this.state.disabled}
                   />
