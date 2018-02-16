@@ -2,6 +2,9 @@
 
 require('dotenv').config()
 // TODO use envalid
+//
+//
+//
 
 // Require Modules
 const koa = require('koa');
