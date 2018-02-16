@@ -8,7 +8,8 @@ const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({
 });
 const definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false),
-  API_BASE_URL: JSON.stringify(process.env.API_BASE_URL)
+  API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
+  RECAPTCHA_SITE_KEY: JSON.stringify(process.env.RECAPTCHA_SITE_KEY)
 })
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')

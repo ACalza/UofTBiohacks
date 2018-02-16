@@ -54,7 +54,7 @@ class Register extends Component {
     if(model.about && model.about.length > 1200){
       return dispatch(openSnack("Your bio exceeds 1200 characters"))
     }
-    // if (captchaVerify.length !== 0) {
+    if (captchaVerify.length !== 0) {
       if (model.customSchool) {
         model.school = model.customSchool
       }
@@ -90,9 +90,9 @@ class Register extends Component {
           }
         }
       })
-    // } else {
-    //   dispatch(openSnack('Please do recaptcha'))
-    // }
+    } else {
+      dispatch(openSnack('Please do reCAPTCHA'))
+    }
   };
 
 
@@ -316,7 +316,7 @@ class Register extends Component {
 
                 <div className="recaptcha-wrapper">
                   <Recaptcha
-                    sitekey="6LfdrEYUAAAAAIiSxAoWocPw17hav5LhXybcx3hD"
+                    sitekey={RECAPTCHA_SITE_KEY}
                     verifyCallback={this.verifyCaptcha}
                   />
                 </div>

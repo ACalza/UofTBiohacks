@@ -37,6 +37,7 @@ services:
       target: dev
     environment:
       - API_BASE_URL
+      - RECAPTCHA_SITE_KEY
     volumes:
       - frontend-dist:/home/node/dist
       - ./static/src:/home/node/src
