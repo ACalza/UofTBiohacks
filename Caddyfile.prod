@@ -1,9 +1,15 @@
-uoftbiohacks.com, 2018.uoftbiohacks.com {
+bcbbiohacks.com {
+    redir 302 {
+        https://2018.bcbbiohacks.com{uri}
+    }
+}
+
+2018.bcbbiohacks.com {
    root /srv
    log stdout
    tls bcbbiohacks2018@gmail.com
 
-    proxy /api http://api:4000 {
-        without /api
+   proxy /api http://api:4000 {
+       without /api
     }
 }
