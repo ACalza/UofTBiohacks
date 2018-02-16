@@ -4,7 +4,7 @@ services:
   api:
     build: ./server
     # for prod, use node over nodemom
-    command: ./node_modules/.bin/nodemon server.js
+    command: nodemon ./src/server.js
     # for prod, no volume mounting source code
     volumes:
       - ./server/src:/home/node/src
