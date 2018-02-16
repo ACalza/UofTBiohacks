@@ -130,7 +130,7 @@ class Register extends Component {
                     name = 'username'
                     validations={{matchRegexp: /.+/}}
                     validationError="At least one character please"
-                    hintText = "Username (will be lowercased)"
+                    hintText = "Username"
                     floatingLabelText = "Username*"
                     disabled={this.state.disabled}
                   />
@@ -196,14 +196,12 @@ class Register extends Component {
                   />
                 </div>
 
-                <p>If selected UofT, what College?</p>
                 <div className="fullWidth">
                   <PureSelect
-                    required
                     name='college'
                     floatingLabelText='UofT College'
                     items={[
-                      { value: "St.Michael's", text: "St.Michaels College" },
+                      { value: "St.Michael's", text: "St.Michael's College" },
                       { value: 'Victoria', text: 'Victoria College' },
                       { value: 'Innis', text: 'Innis College' },
                       { value: 'New', text: 'New College' },
@@ -262,8 +260,7 @@ class Register extends Component {
                       { value: 'little', text: "A little" },
                       { value: 'moderate', text: "Moderate" },
                       { value: 'good', text: "Good" },
-                      { value: 'proficient', text: "Proficient" },
-                      { value: 'vim', text: "Vim" }
+                      { value: 'proficient', text: "Proficient" }
                     ]}
                     disabled={this.state.disabled}
                   />
@@ -321,7 +318,6 @@ class Register extends Component {
                   <Recaptcha
                     sitekey="6LfdrEYUAAAAAIiSxAoWocPw17hav5LhXybcx3hD"
                     verifyCallback={this.verifyCaptcha}
-                    required
                   />
                 </div>
 
