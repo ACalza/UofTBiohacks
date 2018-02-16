@@ -125,18 +125,7 @@ export default [
     `
   },
   {
-    'time': '11:30 a.m.',
-    'title': 'Closing Keynote Speech',
-    'icon': 'fa fa-key',
-    'content':
-    `
-      <p>
-        UC140
-      </p>
-    `
-  },
-  {
-    'time': '12:00 p.m.',
+    'time': '11:30 p.m.',
     'title': 'Lunch',
     'icon': 'fa fa-cutlery',
     'content':
@@ -147,7 +136,7 @@ export default [
     `
   },
   {
-    'time': '12:00 p.m.',
+    'time': '12:30 p.m.',
     'title': 'Closing Ceremony',
     'icon': 'fa fa-trophy',
     'content':
