@@ -198,8 +198,9 @@ class Register extends Component {
 
                 <div className="fullWidth">
                   <PureSelect
+                    required
                     name='college'
-                    floatingLabelText='UofT College'
+                    floatingLabelText='UofT College*'
                     items={[
                       { value: "St.Michael's", text: "St.Michael's College" },
                       { value: 'Victoria', text: 'Victoria College' },
@@ -207,7 +208,8 @@ class Register extends Component {
                       { value: 'New', text: 'New College' },
                       { value: 'University', text: 'University College' },
                       { value: 'Trinity', text: 'Trinity' },
-                      { value: 'Woodsworth', text: 'Woodsworth College' }
+                      { value: 'Woodsworth', text: 'Woodsworth College' },
+                      { value: 'N/A', text: 'N/A' }
                     ]}
                     disabled={this.state.disabled}
                   />
