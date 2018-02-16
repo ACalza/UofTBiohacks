@@ -1,21 +1,55 @@
-version: '2'
+version: '2.3'
 
 services:
-  frontend:
-    image: us.gcr.io/biohacks-194200/biohacks:ab8e9935850a3a11b7bebfcb8913f1c6afc970bc
+  api:
+    build: ./server
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_HOST=db
+      - SENDGRID_API_KEY
+      - SPA_BASE_URL
+      - API_BASE_URL
+      - MONGO_DB
+      - MONGO_USER
+      - MONGO_PASS
+
+  db:
+    build: ./mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_DB
+      - MONGO_USER
+      - MONGO_PASS
     volumes:
-      - frontend-static:/app
+      - mongo-data:/data/db
+      - mongo-configdb:/data/configdb
+
+  frontend:
+    build:
+      context: ./static
+      target: base
+    volumes:
+      - frontend-dist:/home/node/dist
+    environment:
+      - API_BASE_URL
+      - RECAPTCHA_SITE_KEY
 
   caddy:
     image: abiosoft/caddy
     volumes:
+      - frontend-dist:/srv
       - ./Caddyfile:/etc/Caddyfile
       - .caddy:/root/.caddy
-      - frontend-static:/srv
     ports:
       - 80:80
       - 443:443
 
 volumes:
-  frontend-static:
+  mongo-data:
+    driver: local
+  mongo-configdb:
+    driver: local
+  frontend-dist:
     driver: local
