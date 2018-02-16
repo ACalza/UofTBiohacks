@@ -17,23 +17,23 @@ export default class Navigation extends Component {
     const routes = {
       whenLoggedIn: ['/', '/account', '!logout'],
       // TODO feature toggle for /register and its button
-      whenLoggedOut: ['/', '/login', '/register' ]
+      whenLoggedOut: ['/', '/login', '/apply' ]
     }
 
     const linkPusher = (routes) => {
       let links = []
 
       routes.forEach( (link, i) => {
-        if (link === '/')
+        if (link === '/') {
           links.push(<li key={i}><a href={link} className="navLink nav-link">home</a></li>)
-        else if (link.charAt(0) === '/' && link !== '/')
+        } else if (link.charAt(0) === '/' && link !== '/') {
           links.push(<li key={i}><a href={link} className="navLink nav-link">{link.substr(1)}</a></li>)
-        else if (link === '!logout')
+        } else if (link === '!logout') {
           links.push(<li key={i}><a onClick={() => {
             sessionStorage.removeItem('jwt')
             window.location.assign('/')
           }} className="navLink nav-link">log out</a></li>)
-
+        }
       })
 
       return links

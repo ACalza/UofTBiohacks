@@ -20,7 +20,7 @@ module.exports = {
   entry: {
     index: ['font-awesome-webpack!./font-awesome.config.js', './src/index.js'],
     login: './src/login/index.js',
-    register: './src/register/index.js',
+    apply: './src/apply/index.js',
     account: './src/account/index.js',
     reset: './src/reset/index.js',
     verify: './src/verify/index.js',
