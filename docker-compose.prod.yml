@@ -3,8 +3,6 @@ version: '2.3'
 services:
   api:
     build: ./server
-    ports:
-      - "4000:4000"
     environment:
       - MONGO_HOST=db
       - SENDGRID_API_KEY
@@ -40,7 +38,7 @@ services:
     image: abiosoft/caddy
     volumes:
       - frontend-dist:/srv
-      - ./Caddyfile:/etc/Caddyfile
+      - ./Caddyfile.prod:/etc/Caddyfile
       - .caddy:/root/.caddy
     ports:
       - 80:80

@@ -3,5 +3,7 @@ uoftbiohacks.com, 2018.uoftbiohacks.com {
    log stdout
    tls bcbbiohacks2018@gmail.com
 
-   proxy /api http://api
+    proxy /api http://api:4000 {
+        without /api
+    }
 }

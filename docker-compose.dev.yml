@@ -53,7 +53,7 @@ services:
       - ./Caddyfile.dev:/etc/Caddyfile
       - frontend-dist:/srv
     ports:
-      - 4001:80
+      - 2015:2015
 
 volumes:
   mongo-data:
