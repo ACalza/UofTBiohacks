@@ -134,7 +134,7 @@ module.exports.saveUsertoDatabase = function*() {
     console.error(err)
     util.errorResponse(this)
   }
-  
+
   let user = new User({
     email: this.request.body.email.toLowerCase(),
     password: hashedPassword, //8 bit hashing 2^8 rounds is sufficent for now
@@ -326,7 +326,7 @@ module.exports.verifyRedirect = function*(){
       this.response.redirect(process.env.SPA_BASE_URL + "/verify?token="+ this.token)
     } else {
       // TODO wtf?
-      this.response.redirect('http://' + process.env.SPA_BASE_URL + "/verify?")
+      this.response.redirect(process.env.SPA_BASE_URL + "/verify?")
     }
 
   } catch(err) {
@@ -446,7 +446,7 @@ module.exports.forgotPassword = function*() {
     }
 
     let emailbody = 'You are receiving this email because a password change request was submitted for your account. Please click on the following link, or paste it into your browser to complete the process:\n\n' +
-        'http://' + process.env.API_BASE_URL + '/user/reset/' + token + '\n\n' +
+        process.env.API_BASE_URL + '/user/reset/' + token + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
     let email = {
       from: 'bcbbiohacks2018@gmail.com',
