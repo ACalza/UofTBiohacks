@@ -1,5 +1,19 @@
 # UofTBiohacks
 
+On prod:
+
+```bash
+cp sample.env .env
+# fill out values in .env
+# modify Caddyfile.prod as appropiate
+docker-compose -f docker-compose.prod.yml up -d db
+docker-compose -f docker-compose.prod.yml up -d api
+docker-compose -f docker-compose.prod.yml up -d frontend
+docker-compose -f docker-compose.prod.yml up -d caddy
+
+docker cp <folder>_frontend_1:/home/node/dist ./thedist
+```
+
 ## Getting Started
 
 ```bash
