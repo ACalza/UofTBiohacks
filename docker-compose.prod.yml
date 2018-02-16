@@ -6,6 +6,8 @@ services:
     environment:
       - MONGO_HOST=db
       - SENDGRID_API_KEY
+      - JWT_SECRET
+      - ADMIN_PASS
       - SPA_BASE_URL
       - API_BASE_URL
       - MONGO_DB
