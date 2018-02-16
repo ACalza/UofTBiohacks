@@ -35,6 +35,8 @@ services:
     build:
       context: ./static
       target: dev
+    environment:
+      - API_BASE_URL
     volumes:
       - frontend-dist:/home/node/dist
       - ./static/src:/home/node/src
