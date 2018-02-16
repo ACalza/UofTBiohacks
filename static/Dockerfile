@@ -13,6 +13,7 @@ RUN ./node_modules/.bin/webpack -p
 RUN ./node_modules/.bin/webpack --config webpack.node.js
 RUN ./node_modules/.bin/babel-node ./dist/app.node.js
 
+ENV PATH="$PATH:./node_modules/.bin"
 
 FROM tianon/true as prod
 

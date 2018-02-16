@@ -38,7 +38,11 @@ services:
     volumes:
       - frontend-dist:/home/node/dist
       - ./static/src:/home/node/src
-    command: ./node_modules/.bin/webpack --watch
+      - ./static/loaders:/home/node/loaders
+      - ./static/public:/home/node/public
+      - ./static/webpack.config.js:/home/node/webpack.config.js
+      - ./static/webpack.node.js:/home/node/webpack.node.js
+    command: webpack --watch
 
   caddy:
     image: abiosoft/caddy
