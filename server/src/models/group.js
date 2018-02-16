@@ -12,7 +12,7 @@ let groupSchema = mongoose.Schema({
   pendingInvites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   // Could change to string later
   // If it's id we can ref and .populate
-  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', limit: 4 }]
+  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 })
 
 module.exports = mongoose.model('Group', groupSchema)
