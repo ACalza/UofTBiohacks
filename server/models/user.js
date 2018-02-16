@@ -37,6 +37,7 @@ let userSchema = mongoose.Schema({
     required: true,
     type: String
   },
+  college: String,
   isinvited: Boolean,
   doesAcceptInvite: Boolean,
   invites:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }], //Invites to groups
