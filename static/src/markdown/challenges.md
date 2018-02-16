@@ -43,7 +43,3 @@ improve gene annotation.
 * [Ensembl Annotation](https://useast.ensembl.org/info/genome/genebuild/genome_annotation.html)
 * [Annotation for Amateur](http://www.plantgdb.org/tutorial/annotatemodule/)
 
-
-## 2. The McLaughlin Center Genomic Medicine Challenge
-
-Stay tuned!
