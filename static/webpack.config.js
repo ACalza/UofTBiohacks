@@ -7,7 +7,8 @@ const commonsPlugin = new webpack.optimize.CommonsChunkPlugin({
   name: 'common'
 });
 const definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
+  __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false),
+  API_BASE_URL: JSON.stringify(process.env.API_BASE_URL)
 })
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')

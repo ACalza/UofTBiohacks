@@ -4,7 +4,7 @@ services:
   api:
     build: ./server
     # for prod, use node over nodemom
-    command: ./node_modules/.bin/nodemon server.js
+    command: nodemon ./src/server.js
     # for prod, no volume mounting source code
     volumes:
       - ./server/src:/home/node/src
@@ -35,10 +35,16 @@ services:
     build:
       context: ./static
       target: dev
+    environment:
+      - API_BASE_URL
     volumes:
       - frontend-dist:/home/node/dist
       - ./static/src:/home/node/src
-    command: ./node_modules/.bin/webpack --watch
+      - ./static/loaders:/home/node/loaders
+      - ./static/public:/home/node/public
+      - ./static/webpack.config.js:/home/node/webpack.config.js
+      - ./static/webpack.node.js:/home/node/webpack.node.js
+    command: webpack --watch
 
   caddy:
     image: abiosoft/caddy

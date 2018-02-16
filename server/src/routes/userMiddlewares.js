@@ -134,7 +134,7 @@ module.exports.saveUsertoDatabase = function*() {
     console.error(err)
     util.errorResponse(this)
   }
-
+  
   let user = new User({
     email: this.request.body.email.toLowerCase(),
     password: hashedPassword, //8 bit hashing 2^8 rounds is sufficent for now
@@ -152,6 +152,7 @@ module.exports.saveUsertoDatabase = function*() {
     mentor: this.request.body.mentor,
     questions: this.request.body.questions,
     school: this.request.body.school,
+    college: this.request.body.college,
     scienceType: this.request.body.scienceType,
     verificationToken: verificationToken.toString('hex')
   })

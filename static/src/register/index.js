@@ -130,7 +130,7 @@ class Register extends Component {
                     name = 'username'
                     validations={{matchRegexp: /.+/}}
                     validationError="At least one character please"
-                    hintText = "Username (will be lowercased)"
+                    hintText = "Username"
                     floatingLabelText = "Username*"
                     disabled={this.state.disabled}
                   />
@@ -155,26 +155,13 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
-                <p>What is your program of study?</p>
-                <div className="fullWidth">
-                  <MyRadioGroup name="scienceType" pairs={[
-                      { value: 'lifesci', label: 'Life Science' },
-                      { value: 'compsci', label: 'Computer Science' },
-                      { value: 'bioinformatics', label: 'Bioinformatics' },
-                      { value: 'engineering', label: 'Engineering' },
-                      { value: 'other', label: 'Other' }
-                    ]}
-                    value="other"
-                    disabled={this.state.disabled}
-                  />
-                </div>
 
                 <div className="fullWidth">
                   <PureTextInput
                     required
                     name = 'education'
-                    hintText = "e.g. subject POST"
-                    floatingLabelText = "Educational Background*"
+                    hintText = "What is your program of study?"
+                    floatingLabelText = "What is your program of study?*"
                     disabled={this.state.disabled}
                   />
                 </div>
@@ -200,7 +187,6 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
-
                 <div className="fullWidth">
                   <PureTextInput
                     name = 'customSchool'
@@ -209,6 +195,25 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
+
+                <div className="fullWidth">
+                  <PureSelect
+                    name='college'
+                    floatingLabelText='UofT College'
+                    items={[
+                      { value: "St.Michael's", text: "St.Michael's College" },
+                      { value: 'Victoria', text: 'Victoria College' },
+                      { value: 'Innis', text: 'Innis College' },
+                      { value: 'New', text: 'New College' },
+                      { value: 'University', text: 'University College' },
+                      { value: 'Trinity', text: 'Trinity' },
+                      { value: 'Woodsworth', text: 'Woodsworth College' }
+                    ]}
+                    disabled={this.state.disabled}
+                  />
+                </div>
+
+
 
                 <div className="fullWidth">
                   <PureSelect
@@ -255,8 +260,7 @@ class Register extends Component {
                       { value: 'little', text: "A little" },
                       { value: 'moderate', text: "Moderate" },
                       { value: 'good', text: "Good" },
-                      { value: 'proficient', text: "Proficient" },
-                      { value: 'vim', text: "Vim" }
+                      { value: 'proficient', text: "Proficient" }
                     ]}
                     disabled={this.state.disabled}
                   />
@@ -275,26 +279,6 @@ class Register extends Component {
 
                 <div className="fullWidth">
                   <PureTextInput
-                    name = 'likeToSee'
-                    hintText = "Anything you would like to see?"
-                    floatingLabelText = "Anything you would like to see?"
-                    multiLine={true}
-                    disabled={this.state.disabled}
-                  />
-                </div>
-
-                <div className="fullWidth">
-                  <PureTextInput
-                    name = 'questions'
-                    hintText = "Any questions?"
-                    floatingLabelText = "Any questions?"
-                    multiLine={true}
-                    disabled={this.state.disabled}
-                  />
-                </div>
-
-                <div className="fullWidth">
-                  <PureTextInput
                     name = 'about'
                     required
                     hintText = "1200 character limit"
@@ -303,17 +287,6 @@ class Register extends Component {
                     disabled={this.state.disabled}
                   />
                 </div>
-
-                <PureCheckBox
-                  name="mentor"
-                  label="Would you like to be a mentor?"
-                  disabled={this.state.disabled}
-                />
-                <PureCheckBox
-                  name="autogroup"
-                  label="Would you like to be automatically joined with another group?"
-                  disabled={this.state.disabled}
-                />
 
                 <div className="fullWidth">
                   <PureTextInput
@@ -343,17 +316,17 @@ class Register extends Component {
 
                 <div className="recaptcha-wrapper">
                   <Recaptcha
-                    sitekey="6LfJfxYTAAAAAKVuS3AmFJMbY1ls2sWkwS6G5eCx"
+                    sitekey="6LfdrEYUAAAAAIiSxAoWocPw17hav5LhXybcx3hD"
                     verifyCallback={this.verifyCaptcha}
                   />
                 </div>
 
                 <p>
                   If you would like us to pass your resume onto our sponsors,
-                  please email it to <a href="mailto:uoftbiohacks@gmail.com">uoftbiohacks@gmail.com</a>.
+                  please email it to <a href="mailto:bcbbiohacks2018@gmail.com">bcbbiohacks2018@gmail.com</a>.
                 </p>
                 <p>
-                  If you are interested in volunteering, see this <a target="_blank" href="http://goo.gl/forms/l2rdrdzGzw">form</a>.
+                  If you are interested in volunteering, see this <a target="_blank" href="https://goo.gl/forms/V3ujQb3Wt1qNXMYr1">form</a>.
                 </p>
                 <div className="fullWidth">
                   <RaisedButton
