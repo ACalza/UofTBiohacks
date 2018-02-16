@@ -1,4 +1,10 @@
-bcbbiohacks.com {
+uoftbiohacks.com, www.uoftbiohacks.com {
+    redir 302 {
+        https://2018.bcbbiohacks.com{uri}
+    }
+}
+
+bcbbiohacks.com, www.bcbbiohacks.com {
     redir 302 {
         https://2018.bcbbiohacks.com{uri}
     }
