@@ -399,12 +399,6 @@ module.exports.resetConfirmationPassword = function * (){
     user.resetPasswordExpires = undefined;
 
     user = yield user.save()
-    let options = {
-      auth : {
-        api_user: config.api_user,
-        api_key: config.api_key
-      }
-    }
     let email = {
       from: 'bcbbiohacks2018@gmail.com',
       to: user.email,
@@ -438,12 +432,6 @@ module.exports.forgotPassword = function*() {
     user.resetPasswordToken = token;
     user.resetPasswordExpires = Date.now() + 3600000 //1 hour
     user = yield user.save()
-    let options = {
-      auth : {
-        api_user: config.api_user,
-        api_key: config.api_key
-      }
-    }
 
     let emailbody = 'You are receiving this email because a password change request was submitted for your account. Please click on the following link, or paste it into your browser to complete the process:\n\n' +
         process.env.API_BASE_URL + '/user/reset/' + token + '\n\n' +
