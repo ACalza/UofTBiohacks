@@ -1,0 +1,55 @@
+version: '2.3'
+
+services:
+  api:
+    build: ./server
+    environment:
+      - MONGO_HOST=db
+      - SENDGRID_API_KEY
+      - JWT_SECRET
+      - ADMIN_PASS
+      - SPA_BASE_URL
+      - API_BASE_URL
+      - MONGO_DB
+      - MONGO_USER
+      - MONGO_PASS
+
+  db:
+    build: ./mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_DB
+      - MONGO_USER
+      - MONGO_PASS
+    volumes:
+      - mongo-data:/data/db
+      - mongo-configdb:/data/configdb
+
+  frontend:
+    build:
+      context: ./static
+      target: base
+    volumes:
+      - frontend-dist:/home/node/dist
+    environment:
+      - API_BASE_URL
+      - RECAPTCHA_SITE_KEY
+
+  caddy:
+    image: abiosoft/caddy
+    volumes:
+      - frontend-dist:/srv
+      - ./Caddyfile.prod:/etc/Caddyfile
+      - .caddy:/root/.caddy
+    ports:
+      - 80:80
+      - 443:443
+
+volumes:
+  mongo-data:
+    driver: local
+  mongo-configdb:
+    driver: local
+  frontend-dist:
+    driver: local

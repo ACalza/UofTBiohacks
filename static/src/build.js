@@ -10,52 +10,73 @@ import Page from './components/Page.js'
 const routes = {}
 
 console.log(chalk.magenta('Found these pages:'))
-Object.keys(routes).map(r => console.log(r))
+Object.keys(routes).forEach(console.log)
 
-Object.keys(routes).forEach(async function(route) {
-  console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
+const routeRenders = Object.keys(routes).map((route) => () => {
+  return new Promise((resolve, reject) => {
+    console.log(chalk.magenta(`Attempting ${chalk.blue('React.createElement')} on ${route}`))
 
-  // Handle un-connect() wrapped components
-  // console.log(routes[route])
-  // console.log(Object.keys(routes[route]()))
-  let component
-  try {
-    component = routes[route]().default
-  } catch(e) {
-    console.log('component err, ', e)
-  }
+    let message = ''
 
-  if (typeof(component) === 'function') {
+    let component
     try {
-      // console.log(route)
-      component = React.createElement(component)
+      component = routes[route]().default
     } catch(e) {
-      console.log('build.js: ', e)
+      if (e.name === 'SyntaxError') {
+        console.log('Ignoring syntax error:', e)
+        message += `Bailed on syntax error for ${route}; `
+        // return resolve(`Bailed on syntax error for ${route}`)
+      } else {
+        console.error('component loading error:', e)
+        return reject(e)
+      }
     }
-  }
-  let name = route.split("/")[0]
 
-  route = 'dist/' + route
+    if (typeof(component) === 'function') {
+      try {
+        component = React.createElement(component)
+      } catch(e) {
+        console.error('build.js: ', e)
+        return reject(e)
+      }
+    }
 
-  let page
-  try {
-    page =
-    '<!doctype html>\n'
-    + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name.replace('.js', '')}/>)
-  } catch(e) {
-    console.log('static markup:' , e)
-  }
+    let name = route.split("/")[0]
+    route = 'dist/' + route
 
-  console.log(chalk.green(`Created element for ${route}`))
+    let page
+    try {
+      page =
+      '<!doctype html>\n'
+      + ReactDOMServer.renderToStaticMarkup(<Page body={component} name={name.replace('.js', '')}/>)
+    } catch(e) {
+      console.error('static markup:' , e)
+      return reject(e);
+    }
 
-  try {
+    console.log(chalk.green(`Created element for ${route}`))
+
     const dir = route.replace(/\/index.js$/, '')
     const filename = route.replace(/\.js$/, '.html')
-    await mkdirpAsync(dir)
-    await fsp.writeFile(filename, page)
-    console.log('wrote ' + chalk.green(filename))
-  } catch(e) {
-    console.log('didnt write')
-    console.error(e)
-  }
+    mkdirpAsync(dir)
+      .then(_ => fsp.writeFile(filename, page))
+      .then(_ => {
+        console.log('wrote ' + chalk.green(filename))
+        resolve(message + "wrote " + filename)
+      })
+      .catch(reject)
+  })
 })
+
+Promise.all(routeRenders.map(t => t()))
+  .then((res) => {
+    console.log('Final result:', res)
+  })
+  .then(() => {
+    console.log('Forcefully exiting')
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error('Error in route renders:', err)
+    process.exit(1)
+  })

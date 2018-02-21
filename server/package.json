@@ -10,11 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "async": "^1.5.2",
     "bcrypt": "^0.8.5",
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.2.1",
     "crypto-promise": "^1.0.2",
+    "dotenv": "^5.0.0",
     "jsdoc": "^3.4.0",
     "json2xls": "^0.1.1",
     "kcors": "^1.0.1",
@@ -34,5 +36,8 @@
     "sendgrid": "^2.0.0",
     "stream-array": "^1.1.1",
     "through2": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
   }
 }

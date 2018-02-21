@@ -3,6 +3,11 @@ node_modules
 npm-debug.log
 users.csv
 *.swp
+.env
+.config/
+.v8flags.*
+.npm/
+.babel.json
 
 # static
 dist

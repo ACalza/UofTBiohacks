@@ -7,7 +7,7 @@
     font-size: 3em;
     z-index: 1011;
     // transition: all 500ms ease;
-    // animation: oscillate 2s infinite; 
+    // animation: oscillate 2s infinite;
 }
 
 @keyframes oscillate {
@@ -15,10 +15,10 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.3); 
+    transform: scale(1.3);
   }
   100% {
-    transform: scale(1); 
+    transform: scale(1);
   }
 }
 
@@ -89,7 +89,8 @@
   align-items: center;
 
   img {
-    width: 90vmin;
+    // width: 90vmin;
+    padding-top: 10px;
     height: 75vmin;
   }
 
@@ -175,10 +176,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
 
         .btn-lg {
           font-size: 25px;
           font-family: 'Nord';
+          margin-bottom: 20px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
     }

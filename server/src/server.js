@@ -1,5 +1,11 @@
 'use strict'
 
+require('dotenv').config()
+// TODO use envalid
+//
+//
+//
+
 // Require Modules
 const koa = require('koa');
 const mongoose = require('mongoose');
@@ -10,23 +16,26 @@ const mount = require('koa-mount');
 const logger = require('koa-logger');
 
 // Require Internally
-const util = require('./util');
+const util = require('./util.js');
 const config = require('./config');
 const authUser = require('./auth/authuser');
 
 // Declare variable
-var port = process.env.BIOHACKS_PORT || 3000;
+var port = process.env.PORT || 3000;
 
 // Instance of Koa
 let app = koa();
+
+const MONGO_HOST = process.env.MONGO_HOST || 'localhost'
 
 // Connect to database
 if (process.env.mongodblocal === 'true') {
   mongoose.connect('mongodb://localhost/biohacks')
 } else {
-  mongoose.connect('mongodb://localhost/biohacks/', {
-    user: 'igemuoftbiohacks',
-    pass: 'IDe26PhnmpOMrhjIOS6GZQ'
+  console.log(`Using mongo db: ${process.env.MONGO_DB}`)
+  mongoose.connect(`mongodb://${MONGO_HOST}/${process.env.MONGO_DB}/`, {
+    user: process.env.MONGO_USER,
+    pass: process.env.MONGO_PASS
   })
 }
 var db = mongoose.connection;
@@ -57,7 +66,7 @@ app.use(authUser.unless({path: exclusions }));
 app.use(mount('/user', require('./routes/user').middleware()));         //Routes for User
 app.use(mount('/group', require('./routes/group').middleware()));       //Routes for Group
 app.use(mount('/admin', require('./routes/admin').middleware()));  //routes for admin
-//
 
+// TODO promise.all(dbs and shit) first
 app.listen(port)
-console.log(`Koa server listening on port ${port}`)
+  .on('listening', () => console.log(`Koa server listening on port ${port}`))

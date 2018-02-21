@@ -1,0 +1,9 @@
+{
+    "email": "${EMAIL}",
+    "password": "password",
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "username": "bob",
+    "education": "streets",
+    "about": "I like long walks on the beach"
+}

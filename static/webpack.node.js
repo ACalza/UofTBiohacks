@@ -2,7 +2,9 @@
 
 const webpack = require('webpack')
 const definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false)
+  __DEV__: JSON.stringify(process.env.NODE_ENV === 'dev' ? true : false),
+  API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
+  RECAPTCHA_SITE_KEY: JSON.stringify(process.env.RECAPTCHA_SITE_KEY)
 })
 
 
